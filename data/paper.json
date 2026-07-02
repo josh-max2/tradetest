@@ -1,23 +1,23 @@
 {
- "generated": "2026-07-02 06:54",
- "generated_epoch": 1782975292,
+ "generated": "2026-07-02 07:04",
+ "generated_epoch": 1782975843,
  "stopped": false,
  "summary": {
-  "n_placed": 12,
+  "n_placed": 14,
   "n_filled": 0,
   "n_settled": 0,
-  "n_resting": 12,
+  "n_resting": 14,
   "n_hedged": 0,
   "fill_rate": 0.0,
   "ev": null,
   "win_rate": null,
   "adverse": null,
-  "day": 0.03,
+  "day": 0.0,
   "bankroll": 100.0,
   "start_bankroll": 100.0,
-  "reserved": 73.12,
+  "reserved": 89.94,
   "realized": 0,
-  "deployed_pct": 73.1
+  "deployed_pct": 89.9
  },
  "gates": [
   {
@@ -34,6 +34,13 @@
  ],
  "by_series": [
   {
+   "series": "KXHIGHTSEA",
+   "placed": 2,
+   "filled": 0,
+   "settled": 0,
+   "ev": null
+  },
+  {
    "series": "KXHIGHLAX",
    "placed": 2,
    "filled": 0,
@@ -41,14 +48,28 @@
    "ev": null
   },
   {
-   "series": "KXHIGHDEN",
-   "placed": 2,
+   "series": "KXHIGHTSATX",
+   "placed": 1,
    "filled": 0,
    "settled": 0,
    "ev": null
   },
   {
-   "series": "KXWTIW",
+   "series": "KXHIGHTOKC",
+   "placed": 1,
+   "filled": 0,
+   "settled": 0,
+   "ev": null
+  },
+  {
+   "series": "KXHIGHTMIN",
+   "placed": 1,
+   "filled": 0,
+   "settled": 0,
+   "ev": null
+  },
+  {
+   "series": "KXHIGHTBOS",
    "placed": 1,
    "filled": 0,
    "settled": 0,
@@ -76,6 +97,13 @@
    "ev": null
   },
   {
+   "series": "KXHIGHDEN",
+   "placed": 1,
+   "filled": 0,
+   "settled": 0,
+   "ev": null
+  },
+  {
    "series": "KXHIGHCHI",
    "placed": 1,
    "filled": 0,
@@ -88,40 +116,26 @@
    "filled": 0,
    "settled": 0,
    "ev": null
-  },
-  {
-   "series": "KXETHD",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXBTCD",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
   }
  ],
  "by_band": [
   {
    "band": "1-2\u00a2",
-   "placed": 12,
+   "placed": 10,
    "filled": 0,
    "settled": 0,
    "ev": null
   },
   {
    "band": "3-4\u00a2",
-   "placed": 0,
+   "placed": 3,
    "filled": 0,
    "settled": 0,
    "ev": null
   },
   {
    "band": "5-7\u00a2",
-   "placed": 0,
+   "placed": 1,
    "filled": 0,
    "settled": 0,
    "ev": null
@@ -134,30 +148,161 @@
   "losers_that_gave_warning": 0,
   "note": "warning = YES crossed 20\u00a2 before close while we still held (a stop could act)"
  },
- "events": [
+ "live_positions": [
   {
-   "ts": "07-02T06:36:16",
-   "kind": "ERROR",
-   "ticker": "",
-   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+   "ticker": "KXHIGHLAX-26JUL01-T72",
+   "series": "KXHIGHLAX",
+   "entry_yes": 1.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 0.9,
+   "stake": 5.94,
+   "contracts": 6.0,
+   "peak_yes": 0.0
   },
   {
-   "ts": "07-02T06:35:55",
-   "kind": "ERROR",
-   "ticker": "",
-   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+   "ticker": "KXHIGHTSEA-26JUL01-T71",
+   "series": "KXHIGHTSEA",
+   "entry_yes": 1.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 0.9,
+   "stake": 5.94,
+   "contracts": 6.0,
+   "peak_yes": 0.0
   },
   {
-   "ts": "07-02T06:35:34",
-   "kind": "ERROR",
-   "ticker": "",
-   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+   "ticker": "KXHIGHNY-26JUL02-T106",
+   "series": "KXHIGHNY",
+   "entry_yes": 1.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 21.9,
+   "stake": 5.94,
+   "contracts": 6.0,
+   "peak_yes": 0.0
   },
   {
-   "ts": "07-02T06:35:13",
-   "kind": "ERROR",
-   "ticker": "",
-   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+   "ticker": "KXHIGHMIA-26JUL02-T94",
+   "series": "KXHIGHMIA",
+   "entry_yes": 3.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 21.9,
+   "stake": 6.79,
+   "contracts": 7.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHPHIL-26JUL02-T108",
+   "series": "KXHIGHPHIL",
+   "entry_yes": 2.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 21.9,
+   "stake": 6.86,
+   "contracts": 7.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHTBOS-26JUL02-T98",
+   "series": "KXHIGHTBOS",
+   "entry_yes": 6.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 21.9,
+   "stake": 5.64,
+   "contracts": 6.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHCHI-26JUL02-T100",
+   "series": "KXHIGHCHI",
+   "entry_yes": 1.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 22.9,
+   "stake": 5.94,
+   "contracts": 6.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHAUS-26JUL02-T93",
+   "series": "KXHIGHAUS",
+   "entry_yes": 2.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 22.9,
+   "stake": 6.86,
+   "contracts": 7.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHTMIN-26JUL02-T94",
+   "series": "KXHIGHTMIN",
+   "entry_yes": 4.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 22.9,
+   "stake": 6.72,
+   "contracts": 7.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHTSATX-26JUL02-T99",
+   "series": "KXHIGHTSATX",
+   "entry_yes": 2.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 22.9,
+   "stake": 6.86,
+   "contracts": 7.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHTOKC-26JUL02-T100",
+   "series": "KXHIGHTOKC",
+   "entry_yes": 2.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 22.9,
+   "stake": 6.86,
+   "contracts": 7.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHDEN-26JUL02-T96",
+   "series": "KXHIGHDEN",
+   "entry_yes": 2.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 23.9,
+   "stake": 6.86,
+   "contracts": 7.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHLAX-26JUL02-T66",
+   "series": "KXHIGHLAX",
+   "entry_yes": 1.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 24.9,
+   "stake": 5.94,
+   "contracts": 6.0,
+   "peak_yes": 0.0
+  },
+  {
+   "ticker": "KXHIGHTSEA-26JUL02-T73",
+   "series": "KXHIGHTSEA",
+   "entry_yes": 3.0,
+   "current_yes": null,
+   "status": "RESTING",
+   "hrs": 24.9,
+   "stake": 6.79,
+   "contracts": 7.0,
+   "peak_yes": 0.0
   }
- ]
+ ],
+ "events": []
 }
