@@ -114,7 +114,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <!-- ============ master view ============ -->
 <div id="masterview" style="display:none">
  <div class="hero">
-  <div class="hcard"><div class="l">Combined bankroll <span style="color:var(--muted)">(3 strategies × $100 = $300 start)</span></div>
+  <div class="hcard"><div class="l">Combined bankroll <span style="color:var(--muted)" id="m-startlbl"></span></div>
    <div class="big" id="m-bank">$300.00</div>
    <div class="cx" id="m-cx"></div>
    <div id="m-bankchart" style="margin-top:10px"></div></div>
@@ -288,7 +288,8 @@ function render(d){
 
 function renderMaster(m){
   if(!m){ return; }
-  const s=m.summary||{}, gain=s.bankroll-s.start_bankroll;
+  const s=m.summary||{}, gain=s.bankroll-s.start_bankroll, nstrat=(m.per_strategy||[]).length;
+  document.getElementById('m-startlbl').textContent = `(${nstrat} strategies × $100 = $${(s.start_bankroll||0).toFixed(0)} start)`;
   document.getElementById('m-bank').textContent = '$'+(s.bankroll||0).toFixed(2);
   document.getElementById('m-cx').innerHTML =
     `<span class="${gain>=0?'pos':'neg'}">${gain>=0?'+':''}$${gain.toFixed(2)} (${fmtR(s.return_pct)})</span> · `
@@ -320,7 +321,7 @@ function renderMaster(m){
      <span style="color:var(--ink2)">${esc(e.ticker)} ${esc(e.detail)}</span></div>`).join('')
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
   document.getElementById('m-footer').textContent =
-    `3 independent $100 sims · read-only key, no orders placed · data generated ${DATA.generated||'?'} UTC. `
+    `${nstrat} independent $100 sims · read-only key, no orders placed · data generated ${DATA.generated||'?'} UTC. `
     +`VIP cashback (up to $0.005/ct, pool-shared) would stack on top of every filled contract shown.`;
 }
 
