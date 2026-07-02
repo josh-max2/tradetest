@@ -83,7 +83,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
 
 <div class="tiles" id="tiles"></div>
 
-<h2>Decision gates <span style="font-weight:400;color:var(--muted)">— evaluated at day 14</span></h2>
+<h2>Decision gates <span style="font-weight:400;color:var(--muted)">— evaluated over the ~21-day run</span></h2>
 <div class="card" id="gates"></div>
 
 <h2>Bankroll over time <span style="font-weight:400;color:var(--muted)">— $100 compounding through each settlement, sizing = capital-constrained Kelly</span></h2>
@@ -146,7 +146,7 @@ function render(d){
   const gain = bk - 100;
   document.getElementById('bankcx').innerHTML =
     `<span class="${gain>=0?'pos':'neg'}">${gain>=0?'+':''}$${gain.toFixed(2)}</span> · `
-    + `${s.deployed_pct||0}% deployed · $${(s.reserved||0).toFixed(0)} working`;
+    + `$${(s.invested||0).toFixed(2)} invested (filled) · ${s.pending_orders||0} orders resting`;
   drawBank(d.pnl_curve || d.bankroll_curve || []);
 
   document.getElementById('fillrate').textContent = s.n_placed ? fmtPct(100*s.fill_rate) : '—';
@@ -182,25 +182,28 @@ function render(d){
     ? 'Simulated $100 compounding through each real settlement, sized by f = min(12%, 90%/K)·bankroll per position.'
     : 'No settled positions yet — longshots settle within ~24h of placement; the curve starts at $100.';
 
-  // live positions
+  // live positions — we hold the NO side (buy NO at ~97-99c), so show NO prices
   const lp = d.live_positions || [];
   const lrows = lp.map(p=>{
-    const cur = p.current_yes==null ? '—' : p.current_yes.toFixed(0)+'¢';
-    const drift = (p.current_yes!=null && p.entry_yes!=null) ? (p.current_yes - p.entry_yes) : null;
-    const dcls = drift==null ? '' : (drift>0 ? 'neg' : (drift<0 ? 'pos' : ''));
-    const dtxt = drift==null ? '' : (drift>0?'+':'')+drift.toFixed(0)+'¢';
+    const eNo = p.entry_yes==null ? null : 100 - p.entry_yes;      // our NO cost
+    const cNo = p.current_yes==null ? null : 100 - p.current_yes;  // NO value now
+    const move = (cNo!=null && eNo!=null) ? (cNo - eNo) : null;    // down = losing
+    const mcls = move==null ? '' : (move<0 ? 'neg' : (move>0 ? 'pos' : ''));
+    const mtxt = (move==null || move===0) ? '' : (move>0?'+':'')+move.toFixed(0)+'¢';
+    const filled = (p.status==='FILLED' || p.status==='SETTLED');
+    const stakeTxt = (filled && p.stake!=null) ? '$'+p.stake.toFixed(2) : '—';
     return `<tr><td>${esc(p.ticker)}</td>
-      <td>${p.entry_yes==null?'—':p.entry_yes.toFixed(0)+'¢'}</td>
-      <td><b>${cur}</b></td>
-      <td class="${dcls}">${dtxt}</td>
+      <td>NO ${eNo==null?'':'@ '+eNo.toFixed(0)+'¢'}</td>
+      <td><b>${cNo==null?'—':cNo.toFixed(0)+'¢'}</b></td>
+      <td class="${mcls}">${mtxt}</td>
       <td>${esc(p.status)}</td>
       <td>${p.hrs==null?'—':p.hrs+'h'}</td>
-      <td>${p.stake==null?'—':'$'+p.stake.toFixed(2)}</td></tr>`;
+      <td>${stakeTxt}</td></tr>`;
   }).join('');
   document.getElementById('livetbl').innerHTML =
-    '<tr><th>market</th><th>entry YES</th><th>current YES</th><th>drift</th><th>status</th><th>to close</th><th>stake</th></tr>' + lrows;
+    '<tr><th>market</th><th>our position</th><th>NO value now</th><th>move</th><th>status</th><th>to close</th><th>stake</th></tr>' + lrows;
   document.getElementById('livenote').textContent = lp.length
-    ? `${lp.length} open positions. Drift green = YES fell (our NO safer); red = YES rose toward our loss. Current price updates each 2-min scan.`
+    ? `${lp.length} positions. We hold the NO side (buying NO at ~97–99¢; the low YES % is what the other side pays). Move: green = NO gained (safer), red = NO dropped (toward loss). Stake shows only once FILLED — resting orders aren't invested yet.`
     : 'No open positions right now.';
 
   // band table
@@ -239,7 +242,7 @@ function render(d){
 
   document.getElementById('footer').textContent =
     `Strategy: longshot NO harvest (maker) · zero-maker-fee series prioritized · read-only key, no orders placed · `
-    + `data generated ${d.generated || '?'} UTC. Decision at day 14: fill-conditional EV ≥ +1¢ and adverse-fill ≤ 5% → go live.`;
+    + `data generated ${d.generated || '?'} UTC. Decision over the ~21-day run: fill-conditional EV ≥ +1¢ and adverse-fill ≤ 5% → go live.`;
 }
 
 function drawBank(curve){
