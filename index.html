@@ -85,6 +85,9 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <div class="card"><div id="chart"></div>
 <p class="note" id="chartnote"></p></div>
 
+<h2>By entry band <span style="font-weight:400;color:var(--muted)">— archive says 3–7¢ is the sweet spot; live data confirms here</span></h2>
+<div class="card" style="overflow-x:auto"><table id="bandtbl"></table></div>
+
 <h2>By series</h2>
 <div class="card" style="overflow-x:auto"><table id="sertbl"></table></div>
 
@@ -154,6 +157,13 @@ function render(d){
   document.getElementById('chartnote').textContent = (d.pnl_curve && d.pnl_curve.length)
     ? 'Each point is a settled phantom position, net of fees; one contract per signal.'
     : 'No settled positions yet — longshots settle within ~24h of placement.';
+
+  // band table
+  const brows = (d.by_band||[]).map(x=>
+    `<tr><td>${esc(x.band)}</td><td>${x.placed}</td><td>${x.filled}</td>
+     <td>${x.settled}</td><td class="${x.ev>0?'pos':(x.ev<0?'neg':'')}">${x.ev==null?'—':fmtC(x.ev)}</td></tr>`).join('');
+  document.getElementById('bandtbl').innerHTML =
+    '<tr><th>entry band</th><th>placed</th><th>filled</th><th>settled</th><th>fill-cond. EV</th></tr>' + brows;
 
   // series table
   const rows = (d.by_series||[]).map(x=>
