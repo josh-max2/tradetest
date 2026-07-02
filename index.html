@@ -69,11 +69,16 @@ svg text{font:11px system-ui;fill:var(--muted)}
 
 <div id="err">Couldn't load data yet. The first publish may still be pending — this page will retry automatically.</div>
 
-<div class="hero">
- <div class="hcard"><div class="l">Fill rate <span style="color:var(--muted)">(phantom orders that filled)</span></div>
-  <div class="big" id="fillrate">—</div><div class="cx" id="fillcx"></div></div>
- <div class="hcard"><div class="l">Fill-conditional EV <span style="color:var(--muted)">(net of fees, per contract)</span></div>
-  <div class="big" id="ev">—</div><div class="cx" id="evcx">the number the live decision hinges on</div></div>
+<div class="hero" style="grid-template-columns:1.3fr 1fr">
+ <div class="hcard"><div class="l">Simulated bankroll <span style="color:var(--muted)">(started $100, real fills, no orders placed)</span></div>
+  <div class="big" id="bankroll">$100.00</div>
+  <div class="cx" id="bankcx"></div>
+  <div id="bankchart" style="margin-top:10px"></div></div>
+ <div class="hcard"><div class="l">Fill rate</div>
+  <div class="big" id="fillrate" style="font-size:32px">—</div><div class="cx" id="fillcx"></div>
+  <div class="l" style="margin-top:14px">Fill-conditional EV <span style="color:var(--muted)">(net of fees/ct)</span></div>
+  <div class="big" id="ev" style="font-size:32px">—</div>
+  <div class="cx">the number the live decision hinges on</div></div>
 </div>
 
 <div class="tiles" id="tiles"></div>
@@ -81,7 +86,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <h2>Decision gates <span style="font-weight:400;color:var(--muted)">— evaluated at day 14</span></h2>
 <div class="card" id="gates"></div>
 
-<h2>Phantom P&amp;L over time <span style="font-weight:400;color:var(--muted)">— settled positions, cumulative cents</span></h2>
+<h2>Bankroll over time <span style="font-weight:400;color:var(--muted)">— $100 compounding through each settlement, sizing = capital-constrained Kelly</span></h2>
 <div class="card"><div id="chart"></div>
 <p class="note" id="chartnote"></p></div>
 
@@ -125,6 +130,15 @@ function render(d){
   else if(ageMin > 30){ dot.className='dot stale'; st.textContent = `last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; st.textContent = `live · updated ${Math.round(ageMin)} min ago`; }
 
+  // bankroll hero
+  const bk = s.bankroll==null ? 100 : s.bankroll;
+  document.getElementById('bankroll').textContent = '$' + bk.toFixed(2);
+  const gain = bk - 100;
+  document.getElementById('bankcx').innerHTML =
+    `<span class="${gain>=0?'pos':'neg'}">${gain>=0?'+':''}$${gain.toFixed(2)}</span> · `
+    + `${s.deployed_pct||0}% deployed · $${(s.reserved||0).toFixed(0)} working`;
+  drawBank(d.pnl_curve || d.bankroll_curve || []);
+
   document.getElementById('fillrate').textContent = s.n_placed ? fmtPct(100*s.fill_rate) : '—';
   document.getElementById('fillcx').textContent = `${s.n_filled||0} filled of ${s.n_placed||0} placed`;
   const evEl = document.getElementById('ev');
@@ -154,9 +168,9 @@ function render(d){
 
   // chart
   drawChart(d.pnl_curve || []);
-  document.getElementById('chartnote').textContent = (d.pnl_curve && d.pnl_curve.length)
-    ? 'Each point is a settled phantom position, net of fees; one contract per signal.'
-    : 'No settled positions yet — longshots settle within ~24h of placement.';
+  document.getElementById('chartnote').textContent = (d.pnl_curve && d.pnl_curve.length>1)
+    ? 'Simulated $100 compounding through each real settlement, sized by f = min(12%, 90%/K)·bankroll per position.'
+    : 'No settled positions yet — longshots settle within ~24h of placement; the curve starts at $100.';
 
   // band table
   const brows = (d.by_band||[]).map(x=>
@@ -182,6 +196,22 @@ function render(d){
     + `data generated ${d.generated || '?'} UTC. Decision at day 14: fill-conditional EV ≥ +1¢ and adverse-fill ≤ 5% → go live.`;
 }
 
+function drawBank(curve){
+  const el = document.getElementById('bankchart');
+  if(!curve || curve.length<2){ el.innerHTML=''; return; }
+  const W=440,H=90,L=6,R=6,T=8,Bm=8,pw=W-L-R,ph=H-T-Bm;
+  const ys=curve.map(p=>p[1]), ymax=Math.max(...ys), ymin=Math.min(...ys,100);
+  const pad=(ymax-ymin)*0.1||1, lo=ymin-pad, hi=ymax+pad;
+  const X=i=>L+i/(curve.length-1)*pw, Y=v=>T+(1-(v-lo)/(hi-lo))*ph;
+  const up = ys[ys.length-1]>=100;
+  let dp='M'+curve.map((p,i)=>`${X(i).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L');
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  s+=`<line x1="${L}" y1="${Y(100).toFixed(1)}" x2="${L+pw}" y2="${Y(100).toFixed(1)}" stroke="var(--grid)" stroke-dasharray="0"/>`;
+  s+=`<path d="${dp}" fill="none" stroke="${up?'var(--good)':'var(--crit)'}" stroke-width="2" stroke-linejoin="round"/>`;
+  s+='</svg>';
+  el.innerHTML=s;
+}
+
 function drawChart(curve){
   const el = document.getElementById('chart');
   if(!curve.length){ el.innerHTML = '<p class="note">—</p>'; return; }
@@ -194,7 +224,7 @@ function drawChart(curve){
   const mult=[1,2,5,10].find(m=>span/(step*m)<=5)||10;
   for(let v=Math.ceil(lo/(step*mult))*(step*mult); v<=hi; v+=step*mult){
     s+=`<line x1="${L}" y1="${Y(v).toFixed(1)}" x2="${L+pw}" y2="${Y(v).toFixed(1)}" stroke="var(--grid)"/>`;
-    s+=`<text x="${L-6}" y="${(Y(v)+3.5).toFixed(1)}" text-anchor="end">${v.toFixed(0)}¢</text>`;
+    s+=`<text x="${L-6}" y="${(Y(v)+3.5).toFixed(1)}" text-anchor="end">$${v.toFixed(0)}</text>`;
   }
   if(lo<0&&hi>0) s+=`<line x1="${L}" y1="${Y(0)}" x2="${L+pw}" y2="${Y(0)}" stroke="var(--axis)"/>`;
   let dp='M'+curve.map((p,i)=>`${X(i).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L');
