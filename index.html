@@ -138,6 +138,7 @@ const fmtPct = v => v==null ? '—' : v.toFixed(1) + '%';
 const fmtC = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(2) + '¢';
 const fmtR = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(2) + '%';
 const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
+const fmtTime = s => { if(!s) return '—'; const d=new Date(s); return isNaN(d.getTime())?'—':d.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); };
 let DATA=null, CURRENT='broad';
 
 async function load(){
@@ -230,7 +231,7 @@ function render(d){
   // live positions (we're short the YES = hold NO)
   const lp=d.live_positions||[];
   document.getElementById('livetbl').innerHTML =
-    '<tr><th>market</th><th>our position</th><th>'+(isCombo?'sold @':'NO value now')+'</th><th>move</th><th>status</th><th>to close</th><th>at risk</th></tr>'
+    '<tr><th>market</th><th>our position</th><th>'+(isCombo?'sold @':'NO value now')+'</th><th>move</th><th>status</th><th>to close</th><th>settles</th><th>at risk</th></tr>'
     + lp.map(p=>{
       const eNo=p.entry_yes==null?null:100-p.entry_yes, cNo=p.current_yes==null?null:100-p.current_yes;
       const move=(cNo!=null&&eNo!=null)?(cNo-eNo):null;
@@ -239,11 +240,11 @@ function render(d){
       const val = isCombo ? (p.entry_yes==null?'—':p.entry_yes.toFixed(0)+'¢') : (cNo==null?'—':cNo.toFixed(0)+'¢');
       return `<tr><td>${esc(p.ticker)}</td><td>${isCombo?'SOLD':'NO'} ${eNo==null?'':'@ '+(isCombo?p.entry_yes:eNo).toFixed(0)+'¢'}</td>
         <td><b>${val}</b></td><td class="${mcls}">${isCombo?'':mtxt}</td><td>${esc(p.status)}</td>
-        <td>${p.hrs==null?'—':p.hrs+'h'}</td><td>${stakeTxt}</td></tr>`;
+        <td>${p.hrs==null?'—':p.hrs+'h'}</td><td>${fmtTime(p.close_ts)}</td><td>${stakeTxt}</td></tr>`;
     }).join('');
   document.getElementById('livenote').textContent = lp.length
     ? (isCombo?`${lp.length} combos sold (short the parlay). "Sold @" is the price retail paid; we collect it and owe $1 only if the parlay hits.`
-             :`${lp.length} positions. We hold the NO side; move green = safer, red = toward loss. At-risk shows only once filled.`)
+             :`${lp.length} positions. We hold the NO side; move green = safer, red = toward loss. At-risk shows only once filled. Settlement times are in your local time.`)
     : 'No open positions right now.';
 
   // band table
