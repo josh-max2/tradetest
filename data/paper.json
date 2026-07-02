@@ -1,468 +1,1171 @@
 {
- "generated": "2026-07-02 16:19",
- "generated_epoch": 1783009198,
+ "generated": "2026-07-02 16:29",
+ "generated_epoch": 1783009779,
  "stopped": false,
- "summary": {
-  "n_placed": 16,
-  "n_filled": 5,
-  "n_settled": 0,
-  "n_resting": 9,
-  "n_hedged": 0,
-  "fill_rate": 0.3125,
-  "ev": null,
-  "win_rate": null,
-  "adverse": null,
-  "day": 0.39,
-  "bankroll": 100.0,
-  "start_bankroll": 100.0,
-  "invested": 29.21,
-  "realized": 0,
-  "pending_orders": 9,
-  "deployed_pct": 29.2
- },
- "gates": [
+ "strategies": [
   {
-   "name": "At least one measured fill",
-   "value": "5",
-   "status": "pass"
+   "id": "broad",
+   "name": "Longshot-NO \u00b7 Broad",
+   "kind": "ln",
+   "summary": {
+    "n_placed": 16,
+    "n_filled": 5,
+    "n_settled": 0,
+    "n_resting": 9,
+    "n_hedged": 0,
+    "fill_rate": 0.3125,
+    "ev": null,
+    "win_rate": null,
+    "adverse": null,
+    "day": 0.39,
+    "bankroll": 100.0,
+    "start_bankroll": 100.0,
+    "invested": 29.21,
+    "realized": 0,
+    "pending_orders": 9,
+    "deployed_pct": 29.2,
+    "return_pct": 0.0
+   },
+   "gates": [
+    {
+     "name": "At least one measured fill",
+     "value": "5",
+     "status": "pass"
+    }
+   ],
+   "pnl_curve": [
+    [
+     "start",
+     100.0
+    ]
+   ],
+   "by_series": [
+    {
+     "series": "KXHIGHTSEA",
+     "placed": 2,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHLAX",
+     "placed": 2,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHTSFO",
+     "placed": 1,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHTSATX",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHTOKC",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHTMIN",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHTBOS",
+     "placed": 1,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHTATL",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHPHIL",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHNY",
+     "placed": 1,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHMIA",
+     "placed": 1,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHDEN",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHCHI",
+     "placed": 1,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHAUS",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    }
+   ],
+   "by_band": [
+    {
+     "band": "1-2\u00a2",
+     "placed": 11,
+     "filled": 3,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "band": "3-4\u00a2",
+     "placed": 3,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "band": "5-7\u00a2",
+     "placed": 2,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    }
+   ],
+   "reversal": {
+    "filled": 5,
+    "crossed_20c": 1,
+    "settled_losers": 0,
+    "losers_that_gave_warning": 0,
+    "note": "warning = YES crossed 20\u00a2 before close while we still held"
+   },
+   "live_positions": [
+    {
+     "ticker": "KXHIGHMIA-26JUL02-T94",
+     "series": "KXHIGHMIA",
+     "entry_yes": 3.0,
+     "current_yes": 1.0,
+     "status": "FILLED",
+     "hrs": 12.5,
+     "stake": 6.79,
+     "contracts": 7.0,
+     "peak_yes": 10.0
+    },
+    {
+     "ticker": "KXHIGHNY-26JUL02-T106",
+     "series": "KXHIGHNY",
+     "entry_yes": 1.0,
+     "current_yes": 1.0,
+     "status": "FILLED",
+     "hrs": 12.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 2.0
+    },
+    {
+     "ticker": "KXHIGHPHIL-26JUL02-T108",
+     "series": "KXHIGHPHIL",
+     "entry_yes": 2.0,
+     "current_yes": 1.0,
+     "status": "RESTING",
+     "hrs": 12.5,
+     "stake": 6.86,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHTATL-26JUL02-T94",
+     "series": "KXHIGHTATL",
+     "entry_yes": 5.0,
+     "current_yes": 2.0,
+     "status": "RESTING",
+     "hrs": 12.5,
+     "stake": 6.65,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHTBOS-26JUL02-T98",
+     "series": "KXHIGHTBOS",
+     "entry_yes": 6.0,
+     "current_yes": 9.0,
+     "status": "FILLED",
+     "hrs": 12.5,
+     "stake": 5.64,
+     "contracts": 6.0,
+     "peak_yes": 39.0
+    },
+    {
+     "ticker": "KXHIGHAUS-26JUL02-T93",
+     "series": "KXHIGHAUS",
+     "entry_yes": 2.0,
+     "current_yes": 1.0,
+     "status": "RESTING",
+     "hrs": 13.5,
+     "stake": 6.86,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHCHI-26JUL02-T100",
+     "series": "KXHIGHCHI",
+     "entry_yes": 1.0,
+     "current_yes": 1.0,
+     "status": "FILLED",
+     "hrs": 13.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 2.0
+    },
+    {
+     "ticker": "KXHIGHTMIN-26JUL02-T94",
+     "series": "KXHIGHTMIN",
+     "entry_yes": 4.0,
+     "current_yes": 1.0,
+     "status": "RESTING",
+     "hrs": 13.5,
+     "stake": 6.72,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHTOKC-26JUL02-T100",
+     "series": "KXHIGHTOKC",
+     "entry_yes": 2.0,
+     "current_yes": 1.0,
+     "status": "RESTING",
+     "hrs": 13.5,
+     "stake": 6.86,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHTSATX-26JUL02-T99",
+     "series": "KXHIGHTSATX",
+     "entry_yes": 2.0,
+     "current_yes": 2.0,
+     "status": "RESTING",
+     "hrs": 13.5,
+     "stake": 6.86,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHDEN-26JUL02-T96",
+     "series": "KXHIGHDEN",
+     "entry_yes": 2.0,
+     "current_yes": 1.0,
+     "status": "RESTING",
+     "hrs": 14.5,
+     "stake": 6.86,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHLAX-26JUL02-T66",
+     "series": "KXHIGHLAX",
+     "entry_yes": 1.0,
+     "current_yes": 1.0,
+     "status": "RESTING",
+     "hrs": 15.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHTSEA-26JUL02-T73",
+     "series": "KXHIGHTSEA",
+     "entry_yes": 3.0,
+     "current_yes": 1.0,
+     "status": "RESTING",
+     "hrs": 15.5,
+     "stake": 6.79,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHTSFO-26JUL02-T64",
+     "series": "KXHIGHTSFO",
+     "entry_yes": 2.0,
+     "current_yes": 2.0,
+     "status": "FILLED",
+     "hrs": 15.5,
+     "stake": 4.9,
+     "contracts": 5.0,
+     "peak_yes": 7.0
+    }
+   ],
+   "events": [
+    {
+     "ts": "07-02T16:09:39",
+     "kind": "FILL",
+     "ticker": "KXHIGHMIA-26JUL02-T94",
+     "detail": "cleared=32.0, queue_ahead=20.0, mid_at_fill=9.5"
+    },
+    {
+     "ts": "07-02T12:27:26",
+     "kind": "FILL",
+     "ticker": "KXHIGHTSFO-26JUL02-T64",
+     "detail": "cleared=84.0, queue_ahead=84.02, mid_at_fill=None"
+    },
+    {
+     "ts": "07-02T11:03:40",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTSFO-26JUL02-T64",
+     "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=84.02"
+    },
+    {
+     "ts": "07-02T11:03:40",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTATL-26JUL02-T94",
+     "detail": "yes_ask_level=5.0, rest_no=95.0, queue_ahead=50.0"
+    },
+    {
+     "ts": "07-02T11:01:30",
+     "kind": "EXPIRE",
+     "ticker": "KXHIGHTSEA-26JUL01-T71",
+     "detail": "result=no"
+    },
+    {
+     "ts": "07-02T11:01:29",
+     "kind": "EXPIRE",
+     "ticker": "KXHIGHLAX-26JUL01-T72",
+     "detail": "result=no"
+    },
+    {
+     "ts": "07-02T10:11:42",
+     "kind": "REVERSAL",
+     "ticker": "KXHIGHTBOS-26JUL02-T98",
+     "detail": "yes_ask=39.0, hrs_to_close=18.8, in_tripwire_window=False"
+    },
+    {
+     "ts": "07-02T09:31:36",
+     "kind": "FILL",
+     "ticker": "KXHIGHTBOS-26JUL02-T98",
+     "detail": "cleared=201.0, queue_ahead=200.0, mid_at_fill=8.0"
+    },
+    {
+     "ts": "07-02T09:09:34",
+     "kind": "FILL",
+     "ticker": "KXHIGHNY-26JUL02-T106",
+     "detail": "cleared=462.2, queue_ahead=386.19, mid_at_fill=None"
+    },
+    {
+     "ts": "07-02T09:01:30",
+     "kind": "FILL",
+     "ticker": "KXHIGHCHI-26JUL02-T100",
+     "detail": "cleared=452.7, queue_ahead=377.66, mid_at_fill=1.5"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTBOS-26JUL02-T98",
+     "detail": "yes_ask_level=6.0, rest_no=94.0, queue_ahead=200.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTOKC-26JUL02-T100",
+     "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=1423.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTSATX-26JUL02-T99",
+     "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=3.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTMIN-26JUL02-T94",
+     "detail": "yes_ask_level=4.0, rest_no=96.0, queue_ahead=3.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTSEA-26JUL01-T71",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=8571.03"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHTSEA-26JUL02-T73",
+     "detail": "yes_ask_level=3.0, rest_no=97.0, queue_ahead=577.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHPHIL-26JUL02-T108",
+     "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=379.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHDEN-26JUL02-T96",
+     "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=770.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHAUS-26JUL02-T93",
+     "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=10.0"
+    },
+    {
+     "ts": "07-02T07:03:56",
+     "kind": "PLACE",
+     "ticker": "KXHIGHMIA-26JUL02-T94",
+     "detail": "yes_ask_level=3.0, rest_no=97.0, queue_ahead=20.0"
+    },
+    {
+     "ts": "07-02T07:03:55",
+     "kind": "PLACE",
+     "ticker": "KXHIGHLAX-26JUL01-T72",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=57186.04"
+    },
+    {
+     "ts": "07-02T07:03:55",
+     "kind": "PLACE",
+     "ticker": "KXHIGHLAX-26JUL02-T66",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=16610.94"
+    },
+    {
+     "ts": "07-02T07:03:55",
+     "kind": "PLACE",
+     "ticker": "KXHIGHCHI-26JUL02-T100",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=377.66"
+    },
+    {
+     "ts": "07-02T07:03:55",
+     "kind": "PLACE",
+     "ticker": "KXHIGHNY-26JUL02-T106",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=386.19"
+    }
+   ]
+  },
+  {
+   "id": "core",
+   "name": "Longshot-NO \u00b7 Core pockets",
+   "kind": "ln",
+   "summary": {
+    "n_placed": 7,
+    "n_filled": 0,
+    "n_settled": 0,
+    "n_resting": 7,
+    "n_hedged": 0,
+    "fill_rate": 0.0,
+    "ev": null,
+    "win_rate": null,
+    "adverse": null,
+    "day": 0.39,
+    "bankroll": 100.0,
+    "start_bankroll": 100.0,
+    "invested": 0,
+    "realized": 0,
+    "pending_orders": 7,
+    "deployed_pct": 0.0,
+    "return_pct": 0.0
+   },
+   "gates": [
+    {
+     "name": "At least one measured fill",
+     "value": "0",
+     "status": "watch"
+    }
+   ],
+   "pnl_curve": [
+    [
+     "start",
+     100.0
+    ]
+   ],
+   "by_series": [
+    {
+     "series": "KXBTCD",
+     "placed": 2,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXBTC",
+     "placed": 2,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHNY",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHMIA",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "series": "KXHIGHLAX",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    }
+   ],
+   "by_band": [
+    {
+     "band": "1-2\u00a2",
+     "placed": 6,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "band": "3-4\u00a2",
+     "placed": 0,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "band": "5-7\u00a2",
+     "placed": 1,
+     "filled": 0,
+     "settled": 0,
+     "ev": null
+    }
+   ],
+   "reversal": {
+    "filled": 0,
+    "crossed_20c": 0,
+    "settled_losers": 0,
+    "losers_that_gave_warning": 0,
+    "note": "warning = YES crossed 20\u00a2 before close while we still held"
+   },
+   "live_positions": [
+    {
+     "ticker": "KXBTC-26JUL0213-T67799.99",
+     "series": "KXBTC",
+     "entry_yes": 1.0,
+     "current_yes": null,
+     "status": "RESTING",
+     "hrs": 0.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXBTCD-26JUL0213-T67799.99",
+     "series": "KXBTCD",
+     "entry_yes": 1.0,
+     "current_yes": null,
+     "status": "RESTING",
+     "hrs": 0.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXBTC-26JUL0217-T68249.99",
+     "series": "KXBTC",
+     "entry_yes": 2.0,
+     "current_yes": null,
+     "status": "RESTING",
+     "hrs": 4.5,
+     "stake": 6.86,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXBTCD-26JUL0217-T68249.99",
+     "series": "KXBTCD",
+     "entry_yes": 1.0,
+     "current_yes": null,
+     "status": "RESTING",
+     "hrs": 4.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHMIA-26JUL02-T94",
+     "series": "KXHIGHMIA",
+     "entry_yes": 1.0,
+     "current_yes": null,
+     "status": "RESTING",
+     "hrs": 12.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHNY-26JUL02-T99",
+     "series": "KXHIGHNY",
+     "entry_yes": 6.0,
+     "current_yes": null,
+     "status": "RESTING",
+     "hrs": 12.5,
+     "stake": 6.58,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXHIGHLAX-26JUL02-T66",
+     "series": "KXHIGHLAX",
+     "entry_yes": 1.0,
+     "current_yes": null,
+     "status": "RESTING",
+     "hrs": 15.5,
+     "stake": 5.94,
+     "contracts": 6.0,
+     "peak_yes": 0.0
+    }
+   ],
+   "events": [
+    {
+     "ts": "07-02T16:29:33",
+     "kind": "PLACE",
+     "ticker": "KXBTC-26JUL0217-T68249.99",
+     "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=339.0"
+    },
+    {
+     "ts": "07-02T16:29:33",
+     "kind": "PLACE",
+     "ticker": "KXBTC-26JUL0213-T67799.99",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=26666.0"
+    },
+    {
+     "ts": "07-02T16:29:33",
+     "kind": "PLACE",
+     "ticker": "KXBTCD-26JUL0217-T68249.99",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=1111.0"
+    },
+    {
+     "ts": "07-02T16:29:33",
+     "kind": "PLACE",
+     "ticker": "KXBTCD-26JUL0213-T67799.99",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=26660.0"
+    },
+    {
+     "ts": "07-02T16:29:33",
+     "kind": "PLACE",
+     "ticker": "KXHIGHNY-26JUL02-T99",
+     "detail": "yes_ask_level=6.0, rest_no=94.0, queue_ahead=436.0"
+    },
+    {
+     "ts": "07-02T16:29:33",
+     "kind": "PLACE",
+     "ticker": "KXHIGHMIA-26JUL02-T94",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=98.0"
+    },
+    {
+     "ts": "07-02T16:29:33",
+     "kind": "PLACE",
+     "ticker": "KXHIGHLAX-26JUL02-T66",
+     "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=119848.94"
+    }
+   ]
+  },
+  {
+   "id": "combo",
+   "name": "Combo seller (observer)",
+   "kind": "combo",
+   "summary": {
+    "n_placed": 5,
+    "n_filled": 5,
+    "n_settled": 0,
+    "n_resting": 0,
+    "n_hedged": 0,
+    "fill_rate": 1.0,
+    "ev": null,
+    "win_rate": null,
+    "adverse": null,
+    "day": 0.39,
+    "bankroll": 100.0,
+    "start_bankroll": 100.0,
+    "invested": 32.37,
+    "realized": 0,
+    "pending_orders": 0,
+    "deployed_pct": 32.4,
+    "return_pct": 0.0
+   },
+   "gates": [
+    {
+     "name": "At least one measured sale",
+     "value": "5",
+     "status": "pass"
+    }
+   ],
+   "pnl_curve": [
+    [
+     "start",
+     100.0
+    ]
+   ],
+   "by_series": [
+    {
+     "series": "KXMVECROSSCATEGORY",
+     "placed": 5,
+     "filled": 5,
+     "settled": 0,
+     "ev": null
+    }
+   ],
+   "by_band": [
+    {
+     "band": "5-20\u00a2",
+     "placed": 3,
+     "filled": 3,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "band": "20-40\u00a2",
+     "placed": 1,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    },
+    {
+     "band": "40-60\u00a2",
+     "placed": 1,
+     "filled": 1,
+     "settled": 0,
+     "ev": null
+    }
+   ],
+   "reversal": null,
+   "live_positions": [
+    {
+     "ticker": "KXMVECROSSCATEGORY-S20266D04C6211A0-772AB017F8C",
+     "series": "KXMVECROSSCATEGORY",
+     "entry_yes": 21.3,
+     "current_yes": null,
+     "status": "FILLED",
+     "hrs": 73.7,
+     "stake": 6.3,
+     "contracts": 8.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXMVECROSSCATEGORY-S2026F2F989CC50B-9450535F965",
+     "series": "KXMVECROSSCATEGORY",
+     "entry_yes": 5.9,
+     "current_yes": null,
+     "status": "FILLED",
+     "hrs": 81.2,
+     "stake": 6.59,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXMVECROSSCATEGORY-S20268777D5075BD-D66794F9F63",
+     "series": "KXMVECROSSCATEGORY",
+     "entry_yes": 48.8,
+     "current_yes": null,
+     "status": "FILLED",
+     "hrs": 329.5,
+     "stake": 6.66,
+     "contracts": 13.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXMVECROSSCATEGORY-S2026665527BDAC4-5911D5891DF",
+     "series": "KXMVECROSSCATEGORY",
+     "entry_yes": 9.0,
+     "current_yes": null,
+     "status": "FILLED",
+     "hrs": 388.5,
+     "stake": 6.37,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    },
+    {
+     "ticker": "KXMVECROSSCATEGORY-S2026962AADA654F-7F5B0BBED67",
+     "series": "KXMVECROSSCATEGORY",
+     "entry_yes": 7.9,
+     "current_yes": null,
+     "status": "FILLED",
+     "hrs": 682.5,
+     "stake": 6.45,
+     "contracts": 7.0,
+     "peak_yes": 0.0
+    }
+   ],
+   "events": [
+    {
+     "ts": "07-02T16:29:34",
+     "kind": "SELL",
+     "ticker": "KXMVECROSSCATEGORY-S2026962AADA654F-7F5B0BBED67",
+     "detail": "combo_price=7.9, contracts=7, stake=6.45"
+    },
+    {
+     "ts": "07-02T16:29:34",
+     "kind": "SELL",
+     "ticker": "KXMVECROSSCATEGORY-S2026665527BDAC4-5911D5891DF",
+     "detail": "combo_price=9.0, contracts=7, stake=6.37"
+    },
+    {
+     "ts": "07-02T16:29:34",
+     "kind": "SELL",
+     "ticker": "KXMVECROSSCATEGORY-S2026F2F989CC50B-9450535F965",
+     "detail": "combo_price=5.9, contracts=7, stake=6.59"
+    },
+    {
+     "ts": "07-02T16:29:34",
+     "kind": "SELL",
+     "ticker": "KXMVECROSSCATEGORY-S20266D04C6211A0-772AB017F8C",
+     "detail": "combo_price=21.3, contracts=8, stake=6.3"
+    },
+    {
+     "ts": "07-02T16:29:34",
+     "kind": "SELL",
+     "ticker": "KXMVECROSSCATEGORY-S20268777D5075BD-D66794F9F63",
+     "detail": "combo_price=48.8, contracts=13, stake=6.66"
+    }
+   ]
   }
  ],
- "pnl_curve": [
-  [
-   "start",
-   100.0
+ "master": {
+  "summary": {
+   "start_bankroll": 300.0,
+   "bankroll": 300.0,
+   "return_pct": 0.0,
+   "realized": 0,
+   "n_settled": 0,
+   "n_filled": 10,
+   "invested": 61.58,
+   "ev": null,
+   "deployed_pct": 20.5
+  },
+  "per_strategy": [
+   {
+    "id": "broad",
+    "name": "Longshot-NO \u00b7 Broad",
+    "bankroll": 100.0,
+    "return_pct": 0.0,
+    "n_settled": 0,
+    "ev": null,
+    "fill_rate": 0.3125,
+    "n_filled": 5,
+    "realized": 0,
+    "n_resting": 9
+   },
+   {
+    "id": "core",
+    "name": "Longshot-NO \u00b7 Core pockets",
+    "bankroll": 100.0,
+    "return_pct": 0.0,
+    "n_settled": 0,
+    "ev": null,
+    "fill_rate": 0.0,
+    "n_filled": 0,
+    "realized": 0,
+    "n_resting": 7
+   },
+   {
+    "id": "combo",
+    "name": "Combo seller (observer)",
+    "bankroll": 100.0,
+    "return_pct": 0.0,
+    "n_settled": 0,
+    "ev": null,
+    "fill_rate": 1.0,
+    "n_filled": 5,
+    "realized": 0,
+    "n_resting": 0
+   }
+  ],
+  "vip": {
+   "filled_contracts": 72.0,
+   "cashback_ceiling_usd": 0.36,
+   "note": "VIP pays up to $0.005/contract (pool-shared) \u2014 ceiling estimate on filled volume; not yet realized."
+  },
+  "pnl_curve": [
+   [
+    "start",
+    300.0
+   ]
+  ],
+  "events": [
+   {
+    "ts": "07-02T16:29:34",
+    "kind": "SELL",
+    "ticker": "KXMVECROSSCATEGORY-S2026962AADA654F-7F5B0BBED67",
+    "detail": "combo_price=7.9, contracts=7, stake=6.45",
+    "strategy": "combo"
+   },
+   {
+    "ts": "07-02T16:29:34",
+    "kind": "SELL",
+    "ticker": "KXMVECROSSCATEGORY-S2026665527BDAC4-5911D5891DF",
+    "detail": "combo_price=9.0, contracts=7, stake=6.37",
+    "strategy": "combo"
+   },
+   {
+    "ts": "07-02T16:29:34",
+    "kind": "SELL",
+    "ticker": "KXMVECROSSCATEGORY-S2026F2F989CC50B-9450535F965",
+    "detail": "combo_price=5.9, contracts=7, stake=6.59",
+    "strategy": "combo"
+   },
+   {
+    "ts": "07-02T16:29:34",
+    "kind": "SELL",
+    "ticker": "KXMVECROSSCATEGORY-S20266D04C6211A0-772AB017F8C",
+    "detail": "combo_price=21.3, contracts=8, stake=6.3",
+    "strategy": "combo"
+   },
+   {
+    "ts": "07-02T16:29:34",
+    "kind": "SELL",
+    "ticker": "KXMVECROSSCATEGORY-S20268777D5075BD-D66794F9F63",
+    "detail": "combo_price=48.8, contracts=13, stake=6.66",
+    "strategy": "combo"
+   },
+   {
+    "ts": "07-02T16:29:33",
+    "kind": "PLACE",
+    "ticker": "KXBTC-26JUL0217-T68249.99",
+    "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=339.0",
+    "strategy": "core"
+   },
+   {
+    "ts": "07-02T16:29:33",
+    "kind": "PLACE",
+    "ticker": "KXBTC-26JUL0213-T67799.99",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=26666.0",
+    "strategy": "core"
+   },
+   {
+    "ts": "07-02T16:29:33",
+    "kind": "PLACE",
+    "ticker": "KXBTCD-26JUL0217-T68249.99",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=1111.0",
+    "strategy": "core"
+   },
+   {
+    "ts": "07-02T16:29:33",
+    "kind": "PLACE",
+    "ticker": "KXBTCD-26JUL0213-T67799.99",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=26660.0",
+    "strategy": "core"
+   },
+   {
+    "ts": "07-02T16:29:33",
+    "kind": "PLACE",
+    "ticker": "KXHIGHNY-26JUL02-T99",
+    "detail": "yes_ask_level=6.0, rest_no=94.0, queue_ahead=436.0",
+    "strategy": "core"
+   },
+   {
+    "ts": "07-02T16:29:33",
+    "kind": "PLACE",
+    "ticker": "KXHIGHMIA-26JUL02-T94",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=98.0",
+    "strategy": "core"
+   },
+   {
+    "ts": "07-02T16:29:33",
+    "kind": "PLACE",
+    "ticker": "KXHIGHLAX-26JUL02-T66",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=119848.94",
+    "strategy": "core"
+   },
+   {
+    "ts": "07-02T16:09:39",
+    "kind": "FILL",
+    "ticker": "KXHIGHMIA-26JUL02-T94",
+    "detail": "cleared=32.0, queue_ahead=20.0, mid_at_fill=9.5",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T12:27:26",
+    "kind": "FILL",
+    "ticker": "KXHIGHTSFO-26JUL02-T64",
+    "detail": "cleared=84.0, queue_ahead=84.02, mid_at_fill=None",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T11:03:40",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTSFO-26JUL02-T64",
+    "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=84.02",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T11:03:40",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTATL-26JUL02-T94",
+    "detail": "yes_ask_level=5.0, rest_no=95.0, queue_ahead=50.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T11:01:30",
+    "kind": "EXPIRE",
+    "ticker": "KXHIGHTSEA-26JUL01-T71",
+    "detail": "result=no",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T11:01:29",
+    "kind": "EXPIRE",
+    "ticker": "KXHIGHLAX-26JUL01-T72",
+    "detail": "result=no",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T09:31:36",
+    "kind": "FILL",
+    "ticker": "KXHIGHTBOS-26JUL02-T98",
+    "detail": "cleared=201.0, queue_ahead=200.0, mid_at_fill=8.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T09:09:34",
+    "kind": "FILL",
+    "ticker": "KXHIGHNY-26JUL02-T106",
+    "detail": "cleared=462.2, queue_ahead=386.19, mid_at_fill=None",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T09:01:30",
+    "kind": "FILL",
+    "ticker": "KXHIGHCHI-26JUL02-T100",
+    "detail": "cleared=452.7, queue_ahead=377.66, mid_at_fill=1.5",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTBOS-26JUL02-T98",
+    "detail": "yes_ask_level=6.0, rest_no=94.0, queue_ahead=200.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTOKC-26JUL02-T100",
+    "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=1423.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTSATX-26JUL02-T99",
+    "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=3.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTMIN-26JUL02-T94",
+    "detail": "yes_ask_level=4.0, rest_no=96.0, queue_ahead=3.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTSEA-26JUL01-T71",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=8571.03",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHTSEA-26JUL02-T73",
+    "detail": "yes_ask_level=3.0, rest_no=97.0, queue_ahead=577.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHPHIL-26JUL02-T108",
+    "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=379.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHDEN-26JUL02-T96",
+    "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=770.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHAUS-26JUL02-T93",
+    "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=10.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:56",
+    "kind": "PLACE",
+    "ticker": "KXHIGHMIA-26JUL02-T94",
+    "detail": "yes_ask_level=3.0, rest_no=97.0, queue_ahead=20.0",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:55",
+    "kind": "PLACE",
+    "ticker": "KXHIGHLAX-26JUL01-T72",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=57186.04",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:55",
+    "kind": "PLACE",
+    "ticker": "KXHIGHLAX-26JUL02-T66",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=16610.94",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:55",
+    "kind": "PLACE",
+    "ticker": "KXHIGHCHI-26JUL02-T100",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=377.66",
+    "strategy": "broad"
+   },
+   {
+    "ts": "07-02T07:03:55",
+    "kind": "PLACE",
+    "ticker": "KXHIGHNY-26JUL02-T106",
+    "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=386.19",
+    "strategy": "broad"
+   }
   ]
- ],
- "by_series": [
-  {
-   "series": "KXHIGHTSEA",
-   "placed": 2,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHLAX",
-   "placed": 2,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHTSFO",
-   "placed": 1,
-   "filled": 1,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHTSATX",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHTOKC",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHTMIN",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHTBOS",
-   "placed": 1,
-   "filled": 1,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHTATL",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHPHIL",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHNY",
-   "placed": 1,
-   "filled": 1,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHMIA",
-   "placed": 1,
-   "filled": 1,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHDEN",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHCHI",
-   "placed": 1,
-   "filled": 1,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "series": "KXHIGHAUS",
-   "placed": 1,
-   "filled": 0,
-   "settled": 0,
-   "ev": null
-  }
- ],
- "by_band": [
-  {
-   "band": "1-2\u00a2",
-   "placed": 11,
-   "filled": 3,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "band": "3-4\u00a2",
-   "placed": 3,
-   "filled": 1,
-   "settled": 0,
-   "ev": null
-  },
-  {
-   "band": "5-7\u00a2",
-   "placed": 2,
-   "filled": 1,
-   "settled": 0,
-   "ev": null
-  }
- ],
- "reversal": {
-  "filled": 5,
-  "crossed_20c": 1,
-  "settled_losers": 0,
-  "losers_that_gave_warning": 0,
-  "note": "warning = YES crossed 20\u00a2 before close while we still held (a stop could act)"
- },
- "live_positions": [
-  {
-   "ticker": "KXHIGHNY-26JUL02-T106",
-   "series": "KXHIGHNY",
-   "entry_yes": 1.0,
-   "current_yes": 1.0,
-   "status": "FILLED",
-   "hrs": 12.7,
-   "stake": 5.94,
-   "contracts": 6.0,
-   "peak_yes": 2.0
-  },
-  {
-   "ticker": "KXHIGHMIA-26JUL02-T94",
-   "series": "KXHIGHMIA",
-   "entry_yes": 3.0,
-   "current_yes": 1.0,
-   "status": "FILLED",
-   "hrs": 12.7,
-   "stake": 6.79,
-   "contracts": 7.0,
-   "peak_yes": 10.0
-  },
-  {
-   "ticker": "KXHIGHPHIL-26JUL02-T108",
-   "series": "KXHIGHPHIL",
-   "entry_yes": 2.0,
-   "current_yes": 1.0,
-   "status": "RESTING",
-   "hrs": 12.7,
-   "stake": 6.86,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHTBOS-26JUL02-T98",
-   "series": "KXHIGHTBOS",
-   "entry_yes": 6.0,
-   "current_yes": 16.0,
-   "status": "FILLED",
-   "hrs": 12.7,
-   "stake": 5.64,
-   "contracts": 6.0,
-   "peak_yes": 39.0
-  },
-  {
-   "ticker": "KXHIGHTATL-26JUL02-T94",
-   "series": "KXHIGHTATL",
-   "entry_yes": 5.0,
-   "current_yes": 2.0,
-   "status": "RESTING",
-   "hrs": 12.7,
-   "stake": 6.65,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHCHI-26JUL02-T100",
-   "series": "KXHIGHCHI",
-   "entry_yes": 1.0,
-   "current_yes": 1.0,
-   "status": "FILLED",
-   "hrs": 13.7,
-   "stake": 5.94,
-   "contracts": 6.0,
-   "peak_yes": 2.0
-  },
-  {
-   "ticker": "KXHIGHAUS-26JUL02-T93",
-   "series": "KXHIGHAUS",
-   "entry_yes": 2.0,
-   "current_yes": 1.0,
-   "status": "RESTING",
-   "hrs": 13.7,
-   "stake": 6.86,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHTMIN-26JUL02-T94",
-   "series": "KXHIGHTMIN",
-   "entry_yes": 4.0,
-   "current_yes": 1.0,
-   "status": "RESTING",
-   "hrs": 13.7,
-   "stake": 6.72,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHTSATX-26JUL02-T99",
-   "series": "KXHIGHTSATX",
-   "entry_yes": 2.0,
-   "current_yes": 2.0,
-   "status": "RESTING",
-   "hrs": 13.7,
-   "stake": 6.86,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHTOKC-26JUL02-T100",
-   "series": "KXHIGHTOKC",
-   "entry_yes": 2.0,
-   "current_yes": 1.0,
-   "status": "RESTING",
-   "hrs": 13.7,
-   "stake": 6.86,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHDEN-26JUL02-T96",
-   "series": "KXHIGHDEN",
-   "entry_yes": 2.0,
-   "current_yes": 1.0,
-   "status": "RESTING",
-   "hrs": 14.7,
-   "stake": 6.86,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHLAX-26JUL02-T66",
-   "series": "KXHIGHLAX",
-   "entry_yes": 1.0,
-   "current_yes": 1.0,
-   "status": "RESTING",
-   "hrs": 15.7,
-   "stake": 5.94,
-   "contracts": 6.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHTSEA-26JUL02-T73",
-   "series": "KXHIGHTSEA",
-   "entry_yes": 3.0,
-   "current_yes": 1.0,
-   "status": "RESTING",
-   "hrs": 15.7,
-   "stake": 6.79,
-   "contracts": 7.0,
-   "peak_yes": 0.0
-  },
-  {
-   "ticker": "KXHIGHTSFO-26JUL02-T64",
-   "series": "KXHIGHTSFO",
-   "entry_yes": 2.0,
-   "current_yes": 2.0,
-   "status": "FILLED",
-   "hrs": 15.7,
-   "stake": 4.9,
-   "contracts": 5.0,
-   "peak_yes": 7.0
-  }
- ],
- "events": [
-  {
-   "ts": "07-02T16:09:39",
-   "kind": "FILL",
-   "ticker": "KXHIGHMIA-26JUL02-T94",
-   "detail": "cleared=32.0, queue_ahead=20.0, mid_at_fill=9.5"
-  },
-  {
-   "ts": "07-02T12:27:26",
-   "kind": "FILL",
-   "ticker": "KXHIGHTSFO-26JUL02-T64",
-   "detail": "cleared=84.0, queue_ahead=84.02, mid_at_fill=None"
-  },
-  {
-   "ts": "07-02T11:03:40",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTSFO-26JUL02-T64",
-   "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=84.02"
-  },
-  {
-   "ts": "07-02T11:03:40",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTATL-26JUL02-T94",
-   "detail": "yes_ask_level=5.0, rest_no=95.0, queue_ahead=50.0"
-  },
-  {
-   "ts": "07-02T11:01:30",
-   "kind": "EXPIRE",
-   "ticker": "KXHIGHTSEA-26JUL01-T71",
-   "detail": "result=no"
-  },
-  {
-   "ts": "07-02T11:01:29",
-   "kind": "EXPIRE",
-   "ticker": "KXHIGHLAX-26JUL01-T72",
-   "detail": "result=no"
-  },
-  {
-   "ts": "07-02T10:11:42",
-   "kind": "REVERSAL",
-   "ticker": "KXHIGHTBOS-26JUL02-T98",
-   "detail": "yes_ask=39.0, hrs_to_close=18.8, in_tripwire_window=False"
-  },
-  {
-   "ts": "07-02T09:31:36",
-   "kind": "FILL",
-   "ticker": "KXHIGHTBOS-26JUL02-T98",
-   "detail": "cleared=201.0, queue_ahead=200.0, mid_at_fill=8.0"
-  },
-  {
-   "ts": "07-02T09:09:34",
-   "kind": "FILL",
-   "ticker": "KXHIGHNY-26JUL02-T106",
-   "detail": "cleared=462.2, queue_ahead=386.19, mid_at_fill=None"
-  },
-  {
-   "ts": "07-02T09:01:30",
-   "kind": "FILL",
-   "ticker": "KXHIGHCHI-26JUL02-T100",
-   "detail": "cleared=452.7, queue_ahead=377.66, mid_at_fill=1.5"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTBOS-26JUL02-T98",
-   "detail": "yes_ask_level=6.0, rest_no=94.0, queue_ahead=200.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTOKC-26JUL02-T100",
-   "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=1423.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTSATX-26JUL02-T99",
-   "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=3.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTMIN-26JUL02-T94",
-   "detail": "yes_ask_level=4.0, rest_no=96.0, queue_ahead=3.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTSEA-26JUL01-T71",
-   "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=8571.03"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHTSEA-26JUL02-T73",
-   "detail": "yes_ask_level=3.0, rest_no=97.0, queue_ahead=577.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHPHIL-26JUL02-T108",
-   "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=379.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHDEN-26JUL02-T96",
-   "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=770.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHAUS-26JUL02-T93",
-   "detail": "yes_ask_level=2.0, rest_no=98.0, queue_ahead=10.0"
-  },
-  {
-   "ts": "07-02T07:03:56",
-   "kind": "PLACE",
-   "ticker": "KXHIGHMIA-26JUL02-T94",
-   "detail": "yes_ask_level=3.0, rest_no=97.0, queue_ahead=20.0"
-  },
-  {
-   "ts": "07-02T07:03:55",
-   "kind": "PLACE",
-   "ticker": "KXHIGHLAX-26JUL01-T72",
-   "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=57186.04"
-  },
-  {
-   "ts": "07-02T07:03:55",
-   "kind": "PLACE",
-   "ticker": "KXHIGHLAX-26JUL02-T66",
-   "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=16610.94"
-  },
-  {
-   "ts": "07-02T07:03:55",
-   "kind": "PLACE",
-   "ticker": "KXHIGHCHI-26JUL02-T100",
-   "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=377.66"
-  },
-  {
-   "ts": "07-02T07:03:55",
-   "kind": "PLACE",
-   "ticker": "KXHIGHNY-26JUL02-T106",
-   "detail": "yes_ask_level=1.0, rest_no=99.0, queue_ahead=386.19"
-  }
- ]
+ }
 }
