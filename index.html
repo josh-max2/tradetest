@@ -84,6 +84,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
   <div class="hcard"><div class="l" id="bankl">Simulated bankroll <span style="color:var(--muted)">(started $100, real fills, no orders placed)</span></div>
    <div class="big" id="bankroll">$100.00</div>
    <div class="cx" id="bankcx"></div>
+   <div class="cx" id="potential" style="margin-top:3px"></div>
    <div id="bankchart" style="margin-top:10px"></div></div>
   <div class="hcard"><div class="l" id="fillratel">Fill rate</div>
    <div class="big" id="fillrate" style="font-size:32px">—</div><div class="cx" id="fillcx"></div>
@@ -117,6 +118,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
   <div class="hcard"><div class="l">Combined bankroll <span style="color:var(--muted)" id="m-startlbl"></span></div>
    <div class="big" id="m-bank">$300.00</div>
    <div class="cx" id="m-cx"></div>
+   <div class="cx" id="m-potential" style="margin-top:3px"></div>
    <div id="m-bankchart" style="margin-top:10px"></div></div>
   <div class="hcard"><div class="l">VIP cashback ceiling <span style="color:var(--muted)">(estimate)</span></div>
    <div class="big" id="m-vip" style="font-size:32px">—</div>
@@ -196,6 +198,10 @@ function render(d){
   document.getElementById('bankcx').innerHTML =
     `<span class="${gain>=0?'pos':'neg'}">${gain>=0?'+':''}$${gain.toFixed(2)}</span> · `
     + `$${(s.invested||0).toFixed(2)} at risk · ${s.pending_orders||0} ${isCombo?'—':'resting'}`;
+  const po=s.potential_bankroll, pg=s.potential_gain, no=s.n_open||0;
+  document.getElementById('potential').innerHTML = no>0
+    ? `<span style="color:var(--muted)">Potential if all ${no} filled resolve our way →</span> <b>$${(po||0).toFixed(2)}</b> <span class="pos">(+$${(pg||0).toFixed(2)})</span>`
+    : `<span style="color:var(--muted)">Potential upside shows once a position fills.</span>`;
   drawBank('bankchart', d.pnl_curve||[], 100);
 
   document.getElementById('fillratel').textContent = isCombo?'Combos caught':'Fill rate';
@@ -296,6 +302,10 @@ function renderMaster(m){
   document.getElementById('m-cx').innerHTML =
     `<span class="${gain>=0?'pos':'neg'}">${gain>=0?'+':''}$${gain.toFixed(2)} (${fmtR(s.return_pct)})</span> · `
     +`$${(s.invested||0).toFixed(2)} at risk · ${s.n_settled||0} settled`;
+  const mno=s.n_open||0;
+  document.getElementById('m-potential').innerHTML = mno>0
+    ? `<span style="color:var(--muted)">Potential if all ${mno} filled resolve our way →</span> <b>$${(s.potential_bankroll||0).toFixed(2)}</b> <span class="pos">(+$${(s.potential_gain||0).toFixed(2)})</span>`
+    : '';
   drawBank('m-bankchart', m.pnl_curve||[], s.start_bankroll||300);
   const vip=m.vip||{};
   document.getElementById('m-vip').textContent = '$'+(vip.cashback_ceiling_usd||0).toFixed(2);
