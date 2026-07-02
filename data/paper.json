@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-02 06:29",
- "generated_epoch": 1782973745,
+ "generated": "2026-07-02 06:36",
+ "generated_epoch": 1782974202,
  "stopped": false,
  "summary": {
   "n_placed": 12,
@@ -127,5 +127,37 @@
    "ev": null
   }
  ],
- "events": []
+ "reversal": {
+  "filled": 0,
+  "crossed_20c": 0,
+  "settled_losers": 0,
+  "losers_that_gave_warning": 0,
+  "note": "warning = YES crossed 20\u00a2 before close while we still held (a stop could act)"
+ },
+ "events": [
+  {
+   "ts": "07-02T06:36:16",
+   "kind": "ERROR",
+   "ticker": "",
+   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+  },
+  {
+   "ts": "07-02T06:35:55",
+   "kind": "ERROR",
+   "ticker": "",
+   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+  },
+  {
+   "ts": "07-02T06:35:34",
+   "kind": "ERROR",
+   "ticker": "",
+   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+  },
+  {
+   "ts": "07-02T06:35:13",
+   "kind": "ERROR",
+   "ticker": "",
+   "detail": "tb=search\\paper_tracker.py\", line 440, in main\n    track_reversals(con)\n    ~~~~~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\joshs\\Desktop\\fablefun\\kalshi_research\\paper_tracker.py\", line 294, in track_reversals\n    for r in con.execute(\"\"\"SELECT ticker,close_ts,max_yes,cross20_hrs\n             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        FROM positions WHERE status='FILLED'\"\"\").fetchall():\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.OperationalError: no such column: max_yes\n"
+  }
+ ]
 }
