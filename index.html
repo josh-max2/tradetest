@@ -96,6 +96,12 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <h2>By series</h2>
 <div class="card" style="overflow-x:auto"><table id="sertbl"></table></div>
 
+<h2>Reversal catchability <span style="font-weight:400;color:var(--muted)">— can a stop-loss catch our losers, or do they gap?</span></h2>
+<div class="card" id="revcard">
+ <div class="tiles" id="revtiles" style="margin-bottom:6px"></div>
+ <p class="note" id="revnote"></p>
+</div>
+
 <h2>Live activity</h2>
 <div class="card"><div class="feed" id="feed"></div></div>
 
@@ -185,6 +191,21 @@ function render(d){
      <td>${x.settled}</td><td class="${x.ev>0?'pos':(x.ev<0?'neg':'')}">${x.ev==null?'—':fmtC(x.ev)}</td></tr>`).join('');
   document.getElementById('sertbl').innerHTML =
     '<tr><th>series</th><th>placed</th><th>filled</th><th>settled</th><th>avg pnl</th></tr>' + rows;
+
+  // reversal catchability
+  const rv = d.reversal || {};
+  const rvTiles = [
+    ['Filled positions', rv.filled||0],
+    ['Reversed to ≥20¢', rv.crossed_20c||0],
+    ['Settled losers', rv.settled_losers||0],
+    ['Losers that gave warning', rv.losers_that_gave_warning||0],
+  ];
+  document.getElementById('revtiles').innerHTML = rvTiles.map(([l,v])=>
+    `<div class="tile"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join('');
+  const lw = rv.losers_that_gave_warning||0, sl = rv.settled_losers||0;
+  document.getElementById('revnote').textContent = sl>0
+    ? `${lw} of ${sl} losers crossed 20¢ before close (a stop could have acted); the rest gapped straight through settlement — no stop catches those. This is the live test of whether a stop-loss is worth running.`
+    : 'No losses settled yet. As losers accrue, this shows how many gave a stop-loss a chance vs gapped through — measured on our own fills.';
 
   // feed
   document.getElementById('feed').innerHTML = (d.events||[]).map(e=>
