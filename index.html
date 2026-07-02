@@ -90,6 +90,10 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <div class="card"><div id="chart"></div>
 <p class="note" id="chartnote"></p></div>
 
+<h2>Live positions <span style="font-weight:400;color:var(--muted)">— current YES price vs where we entered, updated each scan</span></h2>
+<div class="card" style="overflow-x:auto"><table id="livetbl"></table>
+<p class="note" id="livenote"></p></div>
+
 <h2>By entry band <span style="font-weight:400;color:var(--muted)">— archive says 3–7¢ is the sweet spot; live data confirms here</span></h2>
 <div class="card" style="overflow-x:auto"><table id="bandtbl"></table></div>
 
@@ -177,6 +181,27 @@ function render(d){
   document.getElementById('chartnote').textContent = (d.pnl_curve && d.pnl_curve.length>1)
     ? 'Simulated $100 compounding through each real settlement, sized by f = min(12%, 90%/K)·bankroll per position.'
     : 'No settled positions yet — longshots settle within ~24h of placement; the curve starts at $100.';
+
+  // live positions
+  const lp = d.live_positions || [];
+  const lrows = lp.map(p=>{
+    const cur = p.current_yes==null ? '—' : p.current_yes.toFixed(0)+'¢';
+    const drift = (p.current_yes!=null && p.entry_yes!=null) ? (p.current_yes - p.entry_yes) : null;
+    const dcls = drift==null ? '' : (drift>0 ? 'neg' : (drift<0 ? 'pos' : ''));
+    const dtxt = drift==null ? '' : (drift>0?'+':'')+drift.toFixed(0)+'¢';
+    return `<tr><td>${esc(p.ticker)}</td>
+      <td>${p.entry_yes==null?'—':p.entry_yes.toFixed(0)+'¢'}</td>
+      <td><b>${cur}</b></td>
+      <td class="${dcls}">${dtxt}</td>
+      <td>${esc(p.status)}</td>
+      <td>${p.hrs==null?'—':p.hrs+'h'}</td>
+      <td>${p.stake==null?'—':'$'+p.stake.toFixed(2)}</td></tr>`;
+  }).join('');
+  document.getElementById('livetbl').innerHTML =
+    '<tr><th>market</th><th>entry YES</th><th>current YES</th><th>drift</th><th>status</th><th>to close</th><th>stake</th></tr>' + lrows;
+  document.getElementById('livenote').textContent = lp.length
+    ? `${lp.length} open positions. Drift green = YES fell (our NO safer); red = YES rose toward our loss. Current price updates each 2-min scan.`
+    : 'No open positions right now.';
 
   // band table
   const brows = (d.by_band||[]).map(x=>
