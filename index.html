@@ -139,6 +139,7 @@ const fmtC = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(2) + '¢';
 const fmtR = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(2) + '%';
 const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
 const fmtTime = s => { if(!s) return '—'; const d=new Date(s); return isNaN(d.getTime())?'—':d.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); };
+const TZ = (()=>{ try { return new Intl.DateTimeFormat([],{timeZoneName:'short'}).formatToParts(new Date()).find(p=>p.type==='timeZoneName').value; } catch(e){ return ''; } })();
 let DATA=null, CURRENT='broad';
 
 async function load(){
@@ -231,7 +232,7 @@ function render(d){
   // live positions (we're short the YES = hold NO)
   const lp=d.live_positions||[];
   document.getElementById('livetbl').innerHTML =
-    '<tr><th>market</th><th>our position</th><th>'+(isCombo?'sold @':'NO value now')+'</th><th>move</th><th>status</th><th>to close</th><th>settles</th><th>at risk</th></tr>'
+    '<tr><th>market</th><th>our position</th><th>'+(isCombo?'sold @':'NO value now')+'</th><th>move</th><th>status</th><th>to close</th><th>settles'+(TZ?' ('+TZ+')':'')+'</th><th>at risk</th></tr>'
     + lp.map(p=>{
       const eNo=p.entry_yes==null?null:100-p.entry_yes, cNo=p.current_yes==null?null:100-p.current_yes;
       const move=(cNo!=null&&eNo!=null)?(cNo-eNo):null;
