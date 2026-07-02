@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi Paper Trading — Live Tracker</title>
+<style>
+:root{
+ --surface:#fcfcfb; --page:#f9f9f7; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+ --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+ --s1:#2a78d6; --s5:#4a3aa7; --good:#0ca30c; --goodtext:#006300; --warn:#fab219; --crit:#d03b3b;
+ --track:#cde2fb;
+}
+@media (prefers-color-scheme: dark){
+ :root{ --surface:#1a1a19; --page:#0d0d0d; --ink:#fff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --s1:#3987e5; --s5:#9085e9; --goodtext:#0ca30c; --track:#184f95; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+ font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:30px 5vw 80px;max-width:1000px;margin-inline:auto}
+.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+h1{font-size:22px;font-weight:650;margin:0}
+.status{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block}
+.dot.stale{background:var(--warn)} .dot.stopped{background:var(--crit)}
+.sub{color:var(--ink2);font-size:13.5px;margin:4px 0 22px;max-width:720px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:640px){.hero{grid-template-columns:1fr}}
+.hcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px}
+.hcard .l{font-size:12px;color:var(--muted)}
+.hcard .big{font-size:40px;font-weight:650;line-height:1.1;margin-top:4px}
+.hcard .cx{font-size:13px;color:var(--ink2);margin-top:4px}
+.pos{color:var(--goodtext)} .neg{color:var(--crit)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:22px}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 15px}
+.tile .l{font-size:11px;color:var(--muted)}
+.tile .v{font-size:20px;font-weight:650;margin-top:2px}
+h2{font-size:14px;font-weight:650;margin:26px 0 10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:14px}
+.gate{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--grid)}
+.gate:last-child{border-bottom:none}
+.gate .name{font-size:13.5px}
+.gate .val{font-variant-numeric:tabular-nums;color:var(--ink2);margin-left:auto;margin-right:14px}
+.badge{font-size:11px;font-weight:650;padding:2px 9px;border-radius:99px;border:1.5px solid}
+.badge.pass{color:var(--goodtext);border-color:var(--good)}
+.badge.watch{color:var(--ink);border-color:var(--warn)}
+.badge.fail{color:var(--crit);border-color:var(--crit)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:var(--muted);font-weight:500;border-bottom:1px solid var(--grid);padding:5px 8px;text-align:right}
+td{padding:4px 8px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left;font-variant-numeric:normal}
+.feed{font-size:12px;max-height:280px;overflow-y:auto}
+.feed .row{display:grid;grid-template-columns:78px 74px 1fr;gap:8px;padding:3px 0;border-bottom:1px solid var(--grid)}
+.feed .k{font-weight:650}
+.k.FILL{color:var(--s1)} .k.SETTLE{color:var(--goodtext)} .k.TRIPWIRE{color:var(--warn)}
+.k.EXPIRE{color:var(--muted)} .k.ERROR{color:var(--crit)} .k.PLACE{color:var(--ink2)}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+svg text{font:11px system-ui;fill:var(--muted)}
+#err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:10px;padding:14px 18px;color:var(--crit);font-size:13px}
+</style>
+</head>
+<body>
+<div class="top">
+ <h1>Kalshi Paper Trading Tracker</h1>
+ <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
+</div>
+<p class="sub">Live measurement of the longshot-NO maker strategy against the real Kalshi order book — <b>zero orders placed</b>. Phantom resting orders fill only when real buyer volume clears the queue ahead of them. This page auto-updates from a database that publishes to GitHub every few minutes.</p>
+
+<div id="err">Couldn't load data yet. The first publish may still be pending — this page will retry automatically.</div>
+
+<div class="hero">
+ <div class="hcard"><div class="l">Fill rate <span style="color:var(--muted)">(phantom orders that filled)</span></div>
+  <div class="big" id="fillrate">—</div><div class="cx" id="fillcx"></div></div>
+ <div class="hcard"><div class="l">Fill-conditional EV <span style="color:var(--muted)">(net of fees, per contract)</span></div>
+  <div class="big" id="ev">—</div><div class="cx" id="evcx">the number the live decision hinges on</div></div>
+</div>
+
+<div class="tiles" id="tiles"></div>
+
+<h2>Decision gates <span style="font-weight:400;color:var(--muted)">— evaluated at day 14</span></h2>
+<div class="card" id="gates"></div>
+
+<h2>Phantom P&amp;L over time <span style="font-weight:400;color:var(--muted)">— settled positions, cumulative cents</span></h2>
+<div class="card"><div id="chart"></div>
+<p class="note" id="chartnote"></p></div>
+
+<h2>By series</h2>
+<div class="card" style="overflow-x:auto"><table id="sertbl"></table></div>
+
+<h2>Live activity</h2>
+<div class="card"><div class="feed" id="feed"></div></div>
+
+<p class="note" id="footer"></p>
+
+<script>
+const fmtPct = v => v==null ? '—' : (v>=0?'':'') + v.toFixed(1) + '%';
+const fmtC = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(2) + '¢';
+const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
+
+async function load(){
+  try{
+    const r = await fetch('./data/paper.json?t=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    document.getElementById('err').style.display='none';
+    render(d);
+  }catch(e){
+    document.getElementById('err').style.display='block';
+    document.getElementById('statustxt').textContent = 'waiting for first publish';
+    document.getElementById('dot').className = 'dot stale';
+  }
+}
+
+function render(d){
+  const s = d.summary || {};
+  // status
+  const ageMin = d.generated_epoch ? (Date.now()/1000 - d.generated_epoch)/60 : 999;
+  const dot = document.getElementById('dot');
+  const st = document.getElementById('statustxt');
+  if(d.stopped){ dot.className='dot stopped'; st.textContent = 'campaign complete'; }
+  else if(ageMin > 30){ dot.className='dot stale'; st.textContent = `last update ${Math.round(ageMin)} min ago`; }
+  else { dot.className='dot'; st.textContent = `live · updated ${Math.round(ageMin)} min ago`; }
+
+  document.getElementById('fillrate').textContent = s.n_placed ? fmtPct(100*s.fill_rate) : '—';
+  document.getElementById('fillcx').textContent = `${s.n_filled||0} filled of ${s.n_placed||0} placed`;
+  const evEl = document.getElementById('ev');
+  evEl.textContent = s.ev==null ? '—' : fmtC(s.ev);
+  evEl.className = 'big ' + (s.ev>0?'pos':(s.ev<0?'neg':''));
+
+  const tiles = [
+    ['Day', `${(s.day||0).toFixed(1)} / 14`],
+    ['Placed', s.n_placed||0],
+    ['Filled', s.n_filled||0],
+    ['Settled', s.n_settled||0],
+    ['Resting', s.n_resting||0],
+    ['Win rate', s.win_rate==null?'—':fmtPct(100*s.win_rate)],
+    ['Adverse-fill', s.adverse==null?'—':fmtPct(100*s.adverse)],
+    ['Tripwire hedges', s.n_hedged||0],
+  ];
+  document.getElementById('tiles').innerHTML = tiles.map(([l,v])=>
+    `<div class="tile"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join('');
+
+  // gates
+  const gates = d.gates || [];
+  document.getElementById('gates').innerHTML = gates.map(g=>
+    `<div class="gate"><span class="name">${esc(g.name)}</span>
+     <span class="val">${esc(g.value)}</span>
+     <span class="badge ${g.status}">${g.status.toUpperCase()}</span></div>`).join('')
+    || '<div class="note">Gates evaluate once positions settle.</div>';
+
+  // chart
+  drawChart(d.pnl_curve || []);
+  document.getElementById('chartnote').textContent = (d.pnl_curve && d.pnl_curve.length)
+    ? 'Each point is a settled phantom position, net of fees; one contract per signal.'
+    : 'No settled positions yet — longshots settle within ~24h of placement.';
+
+  // series table
+  const rows = (d.by_series||[]).map(x=>
+    `<tr><td>${esc(x.series)}</td><td>${x.placed}</td><td>${x.filled}</td>
+     <td>${x.settled}</td><td class="${x.ev>0?'pos':(x.ev<0?'neg':'')}">${x.ev==null?'—':fmtC(x.ev)}</td></tr>`).join('');
+  document.getElementById('sertbl').innerHTML =
+    '<tr><th>series</th><th>placed</th><th>filled</th><th>settled</th><th>avg pnl</th></tr>' + rows;
+
+  // feed
+  document.getElementById('feed').innerHTML = (d.events||[]).map(e=>
+    `<div class="row"><span>${esc(e.ts)}</span><span class="k ${esc(e.kind)}">${esc(e.kind)}</span>
+     <span style="color:var(--ink2)">${esc(e.ticker)} ${esc(e.detail)}</span></div>`).join('');
+
+  document.getElementById('footer').textContent =
+    `Strategy: longshot NO harvest (maker) · zero-maker-fee series prioritized · read-only key, no orders placed · `
+    + `data generated ${d.generated || '?'} UTC. Decision at day 14: fill-conditional EV ≥ +1¢ and adverse-fill ≤ 5% → go live.`;
+}
+
+function drawChart(curve){
+  const el = document.getElementById('chart');
+  if(!curve.length){ el.innerHTML = '<p class="note">—</p>'; return; }
+  const W=920,H=260,L=54,R=14,T=12,B=28,pw=W-L-R,ph=H-T-B;
+  const ys = curve.map(p=>p[1]), ymax=Math.max(...ys,1), ymin=Math.min(...ys,0);
+  const pad=(ymax-ymin)*0.08||1, lo=ymin-pad, hi=ymax+pad;
+  const X=i=>L+(curve.length<2?0:i/(curve.length-1))*pw, Y=v=>T+(1-(v-lo)/(hi-lo))*ph;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  const span=hi-lo, step=Math.pow(10,Math.floor(Math.log10(span/3||1)));
+  const mult=[1,2,5,10].find(m=>span/(step*m)<=5)||10;
+  for(let v=Math.ceil(lo/(step*mult))*(step*mult); v<=hi; v+=step*mult){
+    s+=`<line x1="${L}" y1="${Y(v).toFixed(1)}" x2="${L+pw}" y2="${Y(v).toFixed(1)}" stroke="var(--grid)"/>`;
+    s+=`<text x="${L-6}" y="${(Y(v)+3.5).toFixed(1)}" text-anchor="end">${v.toFixed(0)}¢</text>`;
+  }
+  if(lo<0&&hi>0) s+=`<line x1="${L}" y1="${Y(0)}" x2="${L+pw}" y2="${Y(0)}" stroke="var(--axis)"/>`;
+  let dp='M'+curve.map((p,i)=>`${X(i).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L');
+  s+=`<path d="${dp}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/>`;
+  const last=curve[curve.length-1];
+  s+=`<circle cx="${X(curve.length-1).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="4" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>`;
+  s+='</svg>';
+  el.innerHTML=s;
+}
+
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
