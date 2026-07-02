@@ -156,7 +156,7 @@ function render(d){
   evEl.className = 'big ' + (s.ev>0?'pos':(s.ev<0?'neg':''));
 
   const tiles = [
-    ['Day', `${(s.day||0).toFixed(1)} / 14`],
+    ['Day', `${(s.day||0).toFixed(1)} / 21`],
     ['Placed', s.n_placed||0],
     ['Filled', s.n_filled||0],
     ['Settled', s.n_settled||0],
@@ -236,9 +236,11 @@ function render(d){
     : 'No losses settled yet. As losers accrue, this shows how many gave a stop-loss a chance vs gapped through — measured on our own fills.';
 
   // feed
-  document.getElementById('feed').innerHTML = (d.events||[]).map(e=>
+  const feedRows = (d.events||[]).map(e=>
     `<div class="row"><span>${esc(e.ts)}</span><span class="k ${esc(e.kind)}">${esc(e.kind)}</span>
      <span style="color:var(--ink2)">${esc(e.ticker)} ${esc(e.detail)}</span></div>`).join('');
+  document.getElementById('feed').innerHTML = feedRows ||
+    '<div class="note" style="padding:4px 0">Waiting for activity — placements, fills, and settlements will stream here as they happen.</div>';
 
   document.getElementById('footer').textContent =
     `Strategy: longshot NO harvest (maker) · zero-maker-fee series prioritized · read-only key, no orders placed · `
