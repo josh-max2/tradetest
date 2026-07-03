@@ -1,30 +1,30 @@
 {
- "generated": "2026-07-03 18:45",
- "generated_epoch": 1783104302,
+ "generated": "2026-07-03 18:50",
+ "generated_epoch": 1783104610,
  "stage": "1-contract observation (broad filter) \u2014 Gate 1 pending first settlements",
  "account": {
-  "balance": 28.64,
+  "balance": 27.66,
   "committed": 38.04,
-  "locked": 19.52,
-  "resting_commit": 18.52,
+  "locked": 20.5,
+  "resting_commit": 17.54,
   "cap": "full",
   "start": 48.16
  },
  "open": {
-  "n": 20,
-  "potential_balance": 48.64,
-  "potential_gain": 0.48,
-  "worst_case": -19.52,
+  "n": 21,
+  "potential_balance": 48.66,
+  "potential_gain": 0.5,
+  "worst_case": -20.5,
   "next_settle": "2026-07-04T04:59:00Z"
  },
  "summary": {
   "placed": 68,
-  "resting": 19,
-  "filled": 20,
-  "filled_open": 20,
+  "resting": 18,
+  "filled": 21,
+  "filled_open": 21,
   "settled": 0,
   "expired": 29,
-  "fill_rate": 0.2941,
+  "fill_rate": 0.3088,
   "ev": null,
   "adverse": null,
   "realized": 0.0
@@ -43,7 +43,7 @@
     48.16
    ],
    [
-    0.616,
+    0.62,
     48.16
    ]
   ],
@@ -129,7 +129,7 @@
    "collateral": 0.99,
    "queue_ahead": 18848.58,
    "status": "RESTING",
-   "hrs": 13.2,
+   "hrs": 13.1,
    "close_ts": "2026-07-04T07:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -144,7 +144,7 @@
    "collateral": 0.96,
    "queue_ahead": 484.27,
    "status": "RESTING",
-   "hrs": 12.2,
+   "hrs": 12.1,
    "close_ts": "2026-07-04T06:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -176,21 +176,6 @@
    "status": "RESTING",
    "hrs": 11.2,
    "close_ts": "2026-07-04T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHTLV-26JUL03-T99",
-   "series": "KXHIGHTLV",
-   "sold_c": 2.0,
-   "collateral": 0.98,
-   "queue_ahead": 4.0,
-   "status": "RESTING",
-   "hrs": 13.2,
-   "close_ts": "2026-07-04T08:00:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -414,7 +399,7 @@
    "collateral": 0.96,
    "queue_ahead": 6.0,
    "status": "FILLED",
-   "hrs": 10.2,
+   "hrs": 10.1,
    "close_ts": "2026-07-04T04:59:00Z",
    "ttf_min": 17.8,
    "now_yes": 1.0,
@@ -429,7 +414,7 @@
    "collateral": 0.98,
    "queue_ahead": 81.0,
    "status": "FILLED",
-   "hrs": 11.2,
+   "hrs": 11.1,
    "close_ts": "2026-07-04T05:59:00Z",
    "ttf_min": 13.9,
    "now_yes": 1.0,
@@ -444,7 +429,7 @@
    "collateral": 0.98,
    "queue_ahead": 77.0,
    "status": "FILLED",
-   "hrs": 10.2,
+   "hrs": 10.1,
    "close_ts": "2026-07-04T04:59:00Z",
    "ttf_min": 12.8,
    "now_yes": 1.0,
@@ -459,7 +444,7 @@
    "collateral": 0.98,
    "queue_ahead": 1.0,
    "status": "FILLED",
-   "hrs": 11.2,
+   "hrs": 11.1,
    "close_ts": "2026-07-04T05:59:00Z",
    "ttf_min": 98.6,
    "now_yes": 1.0,
@@ -474,7 +459,7 @@
    "collateral": 0.98,
    "queue_ahead": 234.47,
    "status": "FILLED",
-   "hrs": 10.2,
+   "hrs": 10.1,
    "close_ts": "2026-07-04T04:59:00Z",
    "ttf_min": 410.8,
    "now_yes": 1.0,
@@ -588,6 +573,21 @@
    "pnl_c": null
   },
   {
+   "ticker": "KXHIGHTLV-26JUL03-T99",
+   "series": "KXHIGHTLV",
+   "sold_c": 2.0,
+   "collateral": 0.98,
+   "queue_ahead": 4.0,
+   "status": "FILLED",
+   "hrs": 13.2,
+   "close_ts": "2026-07-04T08:00:00Z",
+   "ttf_min": 882.0,
+   "now_yes": 5.0,
+   "win_odds": 94.4,
+   "result": null,
+   "pnl_c": null
+  },
+  {
    "ticker": "KXHIGHTHOU-26JUL03-T98",
    "series": "KXHIGHTHOU",
    "sold_c": 2.0,
@@ -597,7 +597,7 @@
    "hrs": 11.2,
    "close_ts": "2026-07-04T06:00:00Z",
    "ttf_min": 531.5,
-   "now_yes": 1.0,
+   "now_yes": 2.0,
    "win_odds": 97.7,
    "result": null,
    "pnl_c": null
@@ -709,6 +709,12 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-03T18:49:39",
+   "kind": "FILL",
+   "ticker": "KXHIGHTLV-26JUL03-T99",
+   "detail": "sold_c=2.0, queue_ahead=4.0, mins_to_fill=882.0"
+  },
   {
    "ts": "07-03T17:37:11",
    "kind": "FILL",
@@ -939,12 +945,6 @@
   },
   {
    "ts": "07-03T07:01:29",
-   "kind": "CAP",
-   "ticker": "KXXRPD-26JUL0304-T1.7399",
-   "detail": "resting=38.23, would_add=0.99, free_balance=39.44"
-  },
-  {
-   "ts": "07-03T07:00:53",
    "kind": "CAP",
    "ticker": "KXXRPD-26JUL0304-T1.7399",
    "detail": "resting=38.23, would_add=0.99, free_balance=39.44"
