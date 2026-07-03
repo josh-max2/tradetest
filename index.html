@@ -57,6 +57,7 @@ th:first-child,td:first-child{text-align:left;font-variant-numeric:normal}
  <div class="hcard"><div class="l">Account balance <span style="color:var(--muted)">(started $48.16)</span></div>
   <div class="big" id="balance">—</div>
   <div class="cx" id="balcx"></div>
+  <div class="cx" id="potential" style="margin-top:3px"></div>
   <div id="pnlchart" style="margin-top:10px"></div></div>
  <div class="hcard"><div class="l">Fill rate <span style="color:var(--muted)">— the number this test exists to measure</span></div>
   <div class="big" id="fillrate" style="font-size:32px">—</div><div class="cx" id="fillcx"></div>
@@ -112,6 +113,12 @@ function render(d){
     `<b>${money(a.locked)}</b> locked in ${s.filled_open||0} open positions · `
     + `${money(a.resting_commit)} in ${s.resting||0} resting orders · `
     + `realized <span class="${(s.realized||0)>=0?'pos':'neg'}">${money(s.realized)}</span> · $${(a.cap||40)} cap`;
+  const o=d.open||{};
+  document.getElementById('potential').innerHTML = (o.n>0)
+    ? `Best case if all ${o.n} open win → <b>${money(o.potential_balance)}</b> <span class="pos">(+${money(o.potential_gain)})</span>`
+      + ` · worst <span class="neg">${money(o.worst_case)}</span>`
+      + (o.next_settle?` · first settles ${fmtT(o.next_settle)}`:'')
+    : `<span style="color:var(--muted)">Potential shows once a position fills.</span>`;
   drawPnl(d.pnl_curve||[]);
 
   document.getElementById('fillrate').textContent = s.placed ? pct(100*s.fill_rate) : '—';
@@ -137,16 +144,17 @@ function render(d){
   const rest=orders.filter(o=>o.status==='RESTING');
 
   document.getElementById('fillstbl').innerHTML =
-    '<tr><th>market</th><th>sold YES @</th><th>queue ahead</th><th>min→fill</th><th>status</th><th>outcome</th><th>P&L</th></tr>'
+    '<tr><th>market</th><th>sold YES @</th><th>queue ahead</th><th>min→fill</th><th>status</th><th>settles</th><th>outcome</th><th>P&L</th></tr>'
     + (fills.length? fills.map(o=>{
         const out = o.status==='SETTLED' ? (o.result==='no'?'won (NO)':'lost (YES)') : 'pending';
         const pnl = o.pnl_c==null?'—':fmtC(o.pnl_c);
         return `<tr><td>${esc(o.ticker)}</td><td>${o.sold_c==null?'—':o.sold_c+'¢'}</td>
           <td>${fmtQ(o.queue_ahead)}</td><td>${o.ttf_min==null?'—':o.ttf_min+'m'}</td>
           <td><span class="pill ${o.status}">${o.status}</span></td>
+          <td>${fmtT(o.close_ts)}</td>
           <td class="${o.result==='no'?'pos':(o.result==='yes'?'neg':'')}">${out}</td>
           <td class="${o.pnl_c>0?'pos':(o.pnl_c<0?'neg':'')}">${pnl}</td></tr>`;}).join('')
-      : '<tr><td colspan="7" style="color:var(--muted);text-align:left">No fills yet — thin-queue markets fill first.</td></tr>');
+      : '<tr><td colspan="8" style="color:var(--muted);text-align:left">No fills yet — thin-queue markets fill first.</td></tr>');
   document.getElementById('fillsnote').textContent = fills.length
     ? `${fills.length} filled. "Queue ahead" is how many contracts were resting in front of us when we placed — small numbers fill, huge numbers don't. That selection is the edge.`
     : '';
