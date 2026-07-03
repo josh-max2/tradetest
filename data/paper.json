@@ -1,30 +1,30 @@
 {
- "generated": "2026-07-03 12:58",
- "generated_epoch": 1783083483,
+ "generated": "2026-07-03 13:00",
+ "generated_epoch": 1783083639,
  "stage": "1-contract observation (broad filter) \u2014 Gate 1 pending first settlements",
  "account": {
-  "balance": 31.6,
+  "balance": 30.62,
   "committed": 38.04,
-  "locked": 16.56,
-  "resting_commit": 21.48,
+  "locked": 17.54,
+  "resting_commit": 20.5,
   "cap": "full",
   "start": 48.16
  },
  "open": {
-  "n": 17,
-  "potential_balance": 48.6,
-  "potential_gain": 0.44,
-  "worst_case": -16.56,
+  "n": 18,
+  "potential_balance": 48.62,
+  "potential_gain": 0.46,
+  "worst_case": -17.54,
   "next_settle": "2026-07-04T04:59:00Z"
  },
  "summary": {
   "placed": 68,
-  "resting": 22,
-  "filled": 17,
-  "filled_open": 17,
+  "resting": 21,
+  "filled": 18,
+  "filled_open": 18,
   "settled": 0,
   "expired": 29,
-  "fill_rate": 0.25,
+  "fill_rate": 0.2647,
   "ev": null,
   "adverse": null,
   "realized": 0.0
@@ -43,7 +43,7 @@
     48.16
    ],
    [
-    0.375,
+    0.377,
     48.16
    ]
   ],
@@ -221,21 +221,6 @@
    "status": "RESTING",
    "hrs": 19.0,
    "close_ts": "2026-07-04T08:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHTHOU-26JUL03-T98",
-   "series": "KXHIGHTHOU",
-   "sold_c": 2.0,
-   "collateral": 0.98,
-   "queue_ahead": 56.0,
-   "status": "RESTING",
-   "hrs": 17.0,
-   "close_ts": "2026-07-04T06:00:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -462,7 +447,7 @@
    "hrs": 16.0,
    "close_ts": "2026-07-04T04:59:00Z",
    "ttf_min": 17.8,
-   "now_yes": 1.5,
+   "now_yes": 1.0,
    "win_odds": 96.7,
    "result": null,
    "pnl_c": null
@@ -603,6 +588,21 @@
    "pnl_c": null
   },
   {
+   "ticker": "KXHIGHTHOU-26JUL03-T98",
+   "series": "KXHIGHTHOU",
+   "sold_c": 2.0,
+   "collateral": 0.98,
+   "queue_ahead": 56.0,
+   "status": "FILLED",
+   "hrs": 17.0,
+   "close_ts": "2026-07-04T06:00:00Z",
+   "ttf_min": 531.5,
+   "now_yes": 3.0,
+   "win_odds": 94.4,
+   "result": null,
+   "pnl_c": null
+  },
+  {
    "ticker": "KXHIGHTDC-26JUL03-T108",
    "series": "KXHIGHTDC",
    "sold_c": 1.0,
@@ -709,6 +709,12 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-03T12:59:07",
+   "kind": "FILL",
+   "ticker": "KXHIGHTHOU-26JUL03-T98",
+   "detail": "sold_c=2.0, queue_ahead=56.0, mins_to_fill=531.5"
+  },
   {
    "ts": "07-03T11:34:33",
    "kind": "FILL",
@@ -942,12 +948,6 @@
    "kind": "PLACED",
    "ticker": "KXETHD-26JUL0304-T2339.99",
    "detail": "order_id=318ea55c-c334-46e8-a928-94a1313e033f, sell_YES@$=0.01, fill_count=0.0"
-  },
-  {
-   "ts": "07-03T07:00:52",
-   "kind": "PLACED",
-   "ticker": "KXBTCD-26JUL0317-T71999.99",
-   "detail": "order_id=0ddc6808-51c2-4e05-a4ca-1bd83bcbbb1b, sell_YES@$=0.01, fill_count=0.0"
   }
  ]
 }
