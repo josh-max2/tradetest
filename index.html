@@ -112,7 +112,7 @@ function render(d){
   document.getElementById('balcx').innerHTML =
     `<b>${money(a.locked)}</b> locked in ${s.filled_open||0} open positions · `
     + `${money(a.resting_commit)} in ${s.resting||0} resting orders · `
-    + `realized <span class="${(s.realized||0)>=0?'pos':'neg'}">${money(s.realized)}</span> · $${(a.cap||40)} cap`;
+    + `realized <span class="${(s.realized||0)>=0?'pos':'neg'}">${money(s.realized)}</span> · full-capital deploy`;
   const o=d.open||{};
   document.getElementById('potential').innerHTML = (o.n>0)
     ? `Best case if all ${o.n} open win → <b>${money(o.potential_balance)}</b> <span class="pos">(+${money(o.potential_gain)})</span>`
@@ -172,7 +172,7 @@ function render(d){
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
 
   document.getElementById('footer').textContent =
-    `Live longshot-NO test · 1 contract/market · $${a.cap||40} cap · post-only · read/write key · data ${d.generated||'?'} UTC. `
+    `Live longshot-NO test · 1 contract/market · full-capital deploy · post-only · read/write key · data ${d.generated||'?'} UTC. `
     + `Go-live read: fill-conditional EV ≥ +1¢ and adverse-fill ≤ 5% as trades settle.`;
 }
 
