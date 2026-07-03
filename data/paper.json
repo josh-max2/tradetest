@@ -1,30 +1,30 @@
 {
- "generated": "2026-07-03 17:35",
- "generated_epoch": 1783100137,
+ "generated": "2026-07-03 17:38",
+ "generated_epoch": 1783100292,
  "stage": "1-contract observation (broad filter) \u2014 Gate 1 pending first settlements",
  "account": {
-  "balance": 29.63,
+  "balance": 29.44,
   "committed": 38.04,
-  "locked": 18.53,
-  "resting_commit": 19.51,
+  "locked": 19.52,
+  "resting_commit": 18.52,
   "cap": "full",
   "start": 48.16
  },
  "open": {
-  "n": 19,
-  "potential_balance": 48.63,
-  "potential_gain": 0.47,
-  "worst_case": -18.53,
+  "n": 20,
+  "potential_balance": 49.44,
+  "potential_gain": 0.48,
+  "worst_case": -19.52,
   "next_settle": "2026-07-04T04:59:00Z"
  },
  "summary": {
   "placed": 68,
-  "resting": 20,
-  "filled": 19,
-  "filled_open": 19,
+  "resting": 19,
+  "filled": 20,
+  "filled_open": 20,
   "settled": 0,
   "expired": 29,
-  "fill_rate": 0.2794,
+  "fill_rate": 0.2941,
   "ev": null,
   "adverse": null,
   "realized": 0.0
@@ -43,7 +43,7 @@
     48.16
    ],
    [
-    0.568,
+    0.57,
     48.16
    ]
   ],
@@ -129,7 +129,7 @@
    "collateral": 0.99,
    "queue_ahead": 18848.58,
    "status": "RESTING",
-   "hrs": 14.4,
+   "hrs": 14.3,
    "close_ts": "2026-07-04T07:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -144,7 +144,7 @@
    "collateral": 0.96,
    "queue_ahead": 484.27,
    "status": "RESTING",
-   "hrs": 13.4,
+   "hrs": 13.3,
    "close_ts": "2026-07-04T06:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -176,21 +176,6 @@
    "status": "RESTING",
    "hrs": 12.4,
    "close_ts": "2026-07-04T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHTBOS-26JUL03-T106",
-   "series": "KXHIGHTBOS",
-   "sold_c": 1.0,
-   "collateral": 0.99,
-   "queue_ahead": 331.4,
-   "status": "RESTING",
-   "hrs": 11.4,
-   "close_ts": "2026-07-04T05:00:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -429,7 +414,7 @@
    "collateral": 0.96,
    "queue_ahead": 6.0,
    "status": "FILLED",
-   "hrs": 11.4,
+   "hrs": 11.3,
    "close_ts": "2026-07-04T04:59:00Z",
    "ttf_min": 17.8,
    "now_yes": 4.5,
@@ -444,7 +429,7 @@
    "collateral": 0.98,
    "queue_ahead": 81.0,
    "status": "FILLED",
-   "hrs": 12.4,
+   "hrs": 12.3,
    "close_ts": "2026-07-04T05:59:00Z",
    "ttf_min": 13.9,
    "now_yes": 1.0,
@@ -459,7 +444,7 @@
    "collateral": 0.98,
    "queue_ahead": 77.0,
    "status": "FILLED",
-   "hrs": 11.4,
+   "hrs": 11.3,
    "close_ts": "2026-07-04T04:59:00Z",
    "ttf_min": 12.8,
    "now_yes": 1.0,
@@ -474,7 +459,7 @@
    "collateral": 0.98,
    "queue_ahead": 1.0,
    "status": "FILLED",
-   "hrs": 12.4,
+   "hrs": 12.3,
    "close_ts": "2026-07-04T05:59:00Z",
    "ttf_min": 98.6,
    "now_yes": 1.0,
@@ -489,7 +474,7 @@
    "collateral": 0.98,
    "queue_ahead": 234.47,
    "status": "FILLED",
-   "hrs": 11.4,
+   "hrs": 11.3,
    "close_ts": "2026-07-04T04:59:00Z",
    "ttf_min": 410.8,
    "now_yes": 1.0,
@@ -524,6 +509,21 @@
    "ttf_min": 447.0,
    "now_yes": 1.0,
    "win_odds": 96.7,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTBOS-26JUL03-T106",
+   "series": "KXHIGHTBOS",
+   "sold_c": 1.0,
+   "collateral": 0.99,
+   "queue_ahead": 331.4,
+   "status": "FILLED",
+   "hrs": 11.4,
+   "close_ts": "2026-07-04T05:00:00Z",
+   "ttf_min": 809.6,
+   "now_yes": 1.0,
+   "win_odds": 97.7,
    "result": null,
    "pnl_c": null
   },
@@ -597,8 +597,8 @@
    "hrs": 12.4,
    "close_ts": "2026-07-04T06:00:00Z",
    "ttf_min": 531.5,
-   "now_yes": 8.5,
-   "win_odds": 92.5,
+   "now_yes": 13.0,
+   "win_odds": 90.9,
    "result": null,
    "pnl_c": null
   },
@@ -709,6 +709,12 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-03T17:37:11",
+   "kind": "FILL",
+   "ticker": "KXHIGHTBOS-26JUL03-T106",
+   "detail": "sold_c=1.0, queue_ahead=331.4, mins_to_fill=809.6"
+  },
   {
    "ts": "07-03T14:49:30",
    "kind": "FILL",
@@ -942,12 +948,6 @@
    "kind": "CAP",
    "ticker": "KXXRPD-26JUL0304-T1.7399",
    "detail": "resting=38.23, would_add=0.99, free_balance=39.44"
-  },
-  {
-   "ts": "07-03T07:00:53",
-   "kind": "PLACED",
-   "ticker": "KXETHD-26JUL0317-T2509.99",
-   "detail": "order_id=ce31d176-04f8-4cdb-8730-d9c3d447544e, sell_YES@$=0.01, fill_count=0.0"
   }
  ]
 }
