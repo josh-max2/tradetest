@@ -44,11 +44,43 @@ th:first-child,td:first-child{text-align:left;font-variant-numeric:normal}
 .k{font-weight:650}.k.FILL{color:var(--s1)}.k.SETTLE{color:var(--goodtext)}.k.EXPIRE{color:var(--muted)}.k.PLACED{color:var(--ink2)}.k.CAP,.k.FATAL,.k.ABORT{color:var(--warn)}
 .note{font-size:12px;color:var(--muted);margin-top:8px}svg text{font:11px system-ui;fill:var(--muted)}
 #err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:10px;padding:14px 18px;color:var(--crit);font-size:13px}
+</style>
+<style id="modern">
+/* ---- modern pass 2026-07-03 ---- */
+:root{ --surface:#ffffff; --page:#f5f5f1; --border:rgba(16,16,16,.07);
+ --shadow:0 1px 2px rgba(16,16,16,.04), 0 10px 30px rgba(16,16,16,.05); }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09;
+ --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0); } }
+.nav{display:flex;gap:4px;width:max-content;margin:0 0 22px;padding:4px;background:var(--surface);
+ border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink2)}
+.nav a.active{color:var(--ink);background:color-mix(in srgb, var(--s1) 13%, transparent)}
+.card,.hcard,.tile{border-radius:16px;box-shadow:var(--shadow)}
+.hcard{padding:22px 26px}
+.hcard .l{text-transform:uppercase;letter-spacing:.07em;font-size:10.5px;font-weight:650}
+.hcard .l span{text-transform:none;letter-spacing:0;font-weight:400}
+.hcard .big{font-size:42px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile .l{text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;font-weight:650}
+.tile .v{font-size:21px;font-variant-numeric:tabular-nums}
+h2{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:30px 0 10px}
+h2 span{text-transform:none;letter-spacing:0;font-size:11.5px}
+th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:6px 8px}
+td{padding:5px 8px}
+table td:first-child{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px}
+tr:hover td{background:color-mix(in srgb, var(--s1) 5%, transparent)}
+.dot{animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.live-badge{background:color-mix(in srgb, var(--crit) 9%, transparent)}
+.pill{letter-spacing:.03em}
+.feed .row{padding:4px 0}
+.gate{padding:10px 0}
 </style></head>
 <body>
-<div class="nav" style="display:flex;gap:2px;margin:0 0 18px;border-bottom:1px solid var(--grid)">
- <a href="./index.html" style="padding:8px 16px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--s1);margin-bottom:-1px">Live</a>
- <a href="./model.html" style="padding:8px 16px;font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px">Testing</a>
+<div class="nav">
+ <a class="active" href="./index.html">Live</a>
+ <a href="./model.html">Testing</a>
+ <a href="./appendix.html">Appendix</a>
 </div>
 <div class="top">
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
@@ -76,10 +108,6 @@ th:first-child,td:first-child{text-align:left;font-variant-numeric:normal}
 
 <h2>Real fills <span style="font-weight:400;color:var(--muted)">— which orders actually filled, and how deep the queue ahead of us was</span></h2>
 <div class="card" style="overflow-x:auto"><table id="fillstbl"></table><p class="note" id="fillsnote"></p></div>
-
-<h2>Survival odds lookup <span style="font-weight:400;color:var(--muted)">— historical odds the seller still wins from each price/time; ● marks where our open fills sit right now</span></h2>
-<div class="card" style="overflow-x:auto"><table id="oddstbl"></table>
-<p class="note">From 16,651 settled 2025 tail markets (positions like ours). Read: a short marked at 15–19¢ with 4–12h left still won 87.9% of the time historically — most scares recover. Only deep prices near the close (65¢+ under 4h) are usually real losses.</p></div>
 
 <h2>Resting orders <span style="font-weight:400;color:var(--muted)">— waiting to fill (small queue-ahead = likelier)</span></h2>
 <div class="card" style="overflow-x:auto"><table id="resttbl"></table></div>
@@ -172,27 +200,10 @@ function render(d){
           <td class="${o.pnl_c>0?'pos':(o.pnl_c<0?'neg':'')}">${pnl}</td></tr>`;}).join('')
       : '<tr><td colspan="10" style="color:var(--muted);text-align:left">No fills yet — thin-queue markets fill first.</td></tr>');
   document.getElementById('fillsnote').textContent = fills.length
-    ? `${fills.length} filled. "Now" = current YES price (we're SHORT at the entry, so green move = falling our way). "Hist. win odds" = how often, across 16,651 historical tail markets, the seller STILL won from this price with this much time left — the lookup grid is below.`
+    ? `${fills.length} filled. "Now" = current YES price (we're SHORT at the entry, so green move = falling our way). "Hist. win odds" = how often, across 16,651 historical tail markets, the seller STILL won from this price with this much time left — full lookup grid in the Appendix tab.`
     : '';
 
-  // survival-odds lookup grid, with markers showing where each open fill sits now
-  const OT = d.odds_table;
-  if (OT && document.getElementById('oddstbl')) {
-    const pbEdge=[[2.5,0],[5.5,1],[9.5,2],[14.5,3],[19.5,4],[29.5,5],[39.5,6],[49.5,7],[64.5,8],[1e9,9]];
-    const tbIdx=h=>h==null?null:(h<4?2:(h<12?1:0));
-    const marks={};
-    fills.filter(o=>o.status==='FILLED'&&o.now_yes!=null&&o.hrs>0).forEach(o=>{
-      const pi=pbEdge.find(e=>o.now_yes<=e[0])[1], ti=tbIdx(o.hrs);
-      if(ti!=null) marks[pi+'|'+ti]=(marks[pi+'|'+ti]||0)+1;
-    });
-    document.getElementById('oddstbl').innerHTML =
-      '<tr><th>price now</th>'+OT.cols.map(c=>`<th>${esc(c)} to close</th>`).join('')+'</tr>'
-      + OT.rows.map((r,pi)=>'<tr><td>'+esc(r[0])+'</td>'+r.slice(1).map((v,ti)=>{
-          const m=marks[pi+'|'+ti];
-          const cls=v==null?'':(v>=90?'pos':(v<75?'neg':''));
-          return `<td class="${cls}">${v==null?'—':v.toFixed(1)+'%'}${m?` <span style="color:var(--s1);font-weight:700">●${m>1?'×'+m:''}</span>`:''}</td>`;
-        }).join('')+'</tr>').join('');
-  }
+  // (survival-odds lookup grid moved to appendix.html)
 
   document.getElementById('resttbl').innerHTML =
     '<tr><th>market</th><th>sold YES @</th><th>queue ahead</th><th>collateral</th><th>settles</th></tr>'

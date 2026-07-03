@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Appendix — reference tables</title>
+<style>
+:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8b897f;
+ --grid:#e7e6df; --border:rgba(16,16,16,.07); --s1:#2f6fe4; --good:#12a150; --goodtext:#0b7a3b;
+ --warn:#e9a800; --crit:#d8434e; --shadow:0 1px 2px rgba(16,16,16,.04), 0 10px 30px rgba(16,16,16,.05); }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#f4f3ef; --ink2:#b9b7ae;
+ --muted:#7d7b72; --grid:#262623; --border:rgba(255,255,255,.08); --s1:#5b8ff2; --goodtext:#3ecf7a; --shadow:none; } }
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:26px 5vw 80px;max-width:1000px;margin-inline:auto}
+.nav{display:flex;gap:4px;width:max-content;margin:0 0 22px;padding:4px;background:var(--surface);
+ border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink2)}
+.nav a.active{color:var(--ink);background:color-mix(in srgb, var(--s1) 13%, transparent)}
+h1{font-size:22px;font-weight:650;margin:0}
+.sub{color:var(--ink2);font-size:13.5px;margin:4px 0 22px;max-width:780px}
+h2{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:30px 0 10px}
+h2 span{text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted);font-size:11.5px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 20px;margin-bottom:14px;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:var(--muted);font-weight:650;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--grid);padding:6px 8px;text-align:right}
+td{padding:5px 8px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+tr:hover td{background:color-mix(in srgb, var(--s1) 5%, transparent)}
+.pos{color:var(--goodtext)}.neg{color:var(--crit)}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+dt{font-weight:650;font-size:13px;margin-top:10px}
+dd{margin:2px 0 0;color:var(--ink2);font-size:13px}
+#err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:10px;padding:14px 18px;color:var(--crit);font-size:13px;margin-bottom:14px}
+</style></head>
+<body>
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a href="./model.html">Testing</a>
+ <a class="active" href="./appendix.html">Appendix</a>
+</div>
+<h1>Appendix — reference tables &amp; methodology</h1>
+<p class="sub">The lookup tables behind the numbers on the Live and Testing pages, plus definitions for a reader with no context.</p>
+<div id="err">Couldn't load live data — the grid still shows; position markers will appear when data loads.</div>
+
+<h2>Survival odds lookup <span>— historical odds the seller still wins from each price/time · ● marks where our open fills sit right now</span></h2>
+<div class="card" style="overflow-x:auto"><table id="oddstbl"></table>
+<p class="note">From 16,651 settled 2025 tail markets (same families and entry band as our live positions). Read: a short marked at 15–19¢ with 4–12h left still won 87.9% of the time historically — most scares recover. Only deep prices near the close (65¢+ under 4h) are usually real losses. This is also why the strategy never uses stop-losses: buying back a drifted tail means paying the same overpricing we normally collect (verified: holding beats cutting at every cell of this grid).</p></div>
+
+<h2>Methodology <span>— where every number comes from</span></h2>
+<div class="card">
+<dl style="margin:0">
+<dt>Backtest universe</dt><dd>16,651 settled Kalshi markets (2025) in the zero-maker-fee families we trade (weather highs/lows/rain, BTC/ETH/XRP/SOL/DOGE dailies, gold/silver/gas/oil) that traded at 1–8¢ with ≥1h to close — i.e., markets like the ones the bot enters. Equal-weighted per market (matches 1-contract-per-market sizing).</dd>
+<dt>Fill simulation</dt><dd>A resting sell order behind a queue of Q contracts fills when cumulative real buyer volume exceeds Q; the fill is scored at that moment's price against the final settlement. No assumed fills, no slippage (a resting limit can't fill worse than its price; post-only can never cross).</dd>
+<dt>Fees</dt><dd>$0 maker fees on every eligible series — enforced in code and verified on live orders. Taker fees are impossible by construction (post-only).</dd>
+<dt>Survival odds (grid above)</dt><dd>P(market settles NO | it traded in a price bucket with a given time-to-close remaining), over the same universe.</dd>
+<dt>Forward projection (Testing tab)</dt><dd>4,000 Monte-Carlo paths of the sizing plan using the audited loss rate (4.43% at −94¢) with correlated weather-region clusters and ~1.1-day settlement cycles.</dd>
+<dt>Live data</dt><dd>Everything on the Live tab comes from the actual account: real orders, real fills read back from the exchange, real settlements. The bot never assumes a fill.</dd>
+</dl>
+</div>
+
+<h2>Glossary <span>— for readers new to event markets</span></h2>
+<div class="card">
+<dl style="margin:0">
+<dt>Selling YES at 4¢</dt><dd>Taking the position that an unlikely event won't happen. We collect 4¢ now; if the event doesn't happen we keep it, if it does we pay $1 (lose 96¢). One contract = $1 at stake.</dd>
+<dt>Maker / post-only</dt><dd>Our orders rest in the order book waiting for a buyer, like a limit order — never paying the spread, never paying fees on these markets. "Post-only" means the exchange rejects the order rather than letting it execute immediately.</dd>
+<dt>Queue ahead</dt><dd>How many contracts were resting at our price before us. Buyers consume the queue in order, so a small queue fills fast; a 100k queue essentially never reaches us.</dd>
+<dt>Settlement</dt><dd>Each market resolves within ~a day (e.g., the day's official high temperature). Winners are paid automatically; there is no exiting early in this strategy — historical data shows cutting losses always costs more than holding.</dd>
+<dt>Fill-conditional EV</dt><dd>Average profit per contract measured only on orders that actually filled — the number that decides whether the strategy scales up.</dd>
+</dl>
+</div>
+
+<script>
+const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;};
+async function load(){
+  let d=null;
+  try{
+    const r=await fetch('./data/paper.json?t='+Date.now(),{cache:'no-store'});
+    if(r.ok) d=await r.json();
+  }catch(e){}
+  if(!d){ document.getElementById('err').style.display='block'; }
+  const OT=(d&&d.odds_table)||null;
+  if(!OT) return;
+  const fills=((d.orders)||[]).filter(o=>o.status==='FILLED'&&o.now_yes!=null&&o.hrs>0);
+  const pbEdge=[[2.5,0],[5.5,1],[9.5,2],[14.5,3],[19.5,4],[29.5,5],[39.5,6],[49.5,7],[64.5,8],[1e9,9]];
+  const tbIdx=h=>h==null?null:(h<4?2:(h<12?1:0));
+  const marks={};
+  fills.forEach(o=>{
+    const pi=pbEdge.find(e=>o.now_yes<=e[0])[1], ti=tbIdx(o.hrs);
+    if(ti!=null) marks[pi+'|'+ti]=(marks[pi+'|'+ti]||0)+1;
+  });
+  document.getElementById('oddstbl').innerHTML =
+    '<tr><th>price now</th>'+OT.cols.map(c=>`<th>${esc(c)} to close</th>`).join('')+'</tr>'
+    + OT.rows.map((r,pi)=>'<tr><td>'+esc(r[0])+'</td>'+r.slice(1).map((v,ti)=>{
+        const m=marks[pi+'|'+ti];
+        const cls=v==null?'':(v>=90?'pos':(v<75?'neg':''));
+        return `<td class="${cls}">${v==null?'—':v.toFixed(1)+'%'}${m?` <span style="color:var(--s1);font-weight:700">●${m>1?'×'+m:''}</span>`:''}</td>`;
+      }).join('')+'</tr>').join('');
+}
+load(); setInterval(load, 120000);
+</script>
+</body>
+</html>
