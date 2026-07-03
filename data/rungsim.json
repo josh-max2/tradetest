@@ -1,9 +1,9 @@
 {
- "generated": "2026-07-03 10:18",
- "generated_epoch": 1783073936,
+ "generated": "2026-07-03 10:23",
+ "generated_epoch": 1783074199,
  "bankroll": 100.0,
  "start": 100.0,
- "reserved": 0.0,
+ "reserved": 6.3,
  "age_days": 0.01,
  "equity": [
   [
@@ -11,26 +11,26 @@
    100.0
   ],
   [
-   0.005,
+   0.009,
    100.0
   ]
  ],
  "summary": {
   "registered": 387,
-  "any_print": 0,
-  "fills": 0,
+  "any_print": 1,
+  "fills": 1,
   "settled": 0,
   "gated": 0,
   "expired": 0,
-  "capture": null,
+  "capture": 100.0,
   "ev": null,
   "bust": null,
-  "events": 0
+  "events": 1
  },
  "gates": [
   {
    "name": "Sample \u2265 30 fills across \u2265 15 events",
-   "value": "0 fills / 0 events",
+   "value": "1 fills / 1 events",
    "status": "watch"
   },
   {
@@ -40,8 +40,8 @@
   },
   {
    "name": "Capture ratio \u2265 40%",
-   "value": "\u2014",
-   "status": "watch"
+   "value": "100%",
+   "status": "pass"
   },
   {
    "name": "Bust rate \u2264 32%",
@@ -53,9 +53,9 @@
   {
    "L": 30,
    "registered": 129,
-   "any_print": 0,
-   "fills": 0,
-   "capture": null,
+   "any_print": 1,
+   "fills": 1,
+   "capture": 100.0,
    "settled": 0,
    "ev": null,
    "busts": 0
@@ -81,7 +81,20 @@
    "busts": 0
   }
  ],
- "fills": [],
+ "fills": [
+  {
+   "ticker": "KXLOWTHOU-26JUL03-B74.5",
+   "L": 30,
+   "queue": 2.89,
+   "contracts": 9.0,
+   "stake": 6.3,
+   "fill_ts": "2026-07-03T10:23:17.014834+00:00",
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "pnl_usd": null
+  }
+ ],
  "params": {
   "rungs": [
    30,
