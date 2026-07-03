@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dip Sim — $100 paper simulation</title>
+<style>
+:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8b897f;
+ --grid:#e7e6df; --border:rgba(16,16,16,.07); --s1:#2f6fe4; --good:#12a150; --goodtext:#0b7a3b;
+ --warn:#e9a800; --crit:#d8434e; --shadow:0 1px 2px rgba(16,16,16,.04), 0 10px 30px rgba(16,16,16,.05); }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#f4f3ef; --ink2:#b9b7ae;
+ --muted:#7d7b72; --grid:#262623; --border:rgba(255,255,255,.08); --s1:#5b8ff2; --goodtext:#3ecf7a; --shadow:none; } }
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:26px 5vw 80px;max-width:1000px;margin-inline:auto}
+.nav{display:flex;gap:4px;width:max-content;margin:0 0 22px;padding:4px;background:var(--surface);
+ border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink2)}
+.nav a.active{color:var(--ink);background:color-mix(in srgb, var(--s1) 13%, transparent)}
+h1{font-size:22px;font-weight:650;margin:0}
+.sim-badge{font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--s1);border:1.5px solid var(--s1);border-radius:99px;padding:2px 9px;margin-left:8px;vertical-align:middle;background:color-mix(in srgb, var(--s1) 8%, transparent)}
+.sub{color:var(--ink2);font-size:13.5px;margin:4px 0 18px;max-width:790px}
+h2{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:28px 0 10px}
+h2 span{text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted);font-size:11.5px}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-bottom:16px}@media(max-width:640px){.hero{grid-template-columns:1fr}}
+.hcard{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 26px;box-shadow:var(--shadow)}
+.hcard .l{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:650}
+.hcard .l span{text-transform:none;letter-spacing:0;font-weight:400}
+.hcard .big{font-size:42px;font-weight:700;letter-spacing:-.02em;margin-top:4px;font-variant-numeric:tabular-nums}
+.hcard .cx{font-size:13px;color:var(--ink2);margin-top:5px}
+.pos{color:var(--goodtext)}.neg{color:var(--crit)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:20px}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:11px 15px;box-shadow:var(--shadow)}
+.tile .l{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:650}
+.tile .v{font-size:20px;font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.gate{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--grid)}.gate:last-child{border-bottom:none}
+.gate .name{font-size:13.5px}.gate .val{font-variant-numeric:tabular-nums;color:var(--ink2);margin-left:auto;margin-right:14px}
+.badge{font-size:11px;font-weight:650;padding:2px 9px;border-radius:99px;border:1.5px solid}
+.badge.pass{color:var(--goodtext);border-color:var(--good)}.badge.watch{color:var(--ink);border-color:var(--warn)}.badge.fail{color:var(--crit);border-color:var(--crit)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:var(--muted);font-weight:650;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--grid);padding:6px 8px;text-align:right}
+td{padding:5px 8px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+td:first-child{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px}
+tr:hover td{background:color-mix(in srgb, var(--s1) 5%, transparent)}
+.pill{font-size:10.5px;font-weight:650;padding:1px 7px;border-radius:99px;border:1px solid var(--grid)}
+.pill.FILLED{color:var(--s1);border-color:var(--s1)}.pill.SETTLED{color:var(--goodtext);border-color:var(--good)}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+svg text{font:11px system-ui;fill:var(--muted)}
+#err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:10px;padding:14px 18px;color:var(--crit);font-size:13px;margin-bottom:14px}
+</style></head>
+<body>
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a href="./model.html">Testing</a>
+ <a class="active" href="./rungsim.html">Dip Sim</a>
+ <a href="./appendix.html">Appendix</a>
+</div>
+<h1>Dip-Buy Simulation<span class="sim-badge">● PAPER · $100 VIRTUAL · ZERO REAL ORDERS</span></h1>
+<p class="sub">Simulates the <b>dip-buy ladder</b>: when a near-certain weather market dips (NO falls from ~95+ toward 70/55/35 — i.e. the YES tail spikes to 30/45/65¢), phantom sell orders are waiting. Runs against the <b>real live order book and real trade prints</b> via the read-only API: each phantom order carries the actual queue ahead of it, and fills only when real buyer volume clears that queue. $100 virtual bankroll, universal-Kelly sizing, morning-only (rungs cancel &lt;8h to close). This tab decides whether the strategy earns real money.</p>
+<div id="err">Couldn't load data — first publish may be pending; retries automatically.</div>
+
+<div class="hero">
+ <div class="hcard"><div class="l">Virtual bankroll <span>(started $100 · universal-Kelly sizing)</span></div>
+  <div class="big" id="bank">$100.00</div>
+  <div class="cx" id="bankcx"></div>
+  <div id="chart" style="margin-top:10px"></div></div>
+ <div class="hcard"><div class="l">Capture ratio <span>— the make-or-break number</span></div>
+  <div class="big" id="capture" style="font-size:34px">—</div>
+  <div class="cx">of real dips past our levels, how many our queue position actually catches (backtest gate: ≥40%)</div>
+  <div class="l" style="margin-top:14px">EV per settled fill <span>(gate: ≥ +2.0¢)</span></div>
+  <div class="big" id="ev" style="font-size:34px">—</div></div>
+</div>
+
+<div class="tiles" id="tiles"></div>
+
+<h2>Pass/fail gates <span>— pre-registered before the sim started; no renegotiating</span></h2>
+<div class="card" id="gates"></div>
+
+<h2>Per-rung performance <span>— NO-side price in parentheses</span></h2>
+<div class="card" style="overflow-x:auto"><table id="rungtbl"></table></div>
+
+<h2>Simulated fills <span>— real dips, real queues, virtual money</span></h2>
+<div class="card" style="overflow-x:auto"><table id="fillstbl"></table><p class="note" id="fillsnote"></p></div>
+
+<h2>Parameters <span>— exactly what this sim runs</span></h2>
+<div class="card" style="overflow-x:auto"><table id="paramtbl"></table></div>
+
+<script>
+const money=v=>v==null?'—':(v<0?'-$':'$')+Math.abs(v).toFixed(2);
+const fmtC=v=>v==null?'—':(v>=0?'+':'')+v.toFixed(1)+'¢';
+const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;};
+async function load(){
+  try{
+    const r=await fetch('./data/rungsim.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw 0;
+    render(await r.json());
+    document.getElementById('err').style.display='none';
+  }catch(e){ document.getElementById('err').style.display='block'; }
+}
+function render(d){
+  const s=d.summary||{};
+  const gain=(d.bankroll||100)-(d.start||100);
+  document.getElementById('bank').textContent=money(d.bankroll);
+  document.getElementById('bank').className='big '+(gain>0?'pos':(gain<0?'neg':''));
+  document.getElementById('bankcx').innerHTML=
+    `<span class="${gain>=0?'pos':'neg'}">${gain>=0?'+':''}${money(gain)}</span> · ${money(d.reserved)} in ${ (s.fills||0)-(s.settled||0) } open sim positions · day ${(d.age_days||0).toFixed(1)} · updated ${esc(d.generated||'?')} UTC`;
+  drawEq(d.equity||[], d.start||100);
+  const cap=document.getElementById('capture');
+  cap.textContent = s.capture==null?'—':s.capture.toFixed(0)+'%';
+  cap.className='big '+(s.capture==null?'':(s.capture>=40?'pos':'neg')); cap.style.fontSize='34px';
+  const ev=document.getElementById('ev');
+  ev.textContent = s.ev==null?'—':fmtC(s.ev);
+  ev.className='big '+(s.ev==null?'':(s.ev>=2?'pos':(s.ev<0?'neg':''))); ev.style.fontSize='34px';
+  document.getElementById('tiles').innerHTML=[
+    ['Rungs registered',s.registered||0],['Dips past level',s.any_print||0],['Sim fills',s.fills||0],
+    ['Settled',s.settled||0],['Bust rate',s.bust==null?'—':s.bust.toFixed(0)+'%'],
+    ['Distinct events',s.events||0],
+  ].map(([l,v])=>`<div class="tile"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join('');
+  document.getElementById('gates').innerHTML=(d.gates||[]).map(g=>
+    `<div class="gate"><span class="name">${esc(g.name)}</span><span class="val">${esc(g.value)}</span>
+     <span class="badge ${g.status}">${g.status.toUpperCase()}</span></div>`).join('');
+  document.getElementById('rungtbl').innerHTML=
+    '<tr><th>rung</th><th>registered</th><th>dips past</th><th>fills</th><th>capture</th><th>settled</th><th>EV/fill</th><th>busts</th></tr>'
+    +(d.per_rung||[]).map(r=>`<tr><td>sell YES ${r.L}¢ (buy NO ${100-r.L}¢)</td><td>${r.registered}</td>
+      <td>${r.any_print}</td><td>${r.fills}</td>
+      <td class="${r.capture!=null&&r.capture>=40?'pos':''}">${r.capture==null?'—':r.capture.toFixed(0)+'%'}</td>
+      <td>${r.settled}</td><td class="${r.ev>0?'pos':(r.ev<0?'neg':'')}">${r.ev==null?'—':fmtC(r.ev)}</td>
+      <td>${r.busts}</td></tr>`).join('');
+  document.getElementById('fillstbl').innerHTML=
+    '<tr><th>market</th><th>rung</th><th>queue was</th><th>contracts</th><th>stake</th><th>status</th><th>outcome</th><th>P&L</th></tr>'
+    +((d.fills&&d.fills.length)?d.fills.map(f=>`<tr><td>${esc(f.ticker)}</td><td>${f.L}¢</td>
+      <td>${f.queue==null?'—':Math.round(f.queue)}</td><td>${f.contracts||0}</td><td>${money(f.stake)}</td>
+      <td><span class="pill ${f.status}">${f.status}</span></td>
+      <td class="${f.result==='no'?'pos':(f.result==='yes'?'neg':'')}">${f.result?(f.result==='no'?'won':'lost'):'open'}</td>
+      <td class="${f.pnl_usd>0?'pos':(f.pnl_usd<0?'neg':'')}">${f.pnl_usd==null?'—':money(f.pnl_usd)}</td></tr>`).join('')
+      :'<tr><td colspan="8" style="color:var(--muted);text-align:left">No sim fills yet — waiting for the first real dips past our levels.</td></tr>');
+  document.getElementById('fillsnote').textContent=(d.fills&&d.fills.length)
+    ? 'Every row = a real market dip observed live; the fill was granted only because real buyer volume cleared the actual queue that was ahead of our phantom order.'
+    : '';
+  const p=d.params||{};
+  document.getElementById('paramtbl').innerHTML=
+    '<tr><th>parameter</th><th>value</th></tr>'
+    +[['Universe',p.universe||'—'],['Rungs (sell YES)', (p.rungs||[]).join(' / ')+'¢  (= buy NO at '+(p.rungs||[]).map(x=>100-x).join(' / ')+'¢)'],
+      ['Time gate','rungs cancel < '+(p.gate_hrs||8)+'h to close (morning/overnight dips only)'],
+      ['Sizing','universal Kelly: deploy '+(100*(p.deploy||0.9))+'%, f = deploy/K (K='+(p.k_target||13)+'), cap '+(100*(p.f_cap||0.12))+'%/fill'],
+      ['Fill rule','depth-must-clear: real taker-buy volume at/above level must exceed the queue snapshotted at registration'],
+      ['Fees','$0 (maker, zero-fee series)'],['Orders placed','ZERO — read-only key, phantom only']]
+    .map(([k,v])=>`<tr><td style="font-family:system-ui">${esc(k)}</td><td style="text-align:left">${esc(v)}</td></tr>`).join('');
+}
+function drawEq(pts, start){
+  const el=document.getElementById('chart');
+  if(!pts||pts.length<2){ el.innerHTML=''; return; }
+  const W=440,H=80,L=6,R=6,T=8,B=8,pw=W-L-R,ph=H-T-B;
+  const xs=pts.map(p=>p[0]), ys=pts.map(p=>p[1]);
+  const xmax=Math.max(...xs,0.5), ymax=Math.max(...ys,start*1.02), ymin=Math.min(...ys,start*0.98);
+  const X=x=>L+(x/xmax)*pw, Y=v=>T+(1-(v-ymin)/(ymax-ymin||1))*ph;
+  let dp=`M${X(pts[0][0]).toFixed(1)},${Y(pts[0][1]).toFixed(1)}`;
+  for(let i=1;i<pts.length;i++) dp+=` L${X(pts[i][0]).toFixed(1)},${Y(pts[i-1][1]).toFixed(1)} L${X(pts[i][0]).toFixed(1)},${Y(pts[i][1]).toFixed(1)}`;
+  const up=ys[ys.length-1]>=start;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%">`
+    +`<line x1="${L}" y1="${Y(start).toFixed(1)}" x2="${L+pw}" y2="${Y(start).toFixed(1)}" stroke="var(--grid)"/>`
+    +`<path d="${dp}" fill="none" stroke="${up?'var(--good)':'var(--crit)'}" stroke-width="2"/></svg>`;
+}
+load(); setInterval(load, 90000);
+</script>
+</body>
+</html>
