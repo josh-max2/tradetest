@@ -107,12 +107,11 @@ function render(d){
   if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
 
-  const bal=a.balance, start=a.start||48.16;
-  document.getElementById('balance').textContent = bal==null?'—':money(bal);
-  const chg = bal==null?0:(bal-start);
+  document.getElementById('balance').textContent = a.balance==null?'—':money(a.balance);
   document.getElementById('balcx').innerHTML =
-    `<span class="${chg>=0?'pos':'neg'}">${chg>=0?'+':''}${money(chg)}</span> vs start · `
-    + `${money(a.at_risk)} at risk (${s.filled_open||0} filled + ${s.resting||0} resting) · $${(a.cap||40)} cap`;
+    `<b>${money(a.locked)}</b> locked in ${s.filled_open||0} open positions · `
+    + `${money(a.resting_commit)} in ${s.resting||0} resting orders · `
+    + `realized <span class="${(s.realized||0)>=0?'pos':'neg'}">${money(s.realized)}</span> · $${(a.cap||40)} cap`;
   drawPnl(d.pnl_curve||[]);
 
   document.getElementById('fillrate').textContent = s.placed ? pct(100*s.fill_rate) : '—';
