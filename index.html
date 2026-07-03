@@ -148,19 +148,24 @@ function render(d){
   const rest=orders.filter(o=>o.status==='RESTING');
 
   document.getElementById('fillstbl').innerHTML =
-    '<tr><th>market</th><th>sold YES @</th><th>queue ahead</th><th>min→fill</th><th>status</th><th>settles</th><th>outcome</th><th>P&L</th></tr>'
+    '<tr><th>market</th><th>sold YES @</th><th>now</th><th>move</th><th>min→fill</th><th>status</th><th>settles</th><th>outcome</th><th>P&L</th></tr>'
     + (fills.length? fills.map(o=>{
         const out = o.status==='SETTLED' ? (o.result==='no'?'won (NO)':'lost (YES)') : 'pending';
         const pnl = o.pnl_c==null?'—':fmtC(o.pnl_c);
+        const nowP = (o.status==='FILLED' && o.now_yes!=null)? o.now_yes : null;
+        const mv = (nowP!=null && o.sold_c!=null)? (o.sold_c - nowP) : null;   // + = drifting our way
+        const mvCls = mv==null?'':(mv>0?'pos':(mv<0?'neg':''));
+        const mvTxt = mv==null?'—':((mv>0?'+':'')+mv.toFixed(1)+'¢');
         return `<tr><td>${esc(o.ticker)}</td><td>${o.sold_c==null?'—':o.sold_c+'¢'}</td>
-          <td>${fmtQ(o.queue_ahead)}</td><td>${o.ttf_min==null?'—':o.ttf_min+'m'}</td>
+          <td><b>${nowP==null?'—':nowP.toFixed(1)+'¢'}</b></td><td class="${mvCls}">${mvTxt}</td>
+          <td>${o.ttf_min==null?'—':o.ttf_min+'m'}</td>
           <td><span class="pill ${o.status}">${o.status}</span></td>
           <td>${fmtT(o.close_ts)}</td>
           <td class="${o.result==='no'?'pos':(o.result==='yes'?'neg':'')}">${out}</td>
           <td class="${o.pnl_c>0?'pos':(o.pnl_c<0?'neg':'')}">${pnl}</td></tr>`;}).join('')
-      : '<tr><td colspan="8" style="color:var(--muted);text-align:left">No fills yet — thin-queue markets fill first.</td></tr>');
+      : '<tr><td colspan="9" style="color:var(--muted);text-align:left">No fills yet — thin-queue markets fill first.</td></tr>');
   document.getElementById('fillsnote').textContent = fills.length
-    ? `${fills.length} filled. "Queue ahead" is how many contracts were resting in front of us when we placed — small numbers fill, huge numbers don't. That selection is the edge.`
+    ? `${fills.length} filled. "Now" = the market's current YES price. We're SHORT the YES at the entry price, so green move = the price has fallen our way (winning), red = it's climbing against us. Positions are held to settlement either way.`
     : '';
 
   document.getElementById('resttbl').innerHTML =
