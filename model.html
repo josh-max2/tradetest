@@ -15,17 +15,20 @@ body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-
 .nav{display:flex;gap:2px;margin:0 0 18px;border-bottom:1px solid var(--grid)}
 .nav a{padding:8px 16px;font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px}
 .nav a.active{color:var(--ink);border-bottom-color:var(--s1)}
-.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
 h1{font-size:22px;font-weight:650;margin:0}
-.sub{color:var(--ink2);font-size:13.5px;margin:4px 0 18px;max-width:760px}
+.sub{color:var(--ink2);font-size:13.5px;margin:4px 0 14px;max-width:780px}
+.explain{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--s1);border-radius:10px;padding:14px 18px;margin:0 0 18px;font-size:13.5px;color:var(--ink2)}
+.explain b{color:var(--ink)}
 .toggle{display:inline-flex;border:1px solid var(--border);border-radius:99px;overflow:hidden;margin:0 0 22px}
 .toggle button{border:none;background:var(--surface);color:var(--muted);font:600 13px system-ui;padding:9px 20px;cursor:pointer}
 .toggle button.on{background:var(--s1);color:#fff}
 .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-bottom:16px}@media(max-width:640px){.hero{grid-template-columns:1fr}}
 .hcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px}
-.hcard .l{font-size:12px;color:var(--muted)}.hcard .big{font-size:36px;font-weight:650;line-height:1.1;margin-top:4px}
+.hcard .l{font-size:12px;color:var(--muted)}.hcard .big{font-size:34px;font-weight:650;line-height:1.1;margin-top:4px}
 .hcard .cx{font-size:13px;color:var(--ink2);margin-top:5px}
 .pos{color:var(--goodtext)}.neg{color:var(--crit)}
+.startbox{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--ink2)}
+.startbox input{width:110px;font:650 16px system-ui;color:var(--ink);background:var(--page);border:1px solid var(--border);border-radius:8px;padding:6px 10px}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
 .tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 15px}
 .tile .l{font-size:11px;color:var(--muted)}.tile .v{font-size:19px;font-weight:650;margin-top:2px}
@@ -37,14 +40,19 @@ td{padding:4px 8px;text-align:right;font-variant-numeric:tabular-nums;border-bot
 th:first-child,td:first-child{text-align:left;font-variant-numeric:normal}
 .note{font-size:12px;color:var(--muted);margin-top:8px}
 svg text{font:11px system-ui;fill:var(--muted)}
-.pill{font-size:10.5px;font-weight:650;padding:1px 7px;border-radius:99px;border:1px solid var(--grid)}
-.pill.SETTLED{color:var(--goodtext);border-color:var(--good)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-top:8px}
+.sw{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin-right:5px}
 #err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:10px;padding:14px 18px;color:var(--crit);font-size:13px;margin-bottom:14px}
 </style></head>
 <body>
 <div class="nav"><a href="./index.html">Live</a><a class="active" href="./model.html">Testing</a></div>
-<div class="top"><h1>Testing — model vs real money</h1></div>
-<p class="sub">Two views of the same strategy. <b>Projected</b> = forward performance implied by the audited backtest (16,651 markets, 2025) and Monte-Carlo of the sizing ramp. <b>Actual</b> = performance computed <i>only</i> from real trades with real money — nothing modeled.</p>
+<h1>Testing — model vs real money</h1>
+<p class="sub"><b>Projected</b> = forward performance implied by the audited backtest (16,651 markets, 2025) + Monte-Carlo of the sizing plan. <b>Actual</b> = performance from real trades with real money — nothing modeled.</p>
+
+<div class="explain" id="explain">
+<b>The strategy, for someone with zero context:</b> a bot places passive "maker" sell orders on extreme longshots (1–8¢ outcomes) in Kalshi's zero-fee weather/crypto/commodity event markets — economically, selling lottery tickets to buyers who systematically overpay for them. Positions are held ~1 day to settlement. Historically <b>~95.6% settle in our favor</b> for a few cents each; <b>~4.4% lose big</b> (−94¢) — the edge is the premium collected exceeding the rare losses, with <b>$0 fees</b> (verified live) and no exit slippage (never sells early).
+<br><br><b>How to tell if it's working:</b> (1) on the Actual view, the observed <b>loss rate stays ≤6%</b> and <b>EV per fill ≥ +1¢</b> as settled trades accumulate; (2) the bold real-equity line tracks inside the model's shaded band. Sizing only scales up through pre-defined gates if those hold. <span id="stageline" style="color:var(--muted)"></span>
+</div>
 
 <div class="toggle">
  <button id="btn-proj" class="on" onclick="show('proj')">Projected · backtest model</button>
@@ -55,40 +63,49 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <!-- ================= PROJECTED ================= -->
 <div id="proj">
  <div class="hero">
-  <div class="hcard"><div class="l">Projected time to double $48.16 (median)</div>
+  <div class="hcard"><div class="l">Projected time to double (median — size-independent)</div>
    <div class="big" id="p-double">—</div>
-   <div class="cx" id="p-doublecx"></div></div>
+   <div class="cx" id="p-doublecx"></div>
+   <div class="startbox">Starting capital $ <input id="startval" type="number" min="10" step="10" value="48.16" oninput="renderProj()">
+    <span id="p-target"></span></div></div>
   <div class="hcard"><div class="l">Model inputs (audited, net of fees)</div>
    <div class="cx" style="margin-top:8px" id="p-inputs"></div></div>
  </div>
- <h2>Forward equity projection <span style="font-weight:400;color:var(--muted)">— median path with 25–75% band, ramp plan included</span></h2>
- <div class="card"><div id="p-chart"></div><p class="note" id="p-chartnote"></p></div>
+ <h2>Forward equity projection <span style="font-weight:400;color:var(--muted)">— median path, 25–75% band, sizing ramp included</span></h2>
+ <div class="card"><div id="p-chart"></div>
+  <div class="legend"><span><span class="sw" style="background:var(--s1)"></span>median path</span>
+   <span><span class="sw" style="background:var(--band)"></span>25–75% of simulated outcomes</span>
+   <span><span class="sw" style="background:var(--good)"></span>2× (double)</span></div>
+  <p class="note" id="p-chartnote"></p></div>
  <h2>Sizing ramp stages</h2>
  <div class="card" style="overflow-x:auto"><table id="p-stages"></table></div>
- <h2>EV per fill by price band <span style="font-weight:400;color:var(--muted)">— why the smart filter drops 1–2¢</span></h2>
+ <h2>EV per fill by price band <span style="font-weight:400;color:var(--muted)">— why the strategy drops 1–2¢ tails</span></h2>
  <div class="card" style="overflow-x:auto"><table id="p-band"></table></div>
- <h2>Fill probability &amp; EV by queue depth <span style="font-weight:400;color:var(--muted)">— why we only join thin queues</span></h2>
+ <h2>Fill probability &amp; EV by queue depth <span style="font-weight:400;color:var(--muted)">— why it only joins thin queues</span></h2>
  <div class="card" style="overflow-x:auto"><table id="p-queue"></table></div>
  <h2>Liquidity audit <span style="font-weight:400;color:var(--muted)">— why no liquidity filter is needed</span></h2>
- <div class="card" style="overflow-x:auto"><table id="p-liq"></table><p class="note">The queue-clearing requirement is itself a liquidity gate: toxic dead markets can't fill us. Quiet markets that do fill are the benign lottery-money bursts.</p></div>
+ <div class="card" style="overflow-x:auto"><table id="p-liq"></table><p class="note">The queue-clearing requirement is itself a liquidity gate: dead markets can't fill us; quiet markets that do fill are benign lottery-money bursts.</p></div>
  <p class="note" id="p-sources"></p>
 </div>
 
 <!-- ================= ACTUAL ================= -->
 <div id="act" style="display:none">
  <div class="hero">
-  <div class="hcard"><div class="l">Real account (started $48.16)</div>
-   <div class="big" id="a-bal">—</div>
+  <div class="hcard"><div class="l">Real equity <span style="color:var(--muted)">(start $48.16 + settled P&amp;L; open positions at cost)</span></div>
+   <div class="big" id="a-eq">—</div>
    <div class="cx" id="a-balcx"></div></div>
   <div class="hcard"><div class="l">Realized P&amp;L — settled real trades only</div>
    <div class="big" id="a-real">—</div>
    <div class="cx" id="a-realcx"></div></div>
  </div>
  <div class="tiles" id="a-tiles"></div>
- <h2>Actual vs model <span style="font-weight:400;color:var(--muted)">— the scoreboard that decides the gates</span></h2>
+ <h2>Real equity vs the model <span style="font-weight:400;color:var(--muted)">— bold line is real money only; shaded band is what the model expected</span></h2>
+ <div class="card"><div id="a-chart"></div>
+  <div class="legend"><span><span class="sw" style="background:var(--s1);height:5px"></span><b>real account equity</b> (settled trades only)</span>
+   <span><span class="sw" style="background:var(--band)"></span>model 25–75% expectation</span></div>
+  <p class="note" id="a-chartnote"></p></div>
+ <h2>Actual vs model scoreboard <span style="font-weight:400;color:var(--muted)">— the numbers that decide whether sizing scales up</span></h2>
  <div class="card" style="overflow-x:auto"><table id="a-vs"></table><p class="note" id="a-vsnote"></p></div>
- <h2>Cumulative realized P&amp;L <span style="font-weight:400;color:var(--muted)">— real settlements only</span></h2>
- <div class="card"><div id="a-chart"></div><p class="note" id="a-chartnote"></p></div>
  <h2>Settled real trades</h2>
  <div class="card" style="overflow-x:auto"><table id="a-settled"></table><p class="note" id="a-setnote"></p></div>
 </div>
@@ -99,6 +116,7 @@ const fmtC=v=>v==null?'—':(v>=0?'+':'')+v.toFixed(2)+'¢';
 const pctf=v=>v==null?'—':v.toFixed(1)+'%';
 const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;};
 let M=null,L=null;
+const BASE=48.16;
 
 function show(which){
   document.getElementById('proj').style.display = which==='proj'?'block':'none';
@@ -115,22 +133,31 @@ async function load(){
     if(!rm.ok||!rl.ok) throw 0;
     M=await rm.json(); L=await rl.json();
     document.getElementById('err').style.display='none';
+    document.getElementById('stageline').textContent = L.stage? ('Current stage: '+L.stage+'.') : '';
     renderProj(); renderAct();
   }catch(e){ document.getElementById('err').style.display='block'; }
 }
 
+function startVal(){
+  const v=parseFloat(document.getElementById('startval').value);
+  return (isFinite(v)&&v>=1)? v : BASE;
+}
+
 function renderProj(){
-  const h=M.headline;
+  if(!M) return;
+  const h=M.headline, S=startVal(), k=S/M.start_balance;
   document.getElementById('p-double').textContent = '~'+h.median_double_days+' days';
   document.getElementById('p-doublecx').innerHTML =
     `mid-range ${h.double_p25}–${h.double_p75}d · tails p5 ${h.double_p5}d / p95 ${h.double_p95}d · `
     +`expect a ~${h.median_max_drawdown_pct}% drawdown en route (normal, not failure)`;
+  document.getElementById('p-target').innerHTML = `→ doubles to <b>${money(S*2)}</b>`;
   document.getElementById('p-inputs').innerHTML =
     `EV per fill <b>${fmtC(h.ev_per_fill_c)}</b> (3–8¢ band, behind queue) · loss rate <b>${h.loss_rate}%</b> at −94¢ · `
     +`fills: weather <b>${M.fill_prob.weather_q100}%</b> / crypto <b>${M.fill_prob.crypto_q100}%</b> at thin queues · `
     +`full-Kelly growth <b>~${h.expected_daily_pct_full_kelly}%/day</b> · fees $0 (maker, verified live)`;
-  drawBandChart('p-chart', M.forward, M.start_balance);
-  document.getElementById('p-chartnote').textContent = M.forward.note;
+  drawFan('p-chart', M.forward, S, k);
+  document.getElementById('p-chartnote').textContent = M.forward.note
+    + ' Doubling TIME is size-independent up to ~$15k (capacity-audited); the dollar axis scales with your input.';
   document.getElementById('p-stages').innerHTML =
     '<tr><th>stage</th><th>size</th><th>expected growth/day</th><th>purpose</th></tr>'
     + M.stages.map(s=>`<tr><td>${esc(s.stage)}</td><td>${esc(s.size)}</td><td>+${s.growth_day}%</td><td style="text-align:left;color:var(--ink2)">${esc(s.purpose)}</td></tr>`).join('');
@@ -146,14 +173,19 @@ function renderProj(){
     '<tr><th>prior volume at fill</th><th>fills (backtest)</th><th>settles YES</th><th>EV/fill</th></tr>'
     + M.liquidity.map(l=>`<tr><td>${esc(l.bucket)}</td><td>${l.n.toLocaleString()}</td><td>${l.settle_yes}%</td>
        <td class="${l.ev>0?'pos':'neg'}">${fmtC(l.ev)}</td></tr>`).join('');
-  document.getElementById('p-sources').textContent = 'Sources: '+M.sources+' · generated '+M.generated;
+  document.getElementById('p-sources').textContent = 'Sources: '+M.sources+' · model generated '+M.generated;
 }
 
 function renderAct(){
-  const a=L.account||{}, s=L.summary||{};
-  document.getElementById('a-bal').textContent = money(a.balance);
+  if(!L||!M) return;
+  const a=L.account||{}, s=L.summary||{}, lc=L.live_curve||null;
+  const eq = lc? lc.equity : (BASE + (s.realized||0));
+  const eqEl=document.getElementById('a-eq');
+  eqEl.textContent = money(eq);
+  eqEl.className='big '+(eq>BASE?'pos':(eq<BASE?'neg':''));
   document.getElementById('a-balcx').innerHTML =
-    `${money(a.locked)} locked in ${s.filled_open||0} open positions · ${money(a.resting_commit)} resting · updated ${esc(L.generated||'?')} UTC`;
+    `cash ${money(a.balance)} + ${money(a.locked)} locked in ${s.filled_open||0} open positions · `
+    +`day ${lc?lc.age_days.toFixed(1):'?'} of live trading · updated ${esc(L.generated||'?')} UTC`;
   const rz=document.getElementById('a-real');
   rz.textContent = money(s.realized); rz.className='big '+((s.realized||0)>0?'pos':((s.realized||0)<0?'neg':''));
   document.getElementById('a-realcx').textContent = `${s.settled||0} settled real trades`;
@@ -164,24 +196,25 @@ function renderAct(){
     ['Observed loss rate', s.adverse==null?'—':pctf(100*s.adverse)],
   ].map(([l,v])=>`<div class="tile"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join('');
 
+  drawCompare('a-chart', M.forward, lc);
+  document.getElementById('a-chartnote').textContent = lc && lc.points.length>2
+    ? 'Every step in the bold line is a real settlement. If it runs inside or above the shaded band, live performance matches or beats the model.'
+    : 'Bold line is flat until the first real settlements land (tonight ~11 PM MDT) — then every step is a real trade result. The shaded band shows what the model expects for the same days.';
+
   const h=M.headline;
   const rows=[
     ['Loss rate', s.adverse==null?null:pctf(100*s.adverse), h.loss_rate+'%', s.adverse==null?null:(100*s.adverse<=6)],
     ['EV per fill', s.ev==null?null:fmtC(s.ev), fmtC(h.ev_per_fill_c)+' (smart band)', s.ev==null?null:(s.ev>=1)],
     ['Fill rate (all placed)', s.placed?pctf(100*s.fill_rate):null, '~60–87% thin-queue (smart) / low in broad mode', null],
+    ['Equity vs model band', lc?money(lc.equity):null, 'inside/above shaded band', null],
   ];
   document.getElementById('a-vs').innerHTML =
     '<tr><th>metric</th><th>actual (real money)</th><th>model</th><th>verdict</th></tr>'
     + rows.map(([m,act,mod,ok])=>`<tr><td>${esc(m)}</td><td><b>${act==null?'awaiting settlements':act}</b></td>
        <td>${esc(mod)}</td><td>${ok==null?'—':(ok?'<span class="pos">on track</span>':'<span class="neg">off model</span>')}</td></tr>`).join('');
   document.getElementById('a-vsnote').textContent = (s.settled||0)<10
-    ? 'Small sample — verdicts firm up as settlements accumulate (Gate 2 needs ≥30 settled). Note: live bot ran BROAD filter during the observation day; the model projects the SMART strategy.'
-    : 'Live bot note: broad-mode results include 1–2¢ fills the smart strategy will drop.';
-
-  drawLine('a-chart', L.pnl_curve||[]);
-  document.getElementById('a-chartnote').textContent = (L.pnl_curve&&L.pnl_curve.length>1)
-    ? 'Cumulative realized P&L from real settlements (starts at $0).'
-    : 'No settlements yet — first real results land after tonight\'s market closes.';
+    ? 'Small sample — verdicts firm up as settlements accumulate (scaling gate needs ≥30 settled). Note: the live bot ran the BROAD filter during the observation day; the model projects the SMART strategy.'
+    : 'Live bot note: broad-mode results include 1–2¢ fills the smart strategy drops.';
 
   const settled=(L.orders||[]).filter(o=>o.status==='SETTLED');
   document.getElementById('a-settled').innerHTML =
@@ -190,55 +223,77 @@ function renderAct(){
         <td>${o.queue_ahead==null?'—':Math.round(o.queue_ahead)}</td>
         <td class="${o.result==='no'?'pos':'neg'}">${o.result==='no'?'won (NO)':'lost (YES)'}</td>
         <td class="${o.pnl_c>0?'pos':'neg'}">${fmtC(o.pnl_c)}</td></tr>`).join('')
-      : '<tr><td colspan="5" style="color:var(--muted);text-align:left">None yet — the first 9 fills settle tonight (Jul 4 04:59–08:00 UTC).</td></tr>');
+      : '<tr><td colspan="5" style="color:var(--muted);text-align:left">None yet — the first fills settle tonight (Jul 4 04:59–08:00 UTC).</td></tr>');
   document.getElementById('a-setnote').textContent = settled.length? `${settled.length} settled — every row is a real trade with real money.` : '';
 }
 
-function drawBandChart(elId, F, start){
+/* projected fan chart (scalable start) */
+function drawFan(elId, F, S, k){
   const el=document.getElementById(elId);
   const W=920,H=280,Lp=54,R=14,T=12,B=28,pw=W-Lp-R,ph=H-T-B;
   const n=F.days.length;
-  const ymax=Math.max(...F.p75,start*2.1), ymin=Math.min(...F.p25,start*0.95);
+  const p25=F.p25.map(v=>v*k), p50=F.p50.map(v=>v*k), p75=F.p75.map(v=>v*k);
+  const ymax=Math.max(...p75,S*2.1), ymin=Math.min(...p25,S*0.9);
   const X=i=>Lp+i/(n-1)*pw, Y=v=>T+(1-(v-ymin)/(ymax-ymin))*ph;
+  const step=niceStep((ymax-ymin)/5);
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
-  for(let v=Math.ceil(ymin/20)*20; v<=ymax; v+=20){
+  for(let v=Math.ceil(ymin/step)*step; v<=ymax; v+=step){
     s+=`<line x1="${Lp}" y1="${Y(v).toFixed(1)}" x2="${Lp+pw}" y2="${Y(v).toFixed(1)}" stroke="var(--grid)"/>`;
-    s+=`<text x="${Lp-6}" y="${(Y(v)+3.5).toFixed(1)}" text-anchor="end">$${v}</text>`;
+    s+=`<text x="${Lp-6}" y="${(Y(v)+3.5).toFixed(1)}" text-anchor="end">$${fmtAxis(v)}</text>`;
   }
-  // 25-75 band
-  let area='M'+F.p25.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' L');
-  area+=' L'+F.p75.slice().reverse().map((v,i)=>`${X(n-1-i).toFixed(1)},${Y(v).toFixed(1)}`).join(' L')+' Z';
+  let area='M'+p25.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' L');
+  area+=' L'+p75.slice().reverse().map((v,i)=>`${X(n-1-i).toFixed(1)},${Y(v).toFixed(1)}`).join(' L')+' Z';
   s+=`<path d="${area}" fill="var(--band)" opacity="0.55"/>`;
-  // double line
-  s+=`<line x1="${Lp}" y1="${Y(start*2).toFixed(1)}" x2="${Lp+pw}" y2="${Y(start*2).toFixed(1)}" stroke="var(--good)" stroke-dasharray="4 4"/>`;
-  s+=`<text x="${Lp+pw-4}" y="${(Y(start*2)-5).toFixed(1)}" text-anchor="end" fill="var(--goodtext)">2× = $${(start*2).toFixed(0)}</text>`;
-  // median
-  s+=`<path d="M${F.p50.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' L')}" fill="none" stroke="var(--s1)" stroke-width="2.2"/>`;
-  // x labels
+  s+=`<line x1="${Lp}" y1="${Y(S*2).toFixed(1)}" x2="${Lp+pw}" y2="${Y(S*2).toFixed(1)}" stroke="var(--good)" stroke-dasharray="4 4"/>`;
+  s+=`<text x="${Lp+pw-4}" y="${(Y(S*2)-5).toFixed(1)}" text-anchor="end" fill="var(--goodtext)">2× = $${fmtAxis(S*2)}</text>`;
+  s+=`<path d="M${p50.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' L')}" fill="none" stroke="var(--s1)" stroke-width="2.2"/>`;
   for(const d of [30,60,90,120,150,180]){
     const i=F.days.findIndex(x=>x>=d); if(i<0) continue;
     s+=`<text x="${X(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${d}d</text>`;
   }
-  s+='</svg>';
-  el.innerHTML=s;
+  s+='</svg>'; el.innerHTML=s;
 }
 
-function drawLine(elId, curve){
+/* actual-vs-model chart: same fan style, zoomed to live age, REAL equity bold */
+function drawCompare(elId, F, lc){
   const el=document.getElementById(elId);
-  if(!curve||curve.length<2){ el.innerHTML='<p class="note">—</p>'; return; }
-  const W=920,H=220,Lp=54,R=14,T=12,B=28,pw=W-Lp-R,ph=H-T-B;
-  const ys=curve.map(p=>p[1]), ymax=Math.max(...ys,0.1), ymin=Math.min(...ys,0);
-  const pad=(ymax-ymin)*0.1||0.1, lo=ymin-pad, hi=ymax+pad;
-  const X=i=>Lp+(curve.length<2?0:i/(curve.length-1))*pw, Y=v=>T+(1-(v-lo)/(hi-lo))*ph;
+  const W=920,H=280,Lp=54,R=14,T=12,B=28,pw=W-Lp-R,ph=H-T-B;
+  const pts = (lc&&lc.points&&lc.points.length)? lc.points : [[0,BASE]];
+  const age = lc? Math.max(lc.age_days,0.2) : 0.2;
+  const xmax = Math.max(14, Math.ceil(age*1.6));       // window grows with live age
+  // model band sampled onto [0..xmax]
+  const bx=[],b25=[],b50=[],b75=[];
+  for(let i=0;i<F.days.length && F.days[i]<=xmax;i++){ bx.push(F.days[i]); b25.push(F.p25[i]); b50.push(F.p50[i]); b75.push(F.p75[i]); }
+  if(!bx.length){ bx.push(0,xmax); b25.push(BASE,BASE); b50.push(BASE,BASE); b75.push(BASE,BASE); }
+  const ally=[...b25,...b75,...pts.map(p=>p[1])];
+  const ymax=Math.max(...ally)*1.02, ymin=Math.min(...ally)*0.985;
+  const X=d=>Lp+(d/xmax)*pw, Y=v=>T+(1-(v-ymin)/(ymax-ymin))*ph;
+  const step=niceStep((ymax-ymin)/4);
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
-  s+=`<line x1="${Lp}" y1="${Y(0).toFixed(1)}" x2="${Lp+pw}" y2="${Y(0).toFixed(1)}" stroke="var(--axis)"/>`;
-  s+=`<text x="${Lp-6}" y="${(Y(0)+3.5).toFixed(1)}" text-anchor="end">$0</text>`;
-  s+=`<path d="M${curve.map((p,i)=>`${X(i).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L')}" fill="none" stroke="var(--s1)" stroke-width="2"/>`;
-  const last=curve[curve.length-1];
-  s+=`<circle cx="${X(curve.length-1).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="4" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>`;
-  s+='</svg>';
-  el.innerHTML=s;
+  for(let v=Math.ceil(ymin/step)*step; v<=ymax; v+=step){
+    s+=`<line x1="${Lp}" y1="${Y(v).toFixed(1)}" x2="${Lp+pw}" y2="${Y(v).toFixed(1)}" stroke="var(--grid)"/>`;
+    s+=`<text x="${Lp-6}" y="${(Y(v)+3.5).toFixed(1)}" text-anchor="end">$${fmtAxis(v)}</text>`;
+  }
+  let area='M'+bx.map((d,i)=>`${X(d).toFixed(1)},${Y(b25[i]).toFixed(1)}`).join(' L');
+  area+=' L'+bx.slice().reverse().map((d,i)=>`${X(d).toFixed(1)},${Y(b75[bx.length-1-i]).toFixed(1)}`).join(' L')+' Z';
+  s+=`<path d="${area}" fill="var(--band)" opacity="0.5"/>`;
+  s+=`<path d="M${bx.map((d,i)=>`${X(d).toFixed(1)},${Y(b50[i]).toFixed(1)}`).join(' L')}" fill="none" stroke="var(--s1)" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>`;
+  // REAL equity: step line
+  let dp=`M${X(pts[0][0]).toFixed(1)},${Y(pts[0][1]).toFixed(1)}`;
+  for(let i=1;i<pts.length;i++){
+    dp+=` L${X(pts[i][0]).toFixed(1)},${Y(pts[i-1][1]).toFixed(1)} L${X(pts[i][0]).toFixed(1)},${Y(pts[i][1]).toFixed(1)}`;
+  }
+  s+=`<path d="${dp}" fill="none" stroke="var(--s1)" stroke-width="2.6"/>`;
+  const last=pts[pts.length-1];
+  s+=`<circle cx="${X(last[0]).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="4.5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>`;
+  s+=`<text x="${Math.min(X(last[0])+8,Lp+pw-40).toFixed(1)}" y="${(Y(last[1])-8).toFixed(1)}">now $${last[1].toFixed(2)}</text>`;
+  const xt = xmax<=16? [2,4,6,8,10,12,14] : [7,14,21,28,42,56].filter(d=>d<=xmax);
+  for(const d of xt) s+=`<text x="${X(d).toFixed(1)}" y="${H-8}" text-anchor="middle">${d}d</text>`;
+  s+='</svg>'; el.innerHTML=s;
 }
+
+function niceStep(raw){ const p=Math.pow(10,Math.floor(Math.log10(raw||1))); const m=[1,2,5,10].find(x=>raw/(p*x)<=1)||10; return p*m; }
+function fmtAxis(v){ return v>=1000? (v/1000).toFixed(1)+'k' : (v>=100? v.toFixed(0) : v.toFixed(0)); }
 
 load(); setInterval(load, 120000);
 </script>
