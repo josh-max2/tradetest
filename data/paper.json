@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-03 20:58",
- "generated_epoch": 1783112332,
+ "generated": "2026-07-03 21:01",
+ "generated_epoch": 1783112486,
  "stage": "1-contract observation (broad filter) \u2014 Gate 1 pending first settlements",
  "account": {
   "balance": 26.67,
-  "committed": 38.04,
+  "committed": 36.06,
   "locked": 21.49,
-  "resting_commit": 16.55,
+  "resting_commit": 14.57,
   "cap": "full",
   "start": 48.16
  },
@@ -19,11 +19,11 @@
  },
  "summary": {
   "placed": 68,
-  "resting": 17,
+  "resting": 15,
   "filled": 22,
   "filled_open": 22,
   "settled": 0,
-  "expired": 29,
+  "expired": 31,
   "fill_rate": 0.3235,
   "ev": null,
   "adverse": null,
@@ -43,7 +43,7 @@
     48.16
    ],
    [
-    0.709,
+    0.711,
     48.16
    ]
   ],
@@ -341,36 +341,6 @@
    "status": "RESTING",
    "hrs": 11.0,
    "close_ts": "2026-07-04T08:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXBTCD-26JUL0317-T71999.99",
-   "series": "KXBTCD",
-   "sold_c": 1.0,
-   "collateral": 0.99,
-   "queue_ahead": 4638.66,
-   "status": "RESTING",
-   "hrs": 0.0,
-   "close_ts": "2026-07-03T21:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXETHD-26JUL0317-T2509.99",
-   "series": "KXETHD",
-   "sold_c": 1.0,
-   "collateral": 0.99,
-   "queue_ahead": 18420.0,
-   "status": "RESTING",
-   "hrs": 0.0,
-   "close_ts": "2026-07-03T21:00:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -710,6 +680,18 @@
  ],
  "events": [
   {
+   "ts": "07-03T21:00:25",
+   "kind": "EXPIRE",
+   "ticker": "KXETHD-26JUL0317-T2509.99",
+   "detail": ""
+  },
+  {
+   "ts": "07-03T21:00:25",
+   "kind": "EXPIRE",
+   "ticker": "KXBTCD-26JUL0317-T71999.99",
+   "detail": ""
+  },
+  {
    "ts": "07-03T19:54:55",
    "kind": "FILL",
    "ticker": "KXLOWTSATX-26JUL03-T69",
@@ -933,18 +915,6 @@
   },
   {
    "ts": "07-03T07:03:26",
-   "kind": "CAP",
-   "ticker": "KXXRPD-26JUL0304-T1.7399",
-   "detail": "resting=38.23, would_add=0.99, free_balance=39.44"
-  },
-  {
-   "ts": "07-03T07:02:48",
-   "kind": "CAP",
-   "ticker": "KXXRPD-26JUL0304-T1.7399",
-   "detail": "resting=38.23, would_add=0.99, free_balance=39.44"
-  },
-  {
-   "ts": "07-03T07:02:10",
    "kind": "CAP",
    "ticker": "KXXRPD-26JUL0304-T1.7399",
    "detail": "resting=38.23, would_add=0.99, free_balance=39.44"
