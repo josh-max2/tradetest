@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-04 18:52",
- "generated_epoch": 1783191171,
+ "generated": "2026-07-04 18:55",
+ "generated_epoch": 1783191357,
  "stage": "1-contract observation (broad filter) \u2014 Gate 1 pending first settlements",
  "account": {
   "balance": 232.8,
-  "committed": 303.93,
+  "committed": 333.37,
   "locked": 109.85,
-  "resting_commit": 194.08,
+  "resting_commit": 223.52,
   "cap": "full",
   "start": 48.16
  },
@@ -18,13 +18,13 @@
   "next_settle": "2026-07-04T05:00:00Z"
  },
  "summary": {
-  "placed": 108,
-  "resting": 21,
+  "placed": 110,
+  "resting": 23,
   "filled": 36,
   "filled_open": 15,
   "settled": 21,
   "expired": 45,
-  "fill_rate": 0.3333,
+  "fill_rate": 0.3273,
   "ev": 2.33,
   "adverse": 0.0,
   "realized": 0.49
@@ -222,7 +222,7 @@
     48.65
    ],
    [
-    1.622,
+    1.624,
     48.65
    ]
   ],
@@ -617,6 +617,36 @@
    "pnl_c": null
   },
   {
+   "ticker": "KXLOWTDEN-26JUL04-B57.5",
+   "series": "KXLOWTDEN",
+   "sold_c": 8.0,
+   "collateral": 14.72,
+   "queue_ahead": 5.0,
+   "status": "RESTING",
+   "hrs": 12.1,
+   "close_ts": "2026-07-05T07:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHAUS-26JUL04-B95.5",
+   "series": "KXHIGHAUS",
+   "sold_c": 8.0,
+   "collateral": 14.72,
+   "queue_ahead": 1.0,
+   "status": "RESTING",
+   "hrs": 11.1,
+   "close_ts": "2026-07-05T05:59:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
    "ticker": "KXLOWTSATX-26JUL03-T69",
    "series": "KXLOWTSATX",
    "sold_c": 1.0,
@@ -761,7 +791,7 @@
    "hrs": 11.1,
    "close_ts": "2026-07-05T06:00:00Z",
    "ttf_min": 48.9,
-   "now_yes": 11.5,
+   "now_yes": 11.0,
    "win_odds": 89.4,
    "result": null,
    "pnl_c": null
@@ -836,7 +866,7 @@
    "hrs": 2.1,
    "close_ts": "2026-07-04T21:00:00Z",
    "ttf_min": 0.7,
-   "now_yes": 6.5,
+   "now_yes": 6.0,
    "win_odds": 94.6,
    "result": null,
    "pnl_c": null
@@ -1144,6 +1174,18 @@
  ],
  "events": [
   {
+   "ts": "07-04T18:55:57",
+   "kind": "PLACED",
+   "ticker": "KXHIGHAUS-26JUL04-B95.5",
+   "detail": "order_id=e35e4436-8912-45d5-acc4-9300e47d0b62, sell_YES@$=0.08, fill_count=0.0"
+  },
+  {
+   "ts": "07-04T18:54:04",
+   "kind": "PLACED",
+   "ticker": "KXLOWTDEN-26JUL04-B57.5",
+   "detail": "order_id=5a87ad1c-1b0d-4b6c-b3c0-ce072d0ee85f, sell_YES@$=0.08, fill_count=0.0"
+  },
+  {
    "ts": "07-04T18:40:05",
    "kind": "FILL",
    "ticker": "KXHIGHCHI-26JUL04-B87.5",
@@ -1367,18 +1409,6 @@
   },
   {
    "ts": "07-04T18:10:10",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL04-B101.5",
-   "detail": "resting=261.76, would_add=16.49, free_balance=265.15"
-  },
-  {
-   "ts": "07-04T18:09:30",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL04-B101.5",
-   "detail": "resting=261.76, would_add=16.49, free_balance=265.15"
-  },
-  {
-   "ts": "07-04T18:08:53",
    "kind": "CAP",
    "ticker": "KXHIGHTLV-26JUL04-B101.5",
    "detail": "resting=261.76, would_add=16.49, free_balance=265.15"
