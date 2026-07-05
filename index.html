@@ -3,78 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kalshi Live Trading — longshot-NO test</title>
+<title>Kalshi Live Trading — longshot-NO</title>
 <style>
-:root{ --surface:#fcfcfb; --page:#f9f9f7; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
- --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
- --s1:#2a78d6; --good:#0ca30c; --goodtext:#006300; --warn:#fab219; --crit:#d03b3b; }
-@media (prefers-color-scheme: dark){ :root{ --surface:#1a1a19; --page:#0d0d0d; --ink:#fff; --ink2:#c3c2b7;
- --muted:#898781; --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10); --s1:#3987e5; --goodtext:#0ca30c; } }
+:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
+ --grid:#e7e6df; --border:rgba(16,16,16,.07); --shadow:0 1px 2px rgba(16,16,16,.04),0 10px 30px rgba(16,16,16,.05);
+ --s1:#2a78d6; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#fff; --ink2:#c3c2b7;
+ --muted:#8a8880; --grid:#2a2a28; --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0);
+ --s1:#3987e5; --goodtext:#16b516; --warn:#e0a52a; } }
 *{box-sizing:border-box}
-body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:30px 5vw 80px;max-width:1000px;margin-inline:auto}
-.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
-h1{font-size:22px;font-weight:650;margin:0}
-.live-badge{font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--crit);border:1.5px solid var(--crit);border-radius:99px;padding:2px 9px;margin-left:8px;vertical-align:middle}
-.status{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block}.dot.stale{background:var(--warn)}
-.sub{color:var(--ink2);font-size:13.5px;margin:4px 0 20px;max-width:760px}
-.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:14px;margin-bottom:16px}@media(max-width:640px){.hero{grid-template-columns:1fr}}
-.hcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px}
-.hcard .l{font-size:12px;color:var(--muted)}.hcard .big{font-size:38px;font-weight:650;line-height:1.1;margin-top:4px}
-.hcard .cx{font-size:13px;color:var(--ink2);margin-top:5px}
-.pos{color:var(--goodtext)}.neg{color:var(--crit)}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:22px}
-.tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 15px}
-.tile .l{font-size:11px;color:var(--muted)}.tile .v{font-size:20px;font-weight:650;margin-top:2px}
-h2{font-size:14px;font-weight:650;margin:26px 0 10px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:14px}
-.gate{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--grid)}.gate:last-child{border-bottom:none}
-.gate .name{font-size:13.5px}.gate .val{font-variant-numeric:tabular-nums;color:var(--ink2);margin-left:auto;margin-right:14px}
-.badge{font-size:11px;font-weight:650;padding:2px 9px;border-radius:99px;border:1.5px solid}
-.badge.pass{color:var(--goodtext);border-color:var(--good)}.badge.watch{color:var(--ink);border-color:var(--warn)}.badge.fail{color:var(--crit);border-color:var(--crit)}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{color:var(--muted);font-weight:500;border-bottom:1px solid var(--grid);padding:5px 8px;text-align:right}
-td{padding:4px 8px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
-th:first-child,td:first-child{text-align:left;font-variant-numeric:normal}
-.pill{font-size:10.5px;font-weight:650;padding:1px 7px;border-radius:99px;border:1px solid var(--grid)}
-.pill.FILLED{color:var(--s1);border-color:var(--s1)}.pill.SETTLED{color:var(--goodtext);border-color:var(--good)}
-.pill.RESTING{color:var(--muted)}.pill.EXPIRED,.pill.CANCELED{color:var(--muted)}
-.feed{font-size:12px;max-height:280px;overflow-y:auto}
-.feed .row{display:grid;grid-template-columns:80px 66px 1fr;gap:8px;padding:3px 0;border-bottom:1px solid var(--grid)}
-.k{font-weight:650}.k.FILL{color:var(--s1)}.k.SETTLE{color:var(--goodtext)}.k.EXPIRE{color:var(--muted)}.k.PLACED{color:var(--ink2)}.k.CAP,.k.FATAL,.k.ABORT{color:var(--warn)}
-.note{font-size:12px;color:var(--muted);margin-top:8px}svg text{font:11px system-ui;fill:var(--muted)}
-#err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:10px;padding:14px 18px;color:var(--crit);font-size:13px}
-</style>
-<style id="modern">
-/* ---- modern pass 2026-07-03 ---- */
-:root{ --surface:#ffffff; --page:#f5f5f1; --border:rgba(16,16,16,.07);
- --shadow:0 1px 2px rgba(16,16,16,.04), 0 10px 30px rgba(16,16,16,.05); }
-@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09;
- --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0); } }
-.nav{display:flex;gap:4px;width:max-content;margin:0 0 22px;padding:4px;background:var(--surface);
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+ padding:26px 5vw 80px;max-width:880px;margin-inline:auto}
+.nav{display:flex;gap:4px;width:max-content;margin:0 0 24px;padding:4px;background:var(--surface);
  border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
 .nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none}
-.nav a:hover{color:var(--ink2)}
-.nav a.active{color:var(--ink);background:color-mix(in srgb, var(--s1) 13%, transparent)}
-.card,.hcard,.tile{border-radius:16px;box-shadow:var(--shadow)}
-.hcard{padding:22px 26px}
-.hcard .l{text-transform:uppercase;letter-spacing:.07em;font-size:10.5px;font-weight:650}
-.hcard .l span{text-transform:none;letter-spacing:0;font-weight:400}
-.hcard .big{font-size:42px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tile .l{text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;font-weight:650}
-.tile .v{font-size:21px;font-variant-numeric:tabular-nums}
-h2{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:30px 0 10px}
-h2 span{text-transform:none;letter-spacing:0;font-size:11.5px}
-th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:6px 8px}
-td{padding:5px 8px}
-table td:first-child{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px}
-tr:hover td{background:color-mix(in srgb, var(--s1) 5%, transparent)}
-.dot{animation:pulse 2.2s ease-in-out infinite}
+.nav a:hover{color:var(--ink2)} .nav a.active{color:var(--ink);background:color-mix(in srgb,var(--s1) 13%,transparent)}
+.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+h1{font-size:21px;font-weight:650;margin:0}
+.live-badge{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--crit);border:1.5px solid var(--crit);
+ border-radius:99px;padding:2px 9px;margin-left:8px;vertical-align:middle;background:color-mix(in srgb,var(--crit) 9%,transparent)}
+.status{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;animation:pulse 2.2s ease-in-out infinite}
+.dot.stale{background:var(--warn);animation:none}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-.live-badge{background:color-mix(in srgb, var(--crit) 9%, transparent)}
-.pill{letter-spacing:.03em}
-.feed .row{padding:4px 0}
-.gate{padding:10px 0}
+.sub{color:var(--ink2);font-size:13px;margin:6px 0 22px;max-width:680px}
+#err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:12px;padding:14px 18px;color:var(--crit);font-size:13px;margin-bottom:16px}
+
+/* hero */
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);
+ padding:22px 26px;margin-bottom:14px}
+.hero .l{text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:700;color:var(--muted)}
+.hero .big{font-size:46px;font-weight:700;letter-spacing:-.02em;line-height:1.05;margin-top:4px;font-variant-numeric:tabular-nums}
+.hero .cx{font-size:13px;color:var(--ink2);margin-top:8px}
+.hero .cx b{font-weight:650}
+
+/* kpi strip */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:8px}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px}
+.tile .l{text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;font-weight:700;color:var(--muted)}
+.tile .v{font-size:23px;font-weight:650;margin-top:3px;font-variant-numeric:tabular-nums}
+.tile .s{font-size:11px;color:var(--muted);margin-top:1px}
+.tile.ok{border-color:color-mix(in srgb,var(--good) 40%,var(--border))}
+.tile.warn{border-color:color-mix(in srgb,var(--warn) 45%,var(--border))}
+
+/* sections */
+h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:30px 0 10px}
+h2 span{text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px 18px;margin-bottom:14px}
+.pos{color:var(--goodtext)} .neg{color:var(--crit)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--grid);padding:6px 8px;text-align:right;position:sticky;top:0;background:var(--surface);z-index:1}
+.scroll{max-height:440px;overflow:auto;border-radius:8px}
+td{padding:6px 8px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+td:first-child{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px}
+tr:hover td{background:color-mix(in srgb,var(--s1) 5%,transparent)}
+.pill{font-size:10px;font-weight:650;padding:1px 7px;border-radius:99px;border:1px solid var(--grid);letter-spacing:.03em}
+.pill.FILLED{color:var(--s1);border-color:color-mix(in srgb,var(--s1) 45%,var(--grid))}
+.pill.SETTLED{color:var(--goodtext);border-color:color-mix(in srgb,var(--good) 45%,var(--grid))}
+.pill.RESTING{color:var(--muted)}
+.feed{font-size:12px;max-height:230px;overflow-y:auto}
+.feed .row{display:grid;grid-template-columns:70px 62px 1fr;gap:8px;padding:4px 0;border-bottom:1px solid var(--grid)}
+.k{font-weight:650}.k.FILL{color:var(--s1)}.k.SETTLE{color:var(--goodtext)}.k.EXPIRE,.k.ROLL{color:var(--muted)}.k.PLACED{color:var(--ink2)}.k.CAP,.k.FATAL,.k.ABORT{color:var(--warn)}
+.note{font-size:11.5px;color:var(--muted);margin-top:10px}
+svg text{font:11px system-ui;fill:var(--muted)}
 </style></head>
 <body>
 <div class="nav">
@@ -83,45 +75,40 @@ tr:hover td{background:color-mix(in srgb, var(--s1) 5%, transparent)}
  <a href="./rungsim.html">Dip Sim</a>
  <a href="./appendix.html">Appendix</a>
 </div>
+
 <div class="top">
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Real longshot-NO maker orders on your account — <b>full-Kelly capital deploy · post-only · weather + crypto-daily</b>. It sells the cheap tail across many markets and collects the premium when the tail expires worthless. Auto-updates from the bot every few minutes.</p>
+<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-Kelly deploy · held to settlement.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
+<!-- HERO: equity -->
 <div class="hero">
- <div class="hcard"><div class="l">Account balance <span style="color:var(--muted)">(started $48.16)</span></div>
-  <div class="big" id="balance">—</div>
-  <div class="cx" id="balcx"></div>
-  <div class="cx" id="potential" style="margin-top:3px"></div>
-  <div id="pnlchart" style="margin-top:10px"></div></div>
- <div class="hcard"><div class="l">Fill rate <span style="color:var(--muted)">— the number this test exists to measure</span></div>
-  <div class="big" id="fillrate" style="font-size:32px">—</div><div class="cx" id="fillcx"></div>
-  <div class="l" style="margin-top:14px">Realized P&amp;L <span style="color:var(--muted)">(settled trades)</span></div>
-  <div class="big" id="realized" style="font-size:32px">—</div></div>
+ <div class="l">Total equity <span style="text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400">· started $48.16</span></div>
+ <div class="big" id="equity">—</div>
+ <div class="cx" id="eqsub"></div>
+ <div id="pnlchart" style="margin-top:12px"></div>
 </div>
 
+<!-- KPI strip -->
 <div class="tiles" id="tiles"></div>
 
-<h2>Go-live gates <span style="font-weight:400;color:var(--muted)">— evaluated as trades settle</span></h2>
-<div class="card" id="gates"></div>
+<!-- POSITIONS -->
+<h2>Positions <span>— open + recently settled</span></h2>
+<div class="card"><div class="scroll"><table id="postbl"></table></div><p class="note" id="posnote"></p></div>
 
-<h2>Real fills <span style="font-weight:400;color:var(--muted)">— which orders actually filled, and how deep the queue ahead of us was</span></h2>
-<div class="card" style="overflow-x:auto"><table id="fillstbl"></table><p class="note" id="fillsnote"></p></div>
-
-<h2>Resting orders <span style="font-weight:400;color:var(--muted)">— waiting to fill (small queue-ahead = likelier)</span></h2>
-<div class="card" style="overflow-x:auto"><table id="resttbl"></table></div>
-
-<h2>Live activity</h2>
+<!-- ACTIVITY -->
+<h2>Activity</h2>
 <div class="card"><div class="feed" id="feed"></div></div>
 <p class="note" id="footer"></p>
 
 <script>
 const money = v => v==null ? '—' : (v<0?'-$':'$') + Math.abs(v).toFixed(2);
+const signMoney = v => v==null ? '—' : (v>=0?'+':'') + money(v);
 const fmtC = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(1) + '¢';
 const pct = v => v==null ? '—' : v.toFixed(0) + '%';
-const fmtQ = v => v==null ? '—' : (v>=1000 ? (v/1000).toFixed(v>=100000?0:1)+'k' : Math.round(v).toString());
+const pct1 = v => v==null ? '—' : v.toFixed(1) + '%';
 const fmtT = s => { if(!s) return '—'; const d=new Date(s); return isNaN(d.getTime())?'—':d.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); };
 const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
 
@@ -139,110 +126,89 @@ async function load(){
 }
 
 function render(d){
-  const a=d.account||{}, s=d.summary||{};
+  const a=d.account||{}, s=d.summary||{}, o=d.open||{};
   const ageMin = d.generated_epoch ? (Date.now()/1000-d.generated_epoch)/60 : 999;
   const dot=document.getElementById('dot'), stt=document.getElementById('statustxt');
   if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
 
-  document.getElementById('balance').textContent = a.balance==null?'—':money(a.balance);
-  document.getElementById('balcx').innerHTML =
-    `<b>${money(a.locked)}</b> locked in ${s.filled_open||0} open positions · `
-    + `${money(a.resting_commit)} in ${s.resting||0} resting orders · `
-    + `realized <span class="${(s.realized||0)>=0?'pos':'neg'}">${money(s.realized)}</span> · full-capital deploy`;
-  const o=d.open||{};
-  if(o.n>0){
-    const ep = o.expected_pnl||0, nd = (o.near_win||0)+(o.near_loss||0);
-    const epTxt = (ep>=0?'+':'') + money(ep);
-    document.getElementById('potential').innerHTML =
-        `Expected now → <b>${money(o.expected_balance)}</b> `
-      + `<span class="${ep>=0?'pos':'neg'}">(${epTxt})</span>`
-      + ` <span style="color:var(--muted)">at current market levels`
-      + ` · range ${money(o.worst_case)} … <span class="pos">+${money(o.potential_gain)}</span> best`
-      + (nd?` · ${o.near_win||0} near-win / ${o.near_loss||0} near-loss of ${o.n}`:'')
-      + (o.next_settle?` · first settles ${fmtT(o.next_settle)}`:'')
-      + `</span>`;
-  } else {
-    document.getElementById('potential').innerHTML =
-      `<span style="color:var(--muted)">Potential shows once a position fills.</span>`;
+  // ---- HERO: total equity = free balance + collateral locked in open positions ----
+  const bal = a.balance, locked = a.locked||0;
+  const equity = bal==null ? null : bal + locked;
+  document.getElementById('equity').textContent = money(equity);
+  const realized = s.realized||0;
+  let sub = `realized <span class="${realized>=0?'pos':'neg'}">${signMoney(realized)}</span>`
+          + ` · <b>${money(locked)}</b> working in ${s.filled_open||0} open positions`
+          + ` · ${money(a.resting_commit)} resting`;
+  if(o.n>0 && o.expected_pnl!=null){
+    const ep=o.expected_pnl;
+    sub += `<br><span style="color:var(--muted)">Marked to market now → <b style="color:var(--ink2)">${money(o.expected_balance)}</b> `
+         + `<span class="${ep>=0?'pos':'neg'}">(${(ep>=0?'+':'')+money(ep)})</span>`
+         + ` · range ${money(o.worst_case)} … <span class="pos">+${money(o.potential_gain)}</span>`
+         + (o.next_settle?` · next settles ${fmtT(o.next_settle)}`:'') + `</span>`;
   }
+  document.getElementById('eqsub').innerHTML = sub;
   drawPnl(d.pnl_curve||[]);
 
-  document.getElementById('fillrate').textContent = s.placed ? pct(100*s.fill_rate) : '—';
-  document.getElementById('fillcx').textContent = `${s.filled||0} filled of ${s.placed||0} orders placed`;
-  const rz=document.getElementById('realized'); rz.textContent = money(s.realized);
-  rz.className = 'big '+((s.realized||0)>0?'pos':((s.realized||0)<0?'neg':''));
-  rz.style.fontSize='32px';
+  // ---- KPI strip (the health of the edge) ----
+  const deployed = (equity && equity>0) ? 100*locked/equity : null;
+  const bust = s.adverse==null ? null : 100*s.adverse;          // settled-YES = bust rate
+  const evOk = s.ev!=null && s.ev>=1;
+  const bustOk = bust!=null && bust<=6;
+  const tiles = [
+    ['Fill rate', s.placed? pct(100*s.fill_rate):'—', `${s.filled||0} of ${s.placed||0} orders`, ''],
+    ['Deployed', deployed==null?'—':pct(deployed), `${money(locked)} of ${money(equity)}`, ''],
+    ['Bust rate', bust==null?'—':pct1(bust), `${s.settled||0} settled · ~5% expected`, bust==null?'':(bustOk?'ok':'warn')],
+    ['EV / fill', s.ev==null?'—':fmtC(s.ev), 'edge per settled fill', s.ev==null?'':(evOk?'ok':'warn')],
+    ['Open', s.filled_open||0, `${s.resting||0} resting`, ''],
+    ['Realized P&L', signMoney(realized), `${s.settled||0} settled trades`, ''],
+  ];
+  document.getElementById('tiles').innerHTML = tiles.map(([l,v,su,cls])=>
+    `<div class="tile ${cls}"><div class="l">${esc(l)}</div><div class="v ${l==='Realized P&L'?(realized>0?'pos':(realized<0?'neg':'')):''}">${esc(v)}</div><div class="s">${esc(su)}</div></div>`).join('');
 
-  document.getElementById('tiles').innerHTML = [
-    ['Orders placed', s.placed||0],['Resting', s.resting||0],['Filled', s.filled||0],
-    ['Settled', s.settled||0],['Expired unfilled', s.expired||0],
-    ['Fill-cond. EV', s.ev==null?'—':fmtC(s.ev)],
-    ['Adverse-fill', s.adverse==null?'—':pct(100*s.adverse)],
-  ].map(([l,v])=>`<div class="tile"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join('');
-
-  document.getElementById('gates').innerHTML = (d.gates||[]).map(g=>
-    `<div class="gate"><span class="name">${esc(g.name)}</span><span class="val">${esc(g.value)}</span>
-     <span class="badge ${g.status}">${g.status.toUpperCase()}</span></div>`).join('')
-    || '<div class="note">Gates evaluate once trades settle (our markets settle within ~24h of the fill).</div>';
-
+  // ---- POSITIONS: open (marked) + recently settled ----
   const orders=d.orders||[];
-  const fills=orders.filter(o=>o.status==='FILLED'||o.status==='SETTLED');
-  const rest=orders.filter(o=>o.status==='RESTING');
-
-  document.getElementById('fillstbl').innerHTML =
-    '<tr><th>market</th><th>sold YES @</th><th>now</th><th>move</th><th>hist. win odds</th><th>min→fill</th><th>status</th><th>settles</th><th>outcome</th><th>P&L</th></tr>'
-    + (fills.length? fills.map(o=>{
-        const out = o.status==='SETTLED' ? (o.result==='no'?'won (NO)':'lost (YES)') : 'pending';
-        const pnl = o.pnl_c==null?'—':fmtC(o.pnl_c);
-        const nowP = (o.status==='FILLED' && o.now_yes!=null)? o.now_yes : null;
-        const mv = (nowP!=null && o.sold_c!=null)? (o.sold_c - nowP) : null;   // + = drifting our way
-        const mvCls = mv==null?'':(mv>0?'pos':(mv<0?'neg':''));
-        const mvTxt = mv==null?'—':((mv>0?'+':'')+mv.toFixed(1)+'¢');
-        const wo = o.win_odds;
-        const woCls = wo==null?'':(wo>=90?'pos':(wo<75?'neg':''));
-        return `<tr><td>${esc(o.ticker)}</td><td>${o.sold_c==null?'—':o.sold_c+'¢'}</td>
-          <td><b>${nowP==null?'—':nowP.toFixed(1)+'¢'}</b></td><td class="${mvCls}">${mvTxt}</td>
-          <td class="${woCls}"><b>${wo==null?'—':wo.toFixed(1)+'%'}</b></td>
-          <td>${o.ttf_min==null?'—':o.ttf_min+'m'}</td>
-          <td><span class="pill ${o.status}">${o.status}</span></td>
-          <td>${fmtT(o.close_ts)}</td>
-          <td class="${o.result==='no'?'pos':(o.result==='yes'?'neg':'')}">${out}</td>
-          <td class="${o.pnl_c>0?'pos':(o.pnl_c<0?'neg':'')}">${pnl}</td></tr>`;}).join('')
-      : '<tr><td colspan="10" style="color:var(--muted);text-align:left">No fills yet — thin-queue markets fill first.</td></tr>');
-  document.getElementById('fillsnote').textContent = fills.length
-    ? `${fills.length} filled. "Now" = current YES price (we're SHORT at the entry, so green move = falling our way). "Hist. win odds" = how often, across 16,651 historical tail markets, the seller STILL won from this price with this much time left — full lookup grid in the Appendix tab.`
+  const open = orders.filter(x=>x.status==='FILLED').sort((a,b)=>(b.now_yes||0)-(a.now_yes||0)); // at-risk first
+  const settled = orders.filter(x=>x.status==='SETTLED').slice(-14).reverse();
+  const rows = open.concat(settled);
+  const body = rows.length ? rows.map(x=>{
+    const isOpen = x.status==='FILLED';
+    const nowP = (isOpen && x.now_yes!=null)? x.now_yes.toFixed(1)+'¢' : '—';
+    const mv = (isOpen && x.now_yes!=null && x.sold_c!=null)? (x.sold_c - x.now_yes) : null; // + = our way
+    const nowCell = isOpen
+      ? `<b>${nowP}</b>${mv!=null?` <span class="${mv>0?'pos':(mv<0?'neg':'')}" style="font-size:11px">${(mv>0?'+':'')+mv.toFixed(0)}</span>`:''}`
+      : (x.result==='no'?'<span class="pos">won</span>':'<span class="neg">lost</span>');
+    const pnl = x.pnl_c==null?'—':`<span class="${x.pnl_c>0?'pos':(x.pnl_c<0?'neg':'')}">${fmtC(x.pnl_c)}</span>`;
+    return `<tr><td>${esc(x.ticker)}</td><td>${x.sold_c==null?'—':x.sold_c+'¢'}</td><td>${nowCell}</td>
+      <td><span class="pill ${x.status}">${x.status==='FILLED'?'open':'settled'}</span></td>
+      <td>${fmtT(x.close_ts)}</td><td>${pnl}</td></tr>`;
+  }).join('') : '<tr><td colspan="6" style="color:var(--muted);text-align:left">No fills yet — thin-queue markets fill first.</td></tr>';
+  document.getElementById('postbl').innerHTML =
+    '<tr><th>market</th><th>sold @</th><th>now / result</th><th>status</th><th>settles</th><th>P&L</th></tr>' + body;
+  document.getElementById('posnote').innerHTML = open.length
+    ? `We're <b>short</b> at the entry price, so "now" falling is good (green = drifting our way). ${open.length} open, ${d.orders?.filter(x=>x.status==='SETTLED').length||0} settled.`
     : '';
 
-  // (survival-odds lookup grid moved to appendix.html)
-
-  document.getElementById('resttbl').innerHTML =
-    '<tr><th>market</th><th>sold YES @</th><th>queue ahead</th><th>collateral</th><th>settles</th></tr>'
-    + (rest.length? rest.sort((x,y)=>(x.queue_ahead||0)-(y.queue_ahead||0)).map(o=>
-        `<tr><td>${esc(o.ticker)}</td><td>${o.sold_c==null?'—':o.sold_c+'¢'}</td>
-         <td>${fmtQ(o.queue_ahead)}</td><td>${money(o.collateral)}</td><td>${fmtT(o.close_ts)}</td></tr>`).join('')
-      : '<tr><td colspan="5" style="color:var(--muted);text-align:left">No resting orders.</td></tr>');
-
-  document.getElementById('feed').innerHTML = (d.events||[]).map(e=>
-    `<div class="row"><span>${esc(e.ts)}</span><span class="k ${esc(e.kind)}">${esc(e.kind)}</span>
+  // ---- ACTIVITY ----
+  document.getElementById('feed').innerHTML = (d.events||[]).slice(0,26).map(e=>
+    `<div class="row"><span style="color:var(--muted)">${esc(e.ts)}</span><span class="k ${esc(e.kind)}">${esc(e.kind)}</span>
      <span style="color:var(--ink2)">${esc(e.ticker)} ${esc(e.detail)}</span></div>`).join('')
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
 
   document.getElementById('footer').textContent =
-    `Live longshot-NO test · 1 contract/market · full-capital deploy · post-only · read/write key · data ${d.generated||'?'} UTC. `
-    + `Go-live read: fill-conditional EV ≥ +1¢ and adverse-fill ≤ 5% as trades settle.`;
+    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly deploy · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
 }
 
 function drawPnl(curve){
   const el=document.getElementById('pnlchart');
   if(!curve || curve.length<2){ el.innerHTML=''; return; }
-  const W=440,H=70,L=6,R=6,T=8,Bm=8,pw=W-L-R,ph=H-T-Bm;
+  const W=420,H=64,L=4,R=4,T=8,Bm=8,pw=W-L-R,ph=H-T-Bm;
   const ys=curve.map(p=>p[1]), ymax=Math.max(...ys,0.01), ymin=Math.min(...ys,0);
   const pad=(ymax-ymin)*0.15||0.1, lo=ymin-pad, hi=ymax+pad;
   const X=i=>L+i/(curve.length-1)*pw, Y=v=>T+(1-(v-lo)/(hi-lo))*ph;
   const up=ys[ys.length-1]>=0;
   let dp='M'+curve.map((p,i)=>`${X(i).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L');
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:420px">`;
   s+=`<line x1="${L}" y1="${Y(0).toFixed(1)}" x2="${L+pw}" y2="${Y(0).toFixed(1)}" stroke="var(--grid)"/>`;
   s+=`<path d="${dp}" fill="none" stroke="${up?'var(--good)':'var(--crit)'}" stroke-width="2" stroke-linejoin="round"/></svg>`;
   el.innerHTML=s;
