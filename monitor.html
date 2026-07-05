@@ -74,6 +74,12 @@ th:first-child,td:first-child{text-align:left}
 td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:var(--ink2)}
 .scroll{max-height:420px;overflow:auto;border-radius:8px}
 .heat{font-weight:650;font-variant-numeric:tabular-nums}
+.chartcard{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:18px 22px 12px;margin-bottom:18px}
+.charthead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.charthead .l{text-transform:uppercase;letter-spacing:.07em;font-size:10px;font-weight:700;color:var(--muted)}
+.charthead .l span{text-transform:none;letter-spacing:0;font-weight:400}
+.chartbig{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.05;margin-top:3px}
+.chartmeta{font-size:12px;color:var(--ink2);text-align:right;line-height:1.6}
 </style></head>
 <body>
 <div class="nav">
@@ -90,6 +96,16 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;colo
 </div>
 <p class="sub">The open questions we're watching as live data accumulates — is the edge real out-of-sample, do the lows hold up, and is the cold-low leg +EV enough to turn the same-city hedge on. Each card answers itself as settlements land.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
+
+<!-- HEADLINE: expected-return chart through the day -->
+<div class="chartcard">
+ <div class="charthead">
+  <div><div class="l">Expected return today <span>· open book marked to the historical odds, through the day</span></div>
+   <div class="chartbig" id="chartnow">—</div></div>
+  <div class="chartmeta" id="chartmeta"></div>
+ </div>
+ <div id="roichart"></div>
+</div>
 
 <div class="hero">
  <div class="l">Overall edge health</div>
@@ -259,6 +275,20 @@ function render(d){
       + b50.map(x=>`${esc(x.ticker)} <b>${x.win}%</b>`).join(' · '); }
   else { al.className=''; al.innerHTML=''; }
 
+  // ---- headline: expected-return-through-the-day chart ----
+  const ser = m.roi_series||[];
+  const last = ser.length ? ser[ser.length-1] : null;
+  const cn = document.getElementById('chartnow');
+  if(last){ cn.textContent = signMoney(last.pnl); cn.className='chartbig '+(last.pnl>=0?'pos':'neg'); }
+  else { cn.textContent='—'; cn.className='chartbig'; }
+  if(ser.length){
+    const yy = ser.map(p=>p.pnl);
+    document.getElementById('chartmeta').innerHTML =
+      `ROI <b class="${(roi.roi_pct||0)>=0?'pos':'neg'}">${roi.roi_pct!=null?(roi.roi_pct>=0?'+':'')+roi.roi_pct+'%':'—'}</b> &nbsp;·&nbsp; P(green) <b>${wd.p_green!=null?wd.p_green+'%':'—'}</b>`
+      + `<br><span style="color:var(--muted)">today's range ${signMoney(Math.min(...yy))} … ${signMoney(Math.max(...yy))}</span>`;
+  } else document.getElementById('chartmeta').innerHTML='';
+  drawROI(ser);
+
   // ---- Win-odds calibration heatmap ----
   const ot = m.odds_table;
   if(ot){
@@ -271,6 +301,33 @@ function render(d){
 
   document.getElementById('footer').textContent =
     `Edge-health monitor · updates with each publish · data ${d.generated||'?'} UTC. Hedge stays gated off until the cold-low leg confirms +EV.`;
+}
+
+function drawROI(series){
+  const el = document.getElementById('roichart');
+  if(!series || series.length < 2){ el.innerHTML='<div class="note" style="text-align:center;padding:22px 0">Chart builds through the day as the book is marked to the odds…</div>'; return; }
+  const W=680,H=150,L=6,R=6,T=12,Bm=8,pw=W-L-R,ph=H-T-Bm;
+  const xs=series.map(p=>p.t), ys=series.map(p=>p.pnl);
+  const tmin=xs[0], tmax=xs[xs.length-1];
+  const ymax=Math.max(...ys,0.2), ymin=Math.min(...ys,-0.2);
+  const pad=(ymax-ymin)*0.15||0.2, lo=ymin-pad, hi=ymax+pad;
+  const X=t=>L+(tmax===tmin?0.5:(t-tmin)/(tmax-tmin))*pw;
+  const Y=v=>T+(1-(v-lo)/(hi-lo))*ph;
+  const up=ys[ys.length-1]>=0, col=up?'var(--goodtext)':'var(--crit)';
+  const dp='M'+series.map(p=>`${X(p.t).toFixed(1)},${Y(p.pnl).toFixed(1)}`).join(' L');
+  const area=dp+` L${X(tmax).toFixed(1)},${Y(lo).toFixed(1)} L${X(tmin).toFixed(1)},${Y(lo).toFixed(1)} Z`;
+  const zY=Y(0).toFixed(1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;max-height:180px">`;
+  s+=`<defs><linearGradient id="rg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".20"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>`;
+  s+=`<line x1="${L}" y1="${zY}" x2="${L+pw}" y2="${zY}" stroke="var(--grid)" stroke-dasharray="3 4"/>`;
+  s+=`<text x="${L+2}" y="${(+zY-4).toFixed(1)}" style="font:10px system-ui;fill:var(--muted)">$0</text>`;
+  s+=`<path d="${area}" fill="url(#rg)"/>`;
+  s+=`<path d="${dp}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round"/>`;
+  s+=`<circle cx="${X(tmax).toFixed(1)}" cy="${Y(ys[ys.length-1]).toFixed(1)}" r="3.6" fill="${col}"/>`;
+  s+=`</svg>`;
+  const ft=t=>{const d=new Date(t*1000);return d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});};
+  s+=`<div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:1px"><span>${ft(tmin)}</span><span>now ${ft(tmax)}</span></div>`;
+  el.innerHTML=s;
 }
 
 load(); setInterval(load, 60000);
