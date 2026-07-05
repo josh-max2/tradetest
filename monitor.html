@@ -56,6 +56,19 @@ h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2
 .legend{font-size:11px;color:var(--muted);margin-top:16px;display:flex;gap:14px;flex-wrap:wrap}
 .legend b{font-weight:700}
 .note{font-size:11.5px;color:var(--muted);margin-top:14px}
+.pos{color:var(--goodtext)} .neg{color:var(--crit)}
+.roicard{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px 22px;margin-bottom:18px;border-left:3px solid var(--s1)}
+.roicard .l{text-transform:uppercase;letter-spacing:.06em;font-size:10px;font-weight:700;color:var(--muted)}
+.roicard .l span{text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)}
+.roibig{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.05;margin-top:5px;letter-spacing:-.02em}
+.roisub{font-size:12.5px;color:var(--ink2);margin-top:8px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--grid);padding:6px 9px;text-align:right;position:sticky;top:0;background:var(--surface)}
+td{padding:6px 9px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:var(--ink2)}
+.scroll{max-height:420px;overflow:auto;border-radius:8px}
+.heat{font-weight:650;font-variant-numeric:tabular-nums}
 </style></head>
 <body>
 <div class="nav">
@@ -79,6 +92,13 @@ h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2
  <div class="cx" id="verdictsub"></div>
 </div>
 
+<!-- EXPECTED ROI indicator -->
+<div class="roicard">
+ <div class="l">Expected ROI <span>· open book held to settlement, priced off the 16k-market historical survival odds</span></div>
+ <div class="roibig" id="roi">—</div>
+ <div class="roisub" id="roisub"></div>
+</div>
+
 <h2>Watch list</h2>
 <div class="grid" id="watch"></div>
 
@@ -87,6 +107,11 @@ h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2
  <span><b style="color:var(--warn)">BUILDING / PENDING</b> — not enough data yet to judge</span>
  <span><b style="color:var(--crit)">WATCH / STALE</b> — off target, look closer</span>
 </div>
+
+<h2>Win odds by price × time-to-close <span>— P(we still win once a tail drifts to a price)</span></h2>
+<div class="card"><div class="scroll"><table id="oddstbl"></table></div>
+<p class="note">The exact odds the Expected-ROI indicator prices with (16,651 tail markets; ordered "was cheap → drifted here" conditional). Read a row: once one of our shorts drifts to that price band, this is the historical chance it still expires worthless (we win). Note the cliff past ~50¢ and especially with &lt;4h to close.</p></div>
+
 <p class="note" id="footer"></p>
 
 <script>
@@ -94,6 +119,7 @@ const pct = v => v==null ? '—' : v.toFixed(0) + '%';
 const pct1 = v => v==null ? '—' : v.toFixed(1) + '%';
 const fmtC = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(1) + '¢';
 const money = v => v==null ? '—' : (v<0?'-$':'$') + Math.abs(v).toFixed(2);
+const signMoney = v => v==null ? '—' : (v>=0?'+':'') + money(v);
 const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
 
 async function load(){
@@ -195,6 +221,26 @@ function render(d){
     q:'Is the bot alive and posting orders?'});
 
   document.getElementById('watch').innerHTML = cards.map(card).join('');
+
+  // ---- Expected ROI indicator (priced off historical survival odds) ----
+  const roi = m.exp_roi||{};
+  const rel = document.getElementById('roi');
+  if(roi.roi_pct!=null){ rel.textContent=(roi.roi_pct>=0?'+':'')+roi.roi_pct.toFixed(1)+'%'; rel.className='roibig '+(roi.roi_pct>=0?'pos':'neg'); }
+  else { rel.textContent='—'; rel.className='roibig'; }
+  document.getElementById('roisub').innerHTML = roi.roi_pct==null ? 'no open positions right now' :
+    `<b>${signMoney(roi.pnl)}</b> expected on <b>${money(roi.collat)}</b> of collateral at risk · ${roi.n} open positions · ~<b>${roi.exp_busts}</b> expected to bust`
+    + (roi.mkt_pnl!=null ? `<br><span style="color:var(--muted)">Current market marks value the same book at ${signMoney(roi.mkt_pnl)} — the historical odds are the more conservative read.</span>` : '');
+
+  // ---- Win-odds calibration heatmap ----
+  const ot = m.odds_table;
+  if(ot){
+    const heat = v => { if(v==null) return 'var(--muted)'; const g=Math.max(0,Math.min(1,(v-30)/65)); return `color-mix(in srgb, var(--goodtext) ${Math.round(g*100)}%, var(--crit))`; };
+    let h = '<tr><th>price band</th>'+ot.cols.map(c=>`<th>${esc(c)} left</th>`).join('')+'</tr>';
+    h += ot.rows.map(r=>'<tr><td>'+esc(r[0])+'</td>'+r.slice(1).map(v=>
+      `<td class="heat" style="color:${heat(v)}">${v==null?'—':v+'%'}</td>`).join('')+'</tr>').join('');
+    document.getElementById('oddstbl').innerHTML = h;
+  }
+
   document.getElementById('footer').textContent =
     `Edge-health monitor · updates with each publish · data ${d.generated||'?'} UTC. Hedge stays gated off until the cold-low leg confirms +EV.`;
 }
