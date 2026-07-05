@@ -38,7 +38,8 @@ h1{font-size:21px;font-weight:650;margin:0}
 .hero .cx b{font-weight:650}
 
 /* kpi strip */
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:8px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
+@media(max-width:560px){.tiles{grid-template-columns:repeat(2,1fr)}}
 .tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px}
 .tile .l{text-transform:uppercase;letter-spacing:.06em;font-size:9.5px;font-weight:700;color:var(--muted)}
 .tile .v{font-size:23px;font-weight:650;margin-top:3px;font-variant-numeric:tabular-nums}
@@ -81,7 +82,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-Kelly deploy · held to settlement.</p>
+<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · 1 contract each · same-city hedge · held to settlement.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
@@ -145,7 +146,7 @@ function render(d){
     const ep=o.expected_pnl;
     sub += `<br><span style="color:var(--muted)">Marked to market now → <b style="color:var(--ink2)">${money(o.expected_balance)}</b> `
          + `<span class="${ep>=0?'pos':'neg'}">(${(ep>=0?'+':'')+money(ep)})</span>`
-         + ` · range ${money(o.worst_case)} … <span class="pos">+${money(o.potential_gain)}</span>`
+         + ` · <span class="pos">+${money(o.potential_gain)}</span> if all expire worthless`
          + (o.next_settle?` · next settles ${fmtT(o.next_settle)}`:'') + `</span>`;
   }
   document.getElementById('eqsub').innerHTML = sub;
@@ -197,7 +198,7 @@ function render(d){
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
 
   document.getElementById('footer').textContent =
-    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly deploy · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
+    `Weather (high+low) + crypto-daily · post-only maker · 1 contract each (hedge test) · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
 }
 
 function drawPnl(curve){
