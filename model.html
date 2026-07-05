@@ -54,6 +54,12 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <br><br><b>How to tell if it's working:</b> (1) on the Actual view, the observed <b>loss rate stays ≤6%</b> and <b>EV per fill ≥ +1¢</b> as settled trades accumulate; (2) the bold real-equity line tracks inside the model's shaded band. Sizing only scales up through pre-defined gates if those hold. <span id="stageline" style="color:var(--muted)"></span>
 </div>
 
+<div class="explain" id="expectnow" style="border-left-color:var(--warn)">
+<b>What we expect now (2026-07-05):</b> we're in <b>1-contract validation</b> — the goal right now is to prove the edge is real, not to grow capital. The full-Kelly doubling plan on the Projected tab is <b>paused and gated</b> on that proof.
+<br><br>The live data is running <b>hotter than the model so far</b>: <span id="en-live">—</span>. Normalized to 1 contract, the whole book to date is roughly <b>flat</b>, so the edge <b>has not yet separated from noise</b>. Realistically, expect <b>flat-to-thin P&amp;L in the near term</b> while enough settled trades accumulate (~a few more weeks) to tell whether the true edge is the modeled +1¢/fill or whether the low sleeve drags it toward breakeven. Doubling only begins once the edge confirms and sizing is re-enabled.
+<br><br>Two risks the backtest under-weights: <b>correlated weather days</b> (a broad heat or cold event can bust many positions at once — worse than the model's independent assumption) and the <b>low sleeve</b> busting several times more often than the highs.
+</div>
+
 <div class="toggle">
  <button id="btn-proj" class="on" onclick="show('proj')">Projected · backtest model</button>
  <button id="btn-act" onclick="show('act')">Actual · real trades only</button>
@@ -63,7 +69,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <!-- ================= PROJECTED ================= -->
 <div id="proj">
  <div class="hero">
-  <div class="hcard"><div class="l">Projected time to double (median — size-independent)</div>
+  <div class="hcard"><div class="l">Projected time to double <span style="color:var(--warn)">— full-Kelly plan, gated; sizing paused at 1 contract</span></div>
    <div class="big" id="p-double">—</div>
    <div class="cx" id="p-doublecx"></div>
    <div class="startbox">Starting capital $ <input id="startval" type="number" min="10" step="10" value="48.16" oninput="renderProj()">
@@ -134,6 +140,10 @@ async function load(){
     M=await rm.json(); L=await rl.json();
     document.getElementById('err').style.display='none';
     document.getElementById('stageline').textContent = L.stage? ('Current stage: '+L.stage+'.') : '';
+    const enb=(L.monitor&&L.monitor.bust)||{}, enev=L.monitor?L.monitor.ev_fill:null;
+    document.getElementById('en-live').innerHTML =
+      `<b>${enb.n||0} settled</b>, bust <b>${enb.rate!=null?enb.rate.toFixed(1):'—'}%</b> vs model ${M.headline.loss_rate}% · `
+      + `EV/fill <b class="${(enev||0)>=0?'pos':'neg'}">${enev!=null?(enev>=0?'+':'')+enev.toFixed(1)+'¢':'—'}</b> vs model +${M.headline.ev_per_fill_c}¢`;
     renderProj(); renderAct();
   }catch(e){ document.getElementById('err').style.display='block'; }
 }
