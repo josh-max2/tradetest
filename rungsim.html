@@ -145,7 +145,7 @@ function render(d){
     '<tr><th>parameter</th><th>value</th></tr>'
     +[['Universe',p.universe||'—'],['Rungs (sell YES)', (p.rungs||[]).join(' / ')+'¢  (= buy NO at '+(p.rungs||[]).map(x=>100-x).join(' / ')+'¢)'],
       ['Time gate','rungs cancel < '+(p.gate_hrs||8)+'h to close (morning/overnight dips only)'],
-      ['Sizing','universal Kelly: deploy '+(100*(p.deploy||0.9))+'%, f = deploy/K (K='+(p.k_target||13)+'), cap '+(100*(p.f_cap||0.12))+'%/fill'],
+      ['Sizing','universal Kelly: deploy '+Math.round(100*(p.deploy||0.9))+'%, f = deploy/K (K='+(p.k_target||13)+'), cap '+Math.round(100*(p.f_cap||0.12))+'%/fill'],
       ['Fill rule','depth-must-clear: real taker-buy volume at/above level must exceed the queue snapshotted at registration'],
       ['Fees','$0 (maker, zero-fee series)'],['Orders placed','ZERO — read-only key, phantom only']]
     .map(([k,v])=>`<tr><td style="font-family:system-ui">${esc(k)}</td><td style="text-align:left">${esc(v)}</td></tr>`).join('');

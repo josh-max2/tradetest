@@ -129,7 +129,7 @@ async function load(){
 
 function render(d){
   const a=d.account||{}, s=d.summary||{}, o=d.open||{};
-  const ageMin = d.generated_epoch ? (Date.now()/1000-d.generated_epoch)/60 : 999;
+  const ageMin = d.generated_epoch ? Math.max(0,(Date.now()/1000-d.generated_epoch)/60) : 999;
   const dot=document.getElementById('dot'), stt=document.getElementById('statustxt');
   if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }

@@ -128,6 +128,7 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;colo
   </div>
  </div>
  <div id="alert50"></div>
+ <div class="note" id="corrnote" style="margin-top:12px"></div>
 </div>
 
 <h2>Watch list</h2>
@@ -178,7 +179,7 @@ function card(c){
 
 function render(d){
   const m = d.monitor||{}, s = d.summary||{};
-  const ageMin = d.generated_epoch ? (Date.now()/1000-d.generated_epoch)/60 : 999;
+  const ageMin = d.generated_epoch ? Math.max(0,(Date.now()/1000-d.generated_epoch)/60) : 999;
   const dot=document.getElementById('dot'), stt=document.getElementById('statustxt');
   if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
@@ -274,6 +275,8 @@ function render(d){
     al.innerHTML = `⚠ <b>${b50.length}</b> position${b50.length>1?'s':''} below the 50% win line (now more likely to lose than win): `
       + b50.map(x=>`${esc(x.ticker)} <b>${x.win}%</b>`).join(' · '); }
   else { al.className=''; al.innerHTML=''; }
+  document.getElementById('corrnote').innerHTML = (wd.p_green==null) ? '' :
+    `The range and P(green) assume positions settle <b>independently</b>. Weather busts correlate — a broad heat or cold event can bust many cities at once — so a real bad day runs materially worse than the ${signMoney(wd.p5)} shown here. That correlated tail, not the ${signMoney(wd.p5)} figure, is the strategy's main risk.`;
 
   // ---- headline: expected-return-through-the-day chart ----
   const ser = m.roi_series||[];
