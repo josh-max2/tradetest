@@ -151,11 +151,21 @@ function render(d){
     + `${money(a.resting_commit)} in ${s.resting||0} resting orders · `
     + `realized <span class="${(s.realized||0)>=0?'pos':'neg'}">${money(s.realized)}</span> · full-capital deploy`;
   const o=d.open||{};
-  document.getElementById('potential').innerHTML = (o.n>0)
-    ? `Best case if all ${o.n} open win → <b>${money(o.potential_balance)}</b> <span class="pos">(+${money(o.potential_gain)})</span>`
-      + ` · worst <span class="neg">${money(o.worst_case)}</span>`
+  if(o.n>0){
+    const ep = o.expected_pnl||0, nd = (o.near_win||0)+(o.near_loss||0);
+    const epTxt = (ep>=0?'+':'') + money(ep);
+    document.getElementById('potential').innerHTML =
+        `Expected now → <b>${money(o.expected_balance)}</b> `
+      + `<span class="${ep>=0?'pos':'neg'}">(${epTxt})</span>`
+      + ` <span style="color:var(--muted)">at current market levels`
+      + ` · range ${money(o.worst_case)} … <span class="pos">+${money(o.potential_gain)}</span> best`
+      + (nd?` · ${o.near_win||0} near-win / ${o.near_loss||0} near-loss of ${o.n}`:'')
       + (o.next_settle?` · first settles ${fmtT(o.next_settle)}`:'')
-    : `<span style="color:var(--muted)">Potential shows once a position fills.</span>`;
+      + `</span>`;
+  } else {
+    document.getElementById('potential').innerHTML =
+      `<span style="color:var(--muted)">Potential shows once a position fills.</span>`;
+  }
   drawPnl(d.pnl_curve||[]);
 
   document.getElementById('fillrate').textContent = s.placed ? pct(100*s.fill_rate) : '—';
