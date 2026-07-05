@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-05 20:16",
- "generated_epoch": 1783282569,
+ "generated": "2026-07-05 20:19",
+ "generated_epoch": 1783282744,
  "stage": "FULL DEPLOY \u2014 smart + full-capital sizing (Gate 1 passed 21/0; majors-only; SPRT rails armed; ~$342 cap incl. Jul-4 deposit)",
  "account": {
   "balance": 195.22,
-  "committed": 133.43,
+  "committed": 134.35,
   "locked": 131.54,
-  "resting_commit": 1.89,
+  "resting_commit": 2.81,
   "cap": "full",
   "start": 48.16
  },
@@ -16,19 +16,19 @@
   "potential_gain": 7.46,
   "worst_case": -131.54,
   "next_settle": "2026-07-04T06:00:00Z",
-  "expected_balance": 329.94,
-  "expected_pnl": 3.18,
+  "expected_balance": 329.63,
+  "expected_pnl": 2.88,
   "near_win": 33,
   "near_loss": 0
  },
  "summary": {
-  "placed": 154,
-  "resting": 2,
+  "placed": 155,
+  "resting": 3,
   "filled": 78,
   "filled_open": 36,
   "settled": 42,
   "expired": 45,
-  "fill_rate": 0.5065,
+  "fill_rate": 0.5032,
   "ev": -3.12,
   "adverse": 0.0714,
   "realized": -14.84
@@ -394,7 +394,7 @@
     33.32
    ],
    [
-    2.68,
+    2.682,
     33.32
    ]
   ],
@@ -421,13 +421,13 @@
   },
   "ev_fill": -3.12,
   "ev_target": 2.0,
-  "fill_rate": 51,
+  "fill_rate": 50,
   "deployment": 40,
   "realized": -14.84,
   "activity": {
    "placed_24h": 43,
    "last": "07-05 15:45",
-   "hrs_since": 4.5
+   "hrs_since": 4.6
   }
  },
  "odds_table": {
@@ -531,6 +531,21 @@
    "pnl_c": null
   },
   {
+   "ticker": "KXBTCD-26JUL0617-T64749.99",
+   "series": "KXBTCD",
+   "sold_c": 8.0,
+   "collateral": 0.92,
+   "queue_ahead": 58.0,
+   "status": "RESTING",
+   "hrs": 24.7,
+   "close_ts": "2026-07-06T21:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
    "ticker": "KXLOWTSATX-26JUL03-T69",
    "series": "KXLOWTSATX",
    "sold_c": 1.0,
@@ -600,8 +615,8 @@
    "hrs": 9.7,
    "close_ts": "2026-07-06T06:00:00Z",
    "ttf_min": 0.7,
-   "now_yes": 19.5,
-   "win_odds": 85.1,
+   "now_yes": 20.5,
+   "win_odds": 80.4,
    "result": null,
    "pnl_c": null
   },
@@ -645,7 +660,7 @@
    "hrs": 10.7,
    "close_ts": "2026-07-06T07:00:00Z",
    "ttf_min": 9.0,
-   "now_yes": 5.0,
+   "now_yes": 3.5,
    "win_odds": 94.7,
    "result": null,
    "pnl_c": null
@@ -720,7 +735,7 @@
    "hrs": 8.7,
    "close_ts": "2026-07-06T05:00:00Z",
    "ttf_min": 306.5,
-   "now_yes": 20.5,
+   "now_yes": 27.5,
    "win_odds": 80.4,
    "result": null,
    "pnl_c": null
@@ -810,7 +825,7 @@
    "hrs": 9.7,
    "close_ts": "2026-07-06T05:59:00Z",
    "ttf_min": 107.2,
-   "now_yes": 2.5,
+   "now_yes": 2.0,
    "win_odds": 97.7,
    "result": null,
    "pnl_c": null
@@ -900,7 +915,7 @@
    "hrs": 9.7,
    "close_ts": "2026-07-06T06:00:00Z",
    "ttf_min": 18.3,
-   "now_yes": 8.5,
+   "now_yes": 9.0,
    "win_odds": 92.1,
    "result": null,
    "pnl_c": null
@@ -1005,8 +1020,8 @@
    "hrs": 9.7,
    "close_ts": "2026-07-06T06:00:00Z",
    "ttf_min": 198.3,
-   "now_yes": 3.0,
-   "win_odds": 94.7,
+   "now_yes": 2.5,
+   "win_odds": 97.7,
    "result": null,
    "pnl_c": null
   },
@@ -1050,7 +1065,7 @@
    "hrs": 9.7,
    "close_ts": "2026-07-06T06:00:00Z",
    "ttf_min": 0.6,
-   "now_yes": 1.0,
+   "now_yes": 2.0,
    "win_odds": 97.7,
    "result": null,
    "pnl_c": null
@@ -1373,6 +1388,12 @@
  ],
  "events": [
   {
+   "ts": "07-05T20:19:03",
+   "kind": "PLACED",
+   "ticker": "KXBTCD-26JUL0617-T64749.99",
+   "detail": "order_id=efca3833-817b-44fd-bbc0-f045cf2b5c19, sell_YES@$=0.08, fill_count=0.0"
+  },
+  {
    "ts": "07-05T16:21:27",
    "kind": "SETTLE",
    "ticker": "KXLOWTDC-26JUL04-T74",
@@ -1605,12 +1626,6 @@
    "kind": "PLACED",
    "ticker": "KXLOWTAUS-26JUL05-T71",
    "detail": "order_id=42fab084-5ed9-4b81-a94b-77884f3c9d29, sell_YES@$=0.06, fill_count=0.0"
-  },
-  {
-   "ts": "07-05T10:45:12",
-   "kind": "PLACED",
-   "ticker": "KXLOWTPHIL-26JUL05-B70.5",
-   "detail": "order_id=ebef50f8-bfc5-4246-b1b6-0cc5e78a7369, sell_YES@$=0.05, fill_count=0.0"
   }
  ]
 }
