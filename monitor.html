@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi — Monitor</title>
+<style>
+:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
+ --grid:#e7e6df; --border:rgba(16,16,16,.07); --shadow:0 1px 2px rgba(16,16,16,.04),0 10px 30px rgba(16,16,16,.05);
+ --s1:#2a78d6; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#fff; --ink2:#c3c2b7;
+ --muted:#8a8880; --grid:#2a2a28; --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0);
+ --s1:#3987e5; --goodtext:#16b516; --warn:#e0a52a; } }
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+ padding:26px 5vw 80px;max-width:880px;margin-inline:auto}
+.nav{display:flex;gap:4px;width:max-content;margin:0 0 24px;padding:4px;background:var(--surface);
+ border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink2)} .nav a.active{color:var(--ink);background:color-mix(in srgb,var(--s1) 13%,transparent)}
+.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+h1{font-size:21px;font-weight:650;margin:0}
+.status{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;animation:pulse 2.2s ease-in-out infinite}
+.dot.stale{background:var(--warn);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sub{color:var(--ink2);font-size:13px;margin:6px 0 22px;max-width:700px}
+#err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:12px;padding:14px 18px;color:var(--crit);font-size:13px;margin-bottom:16px}
+
+/* hero verdict */
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);
+ padding:20px 24px;margin-bottom:18px}
+.hero .l{text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:700;color:var(--muted)}
+.hero .big{font-size:27px;font-weight:680;letter-spacing:-.01em;line-height:1.15;margin-top:6px}
+.hero .cx{font-size:13px;color:var(--ink2);margin-top:8px}
+
+/* watch cards */
+h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:26px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px}
+.watch{background:var(--surface);border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow);
+ padding:15px 17px;border-left:3px solid var(--grid);display:flex;flex-direction:column;gap:2px}
+.watch.ok{border-left-color:var(--good)} .watch.warn{border-left-color:var(--warn)} .watch.crit{border-left-color:var(--crit)}
+.watch .hd{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.watch .ttl{font-size:12px;font-weight:700;letter-spacing:.02em}
+.pill{font-size:9.5px;font-weight:750;padding:2px 8px;border-radius:99px;letter-spacing:.05em;white-space:nowrap;text-transform:uppercase;border:1px solid var(--grid);color:var(--muted)}
+.pill.ok{color:var(--goodtext);border-color:color-mix(in srgb,var(--good) 45%,var(--grid));background:color-mix(in srgb,var(--good) 8%,transparent)}
+.pill.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,var(--grid));background:color-mix(in srgb,var(--warn) 8%,transparent)}
+.pill.crit{color:var(--crit);border-color:color-mix(in srgb,var(--crit) 50%,var(--grid));background:color-mix(in srgb,var(--crit) 9%,transparent)}
+.watch .val{font-size:29px;font-weight:680;font-variant-numeric:tabular-nums;margin-top:6px;line-height:1.05}
+.watch .tgt{font-size:11.5px;color:var(--muted);margin-top:1px}
+.watch .meta{font-size:11.5px;color:var(--ink2);margin-top:7px}
+.watch .q{font-size:11.5px;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px solid var(--grid);font-style:italic}
+/* progress bar for sample building */
+.bar{height:4px;border-radius:99px;background:var(--grid);margin-top:9px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--s1);border-radius:99px}
+.legend{font-size:11px;color:var(--muted);margin-top:16px;display:flex;gap:14px;flex-wrap:wrap}
+.legend b{font-weight:700}
+.note{font-size:11.5px;color:var(--muted);margin-top:14px}
+</style></head>
+<body>
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a class="active" href="./monitor.html">Monitor</a>
+ <a href="./model.html">Testing</a>
+ <a href="./rungsim.html">Dip Sim</a>
+ <a href="./appendix.html">Appendix</a>
+</div>
+
+<div class="top">
+ <h1>Edge Monitor</h1>
+ <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
+</div>
+<p class="sub">The open questions we're watching as live data accumulates — is the edge real out-of-sample, do the lows hold up, and is the cold-low leg +EV enough to turn the same-city hedge on. Each card answers itself as settlements land.</p>
+<div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
+
+<div class="hero">
+ <div class="l">Overall edge health</div>
+ <div class="big" id="verdict">—</div>
+ <div class="cx" id="verdictsub"></div>
+</div>
+
+<h2>Watch list</h2>
+<div class="grid" id="watch"></div>
+
+<div class="legend">
+ <span><b style="color:var(--goodtext)">ON TRACK / ACTIVE</b> — behaving as expected</span>
+ <span><b style="color:var(--warn)">BUILDING / PENDING</b> — not enough data yet to judge</span>
+ <span><b style="color:var(--crit)">WATCH / STALE</b> — off target, look closer</span>
+</div>
+<p class="note" id="footer"></p>
+
+<script>
+const pct = v => v==null ? '—' : v.toFixed(0) + '%';
+const pct1 = v => v==null ? '—' : v.toFixed(1) + '%';
+const fmtC = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(1) + '¢';
+const money = v => v==null ? '—' : (v<0?'-$':'$') + Math.abs(v).toFixed(2);
+const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
+
+async function load(){
+  try{
+    const r = await fetch('./data/paper.json?t='+Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error(r.status);
+    render(await r.json());
+    document.getElementById('err').style.display='none';
+  }catch(e){
+    document.getElementById('err').style.display='block';
+    document.getElementById('statustxt').textContent='waiting for first publish';
+    document.getElementById('dot').className='dot stale';
+  }
+}
+
+function card(c){
+  const cls = {ok:'ok',warn:'warn',crit:'crit',building:'warn',pending:'warn',active:'ok',stale:'crit'}[c.state]||'';
+  const plabel = c.pill || c.state.toUpperCase();
+  const bar = c.pct!=null ? `<div class="bar"><i style="width:${Math.min(100,Math.max(3,c.pct))}%"></i></div>` : '';
+  return `<div class="watch ${cls}">
+    <div class="hd"><span class="ttl">${esc(c.ttl)}</span><span class="pill ${cls}">${esc(plabel)}</span></div>
+    <div class="val">${c.val}</div><div class="tgt">${esc(c.tgt)}</div>
+    ${bar}<div class="meta">${c.meta}</div><div class="q">${esc(c.q)}</div></div>`;
+}
+
+function render(d){
+  const m = d.monitor||{}, s = d.summary||{};
+  const ageMin = d.generated_epoch ? (Date.now()/1000-d.generated_epoch)/60 : 999;
+  const dot=document.getElementById('dot'), stt=document.getElementById('statustxt');
+  if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
+  else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
+
+  const b=m.bust||{}, hi=m.high||{}, lo=m.low||{}, ac=m.activity||{};
+  const busts = Math.round((b.rate||0)/100*(b.n||0));
+
+  // ---- HERO verdict ----
+  let vstate='building', vtxt='Building the out-of-sample record';
+  if(b.n>=40){ if((b.rate||0)<=6){vstate='ok';vtxt='Edge holding out-of-sample';} else {vstate='crit';vtxt='Bust rate running hot — look closer';} }
+  document.getElementById('verdict').textContent = vtxt;
+  document.getElementById('verdictsub').innerHTML =
+    `${b.n||0} settled · <b>${busts}</b> bust${busts===1?'':'s'} · realized <b>${money(m.realized)}</b> · `
+    + `EV/fill <b>${fmtC(m.ev_fill)}</b>. `
+    + (b.n<40 ? `Need <b>${b.need||0}</b> more settlements before the ${b.expected||5}%-bust claim is statistically judgeable.`
+             : `Sample sufficient to judge the ~${b.expected||5}% bust assumption.`);
+
+  // ---- watch cards ----
+  const cards = [];
+
+  // 1. bust rate — is the edge real
+  cards.push({
+    ttl:'Edge is real — bust rate',
+    state: b.n>=40 ? ((b.rate||0)<=6?'ok':'crit') : 'building',
+    pill: b.n>=40 ? ((b.rate||0)<=6?'ON TRACK':'WATCH') : 'BUILDING',
+    val: pct1(b.rate), tgt:`target ≤ 6%  ·  priced at ~${b.expected||5}%`,
+    pct: b.n!=null ? 100*b.n/40 : null,
+    meta:`<b>${b.n||0}</b> settled · ${busts} bust${busts===1?'':'s'}` + (b.need>0?` · <b>${b.need}</b> more to confirm`:` · sample sufficient`),
+    q:'Are the cheap tails busting at the ~5% rate we priced them at?'});
+
+  // 2. EV / fill
+  cards.push({
+    ttl:'Premium per fill', state: m.ev_fill==null?'building':(m.ev_fill>=(m.ev_target||2)?'ok':(m.ev_fill>=1?'warn':'crit')),
+    pill: m.ev_fill==null?'BUILDING':(m.ev_fill>=(m.ev_target||2)?'ON TRACK':(m.ev_fill>=1?'THIN':'WATCH')),
+    val: fmtC(m.ev_fill), tgt:`target ≥ +${(m.ev_target||2).toFixed(1)}¢  ·  net of fees`,
+    meta:`fee-adjusted edge captured per settled fill` + (b.n<40?` · small sample`:''),
+    q:'Is each fill actually clearing the modeled fee-adjusted edge?'});
+
+  // 3. lows hold up (highs vs lows)
+  const lowsBuilding = (hi.n||0)<8 || (lo.n||0)<8;
+  cards.push({
+    ttl:'Lows hold up', state: lowsBuilding?'building':((lo.rate||0)<=(hi.rate||0)+3?'ok':'warn'),
+    pill: lowsBuilding?'BUILDING':((lo.rate||0)<=(hi.rate||0)+3?'ON TRACK':'WATCH'),
+    val:`${pct1(lo.rate)} <span style="font-size:14px;color:var(--muted)">low</span>`,
+    tgt:`highs ${pct1(hi.rate)}  ·  lows should ≈ highs`,
+    meta:`<b>${hi.n||0}</b> high · <b>${lo.n||0}</b> low settled` + (lo.ev!=null?` · low-tail EV <b>${fmtC(lo.ev)}</b>`:''),
+    q:'Do the low-temp tails bust as rarely as the highs? (validation gate #1)'});
+
+  // 4. hedge gate — cold-low edge (proxy: low-tail EV; full split in weekly check)
+  cards.push({
+    ttl:'Hedge gate — cold-low EV', state:'pending', pill:'PENDING',
+    val: fmtC(lo.ev), tgt:`cold-side must be ≥ ~0¢ to flip hedge on`,
+    meta:`low-tail EV shown as proxy · full cold/hot split runs in the weekly check · ~2 wks live data needed`,
+    q:'Are cold-side lows +EV enough to turn the same-city hedge on? (still gated off)'});
+
+  // 5. fill rate
+  const fr = m.fill_rate;
+  cards.push({
+    ttl:'Fill rate', state: fr==null?'building':(fr>=40?'ok':'warn'), pill: fr==null?'BUILDING':(fr>=40?'ON TRACK':'LOW'),
+    val: pct(fr), tgt:`50–70% expected  ·  deployment ${pct(m.deployment)}`,
+    meta:`non-fills bust MORE than fills — the book rations us into the good tails (favorable selection)`,
+    q:'Are we filling enough, and is the rationing working in our favor?'});
+
+  // 6. bot activity
+  const hs = ac.hrs_since;
+  cards.push({
+    ttl:'Bot is bidding', state: hs==null?'stale':(hs<24?'active':'stale'), pill: hs==null?'STALE':(hs<24?'ACTIVE':'STALE'),
+    val:`${ac.placed_24h||0} <span style="font-size:14px;color:var(--muted)">/24h</span>`,
+    tgt:`last placement ${hs==null?'—':hs+'h'} ago`,
+    meta:`last: <b>${esc(ac.last||'—')}</b> UTC · posting into the open books`,
+    q:'Is the bot alive and posting orders?'});
+
+  document.getElementById('watch').innerHTML = cards.map(card).join('');
+  document.getElementById('footer').textContent =
+    `Edge-health monitor · updates with each publish · data ${d.generated||'?'} UTC. Hedge stays gated off until the cold-low leg confirms +EV.`;
+}
+
+load(); setInterval(load, 60000);
+</script>
+</body>
+</html>
