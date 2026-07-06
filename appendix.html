@@ -56,7 +56,7 @@ dd{margin:2px 0 0;color:var(--ink2);font-size:13px}
 <dt>Fill simulation</dt><dd>A resting sell order behind a queue of Q contracts fills when cumulative real buyer volume exceeds Q; the fill is scored at that moment's price against the final settlement. No assumed fills, no slippage (a resting limit can't fill worse than its price; post-only can never cross).</dd>
 <dt>Fees</dt><dd>$0 maker fees on every eligible series — enforced in code and verified on live orders. Taker fees are impossible by construction (post-only).</dd>
 <dt>Survival odds (grid above)</dt><dd>P(market settles NO | it traded in a price bucket with a given time-to-close remaining), over the same universe.</dd>
-<dt>Forward projection (Testing tab)</dt><dd>4,000 Monte-Carlo paths of the sizing plan using the audited loss rate (4.43% at −94¢) with correlated weather-region clusters and ~1.1-day settlement cycles.</dd>
+<dt>Forward projection (Testing tab)</dt><dd>4,000 Monte-Carlo paths of the sizing plan using the audited loss rate (4.43% at −94¢) with correlated weather-region clusters and ~1.1-day settlement cycles. <b>Now known conservative:</b> the 2026-07 correlation study found cross-city busts are independent (corr ≈0), so the real drawdown/doubling is likely better than this projection — see Testing. It is the <b>full-Kelly</b> path and applies only after the edge confirms and sizing scales; the current method is 1 contract.</dd>
 <dt>Live data</dt><dd>Everything on the Live tab comes from the actual account: real orders, real fills read back from the exchange, real settlements. The bot never assumes a fill.</dd>
 </dl>
 </div>
