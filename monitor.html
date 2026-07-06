@@ -276,7 +276,7 @@ function render(d){
       + b50.map(x=>`${esc(x.ticker)} <b>${x.win}%</b>`).join(' · '); }
   else { al.className=''; al.innerHTML=''; }
   document.getElementById('corrnote').innerHTML = (wd.p_green==null) ? '' :
-    `The range and P(green) assume positions settle <b>independently</b>. Weather busts correlate — a broad heat or cold event can bust many cities at once — so a real bad day runs materially worse than the ${signMoney(wd.p5)} shown here. That correlated tail, not the ${signMoney(wd.p5)} figure, is the strategy's main risk.`;
+    `The range and P(green) assume positions settle <b>independently</b> — which the archive confirms for cross-city weather (bust correlation ≈0, clustering matches pure chance). The residual correlation risk is narrow: a broad <b>cold snap could cluster the lows</b> (untested — the one thing to watch), and <b>crypto</b> (BTC/ETH move together, capped at 20%). So the true bad-day tail is only modestly worse than the ${signMoney(wd.p5)} shown, and it lives in the low sleeve — not the whole book.`;
 
   // ---- headline: expected-return-through-the-day chart ----
   const ser = m.roi_series||[];
