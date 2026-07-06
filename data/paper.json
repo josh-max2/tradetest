@@ -1,34 +1,34 @@
 {
- "generated": "2026-07-06 23:15",
- "generated_epoch": 1783379701,
+ "generated": "2026-07-06 23:17",
+ "generated_epoch": 1783379871,
  "stage": "1-CONTRACT TEST \u2014 hard cap 1 contract/market while the same-city hedge and the live loss rate prove out (full-Kelly sizing paused 2026-07-05; SPRT rails armed)",
  "account": {
-  "balance": 267.27,
+  "balance": 233.79,
   "committed": 242.82,
-  "locked": 67.8,
-  "resting_commit": 175.02,
+  "locked": 101.28,
+  "resting_commit": 141.54,
   "cap": "full",
   "start": 48.16
  },
  "open": {
-  "n": 34,
-  "potential_balance": 339.27,
-  "potential_gain": 4.2,
-  "worst_case": -67.8,
+  "n": 36,
+  "potential_balance": 341.79,
+  "potential_gain": 6.72,
+  "worst_case": -101.28,
   "next_settle": "2026-07-07T04:59:00Z",
-  "expected_balance": 338.06,
-  "expected_pnl": 3.0,
-  "near_win": 33,
+  "expected_balance": 337.25,
+  "expected_pnl": 2.18,
+  "near_win": 34,
   "near_loss": 0
  },
  "summary": {
   "placed": 206,
-  "resting": 15,
-  "filled": 116,
-  "filled_open": 34,
+  "resting": 13,
+  "filled": 118,
+  "filled_open": 36,
   "settled": 82,
   "expired": 45,
-  "fill_rate": 0.5631,
+  "fill_rate": 0.5728,
   "ev": 1.04,
   "adverse": 0.0366,
   "realized": -7.09
@@ -714,11 +714,11 @@
     41.07
    ],
    [
-    3.804,
+    3.806,
     41.07
    ]
   ],
-  "age_days": 3.8,
+  "age_days": 3.81,
   "equity": 41.07,
   "start": 48.16,
   "start_ts": "2026-07-03T03:57:39Z"
@@ -741,25 +741,25 @@
   },
   "ev_fill": 1.04,
   "ev_target": 2.0,
-  "fill_rate": 56,
-  "deployment": 20,
+  "fill_rate": 57,
+  "deployment": 30,
   "realized": -7.09,
   "exp_roi": {
-   "roi_pct": 2.9,
-   "pnl": 2.0,
-   "collat": 67.8,
-   "exp_busts": 1.15,
-   "n": 34,
-   "mkt_pnl": 3.0
+   "roi_pct": 1.5,
+   "pnl": 1.53,
+   "collat": 101.28,
+   "exp_busts": 1.31,
+   "n": 36,
+   "mkt_pnl": 2.18
   },
   "win_dist": {
-   "p_green": 94,
-   "p_red": 6,
-   "p5": -14.8,
-   "p50": 3.2,
-   "p95": 4.2,
+   "p_green": 79,
+   "p_red": 21,
+   "p5": -14.28,
+   "p50": 5.72,
+   "p95": 6.72,
    "below50": [],
-   "n": 34
+   "n": 36
   },
   "roi_series": [
    {
@@ -1295,6 +1295,16 @@
     "n": 34,
     "p5": -14.8,
     "p95": 4.2
+   },
+   {
+    "t": 1783379871,
+    "pnl": 1.53,
+    "roi": 1.5,
+    "green": 79,
+    "real": -7.09,
+    "n": 36,
+    "p5": -14.28,
+    "p95": 6.72
    }
   ],
   "odds_table": {
@@ -1369,7 +1379,7 @@
   "activity": {
    "placed_24h": 36,
    "last": "07-06 23:00",
-   "hrs_since": 0.2
+   "hrs_since": 0.3
   }
  },
  "odds_table": {
@@ -1548,41 +1558,11 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHMIA-26JUL07-B94.5",
-   "series": "KXHIGHMIA",
-   "sold_c": 8.0,
-   "collateral": 16.56,
-   "queue_ahead": 191.9,
-   "status": "RESTING",
-   "hrs": 29.7,
-   "close_ts": "2026-07-08T04:59:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXLOWTATL-26JUL07-T69",
    "series": "KXLOWTATL",
    "sold_c": 5.0,
    "collateral": 17.1,
    "queue_ahead": 0.27,
-   "status": "RESTING",
-   "hrs": 29.7,
-   "close_ts": "2026-07-08T05:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHTDC-26JUL07-T88",
-   "series": "KXHIGHTDC",
-   "sold_c": 6.0,
-   "collateral": 16.92,
-   "queue_ahead": 1.0,
    "status": "RESTING",
    "hrs": 29.7,
    "close_ts": "2026-07-08T05:00:00Z",
@@ -2112,7 +2092,7 @@
    "hrs": 8.7,
    "close_ts": "2026-07-07T08:00:00Z",
    "ttf_min": 6.5,
-   "now_yes": 20.0,
+   "now_yes": 20.5,
    "win_odds": 80.4,
    "result": null,
    "pnl_c": null
@@ -2159,6 +2139,36 @@
    "ttf_min": 75.9,
    "now_yes": 1.5,
    "win_odds": 96.7,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHMIA-26JUL07-B94.5",
+   "series": "KXHIGHMIA",
+   "sold_c": 8.0,
+   "collateral": 16.56,
+   "queue_ahead": 191.9,
+   "status": "FILLED",
+   "hrs": 29.7,
+   "close_ts": "2026-07-08T04:59:00Z",
+   "ttf_min": 18.4,
+   "now_yes": 11.0,
+   "win_odds": 90.9,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTDC-26JUL07-T88",
+   "series": "KXHIGHTDC",
+   "sold_c": 6.0,
+   "collateral": 16.92,
+   "queue_ahead": 1.0,
+   "status": "FILLED",
+   "hrs": 29.7,
+   "close_ts": "2026-07-08T05:00:00Z",
+   "ttf_min": 17.2,
+   "now_yes": 7.5,
+   "win_odds": 92.5,
    "result": null,
    "pnl_c": null
   },
@@ -2480,6 +2490,18 @@
  ],
  "events": [
   {
+   "ts": "07-06 23:17",
+   "kind": "FILL",
+   "ticker": "KXHIGHTDC-26JUL07-T88",
+   "detail": "filled @ 6.0\u00a2 \u00b7 17m in queue"
+  },
+  {
+   "ts": "07-06 23:17",
+   "kind": "FILL",
+   "ticker": "KXHIGHMIA-26JUL07-B94.5",
+   "detail": "filled @ 8.0\u00a2 \u00b7 18m in queue"
+  },
+  {
    "ts": "07-06 23:07",
    "kind": "FILL",
    "ticker": "KXHIGHTBOS-26JUL07-T72",
@@ -2706,18 +2728,6 @@
    "kind": "SETTLE",
    "ticker": "KXHIGHTSATX-26JUL05-B99.5",
    "detail": "won +24\u00a2"
-  },
-  {
-   "ts": "07-06 11:32",
-   "kind": "SETTLE",
-   "ticker": "KXLOWTATL-26JUL05-T71",
-   "detail": "won +24\u00a2"
-  },
-  {
-   "ts": "07-06 11:32",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTOKC-26JUL05-B96.5",
-   "detail": "won +36\u00a2"
   }
  ]
 }
