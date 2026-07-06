@@ -92,7 +92,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
 
  <h2>The correction the model needs <span class="sm">— cross-city busts are independent</span></h2>
  <div class="card" style="border-left:3px solid var(--good)">
-  <div style="font-size:13.5px;color:var(--ink2)">The projection below was Monte-Carlo'd assuming <b style="color:var(--ink)">correlated weather clusters</b>. We since proved cross-city busts are <b style="color:var(--ink)">independent</b> (pairwise correlation ≈0; day-to-day clustering matches pure chance) — so the ~63-day / ~29%-drawdown path is if anything <b style="color:var(--ink)">pessimistic</b>, and breadth (40 series) diversifies the risk better than modeled. The genuine residual risk is narrower than the model's: the <b style="color:var(--ink)">low sleeve</b> (busts several times more than highs, and could cluster on a broad cold snap — untested) plus <b style="color:var(--ink)">crypto</b> (BTC/ETH move together, capped at 20%).</div>
+  <div style="font-size:13.5px;color:var(--ink2)">The projection below was Monte-Carlo'd assuming <b style="color:var(--ink)">correlated weather clusters</b>. We since proved cross-city busts are <b style="color:var(--ink)">independent</b> (pairwise correlation ≈0; day-to-day clustering matches pure chance) — so the projected doubling and its ~29% drawdown are if anything <b style="color:var(--ink)">pessimistic</b>, and breadth (40 series) diversifies the risk better than modeled. The genuine residual risk is narrower than the model's: the <b style="color:var(--ink)">low sleeve</b> (busts several times more than highs, and could cluster on a broad cold snap — untested) plus <b style="color:var(--ink)">crypto</b> (BTC/ETH move together, capped at 20%).</div>
  </div>
 
  <h2 style="margin-top:30px">If the edge confirms — the full-Kelly projection <span class="chip gate">gated · not the current method</span></h2>
@@ -100,8 +100,9 @@ svg text{font:11px system-ui;fill:var(--muted)}
   <div class="hcard gated"><div class="l">Projected time to double <span class="amber">— full-Kelly plan, paused; only runs after ~800 confirming fills</span></div>
    <div class="big" id="p-double">—</div>
    <div class="cx" id="p-doublecx"></div>
-   <div class="startbox">Starting capital $ <input id="startval" type="number" min="10" step="10" value="48.16" oninput="renderProj()">
-    <span id="p-target"></span></div></div>
+   <div class="startbox">Your Kalshi balance $ <input id="startval" type="number" min="10" step="10" value="48.16" oninput="startTouched=true;renderProj()">
+    <span id="p-target"></span></div>
+   <p class="note" id="startnote" style="margin-top:8px"></p></div>
   <div class="hcard gated"><div class="l">Model inputs (audited backtest, net of fees)</div>
    <div class="cx" style="margin-top:8px" id="p-inputs"></div></div>
  </div>
@@ -153,7 +154,7 @@ const money=v=>v==null?'—':(v<0?'-$':'$')+Math.abs(v).toFixed(2);
 const fmtC=v=>v==null?'—':(v>=0?'+':'')+v.toFixed(2)+'¢';
 const pctf=v=>v==null?'—':v.toFixed(1)+'%';
 const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;};
-let M=null,L=null;
+let M=null,L=null,acctEquity=null,startTouched=false;
 const BASE=48.16;
 const CONFIRM_FILLS=800;   // settled fills that resolve the edge (~6-8 weeks)
 
@@ -173,6 +174,9 @@ async function load(){
     M=await rm.json(); L=await rl.json();
     document.getElementById('err').style.display='none';
     document.getElementById('stageline').textContent = L.stage? ('Current stage: '+L.stage+'.') : '';
+    const a=L.account||{};
+    acctEquity = (a.balance!=null||a.locked!=null)? (a.balance||0)+(a.locked||0) : null;
+    if(!startTouched && acctEquity){ document.getElementById('startval').value = acctEquity.toFixed(2); }
     renderNow(); renderProj(); renderAct();
   }catch(e){ document.getElementById('err').style.display='block'; }
 }
@@ -194,8 +198,8 @@ function renderNow(){
     +`Normalized to 1 contract the book is roughly <b>flat</b> — the edge has <b>not yet separated from noise</b>.`;
   document.getElementById('cm-doublecx').innerHTML =
     `At 1 contract we deploy only ~5% of capital, so even <i>at</i> the modeled +${M.headline.ev_per_fill_c}¢ edge, doubling is <b>months-to-years</b> — `
-    +`and the edge is unproven, so expect <b>~flat P&amp;L near-term</b>. The <b>~${M.headline.median_double_days}-day</b> double below is the `
-    +`<b>full-Kelly plan</b>, gated on ~${CONFIRM_FILLS} confirming fills then scaling to ~$11k. It's the future path, not today.`;
+    +`and the edge is unproven, so expect <b>~flat P&amp;L near-term</b>. The <b>full-Kelly doubling</b> projection below is the plan, `
+    +`gated on ~${CONFIRM_FILLS} confirming fills then scaling to ~$11k — the future path, not today.`;
   const pct=Math.min(100,100*n/CONFIRM_FILLS);
   document.getElementById('vp-bar').style.width=pct.toFixed(1)+'%';
   document.getElementById('vp-text').innerHTML =
@@ -209,12 +213,17 @@ function renderNow(){
 
 function renderProj(){
   if(!M) return;
-  const h=M.headline, S=startVal(), k=S/M.start_balance;
-  document.getElementById('p-double').textContent = '~'+h.median_double_days+' days';
+  const h=M.headline, S=startVal(), k=S/M.start_balance, F=M.forward;
+  const two0=M.start_balance*2, crossOf=arr=>{ for(let i=0;i<arr.length;i++){ if(arr[i]>=two0) return F.days[i]; } return null; };
+  const dMed=crossOf(F.p50), dFast=crossOf(F.p75), dSlow=crossOf(F.p25);
+  document.getElementById('p-double').textContent = dMed? '~'+Math.round(dMed)+' days' : '~'+h.median_double_days+' days';
   document.getElementById('p-doublecx').innerHTML =
-    `mid-range ${h.double_p25}–${h.double_p75}d · tails p5 ${h.double_p5}d / p95 ${h.double_p95}d · `
-    +`expect a ~${h.median_max_drawdown_pct}% drawdown en route (normal, not failure)`;
+    `for the <b>median balance</b> to reach 2× — where the shaded line crosses · 25–75% band ~${dFast?Math.round(dFast):'?'}–${dSlow?Math.round(dSlow):'?'} days · `
+    +`the average growth rate alone implies ~${h.median_double_days}d, but per-fill variance drags the median later · expect a ~${h.median_max_drawdown_pct}% drawdown en route`;
   document.getElementById('p-target').innerHTML = `→ doubles to <b>${money(S*2)}</b>`;
+  document.getElementById('startnote').innerHTML = acctEquity
+    ? `Auto-filled from your live Kalshi balance <b>${money(acctEquity)}</b> (cash + open collateral) and refreshed each update — edit to model another amount.`
+    : 'Edit to model a starting amount.';
   document.getElementById('p-inputs').innerHTML =
     `EV per fill <b>${fmtC(h.ev_per_fill_c)}</b> (3–8¢ band, behind queue) · loss rate <b>${h.loss_rate}%</b> at −94¢ · `
     +`fills: weather <b>${M.fill_prob.weather_q100}%</b> / crypto <b>${M.fill_prob.crypto_q100}%</b> at thin queues · `
