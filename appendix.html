@@ -52,7 +52,7 @@ dd{margin:2px 0 0;color:var(--ink2);font-size:13px}
 <h2>Methodology <span>— where every number comes from</span></h2>
 <div class="card">
 <dl style="margin:0">
-<dt>Backtest universe</dt><dd>16,651 settled Kalshi markets (2025) in the zero-maker-fee families we trade (weather highs/lows/rain, BTC/ETH/XRP/SOL/DOGE dailies, gold/silver/gas/oil) that traded at 1–8¢ with ≥1h to close — i.e., markets like the ones the bot enters. Equal-weighted per market (matches 1-contract-per-market sizing).</dd>
+<dt>Backtest universe</dt><dd>16,651 settled Kalshi markets (2025) across the zero-maker-fee families (weather highs/lows/rain, BTC/ETH/XRP/SOL/DOGE dailies, gold/silver/gas/oil) that traded at 1–8¢ with ≥1h to close. <b>Live we trade a validated subset</b> — weather high/low + BTC/ETH daily = <b>40 series</b> (rain, alt-coins and commodities were dropped for weak/unproven per-sleeve EV). Equal-weighted per market (matches 1-contract-per-market sizing).</dd>
 <dt>Fill simulation</dt><dd>A resting sell order behind a queue of Q contracts fills when cumulative real buyer volume exceeds Q; the fill is scored at that moment's price against the final settlement. No assumed fills, no slippage (a resting limit can't fill worse than its price; post-only can never cross).</dd>
 <dt>Fees</dt><dd>$0 maker fees on every eligible series — enforced in code and verified on live orders. Taker fees are impossible by construction (post-only).</dd>
 <dt>Survival odds (grid above)</dt><dd>P(market settles NO | it traded in a price bucket with a given time-to-close remaining), over the same universe.</dd>
