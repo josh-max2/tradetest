@@ -282,7 +282,7 @@ function render(d){
   const ser = m.roi_series||[];
   const last = ser.length ? ser[ser.length-1] : null;
   const cn = document.getElementById('chartnow');
-  if(last){ cn.textContent = signMoney(last.pnl); cn.className='chartbig '+(last.pnl>=0?'pos':'neg'); }
+  if(last){ cn.innerHTML = signMoney(last.pnl) + (last.roi!=null?` <span style="font-size:.55em;font-weight:600;opacity:.82">${last.roi>=0?'+':''}${last.roi}% ROI</span>`:''); cn.className='chartbig '+(last.pnl>=0?'pos':'neg'); }
   else { cn.textContent='—'; cn.className='chartbig'; }
   if(ser.length){
     const yy = ser.map(p=>p.pnl);
@@ -311,25 +311,28 @@ function drawROI(series){
   if(!series || series.length < 2){ el.innerHTML='<div class="note" style="text-align:center;padding:22px 0">Chart builds through the day as the book is marked to the odds…</div>'; return; }
   const W=680,H=150,L=6,R=6,T=12,Bm=8,pw=W-L-R,ph=H-T-Bm;
   const xs=series.map(p=>p.t), ys=series.map(p=>p.pnl);
+  const lo5=series.map(p=>p.p5!=null?p.p5:p.pnl), hi95=series.map(p=>p.p95!=null?p.p95:p.pnl);
   const tmin=xs[0], tmax=xs[xs.length-1];
-  const ymax=Math.max(...ys,0.2), ymin=Math.min(...ys,-0.2);
-  const pad=(ymax-ymin)*0.15||0.2, lo=ymin-pad, hi=ymax+pad;
+  const ymax=Math.max(...ys,...hi95,0.2), ymin=Math.min(...ys,...lo5,-0.2);
+  const pad=(ymax-ymin)*0.12||0.2, lo=ymin-pad, hi=ymax+pad;
   const X=t=>L+(tmax===tmin?0.5:(t-tmin)/(tmax-tmin))*pw;
   const Y=v=>T+(1-(v-lo)/(hi-lo))*ph;
   const up=ys[ys.length-1]>=0, col=up?'var(--goodtext)':'var(--crit)';
   const dp='M'+series.map(p=>`${X(p.t).toFixed(1)},${Y(p.pnl).toFixed(1)}`).join(' L');
-  const area=dp+` L${X(tmax).toFixed(1)},${Y(lo).toFixed(1)} L${X(tmin).toFixed(1)},${Y(lo).toFixed(1)} Z`;
+  // 90% CI band: p95 curve (L->R) then p5 curve (R->L)
+  const top=series.map((p,i)=>`${X(p.t).toFixed(1)},${Y(hi95[i]).toFixed(1)}`);
+  const bot=series.map((p,i)=>`${X(p.t).toFixed(1)},${Y(lo5[i]).toFixed(1)}`).reverse();
+  const band='M'+top.join(' L')+' L'+bot.join(' L')+' Z';
   const zY=Y(0).toFixed(1);
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;max-height:180px">`;
-  s+=`<defs><linearGradient id="rg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".20"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>`;
   s+=`<line x1="${L}" y1="${zY}" x2="${L+pw}" y2="${zY}" stroke="var(--grid)" stroke-dasharray="3 4"/>`;
   s+=`<text x="${L+2}" y="${(+zY-4).toFixed(1)}" style="font:10px system-ui;fill:var(--muted)">$0</text>`;
-  s+=`<path d="${area}" fill="url(#rg)"/>`;
+  s+=`<path d="${band}" fill="${col}" opacity="0.13"/>`;
   s+=`<path d="${dp}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round"/>`;
   s+=`<circle cx="${X(tmax).toFixed(1)}" cy="${Y(ys[ys.length-1]).toFixed(1)}" r="3.6" fill="${col}"/>`;
   s+=`</svg>`;
   const ft=t=>{const d=new Date(t*1000);return d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});};
-  s+=`<div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:1px"><span>${ft(tmin)}</span><span>now ${ft(tmax)}</span></div>`;
+  s+=`<div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:1px"><span>${ft(tmin)}</span><span>shaded = 90% range · now ${ft(tmax)}</span></div>`;
   el.innerHTML=s;
 }
 
