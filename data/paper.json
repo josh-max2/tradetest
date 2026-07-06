@@ -1,34 +1,34 @@
 {
- "generated": "2026-07-06 05:27",
- "generated_epoch": 1783315655,
+ "generated": "2026-07-06 05:30",
+ "generated_epoch": 1783315832,
  "stage": "1-CONTRACT TEST \u2014 hard cap 1 contract/market while the same-city hedge and the live loss rate prove out (full-Kelly sizing paused 2026-07-05; SPRT rails armed)",
  "account": {
-  "balance": 178.32,
+  "balance": 177.36,
   "committed": 162.53,
-  "locked": 149.27,
-  "resting_commit": 13.26,
+  "locked": 150.23,
+  "resting_commit": 12.3,
   "cap": "full",
   "start": 48.16
  },
  "open": {
-  "n": 60,
-  "potential_balance": 336.32,
-  "potential_gain": 8.73,
-  "worst_case": -149.27,
+  "n": 61,
+  "potential_balance": 336.36,
+  "potential_gain": 8.77,
+  "worst_case": -150.23,
   "next_settle": "2026-07-06T05:59:00Z",
-  "expected_balance": 333.14,
-  "expected_pnl": 5.55,
-  "near_win": 55,
+  "expected_balance": 333.19,
+  "expected_pnl": 5.59,
+  "near_win": 57,
   "near_loss": 0
  },
  "summary": {
   "placed": 193,
-  "resting": 14,
-  "filled": 104,
-  "filled_open": 60,
+  "resting": 13,
+  "filled": 105,
+  "filled_open": 61,
   "settled": 44,
   "expired": 45,
-  "fill_rate": 0.5389,
+  "fill_rate": 0.544,
   "ev": -2.82,
   "adverse": 0.0682,
   "realized": -14.57
@@ -410,7 +410,7 @@
     33.59
    ],
    [
-    3.062,
+    3.065,
     33.59
    ]
   ],
@@ -442,20 +442,20 @@
   "realized": -14.57,
   "exp_roi": {
    "roi_pct": 4.1,
-   "pnl": 6.15,
-   "collat": 149.27,
-   "exp_busts": 1.89,
-   "n": 60,
-   "mkt_pnl": 5.55
+   "pnl": 6.13,
+   "collat": 150.23,
+   "exp_busts": 1.95,
+   "n": 61,
+   "mkt_pnl": 5.59
   },
   "win_dist": {
    "p_green": 97,
    "p_red": 3,
-   "p5": 0.73,
-   "p50": 6.73,
-   "p95": 8.73,
+   "p5": 0.77,
+   "p50": 6.77,
+   "p95": 8.77,
    "below50": [],
-   "n": 60
+   "n": 61
   },
   "roi_series": [
    {
@@ -1217,6 +1217,14 @@
     "green": 97,
     "real": -14.57,
     "n": 60
+   },
+   {
+    "t": 1783315832,
+    "pnl": 6.13,
+    "roi": 4.1,
+    "green": 97,
+    "real": -14.57,
+    "n": 61
    }
   ],
   "odds_table": {
@@ -1291,7 +1299,7 @@
   "activity": {
    "placed_24h": 61,
    "last": "07-06 05:21",
-   "hrs_since": 0.1
+   "hrs_since": 0.2
   }
  },
  "odds_table": {
@@ -1553,21 +1561,6 @@
    "status": "RESTING",
    "hrs": 26.5,
    "close_ts": "2026-07-07T08:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHAUS-26JUL06-B100.5",
-   "series": "KXHIGHAUS",
-   "sold_c": 4.0,
-   "collateral": 0.96,
-   "queue_ahead": 133.0,
-   "status": "RESTING",
-   "hrs": 24.5,
-   "close_ts": "2026-07-07T05:59:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -2109,8 +2102,8 @@
    "hrs": 15.5,
    "close_ts": "2026-07-06T21:00:00Z",
    "ttf_min": 100.8,
-   "now_yes": 7.5,
-   "win_odds": 92.5,
+   "now_yes": 5.5,
+   "win_odds": 94.4,
    "result": null,
    "pnl_c": null
   },
@@ -2214,7 +2207,7 @@
    "hrs": 23.5,
    "close_ts": "2026-07-07T05:00:00Z",
    "ttf_min": 173.3,
-   "now_yes": 26.5,
+   "now_yes": 24.5,
    "win_odds": 83.9,
    "result": null,
    "pnl_c": null
@@ -2274,7 +2267,7 @@
    "hrs": 23.5,
    "close_ts": "2026-07-07T05:00:00Z",
    "ttf_min": 257.6,
-   "now_yes": 13.5,
+   "now_yes": 10.0,
    "win_odds": 90.9,
    "result": null,
    "pnl_c": null
@@ -2469,8 +2462,23 @@
    "hrs": 26.5,
    "close_ts": "2026-07-07T08:00:00Z",
    "ttf_min": 6.5,
-   "now_yes": 15.5,
+   "now_yes": 16.5,
    "win_odds": 87.3,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHAUS-26JUL06-B100.5",
+   "series": "KXHIGHAUS",
+   "sold_c": 4.0,
+   "collateral": 0.96,
+   "queue_ahead": 133.0,
+   "status": "FILLED",
+   "hrs": 24.5,
+   "close_ts": "2026-07-07T05:59:00Z",
+   "ttf_min": 7.5,
+   "now_yes": 6.5,
+   "win_odds": 92.5,
    "result": null,
    "pnl_c": null
   },
@@ -2777,6 +2785,12 @@
  ],
  "events": [
   {
+   "ts": "07-06 05:28",
+   "kind": "FILL",
+   "ticker": "KXHIGHAUS-26JUL06-B100.5",
+   "detail": "filled @ 4.0\u00a2 \u00b7 8m in queue"
+  },
+  {
    "ts": "07-06 05:21",
    "kind": "PLACED",
    "ticker": "KXHIGHAUS-26JUL06-B100.5",
@@ -3009,12 +3023,6 @@
    "kind": "PLACED",
    "ticker": "KXLOWTSATX-26JUL06-B71.5",
    "detail": "sold YES @ 6\u00a2"
-  },
-  {
-   "ts": "07-06 00:00",
-   "kind": "PLACED",
-   "ticker": "KXHIGHTSATX-26JUL06-B99.5",
-   "detail": "sold YES @ 3\u00a2"
   }
  ]
 }
