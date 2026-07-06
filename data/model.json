@@ -682,21 +682,21 @@
  "stages": [
   {
    "stage": "1-contract validation",
-   "size": "1 ct (~2% pos)",
+   "size": "1 ct (hard cap)",
    "growth_day": 0.25,
-   "purpose": "prove live loss rate & fills (Gate 1-2)"
+   "purpose": "prove the edge to ~800 settled fills (~6-8 wks): loss rate ~5%, EV/fill CI clears 0"
   },
   {
-   "stage": "Half-Kelly",
-   "size": "2 ct (f=3.5%)",
+   "stage": "Ramp: quarter -> half Kelly",
+   "size": "2-3 ct",
    "growth_day": 0.55,
-   "purpose": "2 weeks; half the drawdown; ~4 mo doubling alone"
+   "purpose": "~250-500 settled: advance only if bust <=6% and EV/fill trending positive"
   },
   {
    "stage": "Full Kelly",
-   "size": "3 ct (f=6.5%)",
+   "size": "scale to ~$11k capacity",
    "growth_day": 1.22,
-   "purpose": "steady state; median ~54d/double; cluster cap 25%"
+   "purpose": "~800+ settled, CI clears 0; independence -> shallower drawdown than the model shows"
   }
  ],
  "ev_by_band": [
