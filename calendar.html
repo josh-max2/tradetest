@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalshi — Calendar</title>
+<style>
+:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
+ --grid:#e7e6df; --border:rgba(16,16,16,.07); --shadow:0 1px 2px rgba(16,16,16,.04),0 10px 30px rgba(16,16,16,.05);
+ --s1:#2a78d6; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#fff; --ink2:#c3c2b7;
+ --muted:#8a8880; --grid:#2a2a28; --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0);
+ --s1:#3987e5; --goodtext:#16b516; --warn:#e0a52a; } }
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+ padding:26px 5vw 80px;max-width:880px;margin-inline:auto}
+.nav{display:flex;gap:4px;width:max-content;margin:0 0 24px;padding:4px;background:var(--surface);
+ border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink2)} .nav a.active{color:var(--ink);background:color-mix(in srgb,var(--s1) 13%,transparent)}
+.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+h1{font-size:21px;font-weight:650;margin:0}
+.status{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;animation:pulse 2.2s ease-in-out infinite}
+.dot.stale{background:var(--warn);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sub{color:var(--ink2);font-size:13px;margin:6px 0 22px;max-width:700px}
+#err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:12px;padding:14px 18px;color:var(--crit);font-size:13px;margin-bottom:16px}
+.pos{color:var(--goodtext)} .neg{color:var(--crit)}
+.note{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.6}
+
+/* summary stat cards */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);
+ padding:14px 16px;border-left:3px solid var(--grid)}
+.stat.good{border-left-color:var(--good)} .stat.bad{border-left-color:var(--crit)} .stat.accent{border-left-color:var(--s1)}
+.stat .l{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700}
+.stat .v{font-size:25px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:5px;letter-spacing:-.02em;line-height:1.05}
+.stat .s{font-size:11px;color:var(--ink2);margin-top:4px}
+
+/* calendar */
+.cal-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);
+ padding:16px 18px 20px;margin-bottom:18px}
+.cal-title{font-size:15px;font-weight:650;margin:2px 2px 14px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-grid.head{margin-bottom:6px}
+.cal-grid.head .wd{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-align:center}
+.cell{min-height:76px;border:1px solid var(--grid);border-radius:10px;padding:6px 8px;
+ display:flex;flex-direction:column;gap:1px;position:relative;overflow:hidden}
+.cell.empty{border:0;background:transparent;min-height:0}
+.cell.blank .dnum{opacity:.45}
+.cell.today{border:2px solid var(--s1)}
+.dnum{font-size:11px;font-weight:600;color:var(--ink2);font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;align-items:center}
+.live{color:var(--goodtext);font-size:8.5px;font-weight:800;letter-spacing:.03em}
+.pnl{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:auto;line-height:1.02}
+.pnl.neutral{color:var(--ink2)}
+.roi{font-size:10.5px;font-variant-numeric:tabular-nums;color:var(--muted);line-height:1.3}
+.roi.pos{color:var(--goodtext)} .roi.neg{color:var(--crit)}
+.pend{font-size:9px;color:var(--warn);line-height:1.25;margin-top:1px}
+.legend{font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px;border:1px solid var(--border)}
+@media(max-width:560px){.cell{min-height:58px;padding:4px 5px} .pnl{font-size:13px} .roi{font-size:9px}}
+</style></head>
+<body>
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a href="./monitor.html">Monitor</a>
+ <a class="active" href="./calendar.html">Calendar</a>
+ <a href="./model.html">Testing</a>
+ <a href="./rungsim.html">Dip Sim</a>
+ <a href="./appendix.html">Appendix</a>
+</div>
+
+<div class="top">
+ <h1>Daily Calendar</h1>
+ <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
+</div>
+<p class="sub">Realized return and ROI for each trading day that has elapsed. A day is the book of markets with
+that event date; ROI = realized P&amp;L ÷ collateral that day put at risk. Today is still open, so it shows the
+book's <em>expected</em> value, not a settled number.</p>
+<div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
+
+<div class="stats" id="stats"></div>
+<div id="cal"></div>
+<div class="legend" id="legend"></div>
+<p class="note" id="footer"></p>
+
+<script>
+const money = v => v==null ? '—' : (v<0?'-$':'$') + Math.abs(v).toFixed(2);
+const signMoney = v => v==null ? '—' : (v>=0?'+':'') + money(v);
+const pct1 = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(1) + '%';
+const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const parseISO = s => { const [y,m,d]=s.split('-').map(Number); return {y,m:m-1,d}; };   // local, no TZ shift
+const dLabel = iso => { const p=parseISO(iso); return `${MON[p.m]} ${p.d}`; };
+
+async function load(){
+  try{
+    const r = await fetch('./data/paper.json?t='+Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error(r.status);
+    render(await r.json());
+    document.getElementById('err').style.display='none';
+  }catch(e){
+    document.getElementById('err').style.display='block';
+    document.getElementById('statustxt').textContent='waiting for first publish';
+    document.getElementById('dot').className='dot stale';
+  }
+}
+
+// background heat: green for positive ROI, red for negative, scaled to magnitude (8% = full)
+function heatBg(roi){
+  if(roi==null) return 'transparent';
+  const mag=Math.min(1,Math.abs(roi)/8);
+  const c=roi>=0?'var(--good)':'var(--crit)';
+  return `color-mix(in srgb, ${c} ${Math.round(7+mag*21)}%, var(--surface))`;
+}
+
+function cell(iso, dd, rec, todayISO, today){
+  if(!rec) return `<div class="cell blank"><span class="dnum">${dd}</span></div>`;
+  const isToday = iso===todayISO;
+  // today / fully-open day -> expected value, not realized
+  if(rec.n===0 && rec.pending>0){
+    const t = today||{};
+    return `<div class="cell today" title="${esc(iso)} — in progress\n${rec.pending} open positions\n${money(rec.open_prem)} premium at stake if all win">
+      <span class="dnum">${dd}<span class="live">● LIVE</span></span>
+      <div class="pnl neutral">${signMoney(t.exp_pnl)}</div>
+      <div class="roi">exp · ${rec.pending} open</div></div>`;
+  }
+  const cls = rec.pnl>=0 ? 'pos' : 'neg';
+  const wr = rec.wins + rec.losses;
+  const pend = rec.pending>0 ? `<div class="pend">${rec.pending} pending</div>` : '';
+  const tip = `${iso}\nReturn ${signMoney(rec.pnl)} · ROI ${pct1(rec.roi)}\n${rec.contracts} contracts, ${money(rec.collat)} at risk\n${rec.wins}W / ${rec.losses}L`;
+  return `<div class="cell ${isToday?'today':''}" style="background:${heatBg(rec.roi)}" title="${esc(tip)}">
+    <span class="dnum">${dd}</span>
+    <div class="pnl ${cls}">${signMoney(rec.pnl)}</div>
+    <div class="roi ${cls}">${pct1(rec.roi)} · ${rec.wins}/${wr}</div>
+    ${pend}</div>`;
+}
+
+function monthCard(y, m, dayMap, todayISO, today){
+  const startWd = new Date(y,m,1).getDay();          // 0=Sun
+  const nDays = new Date(y,m+1,0).getDate();
+  let cells='';
+  for(let i=0;i<startWd;i++) cells += `<div class="cell empty"></div>`;
+  for(let dd=1; dd<=nDays; dd++){
+    const iso = `${y}-${String(m+1).padStart(2,'0')}-${String(dd).padStart(2,'0')}`;
+    cells += cell(iso, dd, dayMap[iso], todayISO, today);
+  }
+  const head = ['S','M','T','W','T','F','S'].map(x=>`<div class="wd">${x}</div>`).join('');
+  return `<div class="cal-card">
+    <div class="cal-title">${MON[m]} ${y}</div>
+    <div class="cal-grid head">${head}</div>
+    <div class="cal-grid">${cells}</div></div>`;
+}
+
+function render(d){
+  const daily = d.daily || {};
+  const days = daily.days || [];
+  const today = daily.today || {};
+  const todayISO = today.date || null;
+
+  // status dot
+  const ageMin = d.generated_epoch ? Math.max(0,(Date.now()/1000-d.generated_epoch)/60) : 999;
+  const dot=document.getElementById('dot'), stt=document.getElementById('statustxt');
+  if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
+  else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
+
+  // summary stat cards
+  const cum=daily.cum_realized, best=daily.best, worst=daily.worst;
+  const stats=[
+    {l:'Cumulative return', v:signMoney(cum), s:`${daily.settled_days||0} settled day${daily.settled_days===1?'':'s'}`,
+     cls:(cum==null?'':cum>=0?'good':'bad'), vcls:(cum==null?'':cum>=0?'pos':'neg')},
+    {l:'Avg daily ROI', v:pct1(daily.avg_roi), s:'per elapsed day', cls:'accent',
+     vcls:(daily.avg_roi==null?'':daily.avg_roi>=0?'pos':'neg')},
+    {l:'Green / red days', v:`${daily.green_days||0} / ${daily.red_days||0}`, s:'winning / losing days', cls:''},
+    {l:'Best day', v:best?signMoney(best.pnl):'—', s:best?`${dLabel(best.date)} · ${pct1(best.roi)}`:'—', cls:'good', vcls:'pos'},
+    {l:'Worst day', v:worst?signMoney(worst.pnl):'—', s:worst?`${dLabel(worst.date)} · ${pct1(worst.roi)}`:'—', cls:'bad', vcls:'neg'},
+    {l:'Today (expected)', v:signMoney(today.exp_pnl), s:`${today.n||0} open · ${money(today.premium)} at stake`, cls:'accent', vcls:'neutral'},
+  ];
+  document.getElementById('stats').innerHTML = stats.map(c=>
+    `<div class="stat ${c.cls||''}"><div class="l">${c.l}</div>
+     <div class="v ${c.vcls||''}">${c.v}</div><div class="s">${esc(c.s)}</div></div>`).join('');
+
+  // calendar month grids (every month spanned by data, newest first)
+  const cal=document.getElementById('cal');
+  if(!days.length){ cal.innerHTML='<div class="cal-card"><div class="note" style="text-align:center;padding:24px 0">No settled days yet — the calendar fills in as books settle each morning.</div></div>'; }
+  else {
+    const dayMap={}; days.forEach(x=>dayMap[x.date]=x);
+    const sorted=days.map(x=>x.date).sort();
+    const a=parseISO(sorted[0]), b=parseISO(sorted[sorted.length-1]);
+    const months=[]; let y=a.y, m=a.m;
+    while(y<b.y || (y===b.y && m<=b.m)){ months.push([y,m]); m++; if(m>11){m=0;y++;} }
+    months.reverse();
+    cal.innerHTML = months.map(([yy,mm])=>monthCard(yy,mm,dayMap,todayISO,today)).join('');
+  }
+
+  document.getElementById('legend').innerHTML =
+    `<span><span class="sw" style="background:${heatBg(6)}"></span>green day (profit)</span>`
+    + `<span><span class="sw" style="background:${heatBg(-6)}"></span>red day (loss)</span>`
+    + `<span><span class="sw" style="border:2px solid var(--s1)"></span>today · expected, still open</span>`;
+  document.getElementById('footer').innerHTML =
+    `Each cell: realized <b>return</b> (top figure) and <b>ROI</b> = return ÷ collateral at risk that day, with the day's win/loss count. `
+    + `Days are bucketed by market event date; a day settles the following morning, so "N pending" marks stragglers not yet resolved. `
+    + `Data ${esc(d.generated||'?')} UTC.`;
+}
+
+load(); setInterval(load, 60000);
+</script>
+</body>
+</html>
