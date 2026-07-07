@@ -1,9 +1,9 @@
 {
- "generated": "2026-07-07 19:01",
- "generated_epoch": 1783450890,
+ "generated": "2026-07-07 19:09",
+ "generated_epoch": 1783451380,
  "bankroll": 91.55,
  "start": 100.0,
- "reserved": 57.75,
+ "reserved": 76.15,
  "age_days": 4.37,
  "equity": [
   [
@@ -947,26 +947,26 @@
    91.55
   ],
   [
-   4.368,
+   4.374,
    91.55
   ]
  ],
  "summary": {
-  "registered": 3162,
-  "any_print": 291,
-  "fills": 275,
+  "registered": 3165,
+  "any_print": 295,
+  "fills": 278,
   "settled": 234,
   "gated": 2004,
   "expired": 0,
-  "capture": 94.5,
+  "capture": 94.2,
   "ev": 0.06,
   "bust": 40.6,
-  "events": 96
+  "events": 97
  },
  "gates": [
   {
    "name": "Sample \u2265 30 fills across \u2265 15 events",
-   "value": "275 fills / 96 events",
+   "value": "278 fills / 97 events",
    "status": "pass"
   },
   {
@@ -976,7 +976,7 @@
   },
   {
    "name": "Capture ratio \u2265 40%",
-   "value": "95%",
+   "value": "94%",
    "status": "pass"
   },
   {
@@ -988,27 +988,27 @@
  "per_rung": [
   {
    "L": 30,
-   "registered": 1054,
-   "any_print": 161,
-   "fills": 149,
-   "capture": 92.5,
+   "registered": 1055,
+   "any_print": 163,
+   "fills": 150,
+   "capture": 92.0,
    "settled": 125,
    "ev": 1.2,
    "busts": 36
   },
   {
    "L": 45,
-   "registered": 1054,
-   "any_print": 81,
-   "fills": 77,
-   "capture": 95.1,
+   "registered": 1055,
+   "any_print": 83,
+   "fills": 79,
+   "capture": 95.2,
    "settled": 66,
    "ev": -1.97,
    "busts": 31
   },
   {
    "L": 65,
-   "registered": 1054,
+   "registered": 1055,
    "any_print": 49,
    "fills": 49,
    "capture": 100.0,
@@ -1018,6 +1018,42 @@
   }
  ],
  "fills": [
+  {
+   "ticker": "KXHIGHLAX-26JUL07-B73.5",
+   "L": 45,
+   "queue": 0.0,
+   "contracts": 11.0,
+   "stake": 6.05,
+   "fill_ts": "2026-07-07T19:07:58.832403+00:00",
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "pnl_usd": null
+  },
+  {
+   "ticker": "KXHIGHLAX-26JUL07-B73.5",
+   "L": 30,
+   "queue": 20.0,
+   "contracts": 9.0,
+   "stake": 6.3,
+   "fill_ts": "2026-07-07T19:05:16.239714+00:00",
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "pnl_usd": null
+  },
+  {
+   "ticker": "KXHIGHPHIL-26JUL07-B79.5",
+   "L": 45,
+   "queue": 0.0,
+   "contracts": 11.0,
+   "stake": 6.05,
+   "fill_ts": "2026-07-07T19:03:54.093875+00:00",
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "pnl_usd": null
+  },
   {
    "ticker": "KXHIGHTDAL-26JUL07-B96.5",
    "L": 30,
@@ -1461,42 +1497,6 @@
    "result": "yes",
    "pnl_c": -55.0,
    "pnl_usd": 0.0
-  },
-  {
-   "ticker": "KXHIGHAUS-26JUL06-B98.5",
-   "L": 65,
-   "queue": 50.0,
-   "contracts": 0.0,
-   "stake": 0.0,
-   "fill_ts": "2026-07-06T21:54:46.954180+00:00",
-   "status": "SETTLED",
-   "result": "yes",
-   "pnl_c": -35.0,
-   "pnl_usd": 0.0
-  },
-  {
-   "ticker": "KXLOWTHOU-26JUL07-T79",
-   "L": 30,
-   "queue": 0.0,
-   "contracts": 0.0,
-   "stake": 0.0,
-   "fill_ts": "2026-07-06T21:16:35.126814+00:00",
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
-   "pnl_usd": null
-  },
-  {
-   "ticker": "KXLOWTDAL-26JUL07-T78",
-   "L": 30,
-   "queue": 0.0,
-   "contracts": 0.0,
-   "stake": 0.0,
-   "fill_ts": "2026-07-06T21:08:37.618651+00:00",
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
-   "pnl_usd": null
   }
  ],
  "params": {
