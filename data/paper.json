@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-07 16:09",
- "generated_epoch": 1783440540,
+ "generated": "2026-07-07 16:14",
+ "generated_epoch": 1783440848,
  "stage": "1-CONTRACT TEST \u2014 hard cap 1 contract/market while the same-city hedge and the live loss rate prove out (full-Kelly sizing paused 2026-07-05; SPRT rails armed)",
  "account": {
   "balance": 94.66,
@@ -16,8 +16,8 @@
   "potential_gain": 13.47,
   "worst_case": -243.53,
   "next_settle": "2026-07-07T21:00:00Z",
-  "expected_balance": 341.81,
-  "expected_pnl": 3.62,
+  "expected_balance": 342.55,
+  "expected_pnl": 4.36,
   "near_win": 22,
   "near_loss": 0
  },
@@ -930,7 +930,7 @@
     44.19
    ],
    [
-    4.508,
+    4.511,
     44.19
    ]
   ],
@@ -961,18 +961,18 @@
   "deployment": 72,
   "realized": -3.97,
   "exp_roi": {
-   "roi_pct": 0.3,
-   "pnl": 0.74,
+   "roi_pct": 0.6,
+   "pnl": 1.41,
    "collat": 243.53,
-   "exp_busts": 0.99,
+   "exp_busts": 0.95,
    "n": 23,
-   "mkt_pnl": 3.62
+   "mkt_pnl": 4.36
   },
   "win_dist": {
-   "p_green": 49,
-   "p_red": 51,
-   "p5": -23.53,
-   "p50": -1.53,
+   "p_green": 51,
+   "p_red": 49,
+   "p5": -22.53,
+   "p50": 6.47,
    "p95": 13.47,
    "below50": [],
    "n": 23
@@ -1097,6 +1097,26 @@
     "n": 23,
     "p5": -23.53,
     "p95": 13.47
+   },
+   {
+    "t": 1783440606,
+    "pnl": 0.74,
+    "roi": 0.3,
+    "green": 49,
+    "real": -3.97,
+    "n": 23,
+    "p5": -23.53,
+    "p95": 13.47
+   },
+   {
+    "t": 1783440848,
+    "pnl": 1.41,
+    "roi": 0.6,
+    "green": 51,
+    "real": -3.97,
+    "n": 23,
+    "p5": -22.53,
+    "p95": 13.47
    }
   ],
   "odds_table": {
@@ -1171,7 +1191,7 @@
   "activity": {
    "placed_24h": 27,
    "last": "07-07 15:02",
-   "hrs_since": 1.1
+   "hrs_since": 1.2
   }
  },
  "daily": {
@@ -1259,8 +1279,8 @@
   },
   "today": {
    "date": "2026-07-07",
-   "exp_pnl": 0.74,
-   "exp_roi": 0.3,
+   "exp_pnl": 1.41,
+   "exp_roi": 0.6,
    "premium": 13.47,
    "n": 23
   }
@@ -1357,7 +1377,7 @@
    "collateral": 16.92,
    "queue_ahead": 6.0,
    "status": "RESTING",
-   "hrs": 12.8,
+   "hrs": 12.7,
    "close_ts": "2026-07-08T04:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -1597,11 +1617,11 @@
    "collateral": 16.56,
    "queue_ahead": 191.9,
    "status": "FILLED",
-   "hrs": 12.8,
+   "hrs": 12.7,
    "close_ts": "2026-07-08T04:59:00Z",
    "ttf_min": 18.4,
-   "now_yes": 23.5,
-   "win_odds": 83.9,
+   "now_yes": 19.5,
+   "win_odds": 87.3,
    "result": null,
    "pnl_c": null
   },
@@ -1705,7 +1725,7 @@
    "hrs": 12.8,
    "close_ts": "2026-07-08T05:00:00Z",
    "ttf_min": 291.6,
-   "now_yes": 5.0,
+   "now_yes": 4.5,
    "win_odds": 94.4,
    "result": null,
    "pnl_c": null
@@ -1732,7 +1752,7 @@
    "collateral": 14.55,
    "queue_ahead": 6.0,
    "status": "FILLED",
-   "hrs": 12.8,
+   "hrs": 12.7,
    "close_ts": "2026-07-08T04:59:00Z",
    "ttf_min": 143.9,
    "now_yes": 1.0,
@@ -1747,11 +1767,11 @@
    "collateral": 14.25,
    "queue_ahead": 4.0,
    "status": "FILLED",
-   "hrs": 13.8,
+   "hrs": 13.7,
    "close_ts": "2026-07-08T05:59:00Z",
    "ttf_min": 27.3,
-   "now_yes": 5.5,
-   "win_odds": 94.4,
+   "now_yes": 7.0,
+   "win_odds": 92.5,
    "result": null,
    "pnl_c": null
   },
@@ -1762,11 +1782,11 @@
    "collateral": 14.4,
    "queue_ahead": 219.0,
    "status": "FILLED",
-   "hrs": 13.8,
+   "hrs": 13.7,
    "close_ts": "2026-07-08T05:59:00Z",
    "ttf_min": 57.6,
-   "now_yes": 3.5,
-   "win_odds": 94.4,
+   "now_yes": 2.5,
+   "win_odds": 96.7,
    "result": null,
    "pnl_c": null
   },
@@ -1837,7 +1857,7 @@
    "collateral": 0.93,
    "queue_ahead": 34.0,
    "status": "SETTLED",
-   "hrs": -10.2,
+   "hrs": -10.3,
    "close_ts": "2026-07-07T05:59:00Z",
    "ttf_min": 50.8,
    "now_yes": null,
@@ -2032,7 +2052,7 @@
    "collateral": 0.94,
    "queue_ahead": 244.35,
    "status": "SETTLED",
-   "hrs": -8.2,
+   "hrs": -8.3,
    "close_ts": "2026-07-07T07:59:00Z",
    "ttf_min": 21.5,
    "now_yes": null,
@@ -2092,7 +2112,7 @@
    "collateral": 0.96,
    "queue_ahead": 133.0,
    "status": "SETTLED",
-   "hrs": -10.2,
+   "hrs": -10.3,
    "close_ts": "2026-07-07T05:59:00Z",
    "ttf_min": 7.5,
    "now_yes": null,
@@ -2132,6 +2152,54 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-07 16:14",
+   "kind": "CAP",
+   "ticker": "KXHIGHTSFO-26JUL07-B68.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-07 16:13",
+   "kind": "CAP",
+   "ticker": "KXHIGHTLV-26JUL07-B110.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-07 16:12",
+   "kind": "CAP",
+   "ticker": "KXHIGHTLV-26JUL07-B110.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-07 16:12",
+   "kind": "CAP",
+   "ticker": "KXHIGHTLV-26JUL07-B110.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-07 16:11",
+   "kind": "CAP",
+   "ticker": "KXHIGHTLV-26JUL07-B110.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-07 16:11",
+   "kind": "CAP",
+   "ticker": "KXHIGHTLV-26JUL07-B110.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-07 16:10",
+   "kind": "CAP",
+   "ticker": "KXHIGHTLV-26JUL07-B110.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-07 16:09",
+   "kind": "CAP",
+   "ticker": "KXHIGHTLV-26JUL07-B110.5",
+   "detail": "capital fully deployed"
+  },
   {
    "ts": "07-07 16:09",
    "kind": "CAP",
@@ -2320,54 +2388,6 @@
   },
   {
    "ts": "07-07 15:51",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:50",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:49",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:49",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:48",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:47",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:47",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:46",
-   "kind": "CAP",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-07 15:46",
    "kind": "CAP",
    "ticker": "KXHIGHTLV-26JUL07-B110.5",
    "detail": "capital fully deployed"
