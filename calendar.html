@@ -45,7 +45,7 @@ h1{font-size:21px;font-weight:650;margin:0}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .cal-grid.head{margin-bottom:6px}
 .cal-grid.head .wd{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-align:center}
-.cell{min-height:76px;border:1px solid var(--grid);border-radius:10px;padding:6px 8px;
+.cell{min-height:84px;border:1px solid var(--grid);border-radius:10px;padding:6px 8px;
  display:flex;flex-direction:column;gap:1px;position:relative;overflow:hidden}
 .cell.empty{border:0;background:transparent;min-height:0}
 .cell.blank .dnum{opacity:.45}
@@ -54,8 +54,11 @@ h1{font-size:21px;font-weight:650;margin:0}
 .live{color:var(--goodtext);font-size:8.5px;font-weight:800;letter-spacing:.03em}
 .pnl{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:auto;line-height:1.02;white-space:nowrap}
 .pnl.neutral{color:var(--ink2)}
-.roi{font-size:10.5px;font-variant-numeric:tabular-nums;color:var(--muted);line-height:1.3}
+.roi{font-size:11px;font-variant-numeric:tabular-nums;color:var(--muted);line-height:1.28}
 .roi.pos{color:var(--goodtext)} .roi.neg{color:var(--crit)}
+.tot{font-size:10px;font-variant-numeric:tabular-nums;line-height:1.25}
+.tot.pos{color:var(--goodtext)} .tot.neg{color:var(--crit)}
+.roi .sub,.tot .sub{color:var(--muted);font-weight:400}
 .pend{font-size:9px;color:var(--warn);line-height:1.25;margin-top:1px}
 .legend{font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px;border:1px solid var(--border)}
@@ -88,9 +91,9 @@ h1{font-size:21px;font-weight:650;margin:0}
  <h1>Daily Calendar</h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Realized return and ROI for each trading day that has elapsed. A day is the book of markets with
-that event date; ROI = realized P&amp;L ÷ collateral that day put at risk. Today is still open, so it shows the
-book's <em>expected</em> value, not a settled number.</p>
+<p class="sub">For each elapsed trading day: realized <b>return</b>, the day's <b>% of the whole portfolio</b>, and the
+running <b>cumulative portfolio %</b>. A day is the book of markets with that event date. Today is still open, so it
+shows the book's <em>expected</em> value, not a settled number.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <div class="stats" id="stats"></div>
@@ -141,13 +144,16 @@ function cell(iso, dd, rec, todayISO, today){
       <div class="roi">exp · ${rec.pending} open</div></div>`;
   }
   const cls = rec.pnl>=0 ? 'pos' : 'neg';
+  const dcls = rec.port_pct>=0 ? 'pos' : 'neg';
+  const ccls = rec.cum_pct>=0 ? 'pos' : 'neg';
   const wr = rec.wins + rec.losses;
   const pend = rec.pending>0 ? `<div class="pend">${rec.pending} pending</div>` : '';
-  const tip = `${iso}\nReturn ${signMoney(rec.pnl)} · ROI ${pct1(rec.roi)}\n${rec.contracts} contracts, ${money(rec.collat)} at risk\n${rec.wins}W / ${rec.losses}L`;
+  const tip = `${iso}\nReturn ${signMoney(rec.pnl)}  (${pct1(rec.port_pct)} of portfolio)\nPortfolio to date: ${pct1(rec.cum_pct)}\nROI ${pct1(rec.roi)} · ${rec.wins}W/${rec.losses}L · ${rec.contracts} ct, ${money(rec.collat)} at risk`;
   return `<div class="cell ${isToday?'today':''}" style="background:${heatBg(rec.roi)}" title="${esc(tip)}">
     <span class="dnum">${dd}</span>
     <div class="pnl ${cls}">${signMoney(rec.pnl)}</div>
-    <div class="roi ${cls}">${pct1(rec.roi)} · ${rec.wins}/${wr}</div>
+    <div class="roi ${dcls}">${pct1(rec.port_pct)}<span class="sub"> day</span></div>
+    <div class="tot ${ccls}">${pct1(rec.cum_pct)}<span class="sub"> total</span></div>
     ${pend}</div>`;
 }
 
@@ -179,9 +185,10 @@ function dayRow(rec, todayISO, today){
       <div class="dramt neutral">${signMoney(t.exp_pnl)}</div></div>`;
   }
   const cls = rec.pnl>=0 ? 'pos' : 'neg', wr = rec.wins + rec.losses;
+  const dcls = rec.port_pct>=0 ? 'pos' : 'neg', ccls = rec.cum_pct>=0 ? 'pos' : 'neg';
   const pend = rec.pending>0 ? ` · <span style="color:var(--warn)">${rec.pending} pending</span>` : '';
   return `<div class="dayrow" style="border-left-color:${rec.pnl>=0?'var(--good)':'var(--crit)'};background:${heatBg(rec.roi)}">${date}
-    <div class="drmid"><b class="${cls}">${pct1(rec.roi)}</b> ROI · ${rec.wins}/${wr} wins · ${rec.contracts} ct${pend}</div>
+    <div class="drmid"><b class="${dcls}">${pct1(rec.port_pct)}</b> day · <b class="${ccls}">${pct1(rec.cum_pct)}</b> total<br>${pct1(rec.roi)} ROI · ${rec.wins}/${wr} wins · ${rec.contracts} ct${pend}</div>
     <div class="dramt ${cls}">${signMoney(rec.pnl)}</div></div>`;
 }
 
@@ -200,7 +207,7 @@ function render(d){
   // summary stat cards
   const cum=daily.cum_realized, best=daily.best, worst=daily.worst;
   const stats=[
-    {l:'Cumulative return', v:signMoney(cum), s:`${daily.settled_days||0} settled day${daily.settled_days===1?'':'s'}`,
+    {l:'Cumulative return', v:signMoney(cum), s:`${pct1(daily.cum_pct)} of portfolio · ${daily.settled_days||0} day${daily.settled_days===1?'':'s'}`,
      cls:(cum==null?'':cum>=0?'good':'bad'), vcls:(cum==null?'':cum>=0?'pos':'neg')},
     {l:'Avg daily ROI', v:pct1(daily.avg_roi), s:'per elapsed day', cls:'accent',
      vcls:(daily.avg_roi==null?'':daily.avg_roi>=0?'pos':'neg')},
@@ -236,10 +243,13 @@ function render(d){
     `<span><span class="sw" style="background:${heatBg(6)}"></span>green day (profit)</span>`
     + `<span><span class="sw" style="background:${heatBg(-6)}"></span>red day (loss)</span>`
     + `<span><span class="sw" style="border:2px solid var(--s1)"></span>today · expected, still open</span>`;
+  const startBal = (d.account && d.account.start) || 0;
+  const deposits = (daily.invested!=null && startBal) ? daily.invested - startBal : null;
   document.getElementById('footer').innerHTML =
-    `Each cell: realized <b>return</b> (top figure) and <b>ROI</b> = return ÷ collateral at risk that day, with the day's win/loss count. `
-    + `Days are bucketed by market event date; a day settles the following morning, so "N pending" marks stragglers not yet resolved. `
-    + `Data ${esc(d.generated||'?')} UTC.`;
+    `Each cell: realized <b>return</b> (top), the day's <b>% of the whole portfolio</b> (day) and the running <b>cumulative portfolio %</b> (total). `
+    + `Portfolio % is vs total invested capital (${money(daily.invested)}${deposits!=null?` = ${money(startBal)} start + ${money(deposits)} deposits`:''}), so deposits count as capital, not gains. `
+    + `<b>ROI</b> (return ÷ collateral at risk) and win/loss are in each day's hover tooltip. `
+    + `Days bucket by event date; a day settles the following morning, so "N pending" marks stragglers not yet resolved. Data ${esc(d.generated||'?')} UTC.`;
 }
 
 load(); setInterval(load, 60000);
