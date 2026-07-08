@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f1">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a09">
 <title>Kalshi — Calendar</title>
 <style>
 :root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
@@ -76,6 +78,13 @@ h1{font-size:21px;font-weight:650;margin:0}
 .dayrow .dramt.neutral{color:var(--ink)}
 .dayrow .live{font-size:9.5px}
 @media(max-width:680px){ #cal{display:none} #calList{display:flex} }
+
+/* ---- mobile polish (2026-07-08) ---- */
+html{-webkit-text-size-adjust:100%}
+.nav{max-width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;white-space:nowrap}
+@media(max-width:680px){.nav a{padding:9px 13px}}
 </style></head>
 <body>
 <div class="nav">
@@ -86,6 +95,7 @@ h1{font-size:21px;font-weight:650;margin:0}
  <a href="./rungsim.html">Dip Sim</a>
  <a href="./appendix.html">Appendix</a>
 </div>
+<script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
 
 <div class="top">
  <h1>Daily Calendar</h1>

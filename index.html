@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f1">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a09">
 <title>Kalshi Live Trading — longshot-NO</title>
 <style>
 :root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
@@ -68,6 +70,17 @@ tr:hover td{background:color-mix(in srgb,var(--s1) 5%,transparent)}
 .k{font-weight:650}.k.FILL{color:var(--s1)}.k.SETTLE{color:var(--goodtext)}.k.EXPIRE,.k.ROLL{color:var(--muted)}.k.PLACED{color:var(--ink2)}.k.CAP,.k.FATAL,.k.ABORT{color:var(--warn)}
 .note{font-size:11.5px;color:var(--muted);margin-top:10px}
 svg text{font:11px system-ui;fill:var(--muted)}
+
+/* ---- mobile polish (2026-07-08) ---- */
+html{-webkit-text-size-adjust:100%}
+.nav{max-width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;white-space:nowrap}
+.scroll{-webkit-overflow-scrolling:touch}
+#postbl{min-width:600px}
+#postbl td,#postbl th{white-space:nowrap}
+@media(max-width:680px){.nav a{padding:9px 13px}}
+@media(max-width:420px){.hero .big{font-size:38px}}
 </style></head>
 <body>
 <div class="nav">
@@ -78,17 +91,18 @@ svg text{font:11px system-ui;fill:var(--muted)}
  <a href="./rungsim.html">Dip Sim</a>
  <a href="./appendix.html">Appendix</a>
 </div>
+<script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
 
 <div class="top">
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · 1 contract each · same-city hedge · held to settlement.</p>
+<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-capital equal-split · same-city hedge · held to settlement.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
 <div class="hero">
- <div class="l">Total equity <span style="text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400">· started $48.16</span></div>
+ <div class="l">Total equity <span id="invlbl" style="text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400">· started $48.16</span></div>
  <div class="big" id="equity">—</div>
  <div class="cx" id="eqsub"></div>
  <div id="pnlchart" style="margin-top:12px"></div>
@@ -139,6 +153,8 @@ function render(d){
   const bal = a.balance, locked = a.locked||0;
   const equity = bal==null ? null : bal + locked;
   document.getElementById('equity').textContent = money(equity);
+  const inv = d.daily && d.daily.invested;   // start + deposits = the honest % base
+  if(inv) document.getElementById('invlbl').textContent = `· invested ${money(inv)}`;
   const realized = s.realized||0;
   let sub = `realized <span class="${realized>=0?'pos':'neg'}">${signMoney(realized)}</span>`
           + ` · <b>${money(locked)}</b> working in ${s.filled_open||0} open positions`
@@ -199,7 +215,7 @@ function render(d){
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
 
   document.getElementById('footer').textContent =
-    `Weather (high+low) + crypto-daily · post-only maker · 1 contract each (hedge test) · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
+    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly equal-split · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
 }
 
 function drawPnl(curve){
