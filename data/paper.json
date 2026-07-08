@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-08 20:03",
- "generated_epoch": 1783540990,
+ "generated": "2026-07-08 20:06",
+ "generated_epoch": 1783541178,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 173.82,
-  "committed": 191.34,
+  "committed": 213.18,
   "locked": 178.94,
-  "resting_commit": 12.4,
+  "resting_commit": 34.24,
   "cap": "full",
   "start": 48.16
  },
@@ -16,19 +16,19 @@
   "potential_gain": 11.06,
   "worst_case": -178.94,
   "next_settle": "2026-07-08T21:00:00Z",
-  "expected_balance": 355.31,
-  "expected_pnl": 2.55,
+  "expected_balance": 355.42,
+  "expected_pnl": 2.67,
   "near_win": 30,
   "near_loss": 1
  },
  "summary": {
-  "placed": 268,
-  "resting": 6,
+  "placed": 270,
+  "resting": 8,
   "filled": 174,
   "filled_open": 33,
   "settled": 141,
   "expired": 45,
-  "fill_rate": 0.6493,
+  "fill_rate": 0.6444,
   "ev": 2.19,
   "adverse": 0.0284,
   "realized": 11.94
@@ -1186,7 +1186,7 @@
     60.1
    ],
    [
-    5.671,
+    5.673,
     60.1
    ]
   ],
@@ -1232,20 +1232,20 @@
   },
   "ev_fill": 2.19,
   "ev_target": 2.0,
-  "fill_rate": 65,
+  "fill_rate": 64,
   "deployment": 51,
   "realized": 11.94,
   "exp_roi": {
    "roi_pct": 1.2,
-   "pnl": 2.13,
+   "pnl": 2.06,
    "collat": 178.94,
-   "exp_busts": 1.93,
+   "exp_busts": 1.88,
    "n": 33,
-   "mkt_pnl": 2.55
+   "mkt_pnl": 2.67
   },
   "win_dist": {
-   "p_green": 65,
-   "p_red": 35,
+   "p_green": 64,
+   "p_red": 36,
    "p5": -15.94,
    "p50": 6.06,
    "p95": 11.06,
@@ -2337,7 +2337,7 @@
   },
   "today": {
    "date": "2026-07-08",
-   "exp_pnl": 2.13,
+   "exp_pnl": 2.06,
    "exp_roi": 1.2,
    "premium": 11.06,
    "n": 33
@@ -2504,6 +2504,36 @@
    "pnl_c": null
   },
   {
+   "ticker": "KXBTCD-26JUL0917-T66749.99",
+   "series": "KXBTCD",
+   "sold_c": 6.0,
+   "collateral": 11.28,
+   "queue_ahead": 1.0,
+   "status": "RESTING",
+   "hrs": 24.9,
+   "close_ts": "2026-07-09T21:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXETHD-26JUL0917-T1859.99",
+   "series": "KXETHD",
+   "sold_c": 4.0,
+   "collateral": 10.56,
+   "queue_ahead": 10.0,
+   "status": "RESTING",
+   "hrs": 24.9,
+   "close_ts": "2026-07-09T21:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
    "ticker": "KXLOWTMIA-26JUL07-T74",
    "series": "KXLOWTMIA",
    "sold_c": 5.0,
@@ -2618,7 +2648,7 @@
    "hrs": 8.9,
    "close_ts": "2026-07-09T05:00:00Z",
    "ttf_min": 107.9,
-   "now_yes": 18.5,
+   "now_yes": 17.0,
    "win_odds": 85.1,
    "result": null,
    "pnl_c": null
@@ -2633,8 +2663,8 @@
    "hrs": 11.9,
    "close_ts": "2026-07-09T08:00:00Z",
    "ttf_min": 648.9,
-   "now_yes": 9.0,
-   "win_odds": 92.1,
+   "now_yes": 2.0,
+   "win_odds": 97.7,
    "result": null,
    "pnl_c": null
   },
@@ -2678,8 +2708,8 @@
    "hrs": 9.9,
    "close_ts": "2026-07-09T06:00:00Z",
    "ttf_min": 95.7,
-   "now_yes": 3.5,
-   "win_odds": 94.7,
+   "now_yes": 2.5,
+   "win_odds": 97.7,
    "result": null,
    "pnl_c": null
   },
@@ -2948,8 +2978,8 @@
    "hrs": 9.9,
    "close_ts": "2026-07-09T06:00:00Z",
    "ttf_min": 1.7,
-   "now_yes": 2.0,
-   "win_odds": 97.7,
+   "now_yes": 3.5,
+   "win_odds": 94.7,
    "result": null,
    "pnl_c": null
   },
@@ -2963,7 +2993,7 @@
    "hrs": 10.9,
    "close_ts": "2026-07-09T07:00:00Z",
    "ttf_min": 9.5,
-   "now_yes": 5.5,
+   "now_yes": 5.0,
    "win_odds": 94.7,
    "result": null,
    "pnl_c": null
@@ -3301,6 +3331,18 @@
  ],
  "events": [
   {
+   "ts": "07-08 20:05",
+   "kind": "PLACED",
+   "ticker": "KXETHD-26JUL0917-T1859.99",
+   "detail": "sold YES @ 4\u00a2"
+  },
+  {
+   "ts": "07-08 20:05",
+   "kind": "PLACED",
+   "ticker": "KXBTCD-26JUL0917-T66749.99",
+   "detail": "sold YES @ 6\u00a2"
+  },
+  {
    "ts": "07-08 18:30",
    "kind": "ROLL",
    "ticker": "KXETHD-26JUL0817-T1869.99",
@@ -3527,18 +3569,6 @@
    "kind": "SETTLE",
    "ticker": "KXLOWTDC-26JUL07-B69.5",
    "detail": "won +144\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXLOWTBOS-26JUL07-B60.5",
-   "detail": "won +72\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTBOS-26JUL07-T72",
-   "detail": "won +51\u00a2"
   }
  ]
 }
