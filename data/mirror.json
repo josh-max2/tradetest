@@ -1,0 +1,82 @@
+{
+ "generated": "2026-07-08 22:57",
+ "generated_epoch": 1783551460,
+ "mode": "DRYRUN",
+ "cap": 30.0,
+ "stopped": false,
+ "live": {
+  "placed": 0,
+  "resting": 0,
+  "filled": 0,
+  "settled": 0,
+  "wins": 0,
+  "losses": 0,
+  "ev": null,
+  "realized": 0.0,
+  "fills_today": 0
+ },
+ "dryrun": {
+  "placed": 2,
+  "resting": 2,
+  "filled": 0,
+  "settled": 0,
+  "wins": 0,
+  "losses": 0,
+  "ev": null,
+  "realized": 0.0,
+  "fills_today": 0
+ },
+ "gates": [
+  {
+   "name": "EV \u2265 +0.5\u00a2 at 100 settled (interim kill)",
+   "value": "0/100 settled",
+   "status": "watch"
+  },
+  {
+   "name": "Rolling-60d EV \u2265 0 (regime switch; arms at 30 settled)",
+   "value": "warm-up 0/30",
+   "status": "watch"
+  },
+  {
+   "name": "Fills/day vs 7-9 expected",
+   "value": "0 today (LIVE) / 0 phantom",
+   "status": "watch"
+  },
+  {
+   "name": "$ used \u2264 $30 cap",
+   "value": "$0.00",
+   "status": "pass"
+  }
+ ],
+ "positions": [
+  {
+   "ticker": "KXHIGHTOKC-26JUL08-B97.5",
+   "mode": "DRYRUN",
+   "bid": 95,
+   "ru": 6.0,
+   "queue": 55.0,
+   "status": "RESTING",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-09T06:00:00Z"
+  },
+  {
+   "ticker": "KXHIGHCHI-26JUL08-B88.5",
+   "mode": "DRYRUN",
+   "bid": 94,
+   "ru": 6.0,
+   "queue": 2.0,
+   "status": "RESTING",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-09T05:59:00Z"
+  }
+ ],
+ "expect": {
+  "fills_day_lo": 7,
+  "fills_day_hi": 9,
+  "ev_target": 2.4,
+  "bust_target": 3.0
+ },
+ "strategy": "NO-mirror \u00b7 buy the favorite 93-96\u00a2 \u00b7 runner-up \u22649\u00a2 \u00b7 hold to settlement"
+}
