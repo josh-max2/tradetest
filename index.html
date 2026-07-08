@@ -87,6 +87,7 @@ html{-webkit-text-size-adjust:100%}
  <a class="active" href="./index.html">Live</a>
  <a href="./monitor.html">Monitor</a>
  <a href="./calendar.html">Calendar</a>
+ <a href="./mirror.html">Mirror</a>
  <a href="./model.html">Testing</a>
  <a href="./rungsim.html">Dip Sim</a>
  <a href="./appendix.html">Appendix</a>
@@ -106,6 +107,13 @@ html{-webkit-text-size-adjust:100%}
  <div class="big" id="equity">—</div>
  <div class="cx" id="eqsub"></div>
  <div id="pnlchart" style="margin-top:12px"></div>
+</div>
+
+<!-- [MIRROR-PILOT] strategy split strip — hidden until data/mirror.json exists (plan §8.8) -->
+<div class="tiles" id="splitstrip" style="display:none">
+ <div class="tile"><div class="l">Base book · longshots</div><div class="v" id="sp_base">—</div><div class="s" id="sp_base_s">short the 3–8¢ tails</div></div>
+ <div class="tile" style="border-color:color-mix(in srgb,#7c3aed 45%,var(--border))"><div class="l">Mirror · favorites</div><div class="v" id="sp_mir">—</div><div class="s" id="sp_mir_s"></div></div>
+ <div class="tile"><div class="l">Combined</div><div class="v" id="sp_comb">—</div><div class="s">account total incl. mirror positions</div></div>
 </div>
 
 <!-- KPI strip -->
@@ -153,6 +161,7 @@ function render(d){
   const bal = a.balance, locked = a.locked||0;
   const equity = bal==null ? null : bal + locked;
   document.getElementById('equity').textContent = money(equity);
+  window._baseEquity = equity;   // [MIRROR-PILOT] used by the split strip
   const inv = d.daily && d.daily.invested;   // start + deposits = the honest % base
   if(inv) document.getElementById('invlbl').textContent = `· invested ${money(inv)}`;
   const realized = s.realized||0;
@@ -233,7 +242,25 @@ function drawPnl(curve){
   el.innerHTML=s;
 }
 
+// [MIRROR-PILOT] strategy split strip — degrades silently if mirror.json doesn't exist yet (plan §8.8)
+async function splitStrip(){
+  try{
+    const r = await fetch('./data/mirror.json?t='+Date.now(), {cache:'no-store'});
+    if(!r.ok) throw 0;
+    const m = await r.json();
+    const openCost = (m.positions||[]).filter(x=>x.mode==='LIVE'&&x.status==='FILLED')
+                     .reduce((a,x)=>a+(x.bid||0)/100, 0);
+    const base = window._baseEquity;
+    document.getElementById('sp_base').textContent = money(base);
+    document.getElementById('sp_mir').textContent = money(openCost);
+    document.getElementById('sp_mir_s').innerHTML =
+      `${esc(m.mode)} · realized <span class="${(m.live?.realized||0)>=0?'pos':'neg'}">${signMoney(m.live?.realized||0)}</span> · ${m.live?.settled||0} settled`;
+    document.getElementById('sp_comb').textContent = base==null ? '—' : money(base + openCost);
+    document.getElementById('splitstrip').style.display = '';
+  }catch(e){ document.getElementById('splitstrip').style.display = 'none'; }
+}
 load(); setInterval(load, 60000);
+splitStrip(); setInterval(splitStrip, 60000);
 </script>
 </body>
 </html>
