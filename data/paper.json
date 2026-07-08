@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-08 22:57",
- "generated_epoch": 1783551473,
+ "generated": "2026-07-08 23:00",
+ "generated_epoch": 1783551649,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 168.26,
-  "committed": 219.04,
+  "committed": 313.42,
   "locked": 184.8,
-  "resting_commit": 34.24,
+  "resting_commit": 128.62,
   "cap": "full",
   "start": 48.16
  },
@@ -22,13 +22,13 @@
   "near_loss": 1
  },
  "summary": {
-  "placed": 270,
-  "resting": 8,
+  "placed": 279,
+  "resting": 17,
   "filled": 174,
   "filled_open": 32,
   "settled": 142,
   "expired": 45,
-  "fill_rate": 0.6444,
+  "fill_rate": 0.6237,
   "ev": 2.22,
   "adverse": 0.0282,
   "realized": 12.24
@@ -1194,7 +1194,7 @@
     60.4
    ],
    [
-    5.792,
+    5.794,
     60.4
    ]
   ],
@@ -1240,7 +1240,7 @@
   },
   "ev_fill": 2.22,
   "ev_target": 2.0,
-  "fill_rate": 64,
+  "fill_rate": 62,
   "deployment": 52,
   "realized": 12.24,
   "exp_roi": {
@@ -2446,6 +2446,16 @@
     "n": 32,
     "p5": -12.8,
     "p95": 11.2
+   },
+   {
+    "t": 1783551649,
+    "pnl": 3.47,
+    "roi": 1.9,
+    "green": 70,
+    "real": 12.24,
+    "n": 32,
+    "p5": -12.8,
+    "p95": 11.2
    }
   ],
   "odds_table": {
@@ -2518,9 +2528,9 @@
    ]
   },
   "activity": {
-   "placed_24h": 37,
-   "last": "07-08 15:45",
-   "hrs_since": 7.2
+   "placed_24h": 46,
+   "last": "07-08 23:00",
+   "hrs_since": 0.0
   }
  },
  "daily": {
@@ -2825,6 +2835,141 @@
    "status": "RESTING",
    "hrs": 22.0,
    "close_ts": "2026-07-09T21:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHPHIL-26JUL09-B89.5",
+   "series": "KXHIGHPHIL",
+   "sold_c": 7.0,
+   "collateral": 10.23,
+   "queue_ahead": 10.0,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T04:59:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHNY-26JUL09-B89.5",
+   "series": "KXHIGHNY",
+   "sold_c": 3.0,
+   "collateral": 10.67,
+   "queue_ahead": 24.67,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T04:59:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTATL-26JUL09-B96.5",
+   "series": "KXHIGHTATL",
+   "sold_c": 5.0,
+   "collateral": 10.45,
+   "queue_ahead": 3.0,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T05:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXLOWTDC-26JUL09-B70.5",
+   "series": "KXLOWTDC",
+   "sold_c": 4.0,
+   "collateral": 10.56,
+   "queue_ahead": 4.0,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T05:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXLOWTMIA-26JUL09-T77",
+   "series": "KXLOWTMIA",
+   "sold_c": 3.0,
+   "collateral": 10.67,
+   "queue_ahead": 6.0,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T05:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXLOWTNYC-26JUL09-B65.5",
+   "series": "KXLOWTNYC",
+   "sold_c": 7.0,
+   "collateral": 10.23,
+   "queue_ahead": 6.0,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T05:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXLOWTATL-26JUL09-B70.5",
+   "series": "KXLOWTATL",
+   "sold_c": 5.0,
+   "collateral": 10.45,
+   "queue_ahead": 33.0,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T05:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTBOS-26JUL09-T94",
+   "series": "KXHIGHTBOS",
+   "sold_c": 3.0,
+   "collateral": 10.67,
+   "queue_ahead": 43.9,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T05:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXLOWTBOS-26JUL09-B64.5",
+   "series": "KXLOWTBOS",
+   "sold_c": 5.0,
+   "collateral": 10.45,
+   "queue_ahead": 200.0,
+   "status": "RESTING",
+   "hrs": 30.0,
+   "close_ts": "2026-07-10T05:00:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -3614,6 +3759,60 @@
  ],
  "events": [
   {
+   "ts": "07-08 23:00",
+   "kind": "PLACED",
+   "ticker": "KXLOWTBOS-26JUL09-B64.5",
+   "detail": "sold YES @ 5\u00a2"
+  },
+  {
+   "ts": "07-08 23:00",
+   "kind": "PLACED",
+   "ticker": "KXHIGHTBOS-26JUL09-T94",
+   "detail": "sold YES @ 3\u00a2"
+  },
+  {
+   "ts": "07-08 23:00",
+   "kind": "PLACED",
+   "ticker": "KXLOWTATL-26JUL09-B70.5",
+   "detail": "sold YES @ 5\u00a2"
+  },
+  {
+   "ts": "07-08 23:00",
+   "kind": "PLACED",
+   "ticker": "KXLOWTNYC-26JUL09-B65.5",
+   "detail": "sold YES @ 7\u00a2"
+  },
+  {
+   "ts": "07-08 23:00",
+   "kind": "PLACED",
+   "ticker": "KXLOWTMIA-26JUL09-T77",
+   "detail": "sold YES @ 3\u00a2"
+  },
+  {
+   "ts": "07-08 23:00",
+   "kind": "PLACED",
+   "ticker": "KXLOWTDC-26JUL09-B70.5",
+   "detail": "sold YES @ 4\u00a2"
+  },
+  {
+   "ts": "07-08 23:00",
+   "kind": "PLACED",
+   "ticker": "KXHIGHTATL-26JUL09-B96.5",
+   "detail": "sold YES @ 5\u00a2"
+  },
+  {
+   "ts": "07-08 22:59",
+   "kind": "PLACED",
+   "ticker": "KXHIGHNY-26JUL09-B89.5",
+   "detail": "sold YES @ 3\u00a2"
+  },
+  {
+   "ts": "07-08 22:59",
+   "kind": "PLACED",
+   "ticker": "KXHIGHPHIL-26JUL09-B89.5",
+   "detail": "sold YES @ 7\u00a2"
+  },
+  {
    "ts": "07-08 21:02",
    "kind": "SETTLE",
    "ticker": "KXBTCD-26JUL0817-T65749.99",
@@ -3798,60 +3997,6 @@
    "kind": "SETTLE",
    "ticker": "KXLOWTDAL-26JUL07-B75.5",
    "detail": "won +25\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTHOU-26JUL07-B98.5",
-   "detail": "won +5\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTLV-26JUL07-B110.5",
-   "detail": "won +49\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTSFO-26JUL07-B68.5",
-   "detail": "won +30\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXLOWTDEN-26JUL07-B61.5",
-   "detail": "won +49\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXLOWTHOU-26JUL07-B76.5",
-   "detail": "won +56\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTMIN-26JUL07-B90.5",
-   "detail": "won +42\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTOKC-26JUL07-B97.5",
-   "detail": "won +42\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTSEA-26JUL07-T82",
-   "detail": "won +20\u00a2"
-  },
-  {
-   "ts": "07-08 11:31",
-   "kind": "SETTLE",
-   "ticker": "KXLOWTMIN-26JUL07-B64.5",
-   "detail": "won +128\u00a2"
   }
  ]
 }
