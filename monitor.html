@@ -80,6 +80,11 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;colo
 .charthead .l span{text-transform:none;letter-spacing:0;font-weight:400}
 .chartbig{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.05;margin-top:3px}
 .chartmeta{font-size:12px;color:var(--ink2);text-align:right;line-height:1.6}
+.chartci{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:8px;font-size:13.5px;font-variant-numeric:tabular-nums}
+.chartci .lab{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+ border:1px solid var(--grid);border-radius:6px;padding:2px 6px}
+.rng{display:inline-flex;align-items:center;gap:9px;font-weight:660}
+.rng .arw{color:var(--muted);font-weight:400;font-size:12px}
 </style></head>
 <body>
 <div class="nav">
@@ -102,7 +107,8 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;colo
 <div class="chartcard">
  <div class="charthead">
   <div><div class="l">Expected return today <span>· open book marked to the historical odds, through the day</span></div>
-   <div class="chartbig" id="chartnow">—</div></div>
+   <div class="chartbig" id="chartnow">—</div>
+   <div class="chartci" id="chartci"></div></div>
   <div class="chartmeta" id="chartmeta"></div>
  </div>
  <div id="roichart"></div>
@@ -153,6 +159,7 @@ const pct1 = v => v==null ? '—' : v.toFixed(1) + '%';
 const fmtC = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(1) + '¢';
 const money = v => v==null ? '—' : (v<0?'-$':'$') + Math.abs(v).toFixed(2);
 const signMoney = v => v==null ? '—' : (v>=0?'+':'') + money(v);
+const moneyC = v => v==null ? '—' : `<span class="${v>=0?'pos':'neg'}">${signMoney(v)}</span>`;
 const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
 
 async function load(){
@@ -270,7 +277,7 @@ function render(d){
   if(wd.p_green!=null){ pg.textContent=wd.p_green.toFixed(0)+'%'; pg.className='roibig '+(wd.p_green>=50?'pos':'neg'); }
   else { pg.textContent='—'; pg.className='roibig'; }
   document.getElementById('pgreensub').innerHTML = wd.p_green==null ? 'no open positions' :
-    `${(100-wd.p_green).toFixed(0)}% chance of a red day · median <b>${signMoney(wd.p50)}</b> · 5–95%: <b>${signMoney(wd.p5)}</b> … <b>${signMoney(wd.p95)}</b>`;
+    `${(100-wd.p_green).toFixed(0)}% chance of a red day · median <b>${signMoney(wd.p50)}</b> · 90% CI <b>${signMoney(wd.p5)}</b> → <b>${signMoney(wd.p95)}</b>`;
   const b50 = wd.below50||[]; const al = document.getElementById('alert50');
   if(b50.length){ al.className='alertbar';
     al.innerHTML = `⚠ <b>${b50.length}</b> position${b50.length>1?'s':''} below the 50% win line (now more likely to lose than win): `
@@ -285,12 +292,14 @@ function render(d){
   const cn = document.getElementById('chartnow');
   if(last){ cn.innerHTML = signMoney(last.pnl) + (last.roi!=null?` <span style="font-size:.55em;font-weight:600;opacity:.82">${last.roi>=0?'+':''}${last.roi}% ROI</span>`:''); cn.className='chartbig '+(last.pnl>=0?'pos':'neg'); }
   else { cn.textContent='—'; cn.className='chartbig'; }
-  if(ser.length){
-    const yy = ser.map(p=>p.pnl);
-    document.getElementById('chartmeta').innerHTML =
-      `ROI <b class="${(roi.roi_pct||0)>=0?'pos':'neg'}">${roi.roi_pct!=null?(roi.roi_pct>=0?'+':'')+roi.roi_pct+'%':'—'}</b> &nbsp;·&nbsp; P(green) <b>${wd.p_green!=null?wd.p_green+'%':'—'}</b>`
-      + `<br><span style="color:var(--muted)">today's range ${signMoney(Math.min(...yy))} … ${signMoney(Math.max(...yy))}</span>`;
-  } else document.getElementById('chartmeta').innerHTML='';
+  const roiTxt = roi.roi_pct!=null ? (roi.roi_pct>=0?'+':'')+roi.roi_pct+'%' : '—';
+  document.getElementById('chartmeta').innerHTML = ser.length
+    ? `ROI <b class="${(roi.roi_pct||0)>=0?'pos':'neg'}">${roiTxt}</b> &nbsp;·&nbsp; P(green) <b>${wd.p_green!=null?wd.p_green+'%':'—'}</b>`
+    : '';
+  // CI right by the number: the 90% prediction interval for where the book actually settles (the chart's shaded band)
+  document.getElementById('chartci').innerHTML = (last && wd.p5!=null && wd.p95!=null)
+    ? `<span class="lab">90% CI</span><span class="rng">${moneyC(wd.p5)}<span class="arw">→</span>${moneyC(wd.p95)}</span>`
+    : '';
   drawROI(ser);
 
   // ---- Win-odds calibration heatmap ----
