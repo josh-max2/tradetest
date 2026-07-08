@@ -1,10 +1,10 @@
 {
- "generated": "2026-07-08 13:22",
- "generated_epoch": 1783516964,
+ "generated": "2026-07-08 13:32",
+ "generated_epoch": 1783517542,
  "bankroll": 80.45,
  "start": 100.0,
  "reserved": 72.05,
- "age_days": 5.13,
+ "age_days": 5.14,
  "equity": [
   [
    0.0,
@@ -1167,31 +1167,43 @@
    80.45
   ],
   [
-   5.133,
+   5.14,
+   80.45
+  ],
+  [
+   5.14,
+   80.45
+  ],
+  [
+   5.14,
+   80.45
+  ],
+  [
+   5.14,
    80.45
   ]
  ],
  "summary": {
   "registered": 3345,
-  "any_print": 353,
-  "fills": 335,
-  "settled": 289,
+  "any_print": 355,
+  "fills": 338,
+  "settled": 292,
   "gated": 2527,
   "expired": 0,
-  "capture": 94.9,
-  "ev": 0.54,
-  "bust": 40.1,
-  "events": 122
+  "capture": 95.2,
+  "ev": 0.84,
+  "bust": 39.7,
+  "events": 123
  },
  "gates": [
   {
    "name": "Sample \u2265 30 fills across \u2265 15 events",
-   "value": "335 fills / 122 events",
+   "value": "338 fills / 123 events",
    "status": "pass"
   },
   {
    "name": "EV per fill \u2265 +2.0\u00a2",
-   "value": "+0.54\u00a2",
+   "value": "+0.84\u00a2",
    "status": "fail"
   },
   {
@@ -1209,18 +1221,18 @@
   {
    "L": 30,
    "registered": 1115,
-   "any_print": 196,
-   "fills": 183,
-   "capture": 93.4,
-   "settled": 154,
-   "ev": 2.08,
+   "any_print": 197,
+   "fills": 185,
+   "capture": 93.9,
+   "settled": 157,
+   "ev": 2.61,
    "busts": 43
   },
   {
    "L": 45,
    "registered": 1115,
-   "any_print": 98,
-   "fills": 93,
+   "any_print": 99,
+   "fills": 94,
    "capture": 94.9,
    "settled": 82,
    "ev": -1.34,
@@ -1238,6 +1250,42 @@
   }
  ],
  "fills": [
+  {
+   "ticker": "KXLOWTMIN-26JUL08-B70.5",
+   "L": 30,
+   "queue": 25.0,
+   "contracts": 0.0,
+   "stake": 0.0,
+   "fill_ts": "2026-07-08T13:28:42.823773+00:00",
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "pnl_usd": null
+  },
+  {
+   "ticker": "KXLOWTMIN-26JUL08-T71",
+   "L": 45,
+   "queue": 0.0,
+   "contracts": 0.0,
+   "stake": 0.0,
+   "fill_ts": "2026-07-08T13:27:31.240803+00:00",
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "pnl_usd": null
+  },
+  {
+   "ticker": "KXLOWTMIN-26JUL08-T71",
+   "L": 30,
+   "queue": 88.0,
+   "contracts": 0.0,
+   "stake": 0.0,
+   "fill_ts": "2026-07-08T13:25:05.679784+00:00",
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "pnl_usd": null
+  },
   {
    "ticker": "KXHIGHTBOS-26JUL08-B76.5",
    "L": 30,
@@ -1681,42 +1729,6 @@
    "result": null,
    "pnl_c": null,
    "pnl_usd": null
-  },
-  {
-   "ticker": "KXHIGHTMIN-26JUL08-B78.5",
-   "L": 30,
-   "queue": 4.0,
-   "contracts": 0.0,
-   "stake": 0.0,
-   "fill_ts": "2026-07-08T00:06:01.717483+00:00",
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
-   "pnl_usd": null
-  },
-  {
-   "ticker": "KXHIGHLAX-26JUL07-B75.5",
-   "L": 45,
-   "queue": 11.15,
-   "contracts": 0.0,
-   "stake": 0.0,
-   "fill_ts": "2026-07-07T23:17:55.596067+00:00",
-   "status": "SETTLED",
-   "result": "no",
-   "pnl_c": 45.0,
-   "pnl_usd": 0.0
-  },
-  {
-   "ticker": "KXHIGHTSEA-26JUL07-T75",
-   "L": 65,
-   "queue": 0.0,
-   "contracts": 0.0,
-   "stake": 0.0,
-   "fill_ts": "2026-07-07T22:58:30.932496+00:00",
-   "status": "SETTLED",
-   "result": "no",
-   "pnl_c": 65.0,
-   "pnl_usd": 0.0
   }
  ],
  "params": {
