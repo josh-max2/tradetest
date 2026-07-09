@@ -111,7 +111,7 @@ html{-webkit-text-size-adjust:100%}
 
 <!-- STRATEGY BOARD: one column per strategy, all key indicators -->
 <style>
-.sboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:18px}
+.sboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:18px}
 .scol{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px 17px;border-top:3px solid var(--grid)}
 .scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708}
 .scol .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
@@ -123,6 +123,15 @@ html{-webkit-text-size-adjust:100%}
 .srow:last-child{border-bottom:0}
 .srow .k{color:var(--muted)} .srow .v{font-weight:650;font-variant-numeric:tabular-nums}
 .scol .ft{font-size:10.5px;color:var(--muted);margin-top:8px;line-height:1.5}
+.strades{margin-top:7px}
+.strades .tt{font-size:9.5px;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);padding:2px 0 3px}
+.strades table{width:100%;border-collapse:collapse}
+.strades td{font-size:11.5px;padding:3px 0;border-bottom:1px dashed var(--grid);font-variant-numeric:tabular-nums;white-space:nowrap}
+.strades tr:last-child td{border-bottom:0}
+.strades td.tk{max-width:0;width:56%;overflow:hidden;text-overflow:ellipsis;color:var(--ink2)}
+.strades td.r{text-align:right}
+.strades .mut{color:var(--muted);font-weight:400;font-size:10.5px}
+.strades .none{font-size:11px;color:var(--muted);padding:2px 0 0;line-height:1.45}
 </style>
 <div class="sboard" id="sboard"></div>
 
@@ -258,6 +267,19 @@ async function loadSidecars(){
 }
 
 function srow(k, v, cls){ return `<div class="srow"><span class="k">${esc(k)}</span><span class="v ${cls||''}">${v}</span></div>`; }
+// "KXHIGHTATL-26JUL09-B96.5" -> "ATL hi B96.5" (full ticker kept in the tooltip)
+function shortTk(t){
+  const m = /^KX(HIGHT?|LOWT?)([A-Z]+)-\w+-(.+)$/.exec(t||'');
+  if(m) return `${m[2]} ${m[1].indexOf('HIGH')===0?'hi':'lo'} ${m[3]}`;
+  return (t||'').replace(/^KX/,'');
+}
+function tRow(tk, extra, right){
+  return `<tr><td class="tk"><span title="${esc(tk)}">${esc(shortTk(tk))}</span>${extra?` <span class="mut">${extra}</span>`:''}</td><td class="r">${right}</td></tr>`;
+}
+function strades(title, rowsHtml, emptyMsg){
+  return `<div class="strades"><div class="tt">${esc(title)}</div>`
+    + (rowsHtml ? `<table>${rowsHtml}</table>` : `<div class="none">${emptyMsg}</div>`) + `</div>`;
+}
 function board(){
   const el = document.getElementById('sboard');
   if(!el) return;
@@ -275,6 +297,18 @@ function board(){
       + srow('Fill rate', s.placed?pct(100*s.fill_rate):'—')
       + srow('Deployed', dep==null?'—':pct(dep))
       + srow('Open / settled', `${s.filled_open||0} / ${s.settled||0}`)
+      + (function(){
+          const open=(P.orders||[]).filter(x=>x.status==='FILLED').sort((a,b)=>(b.now_yes||0)-(a.now_yes||0));
+          const rows=open.slice(0,5).map(x=>{
+            const ct=(x.collateral&&x.sold_c!=null)?Math.round(x.collateral/(1-x.sold_c/100)):null;
+            const mv=(x.now_yes!=null&&x.sold_c!=null)?(x.sold_c-x.now_yes):null;
+            return tRow(x.ticker, ct?`×${ct}`:'',
+              `${x.sold_c==null?'—':x.sold_c+'¢'}→${x.now_yes==null?'—':x.now_yes.toFixed(0)+'¢'}`
+              + (mv!=null?` <span class="${mv>0?'pos':(mv<0?'neg':'')}">${(mv>0?'+':'')+mv.toFixed(0)}</span>`:''));
+          }).join('');
+          const tt='Open trades — riskiest first'+(open.length>5?` (5 of ${open.length}, all below)`:'');
+          return strades(tt, rows||null, 'No open positions right now.');
+        })()
       + `<div class="ft">Full-Kelly on ${money(eq)} · sell 3–8¢ weather+crypto tails, hold to settle</div></div>`;
   }
   if(M){
@@ -288,6 +322,21 @@ function board(){
       + srow('Fills today', g.fills_today||0)
       + srow('Deployed', money(committed)+' <span style="color:var(--muted);font-weight:400">/ $30</span>')
       + srow('Settled / gate', `${g.settled||0} / 100`)
+      + (function(){
+          const mine=(M.positions||[]).filter(x=>x.mode===M.mode);
+          const open=mine.filter(x=>x.status==='RESTING'||x.status==='FILLED'||x.status==='PLACING')
+                         .sort((a,b)=>(b.close_ts||'').localeCompare(a.close_ts||''));
+          const done=mine.filter(x=>x.status==='SETTLED').slice(-3).reverse();
+          const rows=open.slice(0,5).map(x=>tRow(x.ticker,'',
+              `${x.bid==null?'—':x.bid+'¢'} · ${x.status==='FILLED'?'<b>open</b>':'resting'}`))
+            .concat(done.slice(0,5-Math.min(open.length,5)).map(x=>{
+              const won=x.result==='yes';
+              return tRow(x.ticker,'',
+                `<span class="${won?'pos':'neg'}">${won?'won':'lost'} ${x.pnl_c==null?'':(x.pnl_c>0?'+':'')+x.pnl_c+'¢'}</span>`);
+            })).join('');
+          return strades('Live trades', rows||null,
+            live?'No live bids yet — no favorite has entered the band today.':'Accumulating phantom fills.');
+        })()
       + `<div class="ft">Buy the 93–96¢ favorite when the runner-up ≤9¢ · 1-lot per event · kills armed</div></div>`;
   }
   if(R){
@@ -300,6 +349,21 @@ function board(){
       + srow('Fills today', g.fills_today||0)
       + srow('Deployed', money((R.monitor&&R.monitor.filled_open_usd)||0)+' <span style="color:var(--muted);font-weight:400">/ $30</span>')
       + srow('Test B', `${g.events_settled||0} / ${R.testb_target||150}`)
+      + (function(){
+          const mine=(R.ladders||[]).filter(x=>x.mode===R.mode&&(x.status==='FILLED'||x.status==='SETTLED'))
+                                    .sort((a,b)=>(b.ts||'').localeCompare(a.ts||''));
+          const rows=mine.slice(0,5).map(x=>{
+            if(x.status==='FILLED')
+              return tRow(x.ticker,'',`${esc(x.rungs||'?')}¢ · <b>open</b>`);
+            const bust=(x.busted||0)>0;
+            return tRow(x.ticker,'',
+              `<span class="${bust?'neg':'pos'}">${bust?'busted':'won'} ${x.pnl_c==null?'':(x.pnl_c>0?'+':'')+x.pnl_c+'¢'}</span>`);
+          }).join('');
+          const resting=(R.ladders||[]).filter(x=>x.mode===R.mode&&x.status==='RESTING').length;
+          return strades('Ladder fills', rows||null,
+            `No fills yet — ${R.monitor?.armed||0} tails armed, ladders resting at 30–45¢.`)
+            + (rows&&resting?`<div class="strades" style="margin-top:2px"><div class="none">+ ${resting} more ladders resting on armed tails.</div></div>`:'');
+        })()
       + `<div class="ft">Sell <15-min panic spikes at 30–45¢ · armed ${R.monitor?.armed||0} · warming ${R.monitor?.warming||0} · kills armed</div></div>`;
   }
   el.innerHTML = h;
