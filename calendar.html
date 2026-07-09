@@ -150,7 +150,7 @@ function cell(iso, dd, rec, todayISO, today){
   if(rec.n===0 && rec.pending>0){
     // [calendar fix] show THIS day's own expected value, not the whole open book's
     const ex = rec.exp_pnl!=null ? rec.exp_pnl : (today||{}).exp_pnl;
-    return `<div class="cell today" title="${esc(iso)} — in progress\n${rec.pending} open positions\n${money(rec.open_prem)} premium at stake if all win\nexpected (this day only): ${signMoney(ex)}">
+    return `<div class="cell ${isToday?'today':''}" title="${esc(iso)} — in progress\n${rec.pending} open positions\n${money(rec.open_prem)} premium at stake if all win\nexpected (this day only): ${signMoney(ex)}">
       <span class="dnum">${dd}<span class="live">● OPEN</span></span>
       <div class="pnl neutral">${signMoney(ex)}</div>
       <div class="roi">exp · ${rec.pending} open</div></div>`;
@@ -192,14 +192,14 @@ function dayRow(rec, todayISO, today){
   const date = `<div class="drdate"><b>${MON[p.m]} ${p.d}</b><span>${wd}</span></div>`;
   if(rec.n===0 && rec.pending>0){                       // fully-open day -> ITS OWN expected value
     const ex = rec.exp_pnl!=null ? rec.exp_pnl : (today||{}).exp_pnl;   // [calendar fix]
-    return `<div class="dayrow today">${date}
+    return `<div class="dayrow ${rec.date===todayISO?'today':''}">${date}
       <div class="drmid"><span class="live">● OPEN</span> · expected, this day's book only<br>${rec.pending} open · ${money(rec.open_prem)} premium at stake</div>
       <div class="dramt neutral">${signMoney(ex)}</div></div>`;
   }
   const cls = rec.pnl>=0 ? 'pos' : 'neg', wr = rec.wins + rec.losses;
   const dcls = rec.port_pct>=0 ? 'pos' : 'neg', ccls = rec.cum_pct>=0 ? 'pos' : 'neg';
   const pend = rec.pending>0 ? ` · <span style="color:var(--warn)">${rec.pending} pending${rec.exp_pnl!=null?` (exp ${signMoney(rec.exp_pnl)})`:''}</span>` : '';
-  return `<div class="dayrow" style="border-left-color:${rec.pnl>=0?'var(--good)':'var(--crit)'};background:${heatBg(rec.roi)}">${date}
+  return `<div class="dayrow ${rec.date===todayISO?'today':''}" style="border-left-color:${rec.pnl>=0?'var(--good)':'var(--crit)'};background:${heatBg(rec.roi)}">${date}
     <div class="drmid"><b class="${dcls}">${pct1(rec.port_pct)}</b> day · <b class="${ccls}">${pct1(rec.cum_pct)}</b> total<br>${pct1(rec.roi)} ROI · ${rec.wins}/${wr} wins · ${rec.contracts} ct${pend}</div>
     <div class="dramt ${cls}">${signMoney(rec.pnl)}</div></div>`;
 }
@@ -224,8 +224,10 @@ function render(d){
     {l:'Avg daily ROI', v:pct1(daily.avg_roi), s:'per elapsed day', cls:'accent',
      vcls:(daily.avg_roi==null?'':daily.avg_roi>=0?'pos':'neg')},
     {l:'Green / red days', v:`${daily.green_days||0} / ${daily.red_days||0}`, s:'winning / losing days', cls:''},
-    {l:'Best day', v:best?signMoney(best.pnl):'—', s:best?`${dLabel(best.date)} · ${pct1(best.roi)}`:'—', cls:'good', vcls:'pos'},
-    {l:'Worst day', v:worst?signMoney(worst.pnl):'—', s:worst?`${dLabel(worst.date)} · ${pct1(worst.roi)}`:'—', cls:'bad', vcls:'neg'},
+    {l:'Best day', v:best?signMoney(best.pnl):'—', s:best?`${dLabel(best.date)} · ${pct1(best.roi)}`:'—',
+     cls:(best&&best.pnl>=0?'good':best?'bad':''), vcls:(best&&best.pnl>=0?'pos':best?'neg':'')},
+    {l:'Worst day', v:worst?signMoney(worst.pnl):'—', s:worst?`${dLabel(worst.date)} · ${pct1(worst.roi)}`:'—',
+     cls:(worst&&worst.pnl>=0?'good':worst?'bad':''), vcls:(worst&&worst.pnl>=0?'pos':worst?'neg':'')},
     {l:'Open book (expected)', v:signMoney(today.exp_pnl), s:`${today.n||0} open across all days · ${money(today.premium)} at stake`, cls:'accent', vcls:'neutral'},
   ];
   document.getElementById('stats').innerHTML = stats.map(c=>

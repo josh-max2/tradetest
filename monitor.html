@@ -121,7 +121,7 @@ html{-webkit-text-size-adjust:100%}
 <!-- HEADLINE: expected-return chart through the day -->
 <div class="chartcard">
  <div class="charthead">
-  <div><div class="l">Expected return today <span>· open book marked to the historical odds, through the day</span></div>
+  <div><div class="l">Expected return · open book <span>· every open position (can span 2–3 event days) marked to the historical odds</span></div>
    <div class="chartbig" id="chartnow">—</div>
    <div class="chartci" id="chartci"></div></div>
   <div class="chartmeta" id="chartmeta"></div>
@@ -205,6 +205,7 @@ async function load(){
     render(await r.json());
     document.getElementById('err').style.display='none';
   }catch(e){
+    console.error(e);   // [audit K11] a render bug must not masquerade as "waiting for publish"
     document.getElementById('err').style.display='block';
     document.getElementById('statustxt').textContent='waiting for first publish';
     document.getElementById('dot').className='dot stale';
@@ -242,11 +243,11 @@ function render(d){
     const ew=document.getElementById('cf_ew');
     ew.innerHTML = cf.ew_ev==null ? '—'
       : `${fmtC(cf.ew_ev)}<span style="font-size:.5em;font-weight:600;opacity:.8"> ± ${cf.ew_ci==null?'—':cf.ew_ci}</span>`;
-    ew.className = 'roibig '+((cf.ew_ev||0)>=0?'pos':'neg');
+    ew.className = 'roibig '+(cf.ew_ev==null?'':(cf.ew_ev>=0?'pos':'neg'));   // [audit K6]
     document.getElementById('cf_ewsub').innerHTML = cf.ew_ci==null ? '' :
       `95% CI <b>[${(cf.ew_ev-cf.ew_ci).toFixed(2)}, ${(cf.ew_ev+cf.ew_ci).toFixed(2)}]</b> — the edge is confirmed when this interval clears zero`;
     const sw=document.getElementById('cf_sw');
-    sw.textContent = fmtC(cf.sw_ev); sw.className='roibig '+((cf.sw_ev||0)>=0?'pos':'neg');
+    sw.textContent = fmtC(cf.sw_ev); sw.className='roibig '+(cf.sw_ev==null?'':(cf.sw_ev>=0?'pos':'neg'));   // [audit K6]
     document.getElementById('cf_swsub').innerHTML =
       `what we actually banked per contract — a gap below equal-weight means busts are landing on the BIG lots (the Jul-4 mode)`;
     const lows=cf.lows||{};
@@ -334,7 +335,7 @@ function render(d){
   else { rel.textContent='—'; rel.className='roibig'; }
   document.getElementById('roisub').innerHTML = roi.roi_pct==null ? 'no open positions right now' :
     `<b>${signMoney(roi.pnl)}</b> expected on <b>${money(roi.collat)}</b> of collateral at risk · ${roi.n} open positions · ~<b>${roi.exp_busts}</b> expected to bust`
-    + (roi.mkt_pnl!=null ? `<br><span style="color:var(--muted)">Current market marks value the same book at ${signMoney(roi.mkt_pnl)} — the historical odds are the more conservative read.</span>` : '');
+    + (roi.mkt_pnl!=null ? `<br><span style="color:var(--muted)">Current market marks value the same book at ${signMoney(roi.mkt_pnl)} — ${roi.pnl<=roi.mkt_pnl?'the historical odds are the more conservative read':'the market marks are the more conservative read'}.</span>` : '');   /* [audit M4] neither side always dominates */
 
   // ---- P(green day) + book distribution ----
   const wd = m.win_dist||{};

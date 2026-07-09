@@ -56,13 +56,14 @@ svg text{font:11px system-ui;fill:var(--muted)}
 .sw{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin-right:5px}
 .chip{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:99px;vertical-align:middle;margin-left:8px}
 .chip.gate{background:color-mix(in srgb,var(--muted) 22%,transparent);color:var(--ink2)}
+.chip.live{background:color-mix(in srgb,var(--good) 22%,transparent);color:var(--goodtext)}
 #err{display:none;background:var(--surface);border:1px solid var(--crit);border-radius:10px;padding:14px 18px;color:var(--crit);font-size:13px;margin-bottom:14px}
 </style></head>
 <body>
 <div class="nav"><a href="./index.html">Live</a><a href="./monitor.html">Monitor</a><a href="./calendar.html">Calendar</a><a href="./mirror.html">Mirror</a><a class="active" href="./model.html">Testing</a><a href="./rungsim.html">Dip Sim</a><a href="./appendix.html">Appendix</a></div>
 <script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
 <h1>Testing — the method &amp; whether it's working</h1>
-<p class="sub"><b>The method right now is a validation, not a growth plan.</b> We run 1 contract per market to prove the edge is real on real money. The doubling projection lower down is the <b>future</b> plan — paused and gated on that proof. <b>Live results</b> is the real-money track record, nothing modeled.</p>
+<p class="sub"><b>Sizing runs at full-Kelly; the proof sample is still accruing.</b> The base book runs full-capital sizing (since Jul 6) while settled fills accumulate toward the confirming sample — see the Monitor tab's Edge Confirmation card. A separate favorite-side <b>Mirror</b> pilot runs under its own $30 cap (Mirror tab). <b>Live results</b> is the real-money track record, nothing modeled.</p>
 
 <div class="explain" id="explain">
 <b>The strategy, for someone with zero context:</b> a bot places passive "maker" sell orders on extreme longshots (1–8¢ outcomes) in Kalshi's zero-fee weather event markets — economically, selling lottery tickets to buyers who systematically overpay for them. Positions are held ~1 day to settlement. Historically <b>~95.6% settle in our favor</b> for a few cents each; <b>~4.4% lose big</b> (−94¢) — the edge is the premium collected exceeding the rare losses, with <b>$0 fees</b> (verified live) and no exit slippage (never sells early).
@@ -78,10 +79,10 @@ svg text{font:11px system-ui;fill:var(--muted)}
 <!-- ================= THE METHOD & PLAN ================= -->
 <div id="proj">
  <div class="hero">
-  <div class="hcard now"><div class="l">The method right now — 1-contract validation</div>
+  <div class="hcard now"><div class="l">The method right now — full size, confirmation-gated</div>
    <div class="big">Prove the edge</div>
    <div class="cx" id="cm-state">—</div></div>
-  <div class="hcard"><div class="l">Time to double at 1 contract</div>
+  <div class="hcard"><div class="l">Time to double — begins counting at confirmation</div>
    <div class="big amber">not the goal yet</div>
    <div class="cx" id="cm-doublecx">—</div></div>
  </div>
@@ -93,35 +94,35 @@ svg text{font:11px system-ui;fill:var(--muted)}
   <p class="note" id="vp-note"></p>
  </div>
 
- <h2>The path to scaling <span class="sm">— data-gated ramp: evidence advances it, not the calendar</span></h2>
+ <h2>The path to scaling <span class="sm">— data-gated ramp, completed Jul 6: evidence advanced it to full-Kelly</span></h2>
  <div class="card" style="overflow-x:auto"><table id="p-stages"></table>
-  <p class="note">No stage begins on a date — each begins only when the settled evidence clears its gate. If the edge never separates from noise, we never leave stage 1.</p></div>
+  <p class="note">No stage began on a date — each advanced only when the settled evidence cleared its gate. The ramp reached full-Kelly on Jul 6; the kill rails can still send it back down.</p></div>
 
  <h2>The correction the model needs <span class="sm">— cross-city busts are independent</span></h2>
  <div class="card" style="border-left:3px solid var(--good)">
   <div style="font-size:13.5px;color:var(--ink2)">The projection below was Monte-Carlo'd assuming <b style="color:var(--ink)">correlated weather clusters</b>. We since proved cross-city busts are <b style="color:var(--ink)">independent</b> (pairwise correlation ≈0; day-to-day clustering matches pure chance) — so the projected doubling and its ~29% drawdown are if anything <b style="color:var(--ink)">pessimistic</b>, and breadth (40 series) diversifies the risk better than modeled. The genuine residual risk is narrower than the model's: the <b style="color:var(--ink)">low sleeve</b> (busts several times more than highs, and could cluster on a broad cold snap — untested) plus <b style="color:var(--ink)">crypto</b> (BTC/ETH move together, capped at 20%).</div>
  </div>
 
- <h2 style="margin-top:30px">If the edge confirms — the full-Kelly projection <span class="chip gate">gated · not the current method</span></h2>
+ <h2 style="margin-top:30px">The full-Kelly projection <span class="chip live">live since Jul 6 · kill-railed</span></h2>
  <div class="hero">
-  <div class="hcard gated"><div class="l">Projected time to double <span class="amber">— full-Kelly plan, paused; only runs after ~800 confirming fills</span></div>
+  <div class="hcard"><div class="l">Projected time to double <span class="sm">— full-Kelly, the live sizing since Jul 6</span></div>
    <div class="big" id="p-double">—</div>
    <div class="cx" id="p-doublecx"></div>
    <div class="startbox">Your Kalshi balance $ <input id="startval" type="number" min="10" step="10" value="48.16" oninput="startTouched=true;renderProj()">
     <span id="p-target"></span></div>
    <p class="note" id="startnote" style="margin-top:8px"></p></div>
-  <div class="hcard gated"><div class="l">Model inputs (audited backtest, net of fees)</div>
+  <div class="hcard"><div class="l">Model inputs (audited backtest, net of fees)</div>
    <div class="cx" style="margin-top:8px" id="p-inputs"></div></div>
  </div>
- <div class="card gated"><div id="p-chart"></div>
-  <div class="legend"><span><span class="sw" style="background:var(--s1)"></span>median path (full-Kelly, if confirmed)</span>
+ <div class="card"><div id="p-chart"></div>
+  <div class="legend"><span><span class="sw" style="background:var(--s1)"></span>median path (full-Kelly)</span>
    <span><span class="sw" style="background:var(--band)"></span>25–75% of simulated outcomes</span>
    <span><span class="sw" style="background:var(--good)"></span>2× (double)</span></div>
   <p class="note" id="p-chartnote"></p></div>
 
  <h2>The ceiling <span class="sm">— how big this can get if it works (capacity-audited)</span></h2>
  <div class="card">
-  <div style="font-size:13.5px;color:var(--ink2)">The bottleneck is <b style="color:var(--ink)">taker flow, not our capital</b> — the thin 3–8¢ books only trade so many contracts a day, and they empty near the 14:00 UTC open. Sizing the fills we could realistically capture across 40 series caps deployment at roughly <b style="color:var(--ink)">$11–19k of collateral</b> (it recycles daily) earning <b style="color:var(--ink)">~$145–240/day</b> at the modeled ~1.3% ROI. Past that, extra capital just sits idle — you can't force more fills into books that aren't trading. <b style="color:var(--ink)">Every number here assumes the edge holds</b>; that's what stage 1 is testing.</div>
+  <div style="font-size:13.5px;color:var(--ink2)">The bottleneck is <b style="color:var(--ink)">taker flow, not our capital</b> — the thin 3–8¢ books only trade so many contracts a day, and they empty near the 14:00 UTC open. Sizing the fills we could realistically capture across 40 series caps deployment at roughly <b style="color:var(--ink)">$2–9k of collateral</b> (recalibrated 2026-07-08 at real fill rates: full ROI to ~$2k, 85% at $5k, 72% at $10k) earning proportionally at the modeled ~1-1.3%/day ROI. Past that, extra capital just sits idle — you can't force more fills into books that aren't trading. <b style="color:var(--ink)">Every number here assumes the edge holds</b>; that's what stage 1 is testing.</div>
  </div>
 
  <h2 style="margin-top:30px">Why we believe an edge exists <span class="sm">— the backtest evidence (16,651 markets); live must still confirm it</span></h2>
@@ -145,7 +146,7 @@ svg text{font:11px system-ui;fill:var(--muted)}
    <div class="cx" id="a-realcx"></div></div>
  </div>
  <div class="tiles" id="a-tiles"></div>
- <h2>Strategy track vs the full-Kelly model <span class="sm">— on the model's $48.16 basis (deposit excluded, like-for-like); we run below the band by design at 1 contract</span></h2>
+ <h2>Strategy track vs the full-Kelly model <span class="sm">— on the model's $48.16 basis (deposit excluded, like-for-like); the strategy ran below the band at 1 contract during the validation window (Jul 3-6)</span></h2>
  <div class="card"><div id="a-chart"></div>
   <div class="legend"><span><span class="sw" style="background:var(--s1);height:5px"></span><b>strategy equity</b> ($48.16 basis, settled only)</span>
    <span><span class="sw" style="background:var(--band)"></span>full-Kelly 25–75% expectation</span></div>
@@ -163,7 +164,7 @@ const pctf=v=>v==null?'—':v.toFixed(1)+'%';
 const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;};
 let M=null,L=null,acctEquity=null,startTouched=false;
 const BASE=48.16;
-const CONFIRM_FILLS=800;   // settled fills that resolve the edge (~6-8 weeks)
+let CONFIRM_FILLS=390;   // settled fills that resolve the edge — overridden by live monitor.confirm.target
 
 function show(which){
   document.getElementById('proj').style.display = which==='proj'?'block':'none';
@@ -179,6 +180,7 @@ async function load(){
       fetch('./data/paper.json?t='+Date.now(),{cache:'no-store'})]);
     if(!rm.ok||!rl.ok) throw 0;
     M=await rm.json(); L=await rl.json();
+    CONFIRM_FILLS=(L.monitor&&L.monitor.confirm&&L.monitor.confirm.target)||390;   // [audit M3] live target
     document.getElementById('err').style.display='none';
     document.getElementById('stageline').textContent = L.stage? ('Current stage: '+L.stage+'.') : '';
     const a=L.account||{};
@@ -199,23 +201,23 @@ function renderNow(){
   const enb=(L.monitor&&L.monitor.bust)||{}, enev=L.monitor?L.monitor.ev_fill:null;
   const n=enb.n||0, rate=enb.rate, ev=enev;
   document.getElementById('cm-state').innerHTML =
-    `Hard cap <b>1 contract/market</b> — this phase is about proving the edge, not growing capital. `
+    `Sizing is <b>full-Kelly</b> (live since Jul 6) — real growth and edge confirmation run together. `
     +`Live so far: <b>${n} settled</b>, bust <b>${rate!=null?rate.toFixed(1):'—'}%</b> vs ~5% modeled, `
     +`EV/fill <b class="${(ev||0)>=0?'pos':'neg'}">${ev!=null?fmtC(ev):'—'}</b> vs +${M.headline.ev_per_fill_c}¢ modeled. `
-    +`Normalized to 1 contract the book is roughly <b>flat</b> — the edge has <b>not yet separated from noise</b>.`;
+    +`Per-fill noise is ~22¢, so the confirmation sample below is what separates edge from luck.`;
   document.getElementById('cm-doublecx').innerHTML =
-    `At 1 contract we deploy only ~5% of capital, so even <i>at</i> the modeled +${M.headline.ev_per_fill_c}¢ edge, doubling is <b>months-to-years</b> — `
-    +`and the edge is unproven, so expect <b>~flat P&amp;L near-term</b>. The <b>full-Kelly doubling</b> projection below is the plan, `
-    +`gated on ~${CONFIRM_FILLS} confirming fills then scaling to ~$11k — the future path, not today.`;
+    `The <b>full-Kelly doubling</b> projection below is the <b>live path</b>, not a future plan — `
+    +`protected by the pre-registered kill rails (EV / bust-streak / drawdown), not by a sizing ramp. `
+    +`Capacity is audited: full ROI to ~$2k, ~85% at $5k, ~72% at $10k.`;
   const pct=Math.min(100,100*n/CONFIRM_FILLS);
   document.getElementById('vp-bar').style.width=pct.toFixed(1)+'%';
   document.getElementById('vp-text').innerHTML =
     `<b style="color:var(--ink)">${n}</b> of ~${CONFIRM_FILLS} settled fills needed to resolve the edge `
-    +`<span style="color:var(--muted)">(${pct.toFixed(0)}% — ~6–8 weeks of live settlements)</span>`;
+    +`<span style="color:var(--muted)">(${pct.toFixed(0)}% — checkpoint review at ${(L.monitor&&L.monitor.confirm&&L.monitor.confirm.checkpoint)||300})</span>`;
   document.getElementById('vp-note').innerHTML =
-    'Decision rule: the edge is <b>confirmed</b> and sizing re-enables only if, at that sample, the bust rate holds <b>≤6%</b> '
-    +'AND the EV/fill confidence interval clears <b>0</b> (per-fill noise is ~22¢, which is why it takes this many). '
-    +'Until then, 1 contract.';
+    'Decision rule: the edge is <b>confirmed</b> if, at that sample, the bust rate holds <b>≤6%</b> '
+    +'AND the equal-weight EV/fill confidence interval clears <b>0</b> (per-fill noise is ~22¢, which is why it takes this many). '
+    +'Sizing is already full-Kelly — a failed gate fires the kill rails, not a quiet down-size.';
 }
 
 function renderProj(){
@@ -237,7 +239,7 @@ function renderProj(){
     +`full-Kelly growth <b>~${h.expected_daily_pct_full_kelly}%/day</b> · fees $0 (maker, verified live)`;
   drawFan('p-chart', M.forward, S, k);
   document.getElementById('p-chartnote').textContent = M.forward.note
-    + ' Doubling TIME is size-independent up to ~$15k (capacity-audited); the dollar axis scales with your input. This path assumes the edge has already confirmed and sizing has scaled to full-Kelly — it is NOT the current 1-contract pace.';
+    + ' Doubling TIME is roughly size-independent at today\'s bankroll (capacity-audited: full ROI to ~$2k, ~85% at $5k, ~72% at $10k); the dollar axis scales with your input. Sizing has been full-Kelly live since Jul 6 — this IS the current pace, subject to the kill rails.';
   document.getElementById('p-stages').innerHTML =
     '<tr><th>stage</th><th>size</th><th>expected growth/day</th><th>gate to advance</th></tr>'
     + M.stages.map(s=>`<tr><td>${esc(s.stage)}</td><td>${esc(s.size)}</td><td>+${s.growth_day}%</td><td style="text-align:left;color:var(--ink2)">${esc(s.purpose)}</td></tr>`).join('');
@@ -279,23 +281,23 @@ function renderAct(){
 
   drawCompare('a-chart', M.forward, lc);
   document.getElementById('a-chartnote').textContent = lc && lc.points.length>2
-    ? 'The bold line is the strategy on the model’s $48.16 basis (the Jul-4 deposit is excluded so it compares like-for-like); every step is a real settlement. The shaded band is what full-Kelly would expect — we run deliberately BELOW it at 1 contract while the edge proves out, so tracking the band is not the near-term goal.'
-    : 'Bold line is flat until the first real settlements land — then every step is a real trade result. The shaded band shows the (gated) full-Kelly expectation.';
+    ? 'The bold line is the strategy on the model’s $48.16 basis (the Jul-4 deposit is excluded so it compares like-for-like); every step is a real settlement. The shaded band is what full-Kelly would expect — the book ran BELOW it at 1 contract during the Jul 3-6 validation window; full sizing resumed Jul 6, so later steps track the band more closely.'
+    : 'Bold line is flat until the first real settlements land — then every step is a real trade result. The shaded band shows the full-Kelly expectation.';
 
   const h=M.headline;
   const rows=[
     ['Loss rate', s.adverse==null?null:pctf(100*s.adverse), h.loss_rate+'% (≤6% to confirm)', s.adverse==null?null:(100*s.adverse<=6)],
     ['EV per fill', s.ev==null?null:fmtC(s.ev), fmtC(h.ev_per_fill_c)+' (CI must clear 0)', s.ev==null?null:(s.ev>=1)],
     ['Settled fills', (s.settled||0)+' of ~'+CONFIRM_FILLS, 'confirming sample', (s.settled||0)>=CONFIRM_FILLS],
-    ['Equity vs model band', lc?money(lc.equity):null, 'below band by design (1 ct)', null],
+    ['Equity vs model band', lc?money(lc.equity):null, 'tracks band from Jul 6 (full-Kelly)', null],
   ];
   document.getElementById('a-vs').innerHTML =
     '<tr><th>metric</th><th>actual (real money)</th><th>target to confirm</th><th>verdict</th></tr>'
     + rows.map(([m,act,mod,ok])=>`<tr><td>${esc(m)}</td><td><b>${act==null?'awaiting settlements':act}</b></td>
        <td>${esc(mod)}</td><td>${ok==null?'—':(ok?'<span class="pos">on track</span>':'<span class="neg">not yet</span>')}</td></tr>`).join('');
   document.getElementById('a-vsnote').textContent = (s.settled||0)<CONFIRM_FILLS
-    ? 'Still gathering the confirming sample — verdicts are provisional until ~'+CONFIRM_FILLS+' settled fills. Normalized to 1 contract the book is ~flat; the edge has not separated from noise yet.'
-    : 'Confirming sample reached — if loss rate and EV/fill hold, sizing re-enables per the ramp.';
+    ? 'Still gathering the confirming sample — verdicts are provisional until ~'+CONFIRM_FILLS+' settled fills. The Jul 3–6 window ran at 1 contract (flat by design); full-Kelly sizing has been live since Jul 6.'
+    : 'Confirming sample reached — if loss rate and EV/fill hold, the edge is confirmed at full size.';
 
   const settled=(L.orders||[]).filter(o=>o.status==='SETTLED');
   document.getElementById('a-settled').innerHTML =

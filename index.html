@@ -98,7 +98,7 @@ html{-webkit-text-size-adjust:100%}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-capital equal-split · same-city hedge · held to settlement.</p>
+<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-Kelly equal-split (less the $30 mirror carve-out) · same-city hedge · held to settlement.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
@@ -144,6 +144,7 @@ async function load(){
     render(await r.json());
     document.getElementById('err').style.display='none';
   }catch(e){
+    console.error(e);   // [audit K11] a render bug must not masquerade as "waiting for publish"
     document.getElementById('err').style.display='block';
     document.getElementById('statustxt').textContent='waiting for first publish';
     document.getElementById('dot').className='dot stale';
@@ -157,11 +158,14 @@ function render(d){
   if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
 
-  // ---- HERO: total equity = free balance + collateral locked in open positions ----
+  // ---- HERO: total equity = free balance + base collateral + LIVE mirror open cost ----
+  // [audit C2] a LIVE mirror fill debits free balance, so without _mirrorOpen the hero
+  // would silently understate the account by the mirror's open value.
   const bal = a.balance, locked = a.locked||0;
-  const equity = bal==null ? null : bal + locked;
+  const baseEq = bal==null ? null : bal + locked;
+  const equity = baseEq==null ? null : baseEq + (window._mirrorOpen||0);
   document.getElementById('equity').textContent = money(equity);
-  window._baseEquity = equity;   // [MIRROR-PILOT] used by the split strip
+  window._baseEquity = baseEq;   // [MIRROR-PILOT] base book only — used by the split strip
   const inv = d.daily && d.daily.invested;   // start + deposits = the honest % base
   if(inv) document.getElementById('invlbl').textContent = `· invested ${money(inv)}`;
   const realized = s.realized||0;
@@ -214,7 +218,7 @@ function render(d){
   document.getElementById('postbl').innerHTML =
     '<tr><th>market</th><th>sold @</th><th>now / result</th><th>status</th><th>settles</th><th>P&L</th></tr>' + body;
   document.getElementById('posnote').innerHTML = open.length
-    ? `We're <b>short</b> at the entry price, so "now" falling is good (green = drifting our way). ${open.length} open, ${d.orders?.filter(x=>x.status==='SETTLED').length||0} settled.`
+    ? `We're <b>short</b> at the entry price, so "now" falling is good (green = drifting our way). ${open.length} open, ${s.settled||0} settled (last ${settled.length} shown).`
     : '';
 
   // ---- ACTIVITY ----
@@ -224,7 +228,7 @@ function render(d){
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
 
   document.getElementById('footer').textContent =
-    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly equal-split · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
+    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly equal-split ($30 mirror carve-out) · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
 }
 
 function drawPnl(curve){
@@ -239,7 +243,7 @@ function drawPnl(curve){
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:420px">`;
   s+=`<line x1="${L}" y1="${Y(0).toFixed(1)}" x2="${L+pw}" y2="${Y(0).toFixed(1)}" stroke="var(--grid)"/>`;
   s+=`<path d="${dp}" fill="none" stroke="${up?'var(--good)':'var(--crit)'}" stroke-width="2" stroke-linejoin="round"/></svg>`;
-  el.innerHTML=s;
+  el.innerHTML='<div style="font-size:10.5px;color:var(--muted);margin-bottom:2px">Realized P&amp;L — cumulative, settled trades</div>'+s;   // [audit K5]
 }
 
 // [MIRROR-PILOT] strategy split strip — degrades silently if mirror.json doesn't exist yet (plan §8.8)
@@ -250,6 +254,7 @@ async function splitStrip(){
     const m = await r.json();
     const openCost = (m.positions||[]).filter(x=>x.mode==='LIVE'&&x.status==='FILLED')
                      .reduce((a,x)=>a+(x.bid||0)/100, 0);
+    window._mirrorOpen = openCost;   // [audit C2] render() adds this to the hero equity
     const base = window._baseEquity;
     document.getElementById('sp_base').textContent = money(base);
     document.getElementById('sp_mir').textContent = money(openCost);

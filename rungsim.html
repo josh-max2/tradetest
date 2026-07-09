@@ -69,11 +69,11 @@ svg text{font:11px system-ui;fill:var(--muted)}
 </div>
 <script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
 <h1>Dip-Buy Simulation<span class="sim-badge">● PAPER · $100 VIRTUAL · ZERO REAL ORDERS</span></h1>
-<p class="sub">Simulates the <b>dip-buy ladder</b>: when a near-certain weather market dips (NO falls from ~95+ toward 70/55/35 — i.e. the YES tail spikes to 30/45/65¢), phantom sell orders are waiting. Runs against the <b>real live order book and real trade prints</b> via the read-only API: each phantom order carries the actual queue ahead of it, and fills only when real buyer volume clears that queue. $100 virtual bankroll, universal-Kelly sizing, morning-only (rungs cancel &lt;8h to close). This tab decides whether the strategy earns real money.</p>
+<p class="sub">Simulates the <b>dip-buy ladder</b>: when a near-certain weather market dips (NO falls from ~95+ — i.e. the YES tail spikes toward the 25/30/35¢ rungs), phantom sell orders are waiting. Runs against the <b>real live order book and real trade prints</b> via the read-only API: each phantom order carries the actual queue ahead of it, and fills only when real buyer volume clears that queue. Current experiment: <b>strike-curve arms at 25/30/35¢, 1 contract per fill</b> (45/65¢ arms were killed by their pre-registered rule 2026-07-08 and are excluded from all stats here). This tab decides whether the strategy earns real money.</p>
 <div id="err">Couldn't load data — first publish may be pending; retries automatically.</div>
 
 <div class="hero">
- <div class="hcard"><div class="l">Virtual bankroll <span>(started $100 · universal-Kelly sizing)</span></div>
+ <div class="hcard"><div class="l">Experiment P&amp;L <span>(started $100 · 1 contract per fill · current arms only)</span></div>
   <div class="big" id="bank">$100.00</div>
   <div class="cx" id="bankcx"></div>
   <div id="chart" style="margin-top:10px"></div></div>
@@ -155,7 +155,7 @@ function render(d){
     '<tr><th>parameter</th><th>value</th></tr>'
     +[['Universe',p.universe||'—'],['Rungs (sell YES)', (p.rungs||[]).join(' / ')+'¢  (= buy NO at '+(p.rungs||[]).map(x=>100-x).join(' / ')+'¢)'],
       ['Time gate','rungs cancel < '+(p.gate_hrs||8)+'h to close (morning/overnight dips only)'],
-      ['Sizing','universal Kelly: deploy '+Math.round(100*(p.deploy||0.9))+'%, f = deploy/K (K='+(p.k_target||13)+'), cap '+Math.round(100*(p.f_cap||0.12))+'%/fill'],
+      ['Sizing', p.sizing||'1 contract per fill'],['History', p.history_note||''],
       ['Fill rule','depth-must-clear: real taker-buy volume at/above level must exceed the queue snapshotted at registration'],
       ['Fees','$0 (maker, zero-fee series)'],['Orders placed','ZERO — read-only key, phantom only']]
     .map(([k,v])=>`<tr><td style="font-family:system-ui">${esc(k)}</td><td style="text-align:left">${esc(v)}</td></tr>`).join('');

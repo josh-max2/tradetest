@@ -681,22 +681,22 @@
  },
  "stages": [
   {
-   "stage": "1-contract validation",
+   "stage": "1-contract validation (done Jul 3-6)",
    "size": "1 ct (hard cap)",
    "growth_day": 0.25,
-   "purpose": "prove the edge to ~800 settled fills (~6-8 wks): loss rate ~5%, EV/fill CI clears 0"
+   "purpose": "completed: bust and EV in line with model, zero anomalies -> advanced"
   },
   {
-   "stage": "Ramp: quarter -> half Kelly",
+   "stage": "Ramp: quarter -> half Kelly (skipped)",
    "size": "2-3 ct",
    "growth_day": 0.55,
-   "purpose": "~250-500 settled: advance only if bust <=6% and EV/fill trending positive"
+   "purpose": "skipped Jul 6 by decision: Kalshi is a small slice of total capital, Sharpe ~4 justifies full size"
   },
   {
-   "stage": "Full Kelly",
-   "size": "scale to ~$11k capacity",
+   "stage": "Full Kelly (LIVE since Jul 6)",
+   "size": "full-Kelly equal-split, uncapped",
    "growth_day": 1.22,
-   "purpose": "~800+ settled, CI clears 0; independence -> shallower drawdown than the model shows"
+   "purpose": "confirmation continues to ~390 settled (checkpoint 300); capacity: full ROI to ~$2k, ~72% at $10k"
   }
  ],
  "ev_by_band": [
