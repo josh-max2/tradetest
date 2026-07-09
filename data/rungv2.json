@@ -1,0 +1,62 @@
+{
+ "generated": "2026-07-09 07:33",
+ "generated_epoch": 1783582396,
+ "mode": "DRYRUN",
+ "sleeve": 30.0,
+ "max_ct": 1,
+ "ladder": [
+  30,
+  35,
+  40,
+  45
+ ],
+ "stopped": false,
+ "bench": {
+  "ev_event_lo": 34.0,
+  "ev_event_hi": 83.0,
+  "ladders_day": 7.7,
+  "rung_bust_pct": 14.2
+ },
+ "testb_target": 150,
+ "dryrun": {
+  "events_settled": 0,
+  "ev_per_event": null,
+  "realized": 0.0,
+  "equity": 30.0,
+  "rungs_settled": 0,
+  "rung_busts": 0,
+  "busted_ladders": 0,
+  "maxdd": 0.0,
+  "curve": [],
+  "fills_today": 0
+ },
+ "live": {
+  "events_settled": 0,
+  "ev_per_event": null,
+  "realized": 0.0,
+  "equity": 30.0,
+  "rungs_settled": 0,
+  "rung_busts": 0,
+  "busted_ladders": 0,
+  "maxdd": 0.0,
+  "curve": [],
+  "fills_today": 0
+ },
+ "monitor": {
+  "armed": 0,
+  "warming": 86,
+  "verified": 0
+ },
+ "ladders": [],
+ "kills": {
+  "active": null,
+  "rails": [
+   "EV < +20c/event at 50 settled events",
+   "rolling-60d EV < 0 (arms at 25)",
+   ">= 3 busted ladders in a day",
+   "sleeve drawdown > $25",
+   "canary on first live order",
+   "orders self-expire 20min (dead-man)"
+  ]
+ }
+}

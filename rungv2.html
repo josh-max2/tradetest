@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f1">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a09">
+<title>Kalshi — Rung v2</title>
+<style>
+/* [RUNG-V2] same design system as the other tabs; amber accent */
+:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
+ --grid:#e7e6df; --border:rgba(16,16,16,.07); --shadow:0 1px 2px rgba(16,16,16,.04),0 10px 30px rgba(16,16,16,.05);
+ --s1:#2a78d6; --rv2:#d97708; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#fff; --ink2:#c3c2b7;
+ --muted:#8a8880; --grid:#2a2a28; --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0);
+ --s1:#3987e5; --rv2:#efa93a; --goodtext:#16b516; --warn:#e0a52a; } }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+ padding:26px 5vw 80px;max-width:880px;margin-inline:auto}
+.nav{display:flex;gap:4px;width:max-content;max-width:100%;margin:0 0 24px;padding:4px;background:var(--surface);
+ border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none;flex:0 0 auto;white-space:nowrap}
+.nav a:hover{color:var(--ink2)} .nav a.active{color:var(--ink);background:color-mix(in srgb,var(--rv2) 16%,transparent)}
+@media(max-width:680px){.nav a{padding:9px 13px}}
+.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+h1{font-size:21px;font-weight:650;margin:0}
+.badge{font-size:10px;font-weight:700;letter-spacing:.05em;border-radius:99px;padding:2px 9px;margin-left:8px;vertical-align:middle}
+.badge.dry{color:var(--warn);border:1.5px solid var(--warn);background:color-mix(in srgb,var(--warn) 9%,transparent)}
+.badge.live{color:var(--crit);border:1.5px solid var(--crit);background:color-mix(in srgb,var(--crit) 9%,transparent)}
+.badge.stop{color:var(--crit);border:1.5px solid var(--crit)}
+.status{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;animation:pulse 2.2s ease-in-out infinite}
+.dot.stale{background:var(--warn);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sub{color:var(--ink2);font-size:13px;margin:6px 0 22px;max-width:720px}
+#err{display:none;background:var(--surface);border:1px solid var(--warn);border-radius:12px;padding:14px 18px;color:var(--warn);font-size:13px;margin-bottom:16px}
+.pos{color:var(--goodtext)} .neg{color:var(--crit)}
+.hero{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--rv2);border-radius:18px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:18px}
+.hero .l{text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:700;color:var(--muted)}
+.hero .big{font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:5px;font-variant-numeric:tabular-nums}
+.hero .cx{font-size:13px;color:var(--ink2);margin-top:8px;line-height:1.6}
+.bar{height:7px;border-radius:99px;background:var(--grid);margin-top:12px;overflow:hidden;position:relative}
+.bar>i{display:block;height:100%;background:var(--rv2);border-radius:99px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow);padding:14px 17px;border-left:3px solid var(--grid)}
+.card.pass{border-left-color:var(--good)} .card.watch{border-left-color:var(--warn)} .card.fail{border-left-color:var(--crit)}
+.card .ttl{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--ink2)}
+.card .val{font-size:19px;font-weight:680;font-variant-numeric:tabular-nums;margin-top:5px}
+.card .s{font-size:11px;color:var(--muted);margin-top:3px}
+.pill{font-size:9.5px;font-weight:750;padding:2px 8px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--grid);color:var(--muted);float:right}
+.pill.pass{color:var(--goodtext);border-color:color-mix(in srgb,var(--good) 45%,var(--grid))}
+.pill.watch{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,var(--grid))}
+.pill.fail{color:var(--crit);border-color:color-mix(in srgb,var(--crit) 50%,var(--grid))}
+h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:26px 0 10px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+th{color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--grid);padding:6px 9px;text-align:right;position:sticky;top:0;background:var(--surface)}
+td{padding:6px 9px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:var(--ink2)}
+.scroll{max-height:430px;overflow:auto;border-radius:8px;-webkit-overflow-scrolling:touch}
+.tbl{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:12px 16px}
+.note{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.6}
+</style></head>
+<body>
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a href="./monitor.html">Monitor</a>
+ <a href="./calendar.html">Calendar</a>
+ <a href="./mirror.html">Mirror</a>
+ <a href="./model.html">Testing</a>
+ <a class="active" href="./rungv2.html">Rung v2</a>
+ <a href="./appendix.html">Appendix</a>
+</div>
+<script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
+
+<div class="top">
+ <h1>Rung v2<span class="badge dry" id="modebadge">DRYRUN</span></h1>
+ <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
+</div>
+<p class="sub">The panic-fade ladder: when a genuine penny-tail spikes to 30¢+ <b>inside 15 minutes</b>, sell into
+the sweep at 30/35/40/45¢ (one contract each) and hold to settlement — violent moves are emotion and revert;
+slow grinds are information and the ladder cancels out of their way (14-minute rule). $30 sleeve, adversarially
+audited spec, judged by its own live fills before any real order.</p>
+<div id="err">Waiting for the first rungv2 publish — the sidecar writes every ~4 min once running.</div>
+
+<div class="hero">
+ <div class="l">Sleeve equity <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $30 basis · phantom fills until go-live</span></div>
+ <div class="big" id="equity">—</div>
+ <div class="cx" id="herocx"></div>
+ <div class="bar"><i id="tbbar" style="width:0%"></i></div>
+ <div class="note" id="tbnote"></div>
+</div>
+
+<div class="grid" id="cards"></div>
+
+<h2>Recent ladders <span style="text-transform:none;letter-spacing:0">— one row = one panic episode</span></h2>
+<div class="tbl"><div class="scroll"><table id="ladtbl"></table></div>
+<p class="note" id="ladnote"></p></div>
+
+<p class="note" id="footer"></p>
+
+<script>
+const money=v=>v==null?'—':(v<0?'-$':'$')+Math.abs(v).toFixed(2);
+const signMoney=v=>v==null?'—':(v>=0?'+':'')+money(v);
+const fmtC=v=>v==null?'—':(v>=0?'+':'')+Number(v).toFixed(1)+'¢';
+const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;};
+
+async function load(){
+  try{
+    const r=await fetch('./data/rungv2.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error(r.status);
+    render(await r.json());
+    document.getElementById('err').style.display='none';
+  }catch(e){
+    console.error(e);
+    document.getElementById('err').style.display='block';
+    document.getElementById('statustxt').textContent='waiting for first publish';
+    document.getElementById('dot').className='dot stale';
+  }
+}
+
+function render(d){
+  const live=d.mode==='LIVE', act=live?d.live:d.dryrun, bench=d.bench||{};
+  const badge=document.getElementById('modebadge');
+  if(d.stopped){badge.textContent='STOPPED';badge.className='badge stop';}
+  else if(live){badge.textContent='LIVE · REAL MONEY';badge.className='badge live';}
+  else {badge.textContent='DRYRUN';badge.className='badge dry';}
+  const ageMin=d.generated_epoch?Math.max(0,(Date.now()/1000-d.generated_epoch)/60):999;
+  const dot=document.getElementById('dot'), stt=document.getElementById('statustxt');
+  if(ageMin>20){dot.className='dot stale';stt.textContent=`last update ${Math.round(ageMin)} min ago`;}
+  else {dot.className='dot';stt.textContent=`live · updated ${Math.round(ageMin)} min ago`;}
+
+  const eq=document.getElementById('equity');
+  eq.textContent=money(act.equity);
+  eq.className='big '+((act.realized||0)>0?'pos':((act.realized||0)<0?'neg':''));
+  document.getElementById('herocx').innerHTML=
+    `realized <b class="${(act.realized||0)>=0?'pos':'neg'}">${signMoney(act.realized)}</b>`
+    +` · ${act.events_settled||0} settled ladders (${act.rungs_settled||0} rungs, ${act.rung_busts||0} busts)`
+    +` · max drawdown ${money(act.maxdd)} · ${act.fills_today||0} fills today`
+    +`<br><span style="color:var(--muted)">monitor: ${d.monitor?.armed||0} armed · ${d.monitor?.warming||0} warming toward the 2h clean gate · ${d.monitor?.verified||0} verified tails</span>`;
+  const n=act.events_settled||0, T=d.testb_target||150;
+  const pct=Math.min(100,100*n/T);
+  document.getElementById('tbbar').style.width=pct.toFixed(1)+'%';
+  document.getElementById('tbnote').innerHTML=
+    `<b style="color:var(--ink)">Test B: ${n} / ${T}</b> settled ladders toward the pre-registered judgment `
+    +`<span style="color:var(--muted)">(${pct.toFixed(0)}% — needs EV per ladder inside the +${bench.ev_event_lo}…+${bench.ev_event_hi}¢ benchmark band with CI clear of zero, else the strategy is dropped)</span>`;
+
+  const evOk=act.ev_per_event==null?null:(act.ev_per_event>=bench.ev_event_lo);
+  const bustPct=act.rungs_settled?100*act.rung_busts/act.rungs_settled:null;
+  const cards=[
+    {t:'EV per ladder', v:act.ev_per_event==null?'—':fmtC(act.ev_per_event),
+     s:`benchmark +${bench.ev_event_lo}…+${bench.ev_event_hi}¢ (archive, corrected)`,
+     cls:evOk==null?'watch':(evOk?'pass':'fail'), pill:evOk==null?'building':(evOk?'on track':'below')},
+    {t:'Ladders per day', v:(act.events_settled&&d.generated_epoch)?'—':'—', s:'', hide:true},
+    {t:'Rung bust rate', v:bustPct==null?'—':bustPct.toFixed(1)+'%',
+     s:`expected ~${bench.rung_bust_pct}% · ladder busts ${act.busted_ladders||0}`,
+     cls:bustPct==null?'watch':(bustPct<=22?'pass':'fail'), pill:bustPct==null?'building':(bustPct<=22?'ok':'hot')},
+    {t:'Sleeve drawdown', v:money(act.maxdd), s:'kill fires at $25 peak-to-trough',
+     cls:(act.maxdd||0)<12.5?'pass':((act.maxdd||0)<25?'watch':'fail'),
+     pill:(act.maxdd||0)<12.5?'ok':((act.maxdd||0)<25?'watch':'KILL')},
+    {t:'Mode & caps', v:`${d.mode} · ${d.max_ct} ct/rung`, s:`ladder ${(d.ladder||[]).join('/')}¢ · $${d.sleeve} sleeve · weather only`,
+     cls:'', pill:live?'live':'paper'},
+  ].filter(c=>!c.hide);
+  document.getElementById('cards').innerHTML=cards.map(c=>
+    `<div class="card ${c.cls||''}"><span class="pill ${c.cls||''}">${esc(c.pill||'')}</span>
+     <div class="ttl">${esc(c.t)}</div><div class="val">${c.v}</div><div class="s">${esc(c.s)}</div></div>`).join('');
+
+  const rows=(d.ladders||[]).map(l=>{
+    const st=l.status==='SETTLED'?(l.busted?'<span class="neg">busted</span>':'<span class="pos">won</span>')
+            :esc((l.status||'').toLowerCase());
+    return `<tr><td>${esc(l.ticker)}</td><td>${esc(l.mode)}</td><td>${esc(l.rungs||'')}</td>
+      <td>${l.rise_min==null?'—':Number(l.rise_min).toFixed(1)+'m'}</td><td>${st}</td>
+      <td class="${(l.pnl_c||0)>0?'pos':((l.pnl_c||0)<0?'neg':'')}">${l.pnl_c==null?'—':fmtC(l.pnl_c)}</td></tr>`;
+  }).join('');
+  document.getElementById('ladtbl').innerHTML=
+    '<tr><th>market</th><th>mode</th><th>rungs</th><th>rise</th><th>outcome</th><th>P&L</th></tr>'
+    +(rows||'<tr><td colspan="6" style="color:var(--muted);text-align:left">No panic episodes yet — ladders arm as tails pass the 2-hour clean gate.</td></tr>');
+  document.getElementById('ladnote').textContent=
+    'Rise = how fast the market jumped from the tail to 30¢+. Only sub-15-minute panics fill; slower rises are canceled out of by the 14-minute rule.';
+
+  document.getElementById('footer').innerHTML=
+    `Kill rails: ${(d.kills?.rails||[]).map(esc).join(' · ')}`
+    +(d.kills?.active?`<br><b class="neg">KILL ACTIVE: ${esc(d.kills.active)}</b>`:'')
+    +`<br>Spec: PREREG_PATH_TESTS_2026-07-09.md (Amendments 4/6/8/9, adversarially audited) · data ${esc(d.generated||'?')} UTC.`;
+}
+load(); setInterval(load, 60000);
+</script>
+</body>
+</html>
