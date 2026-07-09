@@ -109,15 +109,22 @@ html{-webkit-text-size-adjust:100%}
  <div id="pnlchart" style="margin-top:12px"></div>
 </div>
 
-<!-- [MIRROR-PILOT] strategy split strip — hidden until data/mirror.json exists (plan §8.8) -->
-<div class="tiles" id="splitstrip" style="display:none">
- <div class="tile"><div class="l">Base book · longshots</div><div class="v" id="sp_base">—</div><div class="s" id="sp_base_s">short the 3–8¢ tails</div></div>
- <div class="tile" style="border-color:color-mix(in srgb,#7c3aed 45%,var(--border))"><div class="l">Mirror · favorites</div><div class="v" id="sp_mir">—</div><div class="s" id="sp_mir_s"></div></div>
- <div class="tile"><div class="l">Combined</div><div class="v" id="sp_comb">—</div><div class="s">account total incl. mirror positions</div></div>
-</div>
-
-<!-- KPI strip -->
-<div class="tiles" id="tiles"></div>
+<!-- STRATEGY BOARD: one column per strategy, all key indicators -->
+<style>
+.sboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:18px}
+.scol{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px 17px;border-top:3px solid var(--grid)}
+.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708}
+.scol .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.scol .nm{font-size:13px;font-weight:700}
+.scol .mode{font-size:9px;font-weight:750;letter-spacing:.05em;padding:2px 8px;border-radius:99px;text-transform:uppercase;border:1.5px solid var(--grid);color:var(--muted)}
+.scol .mode.live{color:var(--crit);border-color:var(--crit);background:color-mix(in srgb,var(--crit) 8%,transparent)}
+.scol .mode.dry{color:var(--warn);border-color:var(--warn)}
+.srow{display:flex;justify-content:space-between;font-size:12.5px;padding:4.5px 0;border-bottom:1px solid var(--grid)}
+.srow:last-child{border-bottom:0}
+.srow .k{color:var(--muted)} .srow .v{font-weight:650;font-variant-numeric:tabular-nums}
+.scol .ft{font-size:10.5px;color:var(--muted);margin-top:8px;line-height:1.5}
+</style>
+<div class="sboard" id="sboard"></div>
 
 <!-- POSITIONS -->
 <h2>Positions <span>— open + recently settled</span></h2>
@@ -158,14 +165,14 @@ function render(d){
   if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
 
-  // ---- HERO: total equity = free balance + base collateral + LIVE mirror open cost ----
-  // [audit C2] a LIVE mirror fill debits free balance, so without _mirrorOpen the hero
-  // would silently understate the account by the mirror's open value.
+  // ---- HERO: total equity = free balance + base collateral + LIVE sidecar open costs ----
+  // [audit C2] LIVE sidecar fills debit free balance, so without their open costs the hero
+  // would silently understate the account.
   const bal = a.balance, locked = a.locked||0;
   const baseEq = bal==null ? null : bal + locked;
-  const equity = baseEq==null ? null : baseEq + (window._mirrorOpen||0);
+  const equity = baseEq==null ? null : baseEq + (window._mirrorOpen||0) + (window._rungOpen||0);
   document.getElementById('equity').textContent = money(equity);
-  window._baseEquity = baseEq;   // [MIRROR-PILOT] base book only — used by the split strip
+  window._baseEquity = baseEq;   // base book only — used by the strategy board
   const inv = d.daily && d.daily.invested;   // start + deposits = the honest % base
   if(inv) document.getElementById('invlbl').textContent = `· invested ${money(inv)}`;
   const realized = s.realized||0;
@@ -182,21 +189,9 @@ function render(d){
   document.getElementById('eqsub').innerHTML = sub;
   drawPnl(d.pnl_curve||[]);
 
-  // ---- KPI strip (the health of the edge) ----
-  const deployed = (equity && equity>0) ? 100*locked/equity : null;
-  const bust = s.adverse==null ? null : 100*s.adverse;          // settled-YES = bust rate
-  const evOk = s.ev!=null && s.ev>=1;
-  const bustOk = bust!=null && bust<=6;
-  const tiles = [
-    ['Fill rate', s.placed? pct(100*s.fill_rate):'—', `${s.filled||0} of ${s.placed||0} orders`, ''],
-    ['Deployed', deployed==null?'—':pct(deployed), `${money(locked)} of ${money(equity)}`, ''],
-    ['Bust rate', bust==null?'—':pct1(bust), `${s.settled||0} settled · ~5% expected`, bust==null?'':(bustOk?'ok':'warn')],
-    ['EV / fill', s.ev==null?'—':fmtC(s.ev), 'edge per settled fill', s.ev==null?'':(evOk?'ok':'warn')],
-    ['Open', s.filled_open||0, `${s.resting||0} resting`, ''],
-    ['Realized P&L', signMoney(realized), `${s.settled||0} settled trades`, ''],
-  ];
-  document.getElementById('tiles').innerHTML = tiles.map(([l,v,su,cls])=>
-    `<div class="tile ${cls}"><div class="l">${esc(l)}</div><div class="v ${l==='Realized P&L'?(realized>0?'pos':(realized<0?'neg':'')):''}">${esc(v)}</div><div class="s">${esc(su)}</div></div>`).join('');
+  // ---- strategy board (base column comes from this feed; sidecars via loadSidecars) ----
+  window._P = d;
+  board();
 
   // ---- POSITIONS: open (marked) + recently settled ----
   const orders=d.orders||[];
@@ -246,26 +241,71 @@ function drawPnl(curve){
   el.innerHTML='<div style="font-size:10.5px;color:var(--muted);margin-bottom:2px">Realized P&amp;L — cumulative, settled trades</div>'+s;   // [audit K5]
 }
 
-// [MIRROR-PILOT] strategy split strip — degrades silently if mirror.json doesn't exist yet (plan §8.8)
-async function splitStrip(){
+// sidecar feeds for the strategy board — each degrades silently if not yet published
+async function loadSidecars(){
   try{
     const r = await fetch('./data/mirror.json?t='+Date.now(), {cache:'no-store'});
-    if(!r.ok) throw 0;
-    const m = await r.json();
-    const openCost = (m.positions||[]).filter(x=>x.mode==='LIVE'&&x.status==='FILLED')
-                     .reduce((a,x)=>a+(x.bid||0)/100, 0);
-    window._mirrorOpen = openCost;   // [audit C2] render() adds this to the hero equity
-    const base = window._baseEquity;
-    document.getElementById('sp_base').textContent = money(base);
-    document.getElementById('sp_mir').textContent = money(openCost);
-    document.getElementById('sp_mir_s').innerHTML =
-      `${esc(m.mode)} · realized <span class="${(m.live?.realized||0)>=0?'pos':'neg'}">${signMoney(m.live?.realized||0)}</span> · ${m.live?.settled||0} settled`;
-    document.getElementById('sp_comb').textContent = base==null ? '—' : money(base + openCost);
-    document.getElementById('splitstrip').style.display = '';
-  }catch(e){ document.getElementById('splitstrip').style.display = 'none'; }
+    if(r.ok){ window._M = await r.json();
+      window._mirrorOpen = ((window._M.positions)||[]).filter(x=>x.mode==='LIVE'&&x.status==='FILLED')
+                           .reduce((a,x)=>a+(x.bid||0)/100, 0); }
+  }catch(e){}
+  try{
+    const r = await fetch('./data/rungv2.json?t='+Date.now(), {cache:'no-store'});
+    if(r.ok){ window._R = await r.json();
+      window._rungOpen = (window._R.monitor && window._R.monitor.filled_open_usd) || 0; }
+  }catch(e){}
+  board();
+}
+
+function srow(k, v, cls){ return `<div class="srow"><span class="k">${esc(k)}</span><span class="v ${cls||''}">${v}</span></div>`; }
+function board(){
+  const el = document.getElementById('sboard');
+  if(!el) return;
+  const P = window._P, M = window._M, R = window._R;
+  let h = '';
+  if(P){
+    const a=P.account||{}, s=P.summary||{};
+    const eq=(a.balance!=null||a.locked!=null)?(a.balance||0)+(a.locked||0):null;
+    const dep=(eq&&eq>0)?100*(a.locked||0)/eq:null;
+    const bust=s.adverse==null?null:100*s.adverse;
+    h += `<div class="scol base"><div class="hd"><span class="nm">Base · longshot tails</span><span class="mode live">LIVE</span></div>`
+      + srow('Realized P&L', signMoney(s.realized), (s.realized||0)>=0?'pos':'neg')
+      + srow('EV / fill', s.ev==null?'—':fmtC(s.ev), (s.ev||0)>=1?'pos':'')
+      + srow('Bust rate', bust==null?'—':pct1(bust)+' <span style="color:var(--muted);font-weight:400">/ ~5%</span>', bust!=null&&bust<=6?'pos':'neg')
+      + srow('Fill rate', s.placed?pct(100*s.fill_rate):'—')
+      + srow('Deployed', dep==null?'—':pct(dep))
+      + srow('Open / settled', `${s.filled_open||0} / ${s.settled||0}`)
+      + `<div class="ft">Full-Kelly on ${money(eq)} · sell 3–8¢ weather+crypto tails, hold to settle</div></div>`;
+  }
+  if(M){
+    const live=M.mode==='LIVE', g=live?M.live:M.dryrun;
+    const committed=(M.positions||[]).filter(x=>x.mode===M.mode&&x.status==='FILLED').reduce((a,x)=>a+(x.bid||0)/100,0);
+    const bust=g.settled?100*g.losses/g.settled:null;
+    h += `<div class="scol mir"><div class="hd"><span class="nm">Mirror · favorites</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
+      + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + srow('EV / fill', g.ev==null?'—':fmtC(g.ev), (g.ev||0)>=0.5?'pos':'')
+      + srow('Bust rate', bust==null?'—':pct1(bust)+' <span style="color:var(--muted);font-weight:400">/ ~3%</span>', bust!=null&&bust<=5?'pos':'neg')
+      + srow('Fills today', g.fills_today||0)
+      + srow('Deployed', money(committed)+' <span style="color:var(--muted);font-weight:400">/ $30</span>')
+      + srow('Settled / gate', `${g.settled||0} / 100`)
+      + `<div class="ft">Buy the 93–96¢ favorite when the runner-up ≤9¢ · 1-lot per event · kills armed</div></div>`;
+  }
+  if(R){
+    const live=R.mode==='LIVE', g=live?R.live:R.dryrun;
+    const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
+    h += `<div class="scol rv2"><div class="hd"><span class="nm">Rung v2 · panic fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
+      + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + srow('EV / ladder', g.ev_per_event==null?'—':fmtC(g.ev_per_event), (g.ev_per_event||0)>=34?'pos':'')
+      + srow('Rung bust rate', bustPct==null?'—':pct1(bustPct)+' <span style="color:var(--muted);font-weight:400">/ ~14%</span>', bustPct!=null&&bustPct<=22?'pos':'neg')
+      + srow('Fills today', g.fills_today||0)
+      + srow('Deployed', money((R.monitor&&R.monitor.filled_open_usd)||0)+' <span style="color:var(--muted);font-weight:400">/ $30</span>')
+      + srow('Test B', `${g.events_settled||0} / ${R.testb_target||150}`)
+      + `<div class="ft">Sell <15-min panic spikes at 30–45¢ · armed ${R.monitor?.armed||0} · warming ${R.monitor?.warming||0} · kills armed</div></div>`;
+  }
+  el.innerHTML = h;
 }
 load(); setInterval(load, 60000);
-splitStrip(); setInterval(splitStrip, 60000);
+loadSidecars(); setInterval(loadSidecars, 60000);
 </script>
 </body>
 </html>
