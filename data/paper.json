@@ -1,34 +1,34 @@
 {
- "generated": "2026-07-10 11:15",
- "generated_epoch": 1783682132,
+ "generated": "2026-07-10 11:18",
+ "generated_epoch": 1783682286,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
-  "balance": 220.53,
-  "committed": 293.86,
-  "locked": 144.78,
-  "resting_commit": 149.08,
+  "balance": 215.68,
+  "committed": 283.19,
+  "locked": 149.63,
+  "resting_commit": 133.56,
   "cap": "free-30.25",
   "start": 48.16
  },
  "open": {
-  "n": 18,
-  "potential_balance": 373.53,
-  "potential_gain": 8.22,
-  "worst_case": -144.78,
+  "n": 19,
+  "potential_balance": 373.68,
+  "potential_gain": 8.37,
+  "worst_case": -149.63,
   "next_settle": "2026-07-10T21:00:00Z",
-  "expected_balance": 360.56,
-  "expected_pnl": -4.75,
-  "near_win": 15,
+  "expected_balance": 360.62,
+  "expected_pnl": -4.69,
+  "near_win": 16,
   "near_loss": 1
  },
  "summary": {
   "placed": 322,
-  "resting": 13,
-  "filled": 207,
-  "filled_open": 18,
+  "resting": 12,
+  "filled": 208,
+  "filled_open": 19,
   "settled": 189,
   "expired": 45,
-  "fill_rate": 0.6429,
+  "fill_rate": 0.646,
   "ev": 2.47,
   "adverse": 0.0265,
   "realized": 27.84
@@ -1570,11 +1570,11 @@
     76.0
    ],
    [
-    7.304,
+    7.306,
     76.0
    ]
   ],
-  "age_days": 7.3,
+  "age_days": 7.31,
   "equity": 76.0,
   "start": 48.16,
   "start_ts": "2026-07-03T03:57:39Z"
@@ -1595,7 +1595,7 @@
     "bust": 2.6,
     "eval_n": 95
    },
-   "prem7": 5.32,
+   "prem7": 5.3,
    "prem_floor": 4.5,
    "bust7": 2.7
   },
@@ -1616,23 +1616,23 @@
   },
   "ev_fill": 2.47,
   "ev_target": 2.0,
-  "fill_rate": 64,
-  "deployment": 40,
+  "fill_rate": 65,
+  "deployment": 41,
   "realized": 27.84,
   "exp_roi": {
-   "roi_pct": -1.6,
-   "pnl": -2.36,
-   "collat": 144.78,
-   "exp_busts": 1.57,
-   "n": 18,
-   "mkt_pnl": -4.75
+   "roi_pct": -1.5,
+   "pnl": -2.27,
+   "collat": 149.63,
+   "exp_busts": 1.59,
+   "n": 19,
+   "mkt_pnl": -4.69
   },
   "win_dist": {
    "p_green": 49,
    "p_red": 51,
-   "p5": -19.78,
-   "p50": -0.78,
-   "p95": 8.22,
+   "p5": -19.63,
+   "p50": -1.63,
+   "p95": 8.37,
    "below50": [
     {
      "ticker": "KXLOWTAUS-26JUL10-T71",
@@ -1640,7 +1640,7 @@
      "now": 99.5
     }
    ],
-   "n": 18
+   "n": 19
   },
   "roi_series": [
    {
@@ -1662,6 +1662,16 @@
     "n": 18,
     "p5": -19.78,
     "p95": 8.22
+   },
+   {
+    "t": 1783682286,
+    "pnl": -2.27,
+    "roi": -1.5,
+    "green": 49,
+    "real": 27.84,
+    "n": 19,
+    "p5": -19.63,
+    "p95": 8.37
    }
   ],
   "odds_table": {
@@ -1781,7 +1791,7 @@
   "activity": {
    "placed_24h": 32,
    "last": "07-10 11:06",
-   "hrs_since": 0.1
+   "hrs_since": 0.2
   }
  },
  "daily": {
@@ -1904,14 +1914,14 @@
     "contracts": 0,
     "wins": 0,
     "losses": 0,
-    "pending": 13,
-    "open_prem": 5.12,
+    "pending": 14,
+    "open_prem": 5.27,
     "collat": 0.0,
     "pnl": null,
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": -3.08,
+    "exp_pnl": -2.99,
     "status": "open"
    }
   ],
@@ -1934,10 +1944,10 @@
   },
   "today": {
    "date": "2026-07-10",
-   "exp_pnl": -2.36,
-   "exp_roi": -1.6,
-   "premium": 8.22,
-   "n": 18
+   "exp_pnl": -2.27,
+   "exp_roi": -1.5,
+   "premium": 8.37,
+   "n": 19
   }
  },
  "odds_table": {
@@ -2121,21 +2131,6 @@
    "sold_c": 6.0,
    "collateral": 5.64,
    "queue_ahead": 3.0,
-   "status": "RESTING",
-   "hrs": 18.7,
-   "close_ts": "2026-07-11T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHTNOLA-26JUL10-B96.5",
-   "series": "KXHIGHTNOLA",
-   "sold_c": 3.0,
-   "collateral": 15.52,
-   "queue_ahead": 1.0,
    "status": "RESTING",
    "hrs": 18.7,
    "close_ts": "2026-07-11T06:00:00Z",
@@ -2455,7 +2450,7 @@
    "hrs": 18.7,
    "close_ts": "2026-07-11T05:59:00Z",
    "ttf_min": 44.9,
-   "now_yes": 2.5,
+   "now_yes": 2.0,
    "win_odds": 98.7,
    "result": null,
    "pnl_c": null
@@ -2470,7 +2465,7 @@
    "hrs": 20.7,
    "close_ts": "2026-07-11T08:00:00Z",
    "ttf_min": 67.4,
-   "now_yes": 3.0,
+   "now_yes": 3.5,
    "win_odds": 98.3,
    "result": null,
    "pnl_c": null
@@ -2485,7 +2480,7 @@
    "hrs": 18.7,
    "close_ts": "2026-07-11T06:00:00Z",
    "ttf_min": 36.5,
-   "now_yes": 5.0,
+   "now_yes": 4.5,
    "win_odds": 98.3,
    "result": null,
    "pnl_c": null
@@ -2517,6 +2512,21 @@
    "ttf_min": 0.7,
    "now_yes": 6.5,
    "win_odds": 93.1,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTNOLA-26JUL10-B96.5",
+   "series": "KXHIGHTNOLA",
+   "sold_c": 3.0,
+   "collateral": 4.85,
+   "queue_ahead": 1.0,
+   "status": "PARTIAL",
+   "hrs": 18.7,
+   "close_ts": "2026-07-11T06:00:00Z",
+   "ttf_min": 9.9,
+   "now_yes": null,
+   "win_odds": null,
    "result": null,
    "pnl_c": null
   },
