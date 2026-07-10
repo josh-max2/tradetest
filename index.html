@@ -364,7 +364,7 @@ function board(){
             `No fills yet — ${R.monitor?.armed||0} tails armed, ladders resting at 30–45¢.`)
             + (rows&&resting?`<div class="strades" style="margin-top:2px"><div class="none">+ ${resting} more ladders resting on armed tails.</div></div>`:'');
         })()
-      + `<div class="ft">Sell <15-min panic spikes at 30–45¢ · armed ${R.monitor?.armed||0} · warming ${R.monitor?.warming||0} · kills armed</div></div>`;
+      + `<div class="ft">Sell burst panics (≥18¢/5min) at 30–45¢, thin tapes first · armed ${R.monitor?.armed||0} · warming ${R.monitor?.warming||0} · kills armed</div></div>`;
   }
   el.innerHTML = h;
 }
