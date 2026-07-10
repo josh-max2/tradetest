@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-10 05:27",
- "generated_epoch": 1783661278,
+ "generated": "2026-07-10 05:30",
+ "generated_epoch": 1783661456,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 114.21,
-  "committed": 293.11,
+  "committed": 290.43,
   "locked": 240.3,
-  "resting_commit": 52.81,
+  "resting_commit": 50.13,
   "cap": "free-30.25",
   "start": 48.16
  },
@@ -22,13 +22,13 @@
   "near_loss": 0
  },
  "summary": {
-  "placed": 311,
+  "placed": 312,
   "resting": 10,
   "filled": 200,
   "filled_open": 26,
   "settled": 174,
   "expired": 45,
-  "fill_rate": 0.6431,
+  "fill_rate": 0.641,
   "ev": 2.3,
   "adverse": 0.0287,
   "realized": 20.66
@@ -1450,7 +1450,7 @@
     68.82
    ],
    [
-    7.063,
+    7.065,
     68.82
    ]
   ],
@@ -3406,6 +3406,16 @@
     "n": 26,
     "p5": -6.3,
     "p95": 11.7
+   },
+   {
+    "t": 1783661456,
+    "pnl": 7.54,
+    "roi": 3.1,
+    "green": 89,
+    "real": 20.66,
+    "n": 26,
+    "p5": -6.3,
+    "p95": 11.7
    }
   ],
   "odds_table": {
@@ -3523,9 +3533,9 @@
    "estimand": "state-at-checkpoint 2026-07-08 (position marked X now, T left); 40-49c/50-64c <4h + 50-64c >12h are visit-based fallbacks"
   },
   "activity": {
-   "placed_24h": 30,
-   "last": "07-10 05:01",
-   "hrs_since": 0.4
+   "placed_24h": 31,
+   "last": "07-10 05:30",
+   "hrs_since": 0.0
   }
  },
  "daily": {
@@ -3800,21 +3810,6 @@
  },
  "orders": [
   {
-   "ticker": "KXLOWTSFO-26JUL09-B50.5",
-   "series": "KXLOWTSFO",
-   "sold_c": 6.0,
-   "collateral": 9.4,
-   "queue_ahead": 1.0,
-   "status": "RESTING",
-   "hrs": 2.5,
-   "close_ts": "2026-07-10T08:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXHIGHTDC-26JUL10-T94",
    "series": "KXHIGHTDC",
    "sold_c": 6.0,
@@ -3943,6 +3938,21 @@
    "status": "RESTING",
    "hrs": 26.5,
    "close_ts": "2026-07-11T08:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTHOU-26JUL10-B96.5",
+   "series": "KXHIGHTHOU",
+   "sold_c": 4.0,
+   "collateral": 6.72,
+   "queue_ahead": 3.0,
+   "status": "RESTING",
+   "hrs": 24.5,
+   "close_ts": "2026-07-11T06:00:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -4642,6 +4652,18 @@
  ],
  "events": [
   {
+   "ts": "07-10 05:30",
+   "kind": "PLACED",
+   "ticker": "KXHIGHTHOU-26JUL10-B96.5",
+   "detail": "sold YES @ 4\u00a2"
+  },
+  {
+   "ts": "07-10 05:30",
+   "kind": "ROLL",
+   "ticker": "KXLOWTSFO-26JUL09-B50.5",
+   "detail": "cancelled \u2014 too close to settle"
+  },
+  {
    "ts": "07-10 05:24",
    "kind": "CAP",
    "ticker": "KXHIGHTHOU-26JUL10-B96.5",
@@ -4867,18 +4889,6 @@
    "ts": "07-10 03:30",
    "kind": "ROLL",
    "ticker": "KXLOWTMIN-26JUL09-B65.5",
-   "detail": "cancelled \u2014 too close to settle"
-  },
-  {
-   "ts": "07-10 03:30",
-   "kind": "ROLL",
-   "ticker": "KXHIGHTHOU-26JUL09-B98.5",
-   "detail": "cancelled \u2014 too close to settle"
-  },
-  {
-   "ts": "07-10 03:30",
-   "kind": "ROLL",
-   "ticker": "KXLOWTSATX-26JUL09-B73.5",
    "detail": "cancelled \u2014 too close to settle"
   }
  ]
