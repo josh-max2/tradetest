@@ -98,16 +98,25 @@ html{-webkit-text-size-adjust:100%}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-Kelly equal-split (less the $30 mirror carve-out) · same-city hedge · held to settlement.</p>
+<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-Kelly equal-split (less the $60 sidecar carve-out: $30 mirror + $30 rung) · same-city hedge · held to settlement.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
 <div class="hero">
  <div class="l">Total equity <span id="invlbl" style="text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400">· started $48.16</span></div>
  <div class="big" id="equity">—</div>
+ <div class="totrow" id="totrow"></div>
  <div class="cx" id="eqsub"></div>
  <div id="pnlchart" style="margin-top:12px"></div>
 </div>
+<style>
+.totrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+@media(max-width:480px){.totrow{grid-template-columns:1fr 1fr}}
+.tot{border:1px solid var(--grid);border-radius:12px;padding:8px 12px}
+.tot .tl{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.tot .tv{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px}
+.tot .ts{font-size:10.5px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
+</style>
 
 <!-- STRATEGY BOARD: one column per strategy, all key indicators -->
 <style>
@@ -185,7 +194,7 @@ function render(d){
   const inv = d.daily && d.daily.invested;   // start + deposits = the honest % base
   if(inv) document.getElementById('invlbl').textContent = `· invested ${money(inv)}`;
   const realized = s.realized||0;
-  let sub = `realized <span class="${realized>=0?'pos':'neg'}">${signMoney(realized)}</span>`
+  let sub = `base realized <span class="${realized>=0?'pos':'neg'}">${signMoney(realized)}</span>`
           + ` · <b>${money(locked)}</b> working in ${s.filled_open||0} open positions`
           + ` · ${money(a.resting_commit)} resting`;
   if(o.n>0 && o.expected_pnl!=null){
@@ -200,7 +209,7 @@ function render(d){
 
   // ---- strategy board (base column comes from this feed; sidecars via loadSidecars) ----
   window._P = d;
-  board();
+  board(); totals();
 
   // ---- POSITIONS: open (marked) + recently settled ----
   const orders=d.orders||[];
@@ -232,7 +241,7 @@ function render(d){
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
 
   document.getElementById('footer').textContent =
-    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly equal-split ($30 mirror carve-out) · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
+    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly equal-split ($60 sidecar carve-out) · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
 }
 
 function drawPnl(curve){
@@ -263,7 +272,28 @@ async function loadSidecars(){
     if(r.ok){ window._R = await r.json();
       window._rungOpen = (window._R.monitor && window._R.monitor.filled_open_usd) || 0; }
   }catch(e){}
-  board();
+  board(); totals();
+}
+
+// ---- cross-strategy totals: realized + open-book expected, all three books ----
+// realized sums LIVE money only; expected marks every open position to the current
+// market (base: open.expected_pnl; sidecars: open_ev_usd from the same pwin as P(green)).
+function totals(){
+  const el = document.getElementById('totrow');
+  if(!el) return;
+  const P = window._P, M = window._M, R = window._R;
+  const rP = P?.summary?.realized, rM = M?.live?.realized, rR = R?.live?.realized;
+  const real = [rP,rM,rR].some(v=>v!=null) ? (rP||0)+(rM||0)+(rR||0) : null;
+  const eP = P?.open?.expected_pnl, eM = M?.open_ev_usd, eR = R?.open_ev_usd;
+  const exp = [eP,eM,eR].some(v=>v!=null) ? (eP||0)+(eM||0)+(eR||0) : null;
+  const proj = (real!=null && exp!=null) ? real+exp : null;
+  const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0);
+  const sc = v => v==null ? '' : (v>=0?'pos':'neg');
+  const brk = (a,b,c) => `base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)} · rung ${c==null?'—':signMoney(c)}`;
+  el.innerHTML =
+    `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR)}</div></div>`
+   +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR)}</div></div>`
+   +`<div class="tot"><div class="tl">Projected total</div><div class="tv ${sc(proj)}">${signMoney(proj)}</div><div class="ts">realized + open book at market marks</div></div>`;
 }
 
 function srow(k, v, cls){ return `<div class="srow"><span class="k">${esc(k)}</span><span class="v ${cls||''}">${v}</span></div>`; }
@@ -311,6 +341,7 @@ function board(){
     const bust=s.adverse==null?null:100*s.adverse;
     h += `<div class="scol base"><div class="hd"><span class="nm">Base · longshot tails</span><span class="mode live">LIVE</span></div>`
       + srow('Realized P&L', signMoney(s.realized), (s.realized||0)>=0?'pos':'neg')
+      + srow('Open EV (mkt)', signMoney(P.open?.expected_pnl), (P.open?.expected_pnl||0)>=0?'pos':'neg')
       + greenRow(P.monitor?.win_dist?.p_green,
                  (P.monitor?.roi_series||[]).map(q=>[q.t, q.green]))
       + srow('EV / fill', s.ev==null?'—':fmtC(s.ev), (s.ev||0)>=1?'pos':'')
@@ -338,6 +369,7 @@ function board(){
     const bust=g.settled?100*g.losses/g.settled:null;
     h += `<div class="scol mir"><div class="hd"><span class="nm">Mirror · favorites</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + srow('Open EV (mkt)', signMoney(M.open_ev_usd), (M.open_ev_usd||0)>=0?'pos':'neg')
       + greenRow(M.green?.p, M.green?.series)
       + srow('EV / fill', g.ev==null?'—':fmtC(g.ev), (g.ev||0)>=0.5?'pos':'')
       + srow('Bust rate', bust==null?'—':pct1(bust)+' <span style="color:var(--muted);font-weight:400">/ ~3%</span>', bust!=null&&bust<=5?'pos':'neg')
@@ -366,6 +398,7 @@ function board(){
     const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
     h += `<div class="scol rv2"><div class="hd"><span class="nm">Rung v2 · panic fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + srow('Open EV (mkt)', signMoney(R.open_ev_usd), (R.open_ev_usd||0)>=0?'pos':'neg')
       + greenRow(R.green?.p, R.green?.series)
       + srow('EV / ladder', g.ev_per_event==null?'—':fmtC(g.ev_per_event), (g.ev_per_event||0)>=34?'pos':'')
       + srow('Rung bust rate', bustPct==null?'—':pct1(bustPct)+' <span style="color:var(--muted);font-weight:400">/ ~14%</span>', bustPct!=null&&bustPct<=22?'pos':'neg')

@@ -132,6 +132,7 @@ function render(d){
   document.getElementById('herocx').innerHTML=
     `LIVE: ${L.filled||0} open · ${L.resting||0} resting · ${L.wins||0}W/${L.losses||0}L`
     +(L.ev!=null?` · EV <b class="${L.ev>=0.5?'pos':'neg'}">${fmtC(L.ev)}</b>/fill (kill line +0.5¢)`:'')
+    +(d.open_ev_usd!=null&&(d.open_n||0)>0?` · open book expected <b class="${d.open_ev_usd>=0?'pos':'neg'}">${signMoney(d.open_ev_usd)}</b> at market marks`:'')
     +`<br><span style="color:var(--muted)">DRYRUN phantom: ${D.settled||0} settled`
     +(D.ev!=null?` · EV ${fmtC(D.ev)}`:'')+` · ${D.fills_today||0} phantom fills today</span>`;
   const pctg=Math.min(100,100*(L.settled||0)/100);
@@ -150,7 +151,7 @@ function render(d){
   }).join('');
   document.getElementById('postbl').innerHTML=
     '<tr><th>market</th><th>mode</th><th>bid</th><th>runner-up</th><th>ruΔ30m</th><th>queue</th><th>status</th><th>P&L</th></tr>'
-    +(rows||'<tr><td colspan="7" style="text-align:left;color:var(--muted)">No qualifying favorites yet today.</td></tr>');
+    +(rows||'<tr><td colspan="8" style="text-align:left;color:var(--muted)">No qualifying favorites yet today.</td></tr>');
   document.getElementById('posnote').textContent=
     'Long the favorite: "won" = the expected bracket settled YES (+premium); "lost" = the favorite failed (−bid).';
   document.getElementById('footer').textContent=

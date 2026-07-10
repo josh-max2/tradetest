@@ -88,7 +88,7 @@ audited spec, judged by its own live fills before any real order.</p>
 <div id="err">Waiting for the first rungv2 publish — the sidecar writes every ~4 min once running.</div>
 
 <div class="hero">
- <div class="l">Sleeve equity <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $30 basis · phantom fills until go-live</span></div>
+ <div class="l">Sleeve equity <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $30 basis</span></div>
  <div class="big" id="equity">—</div>
  <div class="cx" id="herocx"></div>
  <div class="bar"><i id="tbbar" style="width:0%"></i></div>
@@ -139,6 +139,7 @@ function render(d){
   eq.className='big '+((act.realized||0)>0?'pos':((act.realized||0)<0?'neg':''));
   document.getElementById('herocx').innerHTML=
     `realized <b class="${(act.realized||0)>=0?'pos':'neg'}">${signMoney(act.realized)}</b>`
+    +(d.open_ev_usd!=null&&(d.open_n||0)>0?` · open rungs expected <b class="${d.open_ev_usd>=0?'pos':'neg'}">${signMoney(d.open_ev_usd)}</b> at market marks`:'')
     +` · ${act.events_settled||0} settled ladders (${act.rungs_settled||0} rungs, ${act.rung_busts||0} busts)`
     +` · max drawdown ${money(act.maxdd)} · ${act.fills_today||0} fills today`
     +`<br><span style="color:var(--muted)">monitor: ${d.monitor?.armed||0} armed · ${d.monitor?.warming||0} warming toward the 2h clean gate · ${d.monitor?.verified||0} verified tails</span>`;
@@ -180,12 +181,12 @@ function render(d){
     '<tr><th>market</th><th>mode</th><th>rungs</th><th>rise</th><th>outcome</th><th>P&L</th></tr>'
     +(rows||'<tr><td colspan="6" style="color:var(--muted);text-align:left">No panic episodes yet — ladders arm as tails pass the 2-hour clean gate.</td></tr>');
   document.getElementById('ladnote').textContent=
-    'Rise = how fast the market jumped from the tail to 30¢+. Only sub-15-minute panics fill; slower rises are canceled out of by the 14-minute rule.';
+    'Rise = how fast the market jumped from the tail to 30¢+. Ladders only rest under panic conditions: a rise without burst character (≥18¢ in 5 min) is canceled 8 minutes off the tail, so slow grinds never reach a rung.';
 
   document.getElementById('footer').innerHTML=
     `Kill rails: ${(d.kills?.rails||[]).map(esc).join(' · ')}`
     +(d.kills?.active?`<br><b class="neg">KILL ACTIVE: ${esc(d.kills.active)}</b>`:'')
-    +`<br>Spec: PREREG_PATH_TESTS_2026-07-09.md (Amendments 4/6/8/9, adversarially audited) · data ${esc(d.generated||'?')} UTC.`;
+    +`<br>Spec: PREREG_PATH_TESTS_2026-07-09.md (Amendments 4/6/8/9 + v2.1 15/16/17, adversarially audited) · data ${esc(d.generated||'?')} UTC.`;
 }
 load(); setInterval(load, 60000);
 </script>
