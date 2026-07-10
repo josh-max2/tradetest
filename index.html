@@ -267,6 +267,25 @@ async function loadSidecars(){
 }
 
 function srow(k, v, cls){ return `<div class="srow"><span class="k">${esc(k)}</span><span class="v ${cls||''}">${v}</span></div>`; }
+// P(green day) row + intraday sparkline (0-100%, dashed 50% guide). pts = [[t,p],...]
+function greenRow(p, pts){
+  const pv = p==null ? '—' : Math.round(p)+'%';
+  const cls = p==null ? '' : (p>=50 ? 'pos' : 'neg');
+  let spark = '';
+  if (pts && pts.length >= 2){
+    const W=210, H=26, n=pts.length;
+    const X=i=>(i/(n-1))*W, Y=v=>H-2-((v/100)*(H-4));
+    const dpath = 'M'+pts.map((q,i)=>`${X(i).toFixed(1)},${Y(q[1]).toFixed(1)}`).join(' L');
+    const lastUp = pts[n-1][1] >= 50;
+    spark = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" preserveAspectRatio="none" style="display:block;margin-top:2px">
+      <line x1="0" y1="${Y(50).toFixed(1)}" x2="${W}" y2="${Y(50).toFixed(1)}" stroke="var(--grid)" stroke-dasharray="3,3"/>
+      <path d="${dpath}" fill="none" stroke="${lastUp?'var(--good)':'var(--crit)'}" stroke-width="1.6"/></svg>`;
+  }
+  return `<div class="srow" style="border-bottom:0;padding-bottom:1px"><span class="k">P(green day)</span><span class="v ${cls}">${pv}</span></div>`
+       + `<div style="border-bottom:1px solid var(--grid);padding-bottom:6px">${spark
+       || (p==null ? '<div style="font-size:10.5px;color:var(--muted)">no open positions at risk</div>'
+                   : '<div style="font-size:10.5px;color:var(--muted)">intraday history builds as the day runs</div>')}</div>`;
+}
 // "KXHIGHTATL-26JUL09-B96.5" -> "ATL hi B96.5" (full ticker kept in the tooltip)
 function shortTk(t){
   const m = /^KX(HIGHT?|LOWT?)([A-Z]+)-\w+-(.+)$/.exec(t||'');
@@ -292,6 +311,8 @@ function board(){
     const bust=s.adverse==null?null:100*s.adverse;
     h += `<div class="scol base"><div class="hd"><span class="nm">Base · longshot tails</span><span class="mode live">LIVE</span></div>`
       + srow('Realized P&L', signMoney(s.realized), (s.realized||0)>=0?'pos':'neg')
+      + greenRow(P.monitor?.win_dist?.p_green,
+                 (P.monitor?.roi_series||[]).map(q=>[q.t, q.green]))
       + srow('EV / fill', s.ev==null?'—':fmtC(s.ev), (s.ev||0)>=1?'pos':'')
       + srow('Bust rate', bust==null?'—':pct1(bust)+' <span style="color:var(--muted);font-weight:400">/ ~5%</span>', bust!=null&&bust<=6?'pos':'neg')
       + srow('Fill rate', s.placed?pct(100*s.fill_rate):'—')
@@ -317,6 +338,7 @@ function board(){
     const bust=g.settled?100*g.losses/g.settled:null;
     h += `<div class="scol mir"><div class="hd"><span class="nm">Mirror · favorites</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + greenRow(M.green?.p, M.green?.series)
       + srow('EV / fill', g.ev==null?'—':fmtC(g.ev), (g.ev||0)>=0.5?'pos':'')
       + srow('Bust rate', bust==null?'—':pct1(bust)+' <span style="color:var(--muted);font-weight:400">/ ~3%</span>', bust!=null&&bust<=5?'pos':'neg')
       + srow('Fills today', g.fills_today||0)
@@ -344,6 +366,7 @@ function board(){
     const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
     h += `<div class="scol rv2"><div class="hd"><span class="nm">Rung v2 · panic fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + greenRow(R.green?.p, R.green?.series)
       + srow('EV / ladder', g.ev_per_event==null?'—':fmtC(g.ev_per_event), (g.ev_per_event||0)>=34?'pos':'')
       + srow('Rung bust rate', bustPct==null?'—':pct1(bustPct)+' <span style="color:var(--muted);font-weight:400">/ ~14%</span>', bustPct!=null&&bustPct<=22?'pos':'neg')
       + srow('Fills today', g.fills_today||0)
