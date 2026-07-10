@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-10 20:03",
- "generated_epoch": 1783713790,
+ "generated": "2026-07-10 20:08",
+ "generated_epoch": 1783714120,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 166.8,
@@ -16,8 +16,8 @@
   "potential_gain": 11.05,
   "worst_case": -195.95,
   "next_settle": "2026-07-10T21:00:00Z",
-  "expected_balance": 338.55,
-  "expected_pnl": -24.2,
+  "expected_balance": 339.46,
+  "expected_pnl": -23.29,
   "near_win": 18,
   "near_loss": 2
  },
@@ -1602,7 +1602,7 @@
     78.2
    ],
    [
-    7.671,
+    7.674,
     78.2
    ]
   ],
@@ -1657,7 +1657,7 @@
    "collat": 195.95,
    "exp_busts": 2.73,
    "n": 22,
-   "mkt_pnl": -24.2
+   "mkt_pnl": -23.29
   },
   "win_dist": {
    "p_green": 6,
@@ -1674,7 +1674,7 @@
     {
      "ticker": "KXHIGHTSEA-26JUL10-B77.5",
      "win": 46,
-     "now": 53.0
+     "now": 56.5
     },
     {
      "ticker": "KXLOWTPHX-26JUL10-B88.5",
@@ -2674,6 +2674,16 @@
     "n": 22,
     "p5": -32.95,
     "p95": 0.05
+   },
+   {
+    "t": 1783713955,
+    "pnl": -17.89,
+    "roi": -9.1,
+    "green": 6,
+    "real": 30.04,
+    "n": 22,
+    "p5": -32.95,
+    "p95": 0.05
    }
   ],
   "odds_table": {
@@ -2793,7 +2803,7 @@
   "activity": {
    "placed_24h": 31,
    "last": "07-10 19:27",
-   "hrs_since": 0.6
+   "hrs_since": 0.7
   }
  },
  "daily": {
@@ -3254,7 +3264,7 @@
    "collateral": 4.7,
    "queue_ahead": 1.0,
    "status": "FILLED",
-   "hrs": 9.9,
+   "hrs": 9.8,
    "close_ts": "2026-07-11T05:59:00Z",
    "ttf_min": 389.6,
    "now_yes": 1.0,
@@ -3269,7 +3279,7 @@
    "collateral": 4.85,
    "queue_ahead": 2.0,
    "status": "FILLED",
-   "hrs": 8.9,
+   "hrs": 8.8,
    "close_ts": "2026-07-11T04:59:00Z",
    "ttf_min": 109.5,
    "now_yes": 1.0,
@@ -3314,7 +3324,7 @@
    "collateral": 4.7,
    "queue_ahead": 4.0,
    "status": "FILLED",
-   "hrs": 11.9,
+   "hrs": 11.8,
    "close_ts": "2026-07-11T07:59:00Z",
    "ttf_min": 8.9,
    "now_yes": 1.0,
@@ -3362,7 +3372,7 @@
    "hrs": 11.9,
    "close_ts": "2026-07-11T08:00:00Z",
    "ttf_min": 7.0,
-   "now_yes": 53.0,
+   "now_yes": 56.5,
    "win_odds": 45.6,
    "result": null,
    "pnl_c": null
@@ -3389,7 +3399,7 @@
    "collateral": 5.7,
    "queue_ahead": 5.0,
    "status": "FILLED",
-   "hrs": 9.9,
+   "hrs": 9.8,
    "close_ts": "2026-07-11T05:59:00Z",
    "ttf_min": 44.9,
    "now_yes": 1.0,
@@ -3497,7 +3507,7 @@
    "hrs": 9.9,
    "close_ts": "2026-07-11T06:00:00Z",
    "ttf_min": 39.2,
-   "now_yes": 38.5,
+   "now_yes": 31.5,
    "win_odds": 73.8,
    "result": null,
    "pnl_c": null
@@ -3554,7 +3564,7 @@
    "collateral": 10.67,
    "queue_ahead": 24.67,
    "status": "SETTLED",
-   "hrs": -15.1,
+   "hrs": -15.2,
    "close_ts": "2026-07-10T04:59:00Z",
    "ttf_min": 366.0,
    "now_yes": null,
@@ -3794,7 +3804,7 @@
    "collateral": 14.1,
    "queue_ahead": 10.0,
    "status": "SETTLED",
-   "hrs": -12.1,
+   "hrs": -12.2,
    "close_ts": "2026-07-10T07:59:00Z",
    "ttf_min": 0.5,
    "now_yes": null,
@@ -3834,6 +3844,24 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-10 20:07",
+   "kind": "CAP",
+   "ticker": "KXBTCD-26JUL1117-T68249.99",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-10 20:04",
+   "kind": "CAP",
+   "ticker": "KXBTCD-26JUL1117-T65249.99",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-10 20:03",
+   "kind": "CAP",
+   "ticker": "KXBTCD-26JUL1117-T70999.99",
+   "detail": "capital fully deployed"
+  },
   {
    "ts": "07-10 20:02",
    "kind": "CAP",
@@ -4055,24 +4083,6 @@
    "kind": "CAP",
    "ticker": "KXLOWTSFO-26JUL10-B50.5",
    "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-10 14:48",
-   "kind": "CAP",
-   "ticker": "KXHIGHNY-26JUL10-B89.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-10 14:46",
-   "kind": "CAP",
-   "ticker": "KXLOWTHOU-26JUL10-B75.5",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-10 14:34",
-   "kind": "FILL",
-   "ticker": "KXLOWTMIA-26JUL10-B77.5",
-   "detail": "filled @ 7.0\u00a2 \u00b7 207m in queue"
   }
  ]
 }
