@@ -1,13 +1,13 @@
 {
- "generated": "2026-07-10 10:59",
- "generated_epoch": 1783681155,
+ "generated": "2026-07-10 11:03",
+ "generated_epoch": 1783681404,
  "mode": "LIVE",
  "cap": 30.0,
  "stopped": false,
- "open_ev_usd": 0.44,
- "open_n": 8,
+ "open_ev_usd": 0.0,
+ "open_n": 0,
  "green": {
-  "p": 92.3,
+  "p": null,
   "series": [
    [
     1783663556,
@@ -310,12 +310,12 @@
  "live": {
   "placed": 13,
   "resting": 0,
-  "filled": 8,
-  "settled": 0,
-  "wins": 0,
+  "filled": 0,
+  "settled": 8,
+  "wins": 8,
   "losses": 0,
-  "ev": null,
-  "realized": 0.0,
+  "ev": 6.5,
+  "realized": 0.52,
   "fills_today": 0
  },
  "dryrun": {
@@ -332,12 +332,12 @@
  "gates": [
   {
    "name": "EV \u2265 +0.5\u00a2 at 100 settled (interim kill)",
-   "value": "0/100 settled",
+   "value": "8/100 settled \u00b7 EV +6.50\u00a2",
    "status": "watch"
   },
   {
    "name": "Rolling-60d EV \u2265 0 (regime switch; arms at 30 settled)",
-   "value": "warm-up 0/30",
+   "value": "warm-up 8/30",
    "status": "watch"
   },
   {
@@ -347,12 +347,12 @@
   },
   {
    "name": "$ used \u2264 $30 cap",
-   "value": "$7.48",
+   "value": "$0.00",
    "status": "pass"
   },
   {
    "name": "Runner-up gate (A19): dormant, measuring",
-   "value": "0/60 settled toward the early look (adopt at \u22655\u00a2 collapse-lag early, \u22653\u00a2 at 120 full)",
+   "value": "8/60 settled toward the early look (adopt at \u22655\u00a2 collapse-lag early, \u22653\u00a2 at 120 full)",
    "status": "watch"
   }
  ],
@@ -364,9 +364,9 @@
    "ru": 6.0,
    "ru_d30": -15.0,
    "queue": 38.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 6.0,
    "close_ts": "2026-07-10T08:00:00Z"
   },
   {
@@ -376,9 +376,9 @@
    "ru": 8.0,
    "ru_d30": null,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-10T08:00:00Z"
   },
   {
@@ -400,9 +400,9 @@
    "ru": 9.0,
    "ru_d30": null,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-10T07:00:00Z"
   },
   {
@@ -412,9 +412,9 @@
    "ru": 9.0,
    "ru_d30": null,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-10T05:59:00Z"
   },
   {
@@ -424,9 +424,9 @@
    "ru": 6.0,
    "ru_d30": null,
    "queue": 98.73,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 6.0,
    "close_ts": "2026-07-10T07:59:00Z"
   },
   {
@@ -436,9 +436,9 @@
    "ru": 5.0,
    "ru_d30": null,
    "queue": 253.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 5.0,
    "close_ts": "2026-07-10T05:59:00Z"
   },
   {
@@ -472,9 +472,9 @@
    "ru": 6.0,
    "ru_d30": null,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-10T04:59:00Z"
   },
   {
@@ -508,9 +508,9 @@
    "ru": 8.0,
    "ru_d30": null,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-10T04:59:00Z"
   },
   {
