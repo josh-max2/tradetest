@@ -174,6 +174,9 @@ html{-webkit-text-size-adjust:100%}
  <div class="note" id="corrnote" style="margin-top:12px"></div>
 </div>
 
+<h2>Live experiments <span>— the sidecar judgments accruing toward their pre-registered bars</span></h2>
+<div class="chartcard" id="expcard" style="font-size:13px;line-height:1.7">loading…</div>
+
 <h2>Watch list</h2>
 <div class="grid" id="watch"></div>
 
@@ -417,7 +420,32 @@ function drawROI(series){
   el.innerHTML=s;
 }
 
+async function loadExperiments(){
+  try{
+    const [rm, rr] = await Promise.all([
+      fetch('./data/mirror.json?t='+Date.now(), {cache:'no-store'}),
+      fetch('./data/rungv2.json?t='+Date.now(), {cache:'no-store'})]);
+    const M = rm.ok ? await rm.json() : null;
+    const R = rr.ok ? await rr.json() : null;
+    const bar = (n, target, label, note) => {
+      const p = Math.min(100, 100*(n||0)/target);
+      return `<div style="margin:6px 0"><b>${label}</b> — ${n||0} / ${target} <span style="color:var(--muted)">${note}</span>
+        <div style="height:6px;border-radius:4px;background:var(--grid);margin-top:3px">
+        <div style="height:6px;border-radius:4px;width:${p}%;background:var(--s1)"></div></div></div>`;
+    };
+    let h = '';
+    if (R) h += bar(R.live?.events_settled, R.testb_target||150, 'Test B · rung burst quality',
+      '(EV/ladder must land in +34…+83¢; velocity fingerprint recorded per fill)');
+    if (M) h += bar(M.live?.settled, 60, 'A19 early look · mirror runner-up gate',
+      '(gate stays dormant; adopts only if collapsing-entry fills lag ≥5¢ live)')
+          + bar(M.live?.settled, 120, 'Test A · mirror freshness',
+      '(fresh<1h vs seasoned busts, pre-registered buckets)');
+    document.getElementById('expcard').innerHTML = h ||
+      '<span style="color:var(--muted)">Sidecar feeds not published yet.</span>';
+  }catch(e){}
+}
 load(); setInterval(load, 60000);
+loadExperiments(); setInterval(loadExperiments, 120000);
 </script>
 </body>
 </html>

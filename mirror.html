@@ -79,7 +79,9 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
 <p class="sub">The favorite-side pilot: buy the near-certain weather bracket at 93–96¢ (selling its NO to
-doubters) when the runner-up has collapsed to ≤9¢. One contract per event, $30 cap, hold to settlement,
+doubters) when the runner-up sits ≤9¢ <b>and isn't actively collapsing</b> — the runner-up's 30-minute
+trajectory is recorded on every entry (a collapsing rival marks a consolidation still in flight; the skip-gate
+stays dormant until 60 settled live fills confirm the archive's −6.5¢ spread). One contract per event, $30 cap, hold to settlement,
 never stop out. Fully separate from the base book — own orders, own database, own kill rules.</p>
 <div id="err">Waiting for the first mirror publish — the sidecar writes every ~4 min once running.</div>
 
@@ -141,11 +143,13 @@ function render(d){
   const rows=(d.positions||[]).map(x=>{
     const res=x.status==='SETTLED'?(x.result==='yes'?'<span class="pos">won</span>':'<span class="neg">lost</span>'):esc(x.status.toLowerCase());
     const pnl=x.pnl_c==null?'—':`<span class="${x.pnl_c>0?'pos':'neg'}">${fmtC(x.pnl_c)}</span>`;
+    const rud = x.ru_d30==null ? '—'
+      : `<span class="${x.ru_d30<=-3?'neg':(x.ru_d30>=0?'pos':'')}">${x.ru_d30>0?'+':''}${x.ru_d30}¢</span>`;
     return `<tr><td>${esc(x.ticker)}</td><td>${x.mode}</td><td>${x.bid}¢</td><td>${x.ru==null?'—':x.ru+'¢'}</td>
-      <td>${x.queue==null?'—':x.queue}</td><td>${res}</td><td>${pnl}</td></tr>`;
+      <td>${rud}</td><td>${x.queue==null?'—':x.queue}</td><td>${res}</td><td>${pnl}</td></tr>`;
   }).join('');
   document.getElementById('postbl').innerHTML=
-    '<tr><th>market</th><th>mode</th><th>bid</th><th>runner-up</th><th>queue</th><th>status</th><th>P&L</th></tr>'
+    '<tr><th>market</th><th>mode</th><th>bid</th><th>runner-up</th><th>ruΔ30m</th><th>queue</th><th>status</th><th>P&L</th></tr>'
     +(rows||'<tr><td colspan="7" style="text-align:left;color:var(--muted)">No qualifying favorites yet today.</td></tr>');
   document.getElementById('posnote').textContent=
     'Long the favorite: "won" = the expected bracket settled YES (+premium); "lost" = the favorite failed (−bid).';

@@ -79,9 +79,11 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:
  <h1>Rung v2<span class="badge dry" id="modebadge">DRYRUN</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">The panic-fade ladder: when a genuine penny-tail spikes to 30¢+ <b>inside 15 minutes</b>, sell into
+<p class="sub">The panic-fade ladder, v2.1: when a genuine penny-tail <b>bursts ≥18¢ within 5 minutes</b>, sell into
 the sweep at 30/35/40/45¢ (one contract each) and hold to settlement — violent moves are emotion and revert;
-slow grinds are information and the ladder cancels out of their way (14-minute rule). $30 sleeve, adversarially
+slow grinds are information and the ladder cancels out of their way (burst check at 8 minutes off-tail;
+the old 14-minute stopwatch survives only for post-fill upper rungs, where it tested better). 150 ladder
+slots, quiet tapes prioritized (thin-tape bursts earn ~3× thick). $30 sleeve, adversarially
 audited spec, judged by its own live fills before any real order.</p>
 <div id="err">Waiting for the first rungv2 publish — the sidecar writes every ~4 min once running.</div>
 
