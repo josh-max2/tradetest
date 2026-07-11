@@ -1,29 +1,29 @@
 {
- "generated": "2026-07-11 03:27",
- "generated_epoch": 1783740468,
+ "generated": "2026-07-11 03:30",
+ "generated_epoch": 1783740622,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
-  "balance": 153.78,
-  "committed": 295.73,
+  "balance": 153.08,
+  "committed": 269.07,
   "locked": 203.5,
-  "resting_commit": 92.23,
+  "resting_commit": 65.57,
   "cap": "free-30.25",
   "start": 48.16
  },
  "open": {
   "n": 23,
-  "potential_balance": 368.78,
+  "potential_balance": 368.08,
   "potential_gain": 11.5,
   "worst_case": -203.5,
   "next_settle": "2026-07-11T04:59:00Z",
-  "expected_balance": 321.68,
+  "expected_balance": 320.98,
   "expected_pnl": -35.6,
   "near_win": 19,
   "near_loss": 4
  },
  "summary": {
   "placed": 340,
-  "resting": 13,
+  "resting": 11,
   "filled": 217,
   "filled_open": 23,
   "settled": 194,
@@ -1610,7 +1610,7 @@
     78.35
    ],
    [
-    7.979,
+    7.981,
     78.35
    ]
   ],
@@ -3887,36 +3887,6 @@
  },
  "orders": [
   {
-   "ticker": "KXLOWTDAL-26JUL10-B76.5",
-   "series": "KXLOWTDAL",
-   "sold_c": 4.0,
-   "collateral": 16.32,
-   "queue_ahead": 6.0,
-   "status": "RESTING",
-   "hrs": 2.5,
-   "close_ts": "2026-07-11T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXLOWTNOLA-26JUL10-B73.5",
-   "series": "KXLOWTNOLA",
-   "sold_c": 6.0,
-   "collateral": 10.34,
-   "queue_ahead": 6.0,
-   "status": "RESTING",
-   "hrs": 2.5,
-   "close_ts": "2026-07-11T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXETHD-26JUL1117-T2349.99",
    "series": "KXETHD",
    "sold_c": 3.0,
@@ -4729,6 +4699,18 @@
  ],
  "events": [
   {
+   "ts": "07-11 03:30",
+   "kind": "ROLL",
+   "ticker": "KXLOWTNOLA-26JUL10-B73.5",
+   "detail": "cancelled \u2014 too close to settle"
+  },
+  {
+   "ts": "07-11 03:30",
+   "kind": "ROLL",
+   "ticker": "KXLOWTDAL-26JUL10-B76.5",
+   "detail": "cancelled \u2014 too close to settle"
+  },
+  {
    "ts": "07-11 03:20",
    "kind": "CAP",
    "ticker": "KXLOWTDEN-26JUL11-T56",
@@ -4955,18 +4937,6 @@
    "kind": "CAP",
    "ticker": "KXHIGHAUS-26JUL11-B97.5",
    "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-11 02:44",
-   "kind": "STEP_SKIP",
-   "ticker": "KXLOWTDAL-26JUL11-B76.5",
-   "detail": "skipped \u2014 bracket too close to consensus"
-  },
-  {
-   "ts": "07-11 02:44",
-   "kind": "STEP_SKIP",
-   "ticker": "KXLOWTAUS-26JUL11-T71",
-   "detail": "skipped \u2014 bracket too close to consensus"
   }
  ]
 }
