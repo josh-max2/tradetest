@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-11 20:16",
- "generated_epoch": 1783800961,
+ "generated": "2026-07-11 20:19",
+ "generated_epoch": 1783801146,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 153.98,
-  "committed": 257.75,
+  "committed": 251.17,
   "locked": 177.16,
-  "resting_commit": 80.59,
+  "resting_commit": 74.01,
   "cap": "free-30.25",
   "start": 48.16
  },
@@ -16,14 +16,14 @@
   "potential_gain": 8.84,
   "worst_case": -177.16,
   "next_settle": "2026-07-12T04:59:00Z",
-  "expected_balance": 324.72,
-  "expected_pnl": -6.42,
+  "expected_balance": 324.65,
+  "expected_pnl": -6.49,
   "near_win": 17,
   "near_loss": 2
  },
  "summary": {
   "placed": 358,
-  "resting": 8,
+  "resting": 7,
   "filled": 233,
   "filled_open": 19,
   "settled": 214,
@@ -1770,7 +1770,7 @@
     44.35
    ],
    [
-    8.679,
+    8.682,
     44.35
    ]
   ],
@@ -1820,17 +1820,17 @@
   "deployment": 54,
   "realized": -3.81,
   "exp_roi": {
-   "roi_pct": -2.0,
-   "pnl": -3.53,
+   "roi_pct": -1.9,
+   "pnl": -3.33,
    "collat": 177.16,
-   "exp_busts": 1.94,
+   "exp_busts": 1.92,
    "n": 19,
-   "mkt_pnl": -6.42
+   "mkt_pnl": -6.49
   },
   "win_dist": {
    "p_green": 15,
    "p_red": 85,
-   "p5": -18.16,
+   "p5": -16.16,
    "p50": -3.16,
    "p95": 3.84,
    "below50": [
@@ -2847,6 +2847,16 @@
     "n": 19,
     "p5": -18.16,
     "p95": 3.84
+   },
+   {
+    "t": 1783801146,
+    "pnl": -3.33,
+    "roi": -1.9,
+    "green": 15,
+    "real": -3.81,
+    "n": 19,
+    "p5": -16.16,
+    "p95": 3.84
    }
   ],
   "odds_table": {
@@ -2966,7 +2976,7 @@
   "activity": {
    "placed_24h": 30,
    "last": "07-11 18:44",
-   "hrs_since": 1.5
+   "hrs_since": 1.6
   }
  },
  "daily": {
@@ -3112,7 +3122,7 @@
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": -3.71,
+    "exp_pnl": -3.51,
     "status": "open"
    }
   ],
@@ -3135,8 +3145,8 @@
   },
   "today": {
    "date": "2026-07-11",
-   "exp_pnl": -3.53,
-   "exp_roi": -2.0,
+   "exp_pnl": -3.33,
+   "exp_roi": -1.9,
    "premium": 8.84,
    "n": 19
   }
@@ -3295,21 +3305,6 @@
    "status": "RESTING",
    "hrs": 9.7,
    "close_ts": "2026-07-12T05:59:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXLOWTATL-26JUL11-T70",
-   "series": "KXLOWTATL",
-   "sold_c": 6.0,
-   "collateral": 6.58,
-   "queue_ahead": 5.0,
-   "status": "RESTING",
-   "hrs": 8.7,
-   "close_ts": "2026-07-12T05:00:00Z",
    "ttf_min": null,
    "now_yes": null,
    "win_odds": null,
@@ -3627,7 +3622,7 @@
    "close_ts": "2026-07-12T07:00:00Z",
    "ttf_min": 78.8,
    "now_yes": 4.0,
-   "win_odds": 98.2,
+   "win_odds": 99.5,
    "result": null,
    "pnl_c": null
   },
@@ -3656,7 +3651,7 @@
    "hrs": 10.7,
    "close_ts": "2026-07-12T06:59:00Z",
    "ttf_min": 33.9,
-   "now_yes": 2.0,
+   "now_yes": 2.5,
    "win_odds": 99.8,
    "result": null,
    "pnl_c": null
@@ -3964,6 +3959,18 @@
  ],
  "events": [
   {
+   "ts": "07-11 20:17",
+   "kind": "STEP_CANCEL",
+   "ticker": "KXLOWTATL-26JUL11-T70",
+   "detail": "cancelled \u2014 consensus moved within reach of bracket"
+  },
+  {
+   "ts": "07-11 20:17",
+   "kind": "REACH_SKIP",
+   "ticker": "KXLOWTHOU-26JUL11-B74.5",
+   "detail": "skipped \u2014 temperature within reach of bracket"
+  },
+  {
    "ts": "07-11 20:05",
    "kind": "HALT_SKIP",
    "ticker": "KXLOWTPHIL-26JUL11-B65.5",
@@ -4190,18 +4197,6 @@
    "kind": "HALT_CANCEL",
    "ticker": "KXLOWTPHIL-26JUL11-B69.5",
    "detail": "cancelled \u2014 city halted after casualty"
-  },
-  {
-   "ts": "07-11 15:34",
-   "kind": "CITY_HALT",
-   "ticker": "KXHIGHPHIL-26JUL11-B88.5",
-   "detail": "city closed for the day \u2014 position marked \u226550\u00a2"
-  },
-  {
-   "ts": "07-11 15:33",
-   "kind": "REACH_SKIP",
-   "ticker": "KXLOWTHOU-26JUL11-T74",
-   "detail": "skipped \u2014 temperature within reach of bracket"
   }
  ]
 }
