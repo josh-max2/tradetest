@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-11 18:51",
- "generated_epoch": 1783795888,
+ "generated": "2026-07-11 18:54",
+ "generated_epoch": 1783796061,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 160.59,
-  "committed": 274.45,
+  "committed": 264.33,
   "locked": 177.16,
-  "resting_commit": 97.29,
+  "resting_commit": 87.17,
   "cap": "free-30.25",
   "start": 48.16
  },
@@ -16,14 +16,14 @@
   "potential_gain": 8.84,
   "worst_case": -177.16,
   "next_settle": "2026-07-12T04:59:00Z",
-  "expected_balance": 330.0,
-  "expected_pnl": -7.75,
-  "near_win": 16,
+  "expected_balance": 328.53,
+  "expected_pnl": -9.22,
+  "near_win": 15,
   "near_loss": 2
  },
  "summary": {
   "placed": 358,
-  "resting": 10,
+  "resting": 9,
   "filled": 233,
   "filled_open": 19,
   "settled": 214,
@@ -1770,7 +1770,7 @@
     44.35
    ],
    [
-    8.621,
+    8.623,
     44.35
    ]
   ],
@@ -1820,16 +1820,16 @@
   "deployment": 52,
   "realized": -3.81,
   "exp_roi": {
-   "roi_pct": -3.0,
-   "pnl": -5.26,
+   "roi_pct": -3.4,
+   "pnl": -5.95,
    "collat": 177.16,
-   "exp_busts": 2.1,
+   "exp_busts": 2.14,
    "n": 19,
-   "mkt_pnl": -7.75
+   "mkt_pnl": -9.22
   },
   "win_dist": {
-   "p_green": 19,
-   "p_red": 81,
+   "p_green": 18,
+   "p_red": 82,
    "p5": -21.16,
    "p50": -3.16,
    "p95": 3.84,
@@ -1842,7 +1842,7 @@
     {
      "ticker": "KXLOWTDEN-26JUL11-T56",
      "win": 21,
-     "now": 90.5
+     "now": 92.5
     }
    ],
    "n": 19
@@ -2816,7 +2816,7 @@
   "activity": {
    "placed_24h": 32,
    "last": "07-11 18:44",
-   "hrs_since": 0.1
+   "hrs_since": 0.2
   }
  },
  "daily": {
@@ -2962,7 +2962,7 @@
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": -5.44,
+    "exp_pnl": -6.13,
     "status": "open"
    }
   ],
@@ -2985,8 +2985,8 @@
   },
   "today": {
    "date": "2026-07-11",
-   "exp_pnl": -5.26,
-   "exp_roi": -3.0,
+   "exp_pnl": -5.95,
+   "exp_roi": -3.4,
    "premium": 8.84,
    "n": 19
   }
@@ -3242,21 +3242,6 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHTOKC-26JUL11-B99.5",
-   "series": "KXHIGHTOKC",
-   "sold_c": 8.0,
-   "collateral": 10.12,
-   "queue_ahead": 1.0,
-   "status": "RESTING",
-   "hrs": 11.1,
-   "close_ts": "2026-07-12T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXLOWTMIA-26JUL07-T74",
    "series": "KXLOWTMIA",
    "sold_c": 5.0,
@@ -3326,7 +3311,7 @@
    "hrs": 10.1,
    "close_ts": "2026-07-12T05:00:00Z",
    "ttf_min": 66.3,
-   "now_yes": 12.5,
+   "now_yes": 13.5,
    "win_odds": 92.3,
    "result": null,
    "pnl_c": null
@@ -3416,7 +3401,7 @@
    "hrs": 12.1,
    "close_ts": "2026-07-12T07:00:00Z",
    "ttf_min": 92.1,
-   "now_yes": 90.5,
+   "now_yes": 92.5,
    "win_odds": 20.7,
    "result": null,
    "pnl_c": null
@@ -3476,8 +3461,8 @@
    "hrs": 11.1,
    "close_ts": "2026-07-12T06:00:00Z",
    "ttf_min": 455.9,
-   "now_yes": 6.5,
-   "win_odds": 93.4,
+   "now_yes": 15.5,
+   "win_odds": 87.9,
    "result": null,
    "pnl_c": null
   },
@@ -3536,8 +3521,8 @@
    "hrs": 12.1,
    "close_ts": "2026-07-12T06:59:00Z",
    "ttf_min": 33.9,
-   "now_yes": 3.0,
-   "win_odds": 97.7,
+   "now_yes": 2.5,
+   "win_odds": 98.7,
    "result": null,
    "pnl_c": null
   },
@@ -3844,6 +3829,12 @@
  ],
  "events": [
   {
+   "ts": "07-11 18:52",
+   "kind": "STEP_CANCEL",
+   "ticker": "KXHIGHTOKC-26JUL11-B99.5",
+   "detail": "cancelled \u2014 consensus moved within reach of bracket"
+  },
+  {
    "ts": "07-11 18:51",
    "kind": "HALT_SKIP",
    "ticker": "KXLOWTPHIL-26JUL11-B67.5",
@@ -4076,12 +4067,6 @@
    "kind": "CAP",
    "ticker": "KXHIGHMIA-26JUL11-B95.5",
    "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-11 14:10",
-   "kind": "STEP_SKIP",
-   "ticker": "KXHIGHMIA-26JUL11-B95.5",
-   "detail": "skipped \u2014 bracket too close to consensus"
   }
  ]
 }
