@@ -123,7 +123,7 @@ html{-webkit-text-size-adjust:100%}
 <style>
 .sboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:18px}
 .scol{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px 17px;border-top:3px solid var(--grid)}
-.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708}
+.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708} .scol.t12{border-top-color:#0e9f9f}
 .scol .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
 .scol .nm{font-size:13px;font-weight:700}
 .scol .mode{font-size:9px;font-weight:750;letter-spacing:.05em;padding:2px 8px;border-radius:99px;text-transform:uppercase;border:1.5px solid var(--grid);color:var(--muted)}
@@ -449,6 +449,27 @@ function board(){
             + (rows&&resting?`<div class="strades" style="margin-top:2px"><div class="none">+ ${resting} more ladders resting on armed tails.</div></div>`:'');
         })()
       + `<div class="ft">Sell burst panics (≥18¢/5min) at 30–45¢, thin tapes first · armed ${R.monitor?.armed||0} · warming ${R.monitor?.warming||0} · kills armed</div></div>`;
+  }
+  // [2026-07-12] T12 spike-fade column — completes the four-sleeve board
+  if(window._T){
+    const T=window._T, rl=T.realized||{}, c=T.counts||{};
+    const live=T.mode==='LIVE';
+    const evpf = rl.n ? 100*rl.pnl_usd/rl.n : null;
+    h += `<div class="scol t12"><div class="hd"><span class="nm">T12 · spike-top fade</span><span class="mode ${T.stopped?'dry':(live?'live':'dry')}">${T.stopped?'STOPPED':(live?'LIVE':'DRYRUN')}</span></div>`
+      + srow('Realized P&L', signMoney(rl.pnl_usd), (rl.pnl_usd||0)>=0?'pos':'neg')
+      + srow('Open EV (mkt)', signMoney(T.open_ev_usd), (T.open_ev_usd||0)>=0?'pos':'neg')
+      + srow('EV / trade', evpf==null?'—':fmtC(evpf)+' <span style="color:var(--muted);font-weight:400">/ +18.9¢ model</span>', evpf!=null&&evpf>=8?'pos':(evpf==null?'':'neg'))
+      + srow('Wins', rl.n?`${rl.wins||0} / ${rl.n}`:'—')
+      + srow('Tonight', `${c.triggers||0} spikes → ${(c.placed||0)-(c.rejected||0)} placed → ${c.open||0} holding`)
+      + srow('Night budget', `${money(T.night_used)} <span style="color:var(--muted);font-weight:400">/ ${money(T.night_cap)}</span>`)
+      + srow('Judgment', `${rl.n||0} / ${T.judge_target||30} settled`)
+      + (function(){
+          const rows=(T.open_rows||[]).slice(0,5).map(x=>tRow(x.ticker,'',
+            `${x.level==null?'—':x.level+'¢'}${x.mark!=null?`→${x.mark}¢`:''} · ${x.status==='FILLED'?'<b>open</b>':'resting'}`)).join('');
+          return strades('Spikes sold', rows||null,
+            'No spikes sold yet — windows open as lows enter their final 4 hours (US evenings).');
+        })()
+      + `<div class="ft">Sell 1-lot at lows spike tops (≥20¢/15min, bands 20–80¢, final 4h) · $${T.sleeve} sleeve · skips events base/rung hold</div></div>`;
   }
   el.innerHTML = h;
 }
