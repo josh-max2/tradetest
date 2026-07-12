@@ -1,18 +1,14 @@
 {
- "generated": "2026-07-12 10:58",
- "generated_epoch": 1783853935,
+ "generated": "2026-07-12 11:03",
+ "generated_epoch": 1783854180,
  "mode": "LIVE",
  "cap": 30.0,
  "stopped": false,
- "open_ev_usd": -0.21,
- "open_n": 14,
+ "open_ev_usd": 0.05,
+ "open_n": 1,
  "green": {
-  "p": 0.9,
+  "p": 99.0,
   "series": [
-   [
-    1783739050,
-    90.4
-   ],
    [
     1783739299,
     90.4
@@ -1608,18 +1604,22 @@
    [
     1783853935,
     0.9
+   ],
+   [
+    1783854180,
+    99.0
    ]
   ]
  },
  "live": {
   "placed": 43,
   "resting": 0,
-  "filled": 14,
-  "settled": 18,
-  "wins": 18,
-  "losses": 0,
-  "ev": 6.33,
-  "realized": 1.14,
+  "filled": 1,
+  "settled": 31,
+  "wins": 30,
+  "losses": 1,
+  "ev": 3.19,
+  "realized": 0.99,
   "fills_today": 1
  },
  "dryrun": {
@@ -1636,12 +1636,12 @@
  "gates": [
   {
    "name": "EV \u2265 +0.5\u00a2 at 100 settled (interim kill)",
-   "value": "18/100 settled \u00b7 EV +6.33\u00a2",
+   "value": "31/100 settled \u00b7 EV +3.19\u00a2",
    "status": "watch"
   },
   {
    "name": "Rolling-60d EV \u2265 0 (regime switch; arms at 30 settled)",
-   "value": "warm-up 18/30",
+   "value": "armed",
    "status": "watch"
   },
   {
@@ -1651,12 +1651,12 @@
   },
   {
    "name": "$ used \u2264 $30 cap",
-   "value": "$13.09",
+   "value": "$0.94",
    "status": "pass"
   },
   {
    "name": "Runner-up gate (A19): dormant, measuring",
-   "value": "18/60 settled toward the early look (adopt at \u22655\u00a2 collapse-lag early, \u22653\u00a2 at 120 full)",
+   "value": "31/60 settled toward the early look (adopt at \u22655\u00a2 collapse-lag early, \u22653\u00a2 at 120 full)",
    "status": "watch"
   }
  ],
@@ -1692,9 +1692,9 @@
    "ru": 6.0,
    "ru_d30": -38.0,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-12T06:00:00Z"
   },
   {
@@ -1716,9 +1716,9 @@
    "ru": 7.0,
    "ru_d30": -13.0,
    "queue": 57.09,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 6.0,
    "close_ts": "2026-07-12T06:00:00Z"
   },
   {
@@ -1728,9 +1728,9 @@
    "ru": 5.0,
    "ru_d30": -4.0,
    "queue": 108.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 5.0,
    "close_ts": "2026-07-12T06:00:00Z"
   },
   {
@@ -1740,9 +1740,9 @@
    "ru": 9.0,
    "ru_d30": -9.0,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-12T05:59:00Z"
   },
   {
@@ -1752,9 +1752,9 @@
    "ru": 9.0,
    "ru_d30": -8.0,
    "queue": 14.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-12T08:00:00Z"
   },
   {
@@ -1776,9 +1776,9 @@
    "ru": 9.0,
    "ru_d30": -7.0,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-12T06:00:00Z"
   },
   {
@@ -1788,9 +1788,9 @@
    "ru": 5.0,
    "ru_d30": 1.0,
    "queue": 224.78,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 6.0,
    "close_ts": "2026-07-12T07:59:00Z"
   },
   {
@@ -1800,9 +1800,9 @@
    "ru": 8.0,
    "ru_d30": -12.0,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-12T05:00:00Z"
   },
   {
@@ -1812,9 +1812,9 @@
    "ru": 7.0,
    "ru_d30": -6.0,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-12T04:59:00Z"
   },
   {
@@ -1824,9 +1824,9 @@
    "ru": 9.0,
    "ru_d30": -47.0,
    "queue": 30.7,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 7.0,
    "close_ts": "2026-07-12T06:00:00Z"
   },
   {
@@ -1836,9 +1836,9 @@
    "ru": 7.0,
    "ru_d30": -6.0,
    "queue": 26.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 6.0,
    "close_ts": "2026-07-12T05:59:00Z"
   },
   {
@@ -1848,9 +1848,9 @@
    "ru": 5.0,
    "ru_d30": -3.0,
    "queue": 30.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "yes",
+   "pnl_c": 6.0,
    "close_ts": "2026-07-12T04:59:00Z"
   },
   {
@@ -1860,9 +1860,9 @@
    "ru": 9.0,
    "ru_d30": -2.0,
    "queue": 0.0,
-   "status": "FILLED",
-   "result": null,
-   "pnl_c": null,
+   "status": "SETTLED",
+   "result": "no",
+   "pnl_c": -93.0,
    "close_ts": "2026-07-12T04:59:00Z"
   },
   {
