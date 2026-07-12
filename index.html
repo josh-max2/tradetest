@@ -90,6 +90,7 @@ html{-webkit-text-size-adjust:100%}
  <a href="./mirror.html">Mirror</a>
  <a href="./model.html">Testing</a>
  <a href="./rungv2.html">Rung v2</a>
+ <a href="./t12.html">T12 Fade</a>
  <a href="./appendix.html">Appendix</a>
 </div>
 <script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
@@ -272,27 +273,31 @@ async function loadSidecars(){
     if(r.ok){ window._R = await r.json();
       window._rungOpen = (window._R.monitor && window._R.monitor.filled_open_usd) || 0; }
   }catch(e){}
+  try{
+    const r = await fetch('./data/t12.json?t='+Date.now(), {cache:'no-store'});
+    if(r.ok){ window._T = await r.json(); }
+  }catch(e){}
   board(); totals();
 }
 
-// ---- cross-strategy totals: realized + open-book expected, all three books ----
+// ---- cross-strategy totals: realized + open-book expected, all four books ----
 // realized sums LIVE money only; expected marks every open position to the current
 // market (base: open.expected_pnl; sidecars: open_ev_usd from the same pwin as P(green)).
 function totals(){
   const el = document.getElementById('totrow');
   if(!el) return;
-  const P = window._P, M = window._M, R = window._R;
-  const rP = P?.summary?.realized, rM = M?.live?.realized, rR = R?.live?.realized;
-  const real = [rP,rM,rR].some(v=>v!=null) ? (rP||0)+(rM||0)+(rR||0) : null;
-  const eP = P?.open?.expected_pnl, eM = M?.open_ev_usd, eR = R?.open_ev_usd;
-  const exp = [eP,eM,eR].some(v=>v!=null) ? (eP||0)+(eM||0)+(eR||0) : null;
+  const P = window._P, M = window._M, R = window._R, T = window._T;
+  const rP = P?.summary?.realized, rM = M?.live?.realized, rR = R?.live?.realized, rT = T?.realized?.pnl_usd;
+  const real = [rP,rM,rR,rT].some(v=>v!=null) ? (rP||0)+(rM||0)+(rR||0)+(rT||0) : null;
+  const eP = P?.open?.expected_pnl, eM = M?.open_ev_usd, eR = R?.open_ev_usd, eT = T?.open_ev_usd;
+  const exp = [eP,eM,eR,eT].some(v=>v!=null) ? (eP||0)+(eM||0)+(eR||0)+(eT||0) : null;
   const proj = (real!=null && exp!=null) ? real+exp : null;
-  const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0);
+  const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0)+(T?.open_n||0);
   const sc = v => v==null ? '' : (v>=0?'pos':'neg');
-  const brk = (a,b,c) => `base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)} · rung ${c==null?'—':signMoney(c)}`;
+  const brk = (a,b,c,t) => `base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)} · rung ${c==null?'—':signMoney(c)} · t12 ${t==null?'—':signMoney(t)}`;
   el.innerHTML =
-    `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR)}</div></div>`
-   +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR)}</div></div>`
+    `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR,rT)}</div></div>`
+   +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR,eT)}</div></div>`
    +`<div class="tot"><div class="tl">Projected total</div><div class="tv ${sc(proj)}">${signMoney(proj)}</div><div class="ts">realized + open book at market marks</div></div>`;
 }
 
