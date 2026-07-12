@@ -1,22 +1,14 @@
 {
- "generated": "2026-07-12 23:01",
- "generated_epoch": 1783897277,
+ "generated": "2026-07-12 23:09",
+ "generated_epoch": 1783897771,
  "mode": "LIVE",
  "cap": 30.0,
  "stopped": false,
- "open_ev_usd": -0.46,
- "open_n": 11,
+ "open_ev_usd": -0.43,
+ "open_n": 12,
  "green": {
-  "p": 0.9,
+  "p": 0.8,
   "series": [
-   [
-    1783789602,
-    79.1
-   ],
-   [
-    1783789844,
-    78.8
-   ],
    [
     1783790085,
     77.4
@@ -1608,19 +1600,27 @@
    [
     1783897277,
     0.9
+   ],
+   [
+    1783897525,
+    0.8
+   ],
+   [
+    1783897771,
+    0.8
    ]
   ]
  },
  "live": {
-  "placed": 55,
-  "resting": 1,
-  "filled": 11,
+  "placed": 57,
+  "resting": 2,
+  "filled": 12,
   "settled": 32,
   "wins": 31,
   "losses": 1,
   "ev": 3.28,
   "realized": 1.05,
-  "fills_today": 12
+  "fills_today": 13
  },
  "dryrun": {
   "placed": 5,
@@ -1646,12 +1646,12 @@
   },
   {
    "name": "Fills/day vs 7-9 expected",
-   "value": "12 today (LIVE) / 0 phantom",
+   "value": "13 today (LIVE) / 0 phantom",
    "status": "watch"
   },
   {
    "name": "$ used \u2264 $30 cap",
-   "value": "$11.27",
+   "value": "$13.14",
    "status": "pass"
   },
   {
@@ -1661,6 +1661,30 @@
   }
  ],
  "positions": [
+  {
+   "ticker": "KXHIGHTPHX-26JUL12-B109.5",
+   "mode": "LIVE",
+   "bid": 93,
+   "ru": 6.0,
+   "ru_d30": -10.0,
+   "queue": 0.0,
+   "status": "RESTING",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-13T07:00:00Z"
+  },
+  {
+   "ticker": "KXHIGHDEN-26JUL12-B94.5",
+   "mode": "LIVE",
+   "bid": 94,
+   "ru": 6.0,
+   "ru_d30": -13.0,
+   "queue": 100.0,
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-13T06:59:00Z"
+  },
   {
    "ticker": "KXHIGHTDAL-26JUL12-B97.5",
    "mode": "LIVE",
@@ -2116,30 +2140,6 @@
    "result": "yes",
    "pnl_c": 6.0,
    "close_ts": "2026-07-11T07:59:00Z"
-  },
-  {
-   "ticker": "KXHIGHNY-26JUL10-T87",
-   "mode": "LIVE",
-   "bid": 95,
-   "ru": 5.0,
-   "ru_d30": 1.0,
-   "queue": 224.86,
-   "status": "CANCELED",
-   "result": null,
-   "pnl_c": null,
-   "close_ts": "2026-07-11T04:59:00Z"
-  },
-  {
-   "ticker": "KXHIGHTBOS-26JUL10-B89.5",
-   "mode": "LIVE",
-   "bid": 94,
-   "ru": 6.0,
-   "ru_d30": 3.0,
-   "queue": 10.0,
-   "status": "SETTLED",
-   "result": "yes",
-   "pnl_c": 6.0,
-   "close_ts": "2026-07-11T05:00:00Z"
   }
  ],
  "expect": {
