@@ -1,22 +1,14 @@
 {
- "generated": "2026-07-12 18:55",
- "generated_epoch": 1783882526,
+ "generated": "2026-07-12 19:03",
+ "generated_epoch": 1783883013,
  "mode": "LIVE",
  "cap": 30.0,
  "stopped": false,
  "open_ev_usd": 0.04,
- "open_n": 5,
+ "open_n": 6,
  "green": {
-  "p": 76.8,
+  "p": 71.2,
   "series": [
-   [
-    1783757946,
-    90.4
-   ],
-   [
-    1783758189,
-    90.4
-   ],
    [
     1783758437,
     90.4
@@ -1608,19 +1600,27 @@
    [
     1783882526,
     76.8
+   ],
+   [
+    1783882770,
+    82.4
+   ],
+   [
+    1783883013,
+    71.2
    ]
   ]
  },
  "live": {
-  "placed": 49,
+  "placed": 50,
   "resting": 0,
-  "filled": 5,
+  "filled": 6,
   "settled": 32,
   "wins": 31,
   "losses": 1,
   "ev": 3.28,
   "realized": 1.05,
-  "fills_today": 6
+  "fills_today": 7
  },
  "dryrun": {
   "placed": 5,
@@ -1646,12 +1646,12 @@
   },
   {
    "name": "Fills/day vs 7-9 expected",
-   "value": "6 today (LIVE) / 0 phantom",
+   "value": "7 today (LIVE) / 0 phantom",
    "status": "watch"
   },
   {
    "name": "$ used \u2264 $30 cap",
-   "value": "$4.71",
+   "value": "$5.64",
    "status": "pass"
   },
   {
@@ -1661,6 +1661,18 @@
   }
  ],
  "positions": [
+  {
+   "ticker": "KXHIGHTDC-26JUL12-B84.5",
+   "mode": "LIVE",
+   "bid": 93,
+   "ru": 7.0,
+   "ru_d30": -14.0,
+   "queue": 0.0,
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-13T05:00:00Z"
+  },
   {
    "ticker": "KXHIGHTHOU-26JUL12-B93.5",
    "mode": "LIVE",
@@ -2128,18 +2140,6 @@
    "result": null,
    "pnl_c": null,
    "close_ts": "2026-07-10T06:00:00Z"
-  },
-  {
-   "ticker": "KXHIGHTPHX-26JUL09-B113.5",
-   "mode": "LIVE",
-   "bid": 93,
-   "ru": 9.0,
-   "ru_d30": null,
-   "queue": 0.0,
-   "status": "SETTLED",
-   "result": "yes",
-   "pnl_c": 7.0,
-   "close_ts": "2026-07-10T07:00:00Z"
   }
  ],
  "expect": {
