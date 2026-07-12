@@ -111,8 +111,8 @@ html{-webkit-text-size-adjust:100%}
  <div id="pnlchart" style="margin-top:12px"></div>
 </div>
 <style>
-.totrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-@media(max-width:480px){.totrow{grid-template-columns:1fr 1fr}}
+.totrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+@media(max-width:760px){.totrow{grid-template-columns:1fr 1fr}}
 .tot{border:1px solid var(--grid);border-radius:12px;padding:8px 12px}
 .tot .tl{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .tot .tv{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px}
@@ -295,10 +295,33 @@ function totals(){
   const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0)+(T?.open_n||0);
   const sc = v => v==null ? '' : (v>=0?'pos':'neg');
   const brk = (a,b,c,t) => `base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)} · rung ${c==null?'—':signMoney(c)} · t12 ${t==null?'—':signMoney(t)}`;
+  // [2026-07-12] day-percentile indicator: where does TODAY (projected, all books) rank
+  // among every recorded combined day? "13th percentile" = a bad day; 50th = typical.
+  const sd = P?.strat_days || {};
+  const comb = {};
+  (P?.daily?.days||[]).filter(x=>x.n>0).forEach(x=>{ comb[x.date]=(comb[x.date]||0)+x.pnl; });
+  for(const iso in sd) for(const k in sd[iso]) comb[iso]=(comb[iso]||0)+sd[iso][k].pnl;
+  const series = Object.entries(comb).sort();
+  const vals = series.map(x=>x[1]);
+  const todayProj = (eP||0)+(eM||0)+(eR||0)+(eT||0);
+  const ord = n => n%10===1&&n%100!==11?'st':n%10===2&&n%100!==12?'nd':n%10===3&&n%100!==13?'rd':'th';
+  let pv='building…', ps=`${vals.length} recorded day${vals.length===1?'':'s'} — needs 5`;
+  let pcls='';
+  if(vals.length>=5){
+    const below = vals.filter(v=>v<todayProj).length;
+    const pctile = Math.round(100*below/vals.length);
+    const rank = below+1;
+    pv = `${pctile}${ord(pctile)} pctile`;
+    pcls = pctile>=50?'pos':(pctile<25?'neg':'');
+    const cutoff = new Date(Date.now()-14*864e5).toISOString().slice(0,10);
+    const l14 = series.filter(([iso])=>iso>=cutoff).reduce((a,x)=>a+x[1],0);
+    ps = `today projected ${signMoney(todayProj)} → ${rank}${ord(rank)} of ${vals.length+1} days · last 14d ${signMoney(l14)}`;
+  }
   el.innerHTML =
     `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR,rT)}</div></div>`
    +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR,eT)}</div></div>`
-   +`<div class="tot"><div class="tl">Projected total</div><div class="tv ${sc(proj)}">${signMoney(proj)}</div><div class="ts">realized + open book at market marks</div></div>`;
+   +`<div class="tot"><div class="tl">Projected total</div><div class="tv ${sc(proj)}">${signMoney(proj)}</div><div class="ts">realized + open book at market marks</div></div>`
+   +`<div class="tot"><div class="tl">Day rank · vs all recorded days</div><div class="tv ${pcls}">${pv}</div><div class="ts">${ps}</div></div>`;
 }
 
 function srow(k, v, cls){ return `<div class="srow"><span class="k">${esc(k)}</span><span class="v ${cls||''}">${v}</span></div>`; }

@@ -62,6 +62,14 @@ h1{font-size:21px;font-weight:650;margin:0}
 .tot.pos{color:var(--goodtext)} .tot.neg{color:var(--crit)}
 .roi .sub,.tot .sub{color:var(--muted);font-weight:400}
 .pend{font-size:9px;color:var(--warn);line-height:1.25;margin-top:1px}
+/* [2026-07-12] per-strategy itemization: chip strip on desktop cells, full lines on mobile */
+.chips{display:flex;gap:3px;margin-top:2px}
+.chip{font-size:8px;font-weight:800;letter-spacing:.02em;padding:1px 4px;border-radius:5px;
+ border:1px solid var(--grid);color:var(--muted);line-height:1.35}
+.chip.pos{color:var(--goodtext);border-color:color-mix(in srgb,var(--good) 45%,var(--grid))}
+.chip.neg{color:var(--crit);border-color:color-mix(in srgb,var(--crit) 45%,var(--grid))}
+.strat-lines{font-size:10.5px;color:var(--ink2);line-height:1.45;margin-top:2px}
+.strat-lines b{font-weight:700}
 .legend{font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px;border:1px solid var(--border)}
 /* mobile agenda list — replaces the 7-col grid on narrow screens where $ values won't fit */
@@ -144,8 +152,36 @@ function heatBg(roi){
   return `color-mix(in srgb, ${c} ${Math.round(7+mag*21)}%, var(--surface))`;
 }
 
-function cell(iso, dd, rec, todayISO, today){
-  if(!rec) return `<div class="cell blank"><span class="dnum">${dd}</span></div>`;
+// per-strategy helpers [2026-07-12]: sd = strat_days[iso] = {mir/rung/t12:{pnl,basis,n}};
+// base comes from rec itself (pnl + collat). ROI = pnl / capital that strategy risked.
+const SLBL={base:'base',mir:'mirror',rung:'rung',t12:'t12'};
+function stratList(rec, sd){
+  const out=[];
+  if(rec && rec.n>0) out.push(['base', rec.pnl, rec.collat>0?100*rec.pnl/rec.collat:null]);
+  for(const k of ['mir','rung','t12']){
+    const s=(sd||{})[k];
+    if(s && s.n>0) out.push([k, s.pnl, s.basis>0?100*s.pnl/s.basis:null]);
+  }
+  return out;
+}
+function chipStrip(list){
+  if(!list.length) return '';
+  return `<div class="chips">`+list.map(([k,p])=>
+    `<span class="chip ${p>0?'pos':(p<0?'neg':'')}">${k==='base'?'B':k==='mir'?'M':k==='rung'?'R':'T'}</span>`).join('')+`</div>`;
+}
+function stratTip(list){
+  return list.map(([k,p,roi])=>`${SLBL[k]} ${signMoney(p)}${roi==null?'':` (${pct1(roi)} on risked)`}`).join('\n');
+}
+
+function cell(iso, dd, rec, todayISO, today, sd){
+  const items = stratList(rec, sd);
+  if(!rec && items.length===0) return `<div class="cell blank"><span class="dnum">${dd}</span></div>`;
+  if(!rec){                        // sidecar-only day (base had no book): still show it
+    const p=items.reduce((a,x)=>a+x[1],0);
+    return `<div class="cell" title="${esc(iso+'\n'+stratTip(items))}">
+      <span class="dnum">${dd}</span>
+      <div class="pnl ${p>=0?'pos':'neg'}">${signMoney(p)}</div>${chipStrip(items)}</div>`;
+  }
   const isToday = iso===todayISO;
   // today / fully-open day -> expected value, not realized
   if(rec.n===0 && rec.pending>0){
@@ -156,28 +192,32 @@ function cell(iso, dd, rec, todayISO, today){
       <div class="pnl neutral">${signMoney(ex)}</div>
       <div class="roi">exp · ${rec.pending} open</div></div>`;
   }
-  const cls = rec.pnl>=0 ? 'pos' : 'neg';
+  // combined day total = base + every sidecar that settled that date [2026-07-12]
+  const sideP = items.filter(x=>x[0]!=='base').reduce((a,x)=>a+x[1],0);
+  const dayTot = rec.pnl + sideP;
+  const cls = dayTot>=0 ? 'pos' : 'neg';
   const dcls = rec.port_pct>=0 ? 'pos' : 'neg';
   const ccls = rec.cum_pct>=0 ? 'pos' : 'neg';
-  const wr = rec.wins + rec.losses;
   const pend = rec.pending>0 ? `<div class="pend">${rec.pending} pending</div>` : '';
-  const tip = `${iso}\nReturn ${signMoney(rec.pnl)}  (${pct1(rec.port_pct)} of portfolio)\nPortfolio to date: ${pct1(rec.cum_pct)}\nROI ${pct1(rec.roi)} · ${rec.wins}W/${rec.losses}L · ${rec.contracts} ct, ${money(rec.collat)} at risk`;
+  const tip = `${iso}\nAll books: ${signMoney(dayTot)}\n`+stratTip(items)
+    +`\n—\nbase day ${pct1(rec.port_pct)} of portfolio · to date ${pct1(rec.cum_pct)}`
+    +`\nbase ${rec.wins}W/${rec.losses}L · ${rec.contracts} ct · ${money(rec.collat)} at risk`;
   return `<div class="cell ${isToday?'today':''}" style="background:${heatBg(rec.roi)}" title="${esc(tip)}">
     <span class="dnum">${dd}</span>
-    <div class="pnl ${cls}">${signMoney(rec.pnl)}</div>
+    <div class="pnl ${cls}">${signMoney(dayTot)}</div>
     <div class="roi ${dcls}">${pct1(rec.port_pct)}<span class="sub"> day</span></div>
     <div class="tot ${ccls}">${pct1(rec.cum_pct)}<span class="sub"> total</span></div>
-    ${pend}</div>`;
+    ${chipStrip(items)}${pend}</div>`;
 }
 
-function monthCard(y, m, dayMap, todayISO, today){
+function monthCard(y, m, dayMap, todayISO, today, sdMap){
   const startWd = new Date(y,m,1).getDay();          // 0=Sun
   const nDays = new Date(y,m+1,0).getDate();
   let cells='';
   for(let i=0;i<startWd;i++) cells += `<div class="cell empty"></div>`;
   for(let dd=1; dd<=nDays; dd++){
     const iso = `${y}-${String(m+1).padStart(2,'0')}-${String(dd).padStart(2,'0')}`;
-    cells += cell(iso, dd, dayMap[iso], todayISO, today);
+    cells += cell(iso, dd, dayMap[iso], todayISO, today, (sdMap||{})[iso]);
   }
   const head = ['S','M','T','W','T','F','S'].map(x=>`<div class="wd">${x}</div>`).join('');
   return `<div class="cal-card">
@@ -187,7 +227,7 @@ function monthCard(y, m, dayMap, todayISO, today){
 }
 
 const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-function dayRow(rec, todayISO, today){
+function dayRow(rec, todayISO, today, sd){
   const p = parseISO(rec.date);
   const wd = WD[new Date(p.y,p.m,p.d).getDay()];
   const date = `<div class="drdate"><b>${MON[p.m]} ${p.d}</b><span>${wd}</span></div>`;
@@ -197,12 +237,17 @@ function dayRow(rec, todayISO, today){
       <div class="drmid"><span class="live">● OPEN</span> · expected, this day's book only<br>${rec.pending} open · ${money(rec.open_prem)} premium at stake</div>
       <div class="dramt neutral">${signMoney(ex)}</div></div>`;
   }
-  const cls = rec.pnl>=0 ? 'pos' : 'neg', wr = rec.wins + rec.losses;
-  const dcls = rec.port_pct>=0 ? 'pos' : 'neg', ccls = rec.cum_pct>=0 ? 'pos' : 'neg';
+  const items = stratList(rec, sd);
+  const sideP = items.filter(x=>x[0]!=='base').reduce((a,x)=>a+x[1],0);
+  const dayTot = rec.pnl + sideP;
+  const cls = dayTot>=0 ? 'pos' : 'neg', wr = rec.wins + rec.losses;
   const pend = rec.pending>0 ? ` · <span style="color:var(--warn)">${rec.pending} pending${rec.exp_pnl!=null?` (exp ${signMoney(rec.exp_pnl)})`:''}</span>` : '';
-  return `<div class="dayrow ${rec.date===todayISO?'today':''}" style="border-left-color:${rec.pnl>=0?'var(--good)':'var(--crit)'};background:${heatBg(rec.roi)}">${date}
-    <div class="drmid"><b class="${dcls}">${pct1(rec.port_pct)}</b> day · <b class="${ccls}">${pct1(rec.cum_pct)}</b> total<br>${pct1(rec.roi)} ROI · ${rec.wins}/${wr} wins · ${rec.contracts} ct${pend}</div>
-    <div class="dramt ${cls}">${signMoney(rec.pnl)}</div></div>`;
+  // itemized per-strategy line: P&L + return on the capital that strategy risked [2026-07-12]
+  const itn = items.map(([k,p,roi])=>
+    `<b class="${p>0?'pos':(p<0?'neg':'')}">${SLBL[k]}</b> ${signMoney(p)}${roi==null?'':` <span style="color:var(--muted)">(${pct1(roi)})</span>`}`).join(' · ');
+  return `<div class="dayrow ${rec.date===todayISO?'today':''}" style="border-left-color:${dayTot>=0?'var(--good)':'var(--crit)'};background:${heatBg(rec.roi)}">${date}
+    <div class="drmid">${itn||'—'}<br><span style="color:var(--muted)">base ${rec.wins}/${wr} wins · ${rec.contracts} ct${pend}</span></div>
+    <div class="dramt ${cls}">${signMoney(dayTot)}</div></div>`;
 }
 
 function render(d){
@@ -210,6 +255,7 @@ function render(d){
   const days = daily.days || [];
   const today = daily.today || {};
   const todayISO = today.date || null;
+  const sd = d.strat_days || {};          // [2026-07-12] sidecar day series
 
   // status dot
   const ageMin = d.generated_epoch ? Math.max(0,(Date.now()/1000-d.generated_epoch)/60) : 999;
@@ -231,6 +277,14 @@ function render(d){
      cls:(worst&&worst.pnl>=0?'good':worst?'bad':''), vcls:(worst&&worst.pnl>=0?'pos':worst?'neg':'')},
     {l:'Open book (expected)', v:signMoney(today.exp_pnl), s:`${today.n||0} open across all days · ${money(today.premium)} at stake`, cls:'accent', vcls:'neutral'},
   ];
+  // per-sidecar cumulative cards [2026-07-12]: P&L + return on the capital each risked
+  for(const [k,label] of [['mir','Mirror'],['rung','Rung v2'],['t12','T12 Fade']]){
+    let p=0,b=0,n=0;
+    for(const iso in sd){ const s=sd[iso][k]; if(s){p+=s.pnl;b+=s.basis;n++;} }
+    stats.push({l:label+' · cumulative', v:signMoney(n?p:null),
+      s:n?`${pct1(b>0?100*p/b:null)} on ${money(b)} risked · ${n} day${n===1?'':'s'}`:'no settled days yet',
+      cls:n?(p>=0?'good':'bad'):'', vcls:n?(p>=0?'pos':'neg'):''});
+  }
   document.getElementById('stats').innerHTML = stats.map(c=>
     `<div class="stat ${c.cls||''}"><div class="l">${c.l}</div>
      <div class="v ${c.vcls||''}">${c.v}</div><div class="s">${esc(c.s)}</div></div>`).join('');
@@ -240,18 +294,18 @@ function render(d){
   if(!days.length){ cal.innerHTML='<div class="cal-card"><div class="note" style="text-align:center;padding:24px 0">No settled days yet — the calendar fills in as books settle each morning.</div></div>'; }
   else {
     const dayMap={}; days.forEach(x=>dayMap[x.date]=x);
-    const sorted=days.map(x=>x.date).sort();
+    const sorted=days.map(x=>x.date).concat(Object.keys(sd)).sort();   // include sidecar-only dates
     const a=parseISO(sorted[0]), b=parseISO(sorted[sorted.length-1]);
     const months=[]; let y=a.y, m=a.m;
     while(y<b.y || (y===b.y && m<=b.m)){ months.push([y,m]); m++; if(m>11){m=0;y++;} }
     months.reverse();
-    cal.innerHTML = months.map(([yy,mm])=>monthCard(yy,mm,dayMap,todayISO,today)).join('');
+    cal.innerHTML = months.map(([yy,mm])=>monthCard(yy,mm,dayMap,todayISO,today,sd)).join('');
   }
 
   // mobile agenda list (same data, shown <=680px) — full-width rows so $ values never clip
   const active = days.filter(x=>x.n>0 || x.pending>0).slice().reverse();   // newest first
   document.getElementById('calList').innerHTML = active.length
-    ? active.map(x=>dayRow(x, todayISO, today)).join('')
+    ? active.map(x=>dayRow(x, todayISO, today, sd[x.date])).join('')
     : '<div class="note">No settled days yet — fills in as books settle each morning.</div>';
 
   document.getElementById('legend').innerHTML =
@@ -261,7 +315,8 @@ function render(d){
   const startBal = (d.account && d.account.start) || 0;
   const deposits = (daily.invested!=null && startBal) ? daily.invested - startBal : null;
   document.getElementById('footer').innerHTML =
-    `Each cell: realized <b>return</b> (top), the day's <b>% of the whole portfolio</b> (day) and the running <b>cumulative portfolio %</b> (total). `
+    `Each cell: <b>all-books return</b> (top), the base day's <b>% of the whole portfolio</b> (day) and the running <b>cumulative portfolio %</b> (total). `
+    + `The B/M/R/T chips mark which strategies settled that day (green = that book won); hover any cell for the per-strategy breakdown — P&amp;L and <b>return on the capital that strategy risked</b> (contract cost for the sidecars). On mobile, each day row shows the itemization inline. `
     + `Portfolio % is vs total invested capital (${money(daily.invested)}${deposits!=null?` = ${money(startBal)} start + ${money(deposits)} deposits`:''}), so deposits count as capital, not gains. `
     + `<b>ROI</b> (return ÷ collateral at risk) and win/loss are in each day's hover tooltip. `
     + `Days bucket by event date; a day settles the following morning, so "N pending" marks stragglers not yet resolved. Data ${esc(d.generated||'?')} UTC.`;
