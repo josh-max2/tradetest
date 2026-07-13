@@ -1,18 +1,14 @@
 {
- "generated": "2026-07-13 20:28",
- "generated_epoch": 1783974535,
+ "generated": "2026-07-13 20:33",
+ "generated_epoch": 1783974780,
  "mode": "LIVE",
  "cap": 30.0,
  "stopped": false,
- "open_ev_usd": -0.05,
- "open_n": 3,
+ "open_ev_usd": -0.01,
+ "open_n": 4,
  "green": {
-  "p": 78.4,
+  "p": 76.7,
   "series": [
-   [
-    1783836733,
-    0.9
-   ],
    [
     1783836977,
     0.9
@@ -1608,19 +1604,23 @@
    [
     1783974535,
     78.4
+   ],
+   [
+    1783974780,
+    76.7
    ]
   ]
  },
  "live": {
-  "placed": 62,
-  "resting": 1,
-  "filled": 3,
+  "placed": 65,
+  "resting": 3,
+  "filled": 4,
   "settled": 46,
   "wins": 44,
   "losses": 2,
   "ev": 2.02,
   "realized": 0.93,
-  "fills_today": 4
+  "fills_today": 5
  },
  "dryrun": {
   "placed": 5,
@@ -1646,12 +1646,12 @@
   },
   {
    "name": "Fills/day vs 7-9 expected",
-   "value": "4 today (LIVE) / 0 phantom",
+   "value": "5 today (LIVE) / 0 phantom",
    "status": "watch"
   },
   {
    "name": "$ used \u2264 $30 cap",
-   "value": "$3.75",
+   "value": "$6.57",
    "status": "pass"
   },
   {
@@ -1661,6 +1661,42 @@
   }
  ],
  "positions": [
+  {
+   "ticker": "KXHIGHTDC-26JUL13-B86.5",
+   "mode": "LIVE",
+   "bid": 95,
+   "ru": 7.0,
+   "ru_d30": -18.0,
+   "queue": 100.0,
+   "status": "RESTING",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-14T05:00:00Z"
+  },
+  {
+   "ticker": "KXHIGHLAX-26JUL13-B75.5",
+   "mode": "LIVE",
+   "bid": 94,
+   "ru": 7.0,
+   "ru_d30": -7.0,
+   "queue": 4.0,
+   "status": "RESTING",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-14T07:59:00Z"
+  },
+  {
+   "ticker": "KXHIGHCHI-26JUL13-B91.5",
+   "mode": "LIVE",
+   "bid": 93,
+   "ru": 6.0,
+   "ru_d30": -10.0,
+   "queue": 5.0,
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-14T05:59:00Z"
+  },
   {
    "ticker": "KXHIGHTATL-26JUL13-B81.5",
    "mode": "LIVE",
@@ -2103,42 +2139,6 @@
    "status": "SETTLED",
    "result": "yes",
    "pnl_c": 7.0,
-   "close_ts": "2026-07-11T08:00:00Z"
-  },
-  {
-   "ticker": "KXHIGHDEN-26JUL10-B88.5",
-   "mode": "LIVE",
-   "bid": 95,
-   "ru": 7.0,
-   "ru_d30": -68.0,
-   "queue": 8.0,
-   "status": "SETTLED",
-   "result": "yes",
-   "pnl_c": 5.0,
-   "close_ts": "2026-07-11T06:59:00Z"
-  },
-  {
-   "ticker": "KXHIGHPHIL-26JUL10-B86.5",
-   "mode": "LIVE",
-   "bid": 93,
-   "ru": 7.0,
-   "ru_d30": null,
-   "queue": 0.0,
-   "status": "SETTLED",
-   "result": "yes",
-   "pnl_c": 7.0,
-   "close_ts": "2026-07-11T04:59:00Z"
-  },
-  {
-   "ticker": "KXHIGHTSFO-26JUL10-B66.5",
-   "mode": "LIVE",
-   "bid": 95,
-   "ru": 4.0,
-   "ru_d30": null,
-   "queue": 84.0,
-   "status": "SETTLED",
-   "result": "yes",
-   "pnl_c": 5.0,
    "close_ts": "2026-07-11T08:00:00Z"
   }
  ],
