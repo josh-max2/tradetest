@@ -1,22 +1,14 @@
 {
- "generated": "2026-07-13 20:49",
- "generated_epoch": 1783975767,
+ "generated": "2026-07-13 20:57",
+ "generated_epoch": 1783976259,
  "mode": "LIVE",
  "cap": 30.0,
  "stopped": false,
- "open_ev_usd": 0.12,
- "open_n": 6,
+ "open_ev_usd": -0.07,
+ "open_n": 8,
  "green": {
-  "p": 76.4,
+  "p": 55.9,
   "series": [
-   [
-    1783837958,
-    0.9
-   ],
-   [
-    1783838205,
-    0.9
-   ],
    [
     1783838448,
     0.9
@@ -1608,19 +1600,27 @@
    [
     1783975767,
     76.4
+   ],
+   [
+    1783976013,
+    70.9
+   ],
+   [
+    1783976259,
+    55.9
    ]
   ]
  },
  "live": {
-  "placed": 65,
-  "resting": 1,
-  "filled": 6,
+  "placed": 66,
+  "resting": 0,
+  "filled": 8,
   "settled": 46,
   "wins": 44,
   "losses": 2,
   "ev": 2.02,
   "realized": 0.93,
-  "fills_today": 7
+  "fills_today": 9
  },
  "dryrun": {
   "placed": 5,
@@ -1646,12 +1646,12 @@
   },
   {
    "name": "Fills/day vs 7-9 expected",
-   "value": "7 today (LIVE) / 0 phantom",
+   "value": "9 today (LIVE) / 0 phantom",
    "status": "watch"
   },
   {
    "name": "$ used \u2264 $30 cap",
-   "value": "$6.57",
+   "value": "$7.52",
    "status": "pass"
   },
   {
@@ -1662,13 +1662,25 @@
  ],
  "positions": [
   {
+   "ticker": "KXHIGHTBOS-26JUL13-B85.5",
+   "mode": "LIVE",
+   "bid": 95,
+   "ru": 7.0,
+   "ru_d30": -18.0,
+   "queue": 5.0,
+   "status": "FILLED",
+   "result": null,
+   "pnl_c": null,
+   "close_ts": "2026-07-14T05:00:00Z"
+  },
+  {
    "ticker": "KXHIGHTDC-26JUL13-B86.5",
    "mode": "LIVE",
    "bid": 95,
    "ru": 7.0,
    "ru_d30": -18.0,
    "queue": 100.0,
-   "status": "RESTING",
+   "status": "FILLED",
    "result": null,
    "pnl_c": null,
    "close_ts": "2026-07-14T05:00:00Z"
@@ -2128,18 +2140,6 @@
    "result": "no",
    "pnl_c": -93.0,
    "close_ts": "2026-07-12T04:59:00Z"
-  },
-  {
-   "ticker": "KXHIGHTLV-26JUL10-B109.5",
-   "mode": "LIVE",
-   "bid": 93,
-   "ru": 6.0,
-   "ru_d30": -22.0,
-   "queue": 4.0,
-   "status": "SETTLED",
-   "result": "yes",
-   "pnl_c": 7.0,
-   "close_ts": "2026-07-11T08:00:00Z"
   }
  ],
  "expect": {
