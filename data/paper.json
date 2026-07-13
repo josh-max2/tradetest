@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-13 10:33",
- "generated_epoch": 1783938783,
+ "generated": "2026-07-13 10:38",
+ "generated_epoch": 1783939112,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 149.15,
@@ -16,8 +16,8 @@
   "potential_gain": 9.84,
   "worst_case": -175.16,
   "next_settle": "2026-07-13T21:00:00Z",
-  "expected_balance": 330.31,
-  "expected_pnl": 6.0,
+  "expected_balance": 330.5,
+  "expected_pnl": 6.19,
   "near_win": 21,
   "near_loss": 0
  },
@@ -1922,11 +1922,11 @@
     47.49
    ],
    [
-    10.275,
+    10.278,
     47.49
    ]
   ],
-  "age_days": 10.27,
+  "age_days": 10.28,
   "equity": 47.49,
   "start": 48.16,
   "start_ts": "2026-07-03T03:57:39Z"
@@ -1977,7 +1977,7 @@
    "collat": 175.16,
    "exp_busts": 0.37,
    "n": 21,
-   "mkt_pnl": 6.0
+   "mkt_pnl": 6.19
   },
   "win_dist": {
    "p_green": 86,
@@ -4478,6 +4478,16 @@
     "n": 21,
     "p5": -8.16,
     "p95": 9.84
+   },
+   {
+    "t": 1783938943,
+    "pnl": 6.56,
+    "roi": 3.7,
+    "green": 86,
+    "real": -0.67,
+    "n": 21,
+    "p5": -8.16,
+    "p95": 9.84
    }
   ],
   "odds_table": {
@@ -4597,7 +4607,7 @@
   "activity": {
    "placed_24h": 27,
    "last": "07-13 05:31",
-   "hrs_since": 5.0
+   "hrs_since": 5.1
   }
  },
  "daily": {
@@ -5024,7 +5034,7 @@
    "collateral": 6.72,
    "queue_ahead": 4.0,
    "status": "RESTING",
-   "hrs": 18.4,
+   "hrs": 18.3,
    "close_ts": "2026-07-14T04:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -5144,7 +5154,7 @@
    "collateral": 4.8,
    "queue_ahead": 4.0,
    "status": "FILLED",
-   "hrs": -5.6,
+   "hrs": -5.7,
    "close_ts": "2026-07-13T04:59:00Z",
    "ttf_min": 254.6,
    "now_yes": 1.0,
@@ -5219,7 +5229,7 @@
    "collateral": 7.44,
    "queue_ahead": 5.68,
    "status": "FILLED",
-   "hrs": -3.6,
+   "hrs": -3.7,
    "close_ts": "2026-07-13T06:59:00Z",
    "ttf_min": 7.5,
    "now_yes": 1.0,
@@ -5264,7 +5274,7 @@
    "collateral": 16.15,
    "queue_ahead": 1.0,
    "status": "FILLED",
-   "hrs": -5.6,
+   "hrs": -5.7,
    "close_ts": "2026-07-13T04:59:00Z",
    "ttf_min": 1.3,
    "now_yes": 1.0,
@@ -5342,7 +5352,7 @@
    "hrs": 18.4,
    "close_ts": "2026-07-14T05:00:00Z",
    "ttf_min": 392.2,
-   "now_yes": 3.5,
+   "now_yes": 3.0,
    "win_odds": 97.2,
    "result": null,
    "pnl_c": null
@@ -5354,10 +5364,10 @@
    "collateral": 9.6,
    "queue_ahead": 4.0,
    "status": "FILLED",
-   "hrs": 19.4,
+   "hrs": 19.3,
    "close_ts": "2026-07-14T05:59:00Z",
    "ttf_min": 27.2,
-   "now_yes": 8.5,
+   "now_yes": 7.0,
    "win_odds": 94.7,
    "result": null,
    "pnl_c": null
@@ -5429,7 +5439,7 @@
    "collateral": 4.7,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -29.6,
+   "hrs": -29.7,
    "close_ts": "2026-07-12T04:59:00Z",
    "ttf_min": 492.6,
    "now_yes": null,
@@ -5489,7 +5499,7 @@
    "collateral": 5.82,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -28.6,
+   "hrs": -28.7,
    "close_ts": "2026-07-12T05:59:00Z",
    "ttf_min": 59.6,
    "now_yes": null,
@@ -5594,7 +5604,7 @@
    "collateral": 12.35,
    "queue_ahead": 11.0,
    "status": "SETTLED",
-   "hrs": -27.6,
+   "hrs": -27.7,
    "close_ts": "2026-07-12T06:59:00Z",
    "ttf_min": 33.9,
    "now_yes": null,
@@ -5654,7 +5664,7 @@
    "collateral": 5.82,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -26.6,
+   "hrs": -26.7,
    "close_ts": "2026-07-12T07:59:00Z",
    "ttf_min": 18.7,
    "now_yes": null,
@@ -5709,6 +5719,54 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-13 10:38",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1412m in queue"
+  },
+  {
+   "ts": "07-13 10:37",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1411m in queue"
+  },
+  {
+   "ts": "07-13 10:37",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1410m in queue"
+  },
+  {
+   "ts": "07-13 10:36",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1410m in queue"
+  },
+  {
+   "ts": "07-13 10:35",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1409m in queue"
+  },
+  {
+   "ts": "07-13 10:35",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1408m in queue"
+  },
+  {
+   "ts": "07-13 10:34",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1408m in queue"
+  },
+  {
+   "ts": "07-13 10:33",
+   "kind": "FILL",
+   "ticker": "KXLOWTBOS-26JUL12-T55",
+   "detail": "filled @ 5.0\u00a2 \u00b7 1407m in queue"
+  },
   {
    "ts": "07-13 10:33",
    "kind": "FILL",
@@ -5900,54 +5958,6 @@
    "kind": "FILL",
    "ticker": "KXLOWTBOS-26JUL12-T55",
    "detail": "filled @ 5.0\u00a2 \u00b7 1388m in queue"
-  },
-  {
-   "ts": "07-13 10:13",
-   "kind": "FILL",
-   "ticker": "KXLOWTBOS-26JUL12-T55",
-   "detail": "filled @ 5.0\u00a2 \u00b7 1387m in queue"
-  },
-  {
-   "ts": "07-13 10:13",
-   "kind": "FILL",
-   "ticker": "KXLOWTBOS-26JUL12-T55",
-   "detail": "filled @ 5.0\u00a2 \u00b7 1386m in queue"
-  },
-  {
-   "ts": "07-13 10:12",
-   "kind": "STEP_SKIP",
-   "ticker": "KXHIGHDEN-26JUL13-B99.5",
-   "detail": "skipped \u2014 bracket too close to consensus"
-  },
-  {
-   "ts": "07-13 10:12",
-   "kind": "FILL",
-   "ticker": "KXLOWTBOS-26JUL12-T55",
-   "detail": "filled @ 5.0\u00a2 \u00b7 1386m in queue"
-  },
-  {
-   "ts": "07-13 10:11",
-   "kind": "FILL",
-   "ticker": "KXLOWTBOS-26JUL12-T55",
-   "detail": "filled @ 5.0\u00a2 \u00b7 1385m in queue"
-  },
-  {
-   "ts": "07-13 10:11",
-   "kind": "FILL",
-   "ticker": "KXLOWTBOS-26JUL12-T55",
-   "detail": "filled @ 5.0\u00a2 \u00b7 1384m in queue"
-  },
-  {
-   "ts": "07-13 10:10",
-   "kind": "FILL",
-   "ticker": "KXLOWTBOS-26JUL12-T55",
-   "detail": "filled @ 5.0\u00a2 \u00b7 1384m in queue"
-  },
-  {
-   "ts": "07-13 10:09",
-   "kind": "FILL",
-   "ticker": "KXLOWTBOS-26JUL12-T55",
-   "detail": "filled @ 5.0\u00a2 \u00b7 1383m in queue"
   }
  ]
 }
