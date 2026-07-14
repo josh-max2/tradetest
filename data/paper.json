@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-14 23:51",
- "generated_epoch": 1784073086,
+ "generated": "2026-07-14 23:56",
+ "generated_epoch": 1784073412,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 167.82,
@@ -16,8 +16,8 @@
   "potential_gain": 7.57,
   "worst_case": -170.43,
   "next_settle": "2026-07-15T04:59:00Z",
-  "expected_balance": 325.97,
-  "expected_pnl": -12.28,
+  "expected_balance": 326.15,
+  "expected_pnl": -12.09,
   "near_win": 15,
   "near_loss": 1
  },
@@ -2146,7 +2146,7 @@
     48.05
    ],
    [
-    11.829,
+    11.833,
     48.05
    ]
   ],
@@ -2196,16 +2196,16 @@
   "deployment": 50,
   "realized": -0.11,
   "exp_roi": {
-   "roi_pct": -5.3,
-   "pnl": -8.98,
+   "roi_pct": -5.2,
+   "pnl": -8.85,
    "collat": 170.43,
-   "exp_busts": 1.07,
+   "exp_busts": 1.05,
    "n": 16,
-   "mkt_pnl": -12.28
+   "mkt_pnl": -12.09
   },
   "win_dist": {
-   "p_green": 7,
-   "p_red": 93,
+   "p_green": 8,
+   "p_red": 92,
    "p5": -21.43,
    "p50": -8.43,
    "p95": 7.57,
@@ -3608,6 +3608,16 @@
     "n": 16,
     "p5": -21.43,
     "p95": 7.57
+   },
+   {
+    "t": 1784073243,
+    "pnl": -8.85,
+    "roi": -5.2,
+    "green": 8,
+    "real": -0.11,
+    "n": 16,
+    "p5": -21.43,
+    "p95": 7.57
    }
   ],
   "odds_table": {
@@ -3727,7 +3737,7 @@
   "activity": {
    "placed_24h": 28,
    "last": "07-14 20:08",
-   "hrs_since": 3.7
+   "hrs_since": 3.8
   }
  },
  "daily": {
@@ -3921,7 +3931,7 @@
     "roi": -100.0,
     "port_pct": -4.13,
     "cum_pct": -0.03,
-    "exp_pnl": -8.98,
+    "exp_pnl": -8.85,
     "status": "partial"
    },
    {
@@ -3960,8 +3970,8 @@
   },
   "today": {
    "date": "2026-07-14",
-   "exp_pnl": -8.98,
-   "exp_roi": -5.3,
+   "exp_pnl": -8.85,
+   "exp_roi": -5.2,
    "premium": 7.57,
    "n": 16
   }
@@ -4310,7 +4320,7 @@
    "collateral": 6.51,
    "queue_ahead": 3.0,
    "status": "FILLED",
-   "hrs": 5.1,
+   "hrs": 5.0,
    "close_ts": "2026-07-15T04:59:00Z",
    "ttf_min": 739.3,
    "now_yes": 1.0,
@@ -4340,7 +4350,7 @@
    "collateral": 7.76,
    "queue_ahead": 1.0,
    "status": "FILLED",
-   "hrs": 6.1,
+   "hrs": 6.0,
    "close_ts": "2026-07-15T05:59:00Z",
    "ttf_min": 137.8,
    "now_yes": 1.0,
@@ -4400,7 +4410,7 @@
    "collateral": 7.76,
    "queue_ahead": 4.0,
    "status": "FILLED",
-   "hrs": 6.1,
+   "hrs": 6.0,
    "close_ts": "2026-07-15T05:59:00Z",
    "ttf_min": 972.7,
    "now_yes": 2.0,
@@ -4418,8 +4428,8 @@
    "hrs": 8.1,
    "close_ts": "2026-07-15T08:00:00Z",
    "ttf_min": 534.1,
-   "now_yes": 4.0,
-   "win_odds": 98.2,
+   "now_yes": 2.5,
+   "win_odds": 99.8,
    "result": null,
    "pnl_c": null
   },
@@ -4490,7 +4500,7 @@
    "collateral": 13.44,
    "queue_ahead": 5.0,
    "status": "FILLED",
-   "hrs": 7.1,
+   "hrs": 7.0,
    "close_ts": "2026-07-15T06:59:00Z",
    "ttf_min": 2.8,
    "now_yes": 2.0,
@@ -4508,7 +4518,7 @@
    "hrs": 21.1,
    "close_ts": "2026-07-15T21:00:00Z",
    "ttf_min": 37.7,
-   "now_yes": 7.0,
+   "now_yes": 6.5,
    "win_odds": 94.6,
    "result": null,
    "pnl_c": null
@@ -4580,7 +4590,7 @@
    "collateral": 7.44,
    "queue_ahead": 5.68,
    "status": "SETTLED",
-   "hrs": -40.9,
+   "hrs": -41.0,
    "close_ts": "2026-07-13T06:59:00Z",
    "ttf_min": 7.5,
    "now_yes": null,
@@ -4715,7 +4725,7 @@
    "collateral": 9.6,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -17.9,
+   "hrs": -18.0,
    "close_ts": "2026-07-14T05:59:00Z",
    "ttf_min": 27.2,
    "now_yes": null,
@@ -4830,6 +4840,12 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-14 23:53",
+   "kind": "CAP",
+   "ticker": "KXHIGHMIA-26JUL15-T97",
+   "detail": "capital fully deployed"
+  },
   {
    "ts": "07-14 23:42",
    "kind": "REACH_SKIP",
@@ -5063,12 +5079,6 @@
    "kind": "FILL",
    "ticker": "KXHIGHDEN-26JUL14-B97.5",
    "detail": "filled @ 4.0\u00a2 \u00b7 3m in queue"
-  },
-  {
-   "ts": "07-14 20:11",
-   "kind": "REACH_SKIP",
-   "ticker": "KXHIGHLAX-26JUL14-B78.5",
-   "detail": "skipped \u2014 temperature within reach of bracket"
   }
  ]
 }
