@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-14 15:09",
- "generated_epoch": 1784041741,
+ "generated": "2026-07-14 15:14",
+ "generated_epoch": 1784042062,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 212.57,
@@ -16,8 +16,8 @@
   "potential_gain": 6.95,
   "worst_case": -147.05,
   "next_settle": "2026-07-14T21:00:00Z",
-  "expected_balance": 355.09,
-  "expected_pnl": -4.53,
+  "expected_balance": 355.96,
+  "expected_pnl": -3.65,
   "near_win": 13,
   "near_loss": 0
  },
@@ -2138,7 +2138,7 @@
     62.15
    ],
    [
-    11.466,
+    11.47,
     62.15
    ]
   ],
@@ -2188,26 +2188,20 @@
   "deployment": 41,
   "realized": 13.99,
   "exp_roi": {
-   "roi_pct": -3.0,
-   "pnl": -4.34,
+   "roi_pct": -1.1,
+   "pnl": -1.59,
    "collat": 147.05,
-   "exp_busts": 0.82,
+   "exp_busts": 0.64,
    "n": 14,
-   "mkt_pnl": -4.53
+   "mkt_pnl": -3.65
   },
   "win_dist": {
-   "p_green": 35,
-   "p_red": 65,
-   "p5": -24.05,
-   "p50": -8.05,
+   "p_green": 49,
+   "p_red": 51,
+   "p5": -19.05,
+   "p50": -0.05,
    "p95": 6.95,
-   "below50": [
-    {
-     "ticker": "KXBTCD-26JUL1417-T64249.99",
-     "win": 46,
-     "now": 51.5
-    }
-   ],
+   "below50": [],
    "n": 14
   },
   "roi_series": [
@@ -2650,6 +2644,16 @@
     "n": 14,
     "p5": -18.05,
     "p95": 6.95
+   },
+   {
+    "t": 1784041907,
+    "pnl": -1.39,
+    "roi": -0.9,
+    "green": 50,
+    "real": 13.99,
+    "n": 14,
+    "p5": -18.05,
+    "p95": 6.95
    }
   ],
   "odds_table": {
@@ -2769,7 +2773,7 @@
   "activity": {
    "placed_24h": 27,
    "last": "07-14 14:26",
-   "hrs_since": 0.7
+   "hrs_since": 0.8
   }
  },
  "daily": {
@@ -2963,7 +2967,7 @@
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": -4.52,
+    "exp_pnl": -1.77,
     "status": "open"
    }
   ],
@@ -2986,8 +2990,8 @@
   },
   "today": {
    "date": "2026-07-14",
-   "exp_pnl": -4.34,
-   "exp_roi": -3.0,
+   "exp_pnl": -1.59,
+   "exp_roi": -1.1,
    "premium": 6.95,
    "n": 14
   }
@@ -3261,7 +3265,7 @@
    "collateral": 7.76,
    "queue_ahead": 4.0,
    "status": "RESTING",
-   "hrs": 14.8,
+   "hrs": 14.7,
    "close_ts": "2026-07-15T05:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -3384,8 +3388,8 @@
    "hrs": 5.8,
    "close_ts": "2026-07-14T21:00:00Z",
    "ttf_min": 224.5,
-   "now_yes": 51.5,
-   "win_odds": 45.6,
+   "now_yes": 43.5,
+   "win_odds": 65.3,
    "result": null,
    "pnl_c": null
   },
@@ -3396,10 +3400,10 @@
    "collateral": 6.51,
    "queue_ahead": 3.0,
    "status": "FILLED",
-   "hrs": 13.8,
+   "hrs": 13.7,
    "close_ts": "2026-07-15T04:59:00Z",
    "ttf_min": 739.3,
-   "now_yes": 3.5,
+   "now_yes": 3.0,
    "win_odds": 97.2,
    "result": null,
    "pnl_c": null
@@ -3426,7 +3430,7 @@
    "collateral": 7.76,
    "queue_ahead": 1.0,
    "status": "FILLED",
-   "hrs": 14.8,
+   "hrs": 14.7,
    "close_ts": "2026-07-15T05:59:00Z",
    "ttf_min": 137.8,
    "now_yes": 1.5,
@@ -3474,8 +3478,8 @@
    "hrs": 14.8,
    "close_ts": "2026-07-15T06:00:00Z",
    "ttf_min": 31.1,
-   "now_yes": 4.5,
-   "win_odds": 97.2,
+   "now_yes": 6.0,
+   "win_odds": 94.7,
    "result": null,
    "pnl_c": null
   },
@@ -3519,7 +3523,7 @@
    "hrs": 13.8,
    "close_ts": "2026-07-15T05:00:00Z",
    "ttf_min": 220.1,
-   "now_yes": 4.0,
+   "now_yes": 5.5,
    "win_odds": 97.2,
    "result": null,
    "pnl_c": null
@@ -3636,7 +3640,7 @@
    "collateral": 7.44,
    "queue_ahead": 5.68,
    "status": "SETTLED",
-   "hrs": -32.2,
+   "hrs": -32.3,
    "close_ts": "2026-07-13T06:59:00Z",
    "ttf_min": 7.5,
    "now_yes": null,
@@ -3771,7 +3775,7 @@
    "collateral": 9.6,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -9.2,
+   "hrs": -9.3,
    "close_ts": "2026-07-14T05:59:00Z",
    "ttf_min": 27.2,
    "now_yes": null,
@@ -3871,6 +3875,12 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-14 15:11",
+   "kind": "REACH_SKIP",
+   "ticker": "KXLOWTDEN-26JUL14-T62",
+   "detail": "skipped \u2014 temperature within reach of bracket"
+  },
   {
    "ts": "07-14 15:06",
    "kind": "REACH_SKIP",
@@ -4104,12 +4114,6 @@
    "kind": "SETTLE",
    "ticker": "KXHIGHAUS-26JUL13-B95.5",
    "detail": "won +40\u00a2"
-  },
-  {
-   "ts": "07-14 12:01",
-   "kind": "PLACED",
-   "ticker": "KXLOWTATL-26JUL14-B65.5",
-   "detail": "sold YES @ 4\u00a2"
   }
  ]
 }
