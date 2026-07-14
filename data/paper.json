@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-14 14:03",
- "generated_epoch": 1784037784,
+ "generated": "2026-07-14 14:08",
+ "generated_epoch": 1784038105,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 233.38,
@@ -16,8 +16,8 @@
   "potential_gain": 5.92,
   "worst_case": -124.08,
   "next_settle": "2026-07-14T21:00:00Z",
-  "expected_balance": 356.53,
-  "expected_pnl": -0.93,
+  "expected_balance": 356.88,
+  "expected_pnl": -0.59,
   "near_win": 10,
   "near_loss": 0
  },
@@ -2122,7 +2122,7 @@
     60.53
    ],
    [
-    11.42,
+    11.424,
     60.53
    ]
   ],
@@ -2172,17 +2172,17 @@
   "deployment": 35,
   "realized": 12.37,
   "exp_roi": {
-   "roi_pct": 0.4,
-   "pnl": 0.55,
+   "roi_pct": 0.5,
+   "pnl": 0.64,
    "collat": 124.08,
-   "exp_busts": 0.41,
+   "exp_busts": 0.39,
    "n": 11,
-   "mkt_pnl": -0.93
+   "mkt_pnl": -0.59
   },
   "win_dist": {
-   "p_green": 65,
-   "p_red": 35,
-   "p5": -15.08,
+   "p_green": 66,
+   "p_red": 34,
+   "p5": -12.08,
    "p50": 5.92,
    "p95": 5.92,
    "below50": [],
@@ -2508,6 +2508,16 @@
     "n": 11,
     "p5": -15.08,
     "p95": 5.92
+   },
+   {
+    "t": 1784037948,
+    "pnl": 0.76,
+    "roi": 0.6,
+    "green": 66,
+    "real": 12.37,
+    "n": 11,
+    "p5": -12.08,
+    "p95": 5.92
    }
   ],
   "odds_table": {
@@ -2627,7 +2637,7 @@
   "activity": {
    "placed_24h": 25,
    "last": "07-14 12:01",
-   "hrs_since": 2.0
+   "hrs_since": 2.1
   }
  },
  "daily": {
@@ -2821,7 +2831,7 @@
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": 0.01,
+    "exp_pnl": 0.1,
     "status": "open"
    }
   ],
@@ -2844,8 +2854,8 @@
   },
   "today": {
    "date": "2026-07-14",
-   "exp_pnl": 0.55,
-   "exp_roi": 0.4,
+   "exp_pnl": 0.64,
+   "exp_roi": 0.5,
    "premium": 5.92,
    "n": 11
   }
@@ -3074,7 +3084,7 @@
    "collateral": 6.51,
    "queue_ahead": 3.0,
    "status": "RESTING",
-   "hrs": 14.9,
+   "hrs": 14.8,
    "close_ts": "2026-07-15T04:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -3134,7 +3144,7 @@
    "collateral": 7.76,
    "queue_ahead": 4.0,
    "status": "RESTING",
-   "hrs": 15.9,
+   "hrs": 15.8,
    "close_ts": "2026-07-15T05:59:00Z",
    "ttf_min": null,
    "now_yes": null,
@@ -3317,7 +3327,7 @@
    "hrs": 6.9,
    "close_ts": "2026-07-14T21:00:00Z",
    "ttf_min": 224.5,
-   "now_yes": 22.5,
+   "now_yes": 21.5,
    "win_odds": 86.3,
    "result": null,
    "pnl_c": null
@@ -3344,7 +3354,7 @@
    "collateral": 7.76,
    "queue_ahead": 1.0,
    "status": "FILLED",
-   "hrs": 15.9,
+   "hrs": 15.8,
    "close_ts": "2026-07-15T05:59:00Z",
    "ttf_min": 137.8,
    "now_yes": 1.5,
@@ -3362,8 +3372,8 @@
    "hrs": 15.9,
    "close_ts": "2026-07-15T06:00:00Z",
    "ttf_min": 112.2,
-   "now_yes": 3.0,
-   "win_odds": 98.3,
+   "now_yes": 2.5,
+   "win_odds": 98.7,
    "result": null,
    "pnl_c": null
   },
@@ -3392,7 +3402,7 @@
    "hrs": 15.9,
    "close_ts": "2026-07-15T06:00:00Z",
    "ttf_min": 31.1,
-   "now_yes": 7.5,
+   "now_yes": 6.0,
    "win_odds": 93.1,
    "result": null,
    "pnl_c": null
@@ -3524,7 +3534,7 @@
    "collateral": 7.44,
    "queue_ahead": 5.68,
    "status": "SETTLED",
-   "hrs": -31.1,
+   "hrs": -31.2,
    "close_ts": "2026-07-13T06:59:00Z",
    "ttf_min": 7.5,
    "now_yes": null,
@@ -3659,7 +3669,7 @@
    "collateral": 9.6,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -8.1,
+   "hrs": -8.2,
    "close_ts": "2026-07-14T05:59:00Z",
    "ttf_min": 27.2,
    "now_yes": null,
@@ -3729,6 +3739,12 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-14 14:05",
+   "kind": "REACH_SKIP",
+   "ticker": "KXLOWTMIN-26JUL14-B70.5",
+   "detail": "skipped \u2014 temperature within reach of bracket"
+  },
   {
    "ts": "07-14 14:03",
    "kind": "REACH_SKIP",
@@ -3962,12 +3978,6 @@
    "kind": "SETTLE",
    "ticker": "KXLOWTDC-26JUL13-B63.5",
    "detail": "won +42\u00a2"
-  },
-  {
-   "ts": "07-14 11:06",
-   "kind": "SETTLE",
-   "ticker": "KXHIGHTSFO-26JUL13-T83",
-   "detail": "won +128\u00a2"
   }
  ]
 }
