@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-17 02:27",
- "generated_epoch": 1784255262,
+ "generated": "2026-07-17 02:30",
+ "generated_epoch": 1784255446,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 194.95,
-  "committed": 277.48,
+  "committed": 272.28,
   "locked": 143.11,
-  "resting_commit": 134.37,
+  "resting_commit": 129.17,
   "cap": "free-30.25",
   "start": 48.16
  },
@@ -22,13 +22,13 @@
   "near_loss": 1
  },
  "summary": {
-  "placed": 503,
-  "resting": 13,
+  "placed": 505,
+  "resting": 14,
   "filled": 312,
   "filled_open": 16,
   "settled": 296,
   "expired": 45,
-  "fill_rate": 0.6203,
+  "fill_rate": 0.6178,
   "ev": 0.36,
   "adverse": 0.0473,
   "realized": -20.77
@@ -2426,7 +2426,7 @@
     27.39
    ],
    [
-    13.938,
+    13.94,
     27.39
    ]
   ],
@@ -4158,6 +4158,16 @@
     "n": 16,
     "p5": -2.11,
     "p95": 2.89
+   },
+   {
+    "t": 1784255446,
+    "pnl": 2.08,
+    "roi": 1.5,
+    "green": 94,
+    "real": -20.77,
+    "n": 16,
+    "p5": -2.11,
+    "p95": 2.89
    }
   ],
   "odds_table": {
@@ -4276,8 +4286,8 @@
   },
   "activity": {
    "placed_24h": 31,
-   "last": "07-17 00:13",
-   "hrs_since": 2.2
+   "last": "07-17 02:29",
+   "hrs_since": 0.0
   }
  },
  "daily": {
@@ -4864,21 +4874,6 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHPHIL-26JUL16-B100.5",
-   "series": "KXHIGHPHIL",
-   "sold_c": 3.0,
-   "collateral": 15.52,
-   "queue_ahead": 1.0,
-   "status": "RESTING",
-   "hrs": 2.5,
-   "close_ts": "2026-07-17T04:59:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXLOWTHOU-26JUL16-B73.5",
    "series": "KXLOWTHOU",
    "sold_c": 5.0,
@@ -4928,6 +4923,36 @@
    "series": "KXHIGHTSATX",
    "sold_c": 3.0,
    "collateral": 7.76,
+   "queue_ahead": 1.0,
+   "status": "RESTING",
+   "hrs": 27.5,
+   "close_ts": "2026-07-18T06:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXLOWTPHX-26JUL17-B70.5",
+   "series": "KXLOWTPHX",
+   "sold_c": 8.0,
+   "collateral": 5.52,
+   "queue_ahead": 1.0,
+   "status": "RESTING",
+   "hrs": 28.5,
+   "close_ts": "2026-07-18T07:00:00Z",
+   "ttf_min": null,
+   "now_yes": null,
+   "win_odds": null,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXLOWTNOLA-26JUL17-B73.5",
+   "series": "KXLOWTNOLA",
+   "sold_c": 4.0,
+   "collateral": 4.8,
    "queue_ahead": 1.0,
    "status": "RESTING",
    "hrs": 27.5,
@@ -5481,6 +5506,30 @@
  ],
  "events": [
   {
+   "ts": "07-17 02:29",
+   "kind": "CAP",
+   "ticker": "KXHIGHPHIL-26JUL17-B94.5",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-17 02:29",
+   "kind": "PLACED",
+   "ticker": "KXLOWTNOLA-26JUL17-B73.5",
+   "detail": "sold YES @ 4\u00a2"
+  },
+  {
+   "ts": "07-17 02:29",
+   "kind": "PLACED",
+   "ticker": "KXLOWTPHX-26JUL17-B70.5",
+   "detail": "sold YES @ 8\u00a2"
+  },
+  {
+   "ts": "07-17 02:29",
+   "kind": "ROLL",
+   "ticker": "KXHIGHPHIL-26JUL16-B100.5",
+   "detail": "cancelled \u2014 too close to settle"
+  },
+  {
    "ts": "07-17 02:24",
    "kind": "CAP",
    "ticker": "KXLOWTNOLA-26JUL17-B73.5",
@@ -5694,30 +5743,6 @@
    "ts": "07-17 00:52",
    "kind": "REACH_SKIP",
    "ticker": "KXLOWTOKC-26JUL16-T64",
-   "detail": "skipped \u2014 temperature within reach of bracket"
-  },
-  {
-   "ts": "07-17 00:50",
-   "kind": "CAP",
-   "ticker": "KXLOWTDC-26JUL17-T72",
-   "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-17 00:44",
-   "kind": "HALT_SKIP",
-   "ticker": "KXLOWTDAL-26JUL16-B68.5",
-   "detail": "skipped \u2014 city halted after casualty"
-  },
-  {
-   "ts": "07-17 00:43",
-   "kind": "STEP_SKIP",
-   "ticker": "KXLOWTSATX-26JUL17-B72.5",
-   "detail": "skipped \u2014 bracket too close to consensus"
-  },
-  {
-   "ts": "07-17 00:38",
-   "kind": "REACH_SKIP",
-   "ticker": "KXLOWTNYC-26JUL16-B72.5",
    "detail": "skipped \u2014 temperature within reach of bracket"
   }
  ]
