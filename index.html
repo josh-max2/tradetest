@@ -124,7 +124,7 @@ html{-webkit-text-size-adjust:100%}
 <style>
 .sboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:18px}
 .scol{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px 17px;border-top:3px solid var(--grid)}
-.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708} .scol.t12{border-top-color:#0e9f9f}
+.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708} .scol.t12{border-top-color:#0e9f9f} .scol.enc{border-top-color:#7c5cff}
 .scol .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
 .scol .nm{font-size:13px;font-weight:700}
 .scol .mode{font-size:9px;font-weight:750;letter-spacing:.05em;padding:2px 8px;border-radius:99px;text-transform:uppercase;border:1.5px solid var(--grid);color:var(--muted)}
@@ -277,6 +277,10 @@ async function loadSidecars(){
   try{
     const r = await fetch('./data/t12.json?t='+Date.now(), {cache:'no-store'});
     if(r.ok){ window._T = await r.json(); }
+  }catch(e){}
+  try{
+    const r = await fetch('./data/encore.json?t='+Date.now(), {cache:'no-store'});
+    if(r.ok){ window._E = await r.json(); }
   }catch(e){}
   board(); totals();
 }
@@ -471,6 +475,25 @@ function board(){
             'No spikes sold yet — windows open as lows enter their final 4 hours (US evenings).');
         })()
       + `<div class="ft">Sell 1-lot at lows spike tops (≥20¢/15min, bands 20–80¢, final 4h) · $${T.sleeve} sleeve · skips events base/rung hold</div></div>`;
+  }
+  // [2026-07-17] Encore — MLB 2+HR "encore" fade (1-contract live pilot)
+  if(window._E){
+    const E=window._E, live=E.mode==='LIVE', g=live?E.live:E.dryrun;
+    const bust=g.settled?100*g.losses/g.settled:null;
+    h += `<div class="scol enc"><div class="hd"><span class="nm">⚾ MLB · encore fade</span><span class="mode ${E.stopped?'dry':(live?'live':'dry')}">${E.stopped?'STOPPED':(live?'LIVE · 1-CT':'DRYRUN')}</span></div>`
+      + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + srow('EV / rung', g.ev==null?'—':fmtC(g.ev), (g.ev||0)>=0?'pos':'')
+      + srow('Bust rate', g.settled?`${g.losses||0} / ${g.settled} <span style="color:var(--muted);font-weight:400">/ ~5%</span>`:'0 / 0', bust!=null&&bust<=15?'pos':(bust==null?'':'neg'))
+      + srow('Open / settled', `${g.filled||0} / ${g.settled||0}`)
+      + srow('Collateral', money(E.open_collateral)+` <span style="color:var(--muted);font-weight:400">/ $${E.sleeve} · max 1 ct</span>`)
+      + srow('Rungs resting', (g.rungs||0)-(g.filled||0)-(g.settled||0))
+      + (function(){
+          const rows=(E.positions||[]).filter(x=>x.status==='FILLED').concat((E.positions||[]).filter(x=>x.status==='RESTING')).slice(0,5)
+            .map(x=>tRow(x.player,'',`${x.L}¢ · ${x.status==='FILLED'?'<b>open</b>':'resting'}`)).join('');
+          return strades('Ladder', rows||null,
+            live?'No fills yet — resting on today\'s 2+HR props; fills when a hitter homers and the crowd chases.':'Measuring in dryrun.');
+        })()
+      + `<div class="ft">PILOT — sell 30¢ on 2+HR props, hold to settle · max 1 contract · judged Aug-15/Sep-1</div></div>`;
   }
   el.innerHTML = h;
 }
