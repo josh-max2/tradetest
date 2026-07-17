@@ -1,34 +1,34 @@
 {
- "generated": "2026-07-17 12:28",
- "generated_epoch": 1784291305,
+ "generated": "2026-07-17 12:31",
+ "generated_epoch": 1784291464,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
-  "balance": 236.51,
-  "committed": 238.0,
-  "locked": 111.64,
-  "resting_commit": 126.36,
+  "balance": 225.05,
+  "committed": 236.1,
+  "locked": 123.04,
+  "resting_commit": 113.06,
   "cap": "free-30.25",
   "start": 48.16
  },
  "open": {
-  "n": 15,
-  "potential_balance": 354.51,
-  "potential_gain": 6.36,
-  "worst_case": -111.64,
+  "n": 16,
+  "potential_balance": 355.05,
+  "potential_gain": 6.96,
+  "worst_case": -123.04,
   "next_settle": "2026-07-18T04:59:00Z",
-  "expected_balance": 350.65,
-  "expected_pnl": 2.5,
-  "near_win": 15,
+  "expected_balance": 350.69,
+  "expected_pnl": 2.6,
+  "near_win": 16,
   "near_loss": 0
  },
  "summary": {
   "placed": 531,
-  "resting": 14,
-  "filled": 324,
-  "filled_open": 15,
+  "resting": 13,
+  "filled": 325,
+  "filled_open": 16,
   "settled": 309,
   "expired": 45,
-  "fill_rate": 0.6102,
+  "fill_rate": 0.6121,
   "ev": 0.23,
   "adverse": 0.0485,
   "realized": -19.38
@@ -2530,11 +2530,11 @@
     28.78
    ],
    [
-    14.355,
+    14.357,
     28.78
    ]
   ],
-  "age_days": 14.35,
+  "age_days": 14.36,
   "equity": 28.78,
   "start": 48.16,
   "start_ts": "2026-07-03T03:57:39Z"
@@ -2577,24 +2577,24 @@
   "ev_fill": 0.23,
   "ev_target": 2.0,
   "fill_rate": 61,
-  "deployment": 32,
+  "deployment": 35,
   "realized": -19.38,
   "exp_roi": {
-   "roi_pct": 3.0,
-   "pnl": 3.33,
-   "collat": 111.64,
-   "exp_busts": 0.38,
-   "n": 15,
-   "mkt_pnl": 2.5
+   "roi_pct": 2.9,
+   "pnl": 3.59,
+   "collat": 123.04,
+   "exp_busts": 0.41,
+   "n": 16,
+   "mkt_pnl": 2.6
   },
   "win_dist": {
-   "p_green": 86,
-   "p_red": 14,
-   "p5": -9.64,
-   "p50": 6.36,
-   "p95": 6.36,
+   "p_green": 83,
+   "p_red": 17,
+   "p5": -11.04,
+   "p50": 6.96,
+   "p95": 6.96,
    "below50": [],
-   "n": 15
+   "n": 16
   },
   "roi_series": [
    {
@@ -2746,6 +2746,16 @@
     "n": 15,
     "p5": -8.64,
     "p95": 6.36
+   },
+   {
+    "t": 1784291464,
+    "pnl": 3.59,
+    "roi": 2.9,
+    "green": 83,
+    "real": -19.38,
+    "n": 16,
+    "p5": -11.04,
+    "p95": 6.96
    }
   ],
   "odds_table": {
@@ -3100,14 +3110,14 @@
     "contracts": 0,
     "wins": 0,
     "losses": 0,
-    "pending": 12,
-    "open_prem": 4.86,
+    "pending": 13,
+    "open_prem": 5.46,
     "collat": 0.0,
     "pnl": null,
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": 2.64,
+    "exp_pnl": 2.9,
     "status": "open"
    }
   ],
@@ -3130,10 +3140,10 @@
   },
   "today": {
    "date": "2026-07-17",
-   "exp_pnl": 3.33,
-   "exp_roi": 3.0,
-   "premium": 6.36,
-   "n": 15
+   "exp_pnl": 3.59,
+   "exp_roi": 2.9,
+   "premium": 6.96,
+   "n": 16
   }
  },
  "strat_days": {
@@ -3525,21 +3535,6 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHTMIN-26JUL17-B99.5",
-   "series": "KXHIGHTMIN",
-   "sold_c": 5.0,
-   "collateral": 13.3,
-   "queue_ahead": 22.28,
-   "status": "RESTING",
-   "hrs": 17.5,
-   "close_ts": "2026-07-18T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXHIGHTNOLA-26JUL17-B97.5",
    "series": "KXHIGHTNOLA",
    "sold_c": 6.0,
@@ -3654,7 +3649,7 @@
    "hrs": 18.5,
    "close_ts": "2026-07-18T07:00:00Z",
    "ttf_min": 65.4,
-   "now_yes": 7.5,
+   "now_yes": 6.0,
    "win_odds": 93.1,
    "result": null,
    "pnl_c": null
@@ -3759,7 +3754,7 @@
    "hrs": 19.5,
    "close_ts": "2026-07-18T08:00:00Z",
    "ttf_min": 4.2,
-   "now_yes": 4.5,
+   "now_yes": 5.0,
    "win_odds": 97.2,
    "result": null,
    "pnl_c": null
@@ -3791,6 +3786,21 @@
    "ttf_min": 10.4,
    "now_yes": 2.5,
    "win_odds": 98.7,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTMIN-26JUL17-B99.5",
+   "series": "KXHIGHTMIN",
+   "sold_c": 5.0,
+   "collateral": 11.4,
+   "queue_ahead": 22.28,
+   "status": "PARTIAL",
+   "hrs": 17.5,
+   "close_ts": "2026-07-18T06:00:00Z",
+   "ttf_min": 83.4,
+   "now_yes": null,
+   "win_odds": null,
    "result": null,
    "pnl_c": null
   },
