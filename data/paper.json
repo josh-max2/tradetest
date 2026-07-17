@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-17 18:45",
- "generated_epoch": 1784313929,
+ "generated": "2026-07-17 18:48",
+ "generated_epoch": 1784314104,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 219.4,
-  "committed": 227.7,
+  "committed": 214.12,
   "locked": 128.74,
-  "resting_commit": 98.96,
+  "resting_commit": 85.38,
   "cap": "free-30.25",
   "start": 48.16
  },
@@ -16,14 +16,14 @@
   "potential_gain": 7.26,
   "worst_case": -128.74,
   "next_settle": "2026-07-18T04:59:00Z",
-  "expected_balance": 350.97,
-  "expected_pnl": 2.83,
+  "expected_balance": 350.84,
+  "expected_pnl": 2.69,
   "near_win": 14,
   "near_loss": 0
  },
  "summary": {
   "placed": 531,
-  "resting": 12,
+  "resting": 11,
   "filled": 326,
   "filled_open": 15,
   "settled": 311,
@@ -2546,7 +2546,7 @@
     29.38
    ],
    [
-    14.617,
+    14.619,
     29.38
    ]
   ],
@@ -2601,7 +2601,7 @@
    "collat": 128.74,
    "exp_busts": 0.21,
    "n": 15,
-   "mkt_pnl": 2.83
+   "mkt_pnl": 2.69
   },
   "win_dist": {
    "p_green": 90,
@@ -3452,6 +3452,16 @@
     "n": 15,
     "p5": -6.74,
     "p95": 7.26
+   },
+   {
+    "t": 1784314104,
+    "pnl": 5.23,
+    "roi": 4.1,
+    "green": 90,
+    "real": -18.78,
+    "n": 15,
+    "p5": -6.74,
+    "p95": 7.26
    }
   ],
   "odds_table": {
@@ -3571,7 +3581,7 @@
   "activity": {
    "placed_24h": 29,
    "last": "07-17 11:06",
-   "hrs_since": 7.6
+   "hrs_since": 7.7
   }
  },
  "daily": {
@@ -4216,21 +4226,6 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHTATL-26JUL17-T88",
-   "series": "KXHIGHTATL",
-   "sold_c": 3.0,
-   "collateral": 13.58,
-   "queue_ahead": 5.0,
-   "status": "RESTING",
-   "hrs": 10.2,
-   "close_ts": "2026-07-18T05:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXHIGHTSEA-26JUL17-B78.5",
    "series": "KXHIGHTSEA",
    "sold_c": 4.0,
@@ -4360,7 +4355,7 @@
    "hrs": 10.2,
    "close_ts": "2026-07-18T05:00:00Z",
    "ttf_min": 529.9,
-   "now_yes": 12.0,
+   "now_yes": 12.5,
    "win_odds": 92.3,
    "result": null,
    "pnl_c": null
@@ -4390,7 +4385,7 @@
    "hrs": 11.2,
    "close_ts": "2026-07-18T06:00:00Z",
    "ttf_min": 97.7,
-   "now_yes": 1.5,
+   "now_yes": 2.5,
    "win_odds": 99.8,
    "result": null,
    "pnl_c": null
@@ -4773,6 +4768,12 @@
  ],
  "events": [
   {
+   "ts": "07-17 18:46",
+   "kind": "STEP_CANCEL",
+   "ticker": "KXHIGHTATL-26JUL17-T88",
+   "detail": "cancelled \u2014 consensus moved within reach of bracket"
+  },
+  {
    "ts": "07-17 14:56",
    "kind": "SETTLE",
    "ticker": "KXLOWTAUS-26JUL16-B68.5",
@@ -5004,12 +5005,6 @@
    "ts": "07-17 10:26",
    "kind": "STEP_SKIP",
    "ticker": "KXLOWTNYC-26JUL17-B67.5",
-   "detail": "skipped \u2014 bracket too close to consensus"
-  },
-  {
-   "ts": "07-17 10:25",
-   "kind": "STEP_SKIP",
-   "ticker": "KXLOWTLV-26JUL17-B82.5",
    "detail": "skipped \u2014 bracket too close to consensus"
   }
  ]
