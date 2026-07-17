@@ -132,7 +132,7 @@ function render(d){
   r.textContent=signMoney(L.realized); r.className='big '+((L.realized||0)>0?'pos':((L.realized||0)<0?'neg':''));
   document.getElementById('herosub').textContent=`· LIVE settled ${L.settled||0} · cap $${d.cap}`;
   document.getElementById('herocx').innerHTML=
-    `LIVE: ${L.filled||0} open · ${L.resting||0} resting · ${L.wins||0}W/${L.losses||0}L`
+    `LIVE: ${L.filled||0} open · ${L.resting||0} resting · ${L.wins||0}W/${L.losses||0}L · bust ${L.losses||0}/${L.settled||0}`
     +(L.ev!=null?` · EV <b class="${L.ev>=0.5?'pos':'neg'}">${fmtC(L.ev)}</b>/fill (kill line +0.5¢)`:'')
     +(d.open_ev_usd!=null&&(d.open_n||0)>0?` · open book expected <b class="${d.open_ev_usd>=0?'pos':'neg'}">${signMoney(d.open_ev_usd)}</b> at market marks`:'')
     +`<br><span style="color:var(--muted)">DRYRUN phantom: ${D.settled||0} settled`

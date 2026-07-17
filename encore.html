@@ -137,11 +137,13 @@ function render(d){
     +(A.ev!=null?` · EV <b class="${A.ev>=0?'pos':'neg'}">${A.ev>=0?'+':''}${A.ev}¢</b>/rung`:'')
     +` · $${d.open_collateral||0} collateral open`
     +(live?'':`<br><span style="color:var(--muted)">DRYRUN phantom: ${D.settled||0} settled · ${D.rungs||0} rungs placed</span>`);
+  const busts=(A.losses||0), settled=(A.settled||0);
+  const bustpct=settled?(100*busts/settled).toFixed(1)+'%':'—';
   const cards=[
-    ['Mode', live?'LIVE':'DRYRUN', live?'real $30 sleeve':'zero orders — measuring', live?'watch':'pass'],
-    ['Rungs placed', (A.rungs||0), 'resting + filled', 'pass'],
-    ['Open collateral', '$'+(d.open_collateral||0), 'of $'+d.sleeve+' sleeve cap', (d.open_collateral||0)>=d.sleeve*0.9?'watch':'pass'],
-    ['Win rate', winrate, `${A.wins||0}W / ${A.losses||0}L settled`, (A.losses||0)>(A.wins||0)?'fail':'pass'],
+    ['Mode', live?'LIVE · 1-ct':'DRYRUN', live?'real, max 1 contract':'zero orders — measuring', live?'watch':'pass'],
+    ['Bust rate', `${busts}/${settled}`, `${bustpct} settled hit a 2nd HR · exp ~5%`, settled&&busts>settled*0.15?'fail':'pass'],
+    ['EV / rung', A.ev!=null?((A.ev>=0?'+':'')+A.ev+'¢'):'—', 'realized per settled rung', (A.ev||0)>=0?'pass':'fail'],
+    ['Rungs placed', (A.rungs||0), `${A.filled||0} open · $${d.open_collateral||0} of $${d.sleeve} sleeve`, (d.open_collateral||0)>=d.sleeve*0.9?'watch':'pass'],
   ];
   document.getElementById('cards').innerHTML=cards.map(c=>
     `<div class="card ${c[3]}"><div class="ttl">${c[0]}</div><div class="val">${c[1]}</div><div class="s">${c[2]}</div></div>`).join('');
