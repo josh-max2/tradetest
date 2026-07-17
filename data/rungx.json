@@ -1,0 +1,87 @@
+{
+ "generated": "2026-07-17 23:12",
+ "generated_epoch": 1784329961,
+ "mode": "DRYRUN",
+ "sleeve": 60.0,
+ "max_ct": 1,
+ "open_ev_usd": 0.0,
+ "open_n": 0,
+ "green": {
+  "p": null,
+  "series": []
+ },
+ "ladder": [
+  30,
+  35,
+  40,
+  45
+ ],
+ "stopped": false,
+ "bench": {
+  "ev_event_lo": 34.0,
+  "ev_event_hi": 83.0,
+  "ladders_day": 7.7,
+  "rung_bust_pct": 14.2
+ },
+ "testb_target": 150,
+ "dryrun": {
+  "events_settled": 0,
+  "ev_per_event": null,
+  "realized": 0.0,
+  "equity": 60.0,
+  "rungs_settled": 0,
+  "rung_busts": 0,
+  "busted_ladders": 0,
+  "maxdd": 0.0,
+  "curve": [],
+  "fills_today": 0,
+  "ab": {
+   "n_pairs": 0,
+   "hold_ev_c": null,
+   "exit_ev_c": null,
+   "exit_minus_hold_c": null,
+   "bb_fill_rate": null,
+   "bb_fills": 0,
+   "buyback_c": 2
+  }
+ },
+ "live": {
+  "events_settled": 0,
+  "ev_per_event": null,
+  "realized": 0.0,
+  "equity": 60.0,
+  "rungs_settled": 0,
+  "rung_busts": 0,
+  "busted_ladders": 0,
+  "maxdd": 0.0,
+  "curve": [],
+  "fills_today": 0,
+  "ab": {
+   "n_pairs": 0,
+   "hold_ev_c": null,
+   "exit_ev_c": null,
+   "exit_minus_hold_c": null,
+   "bb_fill_rate": null,
+   "bb_fills": 0,
+   "buyback_c": 2
+  }
+ },
+ "monitor": {
+  "armed": 0,
+  "warming": 131,
+  "verified": 0,
+  "filled_open_usd": 0.0
+ },
+ "ladders": [],
+ "kills": {
+  "active": null,
+  "rails": [
+   "EV < +20c/event at 50 settled events",
+   "rolling-60d EV < 0 (arms at 25)",
+   ">= 3 busted ladders in a day",
+   "sleeve drawdown > $50",
+   "canary on first live order",
+   "watchdog resurrection bounds unattended orders to ~5-10min"
+  ]
+ }
+}
