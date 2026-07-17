@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f1">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a09">
+<title>Kalshi — Encore</title>
+<style>
+/* [ENCORE] MLB 2+HR fade — same design system; violet accent */
+:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
+ --grid:#e7e6df; --border:rgba(16,16,16,.07); --shadow:0 1px 2px rgba(16,16,16,.04),0 10px 30px rgba(16,16,16,.05);
+ --s1:#2a78d6; --enc:#7c5cff; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
+@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#fff; --ink2:#c3c2b7;
+ --muted:#8a8880; --grid:#2a2a28; --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0);
+ --s1:#3987e5; --enc:#9b82ff; --goodtext:#16b516; --warn:#e0a52a; } }
+*{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+ padding:26px 5vw 80px;max-width:880px;margin-inline:auto}
+.nav{display:flex;gap:4px;width:max-content;max-width:100%;margin:0 0 24px;padding:4px;background:var(--surface);
+ border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none;flex:0 0 auto;white-space:nowrap}
+.nav a:hover{color:var(--ink2)} .nav a.active{color:var(--ink);background:color-mix(in srgb,var(--enc) 16%,transparent)}
+@media(max-width:680px){.nav a{padding:9px 13px}}
+.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+h1{font-size:21px;font-weight:650;margin:0}
+.badge{font-size:10px;font-weight:700;letter-spacing:.05em;border-radius:99px;padding:2px 9px;margin-left:8px;vertical-align:middle}
+.badge.dry{color:var(--warn);border:1.5px solid var(--warn);background:color-mix(in srgb,var(--warn) 9%,transparent)}
+.badge.live{color:var(--crit);border:1.5px solid var(--crit);background:color-mix(in srgb,var(--crit) 9%,transparent)}
+.badge.stop{color:var(--crit);border:1.5px solid var(--crit)}
+.status{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;animation:pulse 2.2s ease-in-out infinite}
+.dot.stale{background:var(--warn);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sub{color:var(--ink2);font-size:13px;margin:6px 0 18px;max-width:720px}
+.pilot{background:color-mix(in srgb,var(--warn) 8%,transparent);border:1px solid color-mix(in srgb,var(--warn) 45%,var(--grid));
+ border-radius:12px;padding:11px 15px;font-size:12px;color:var(--ink2);margin-bottom:18px;line-height:1.5}
+.pilot b{color:var(--warn)}
+#err{display:none;background:var(--surface);border:1px solid var(--warn);border-radius:12px;padding:14px 18px;color:var(--warn);font-size:13px;margin-bottom:16px}
+.pos{color:var(--goodtext)} .neg{color:var(--crit)}
+.hero{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--enc);border-radius:18px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:18px}
+.hero .l{text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:700;color:var(--muted)}
+.hero .big{font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:5px;font-variant-numeric:tabular-nums}
+.hero .cx{font-size:13px;color:var(--ink2);margin-top:8px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow);padding:14px 17px;border-left:3px solid var(--grid)}
+.card.pass{border-left-color:var(--good)} .card.watch{border-left-color:var(--warn)} .card.fail{border-left-color:var(--crit)}
+.card .ttl{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--ink2)}
+.card .val{font-size:19px;font-weight:680;font-variant-numeric:tabular-nums;margin-top:5px}
+.card .s{font-size:11px;color:var(--muted);margin-top:3px}
+h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:26px 0 10px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:420px}
+th{color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--grid);padding:6px 9px;text-align:right}
+td{padding:6px 9px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+.chip{font-size:9.5px;font-weight:750;padding:1px 7px;border-radius:99px;letter-spacing:.03em}
+.chip.rest{color:var(--muted);border:1px solid var(--grid)} .chip.fill{color:var(--enc);border:1px solid color-mix(in srgb,var(--enc) 50%,var(--grid))}
+.note{font-size:11.5px;color:var(--muted);margin-top:9px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a href="./monitor.html">Monitor</a>
+ <a href="./calendar.html">Calendar</a>
+ <a href="./mirror.html">Mirror</a>
+ <a href="./model.html">Testing</a>
+ <a href="./rungv2.html">Rung v2</a>
+ <a href="./t12.html">T12 Fade</a>
+ <a class="active" href="./encore.html">Encore</a>
+ <a href="./appendix.html">Appendix</a>
+</div>
+
+<div class="top">
+ <h1>Encore<span class="badge dry" id="modebadge">DRYRUN</span></h1>
+ <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
+</div>
+<p class="sub">MLB home-run <b>encore</b> fade — a hitter homers once, the crowd chases his
+"2+ home runs" prop from ~4¢ to 25–50¢ on "he'll do it again," and we sell into it with a
+resting ladder, holding to settlement (he repeats only ~5% of the time).</p>
+
+<div class="pilot"><b>PILOT — instrumentation, not a validated edge.</b> Built on 7
+quarantine-era game-days with a 0-bust sample; the $30 sleeve exists to <b>measure</b> the
+real bust &amp; fill rate the backtest can't. Judged for real at the Aug-15 / Sep-1
+out-of-sample re-pulls. Sized to learn, capped to lose ~$30 if wrong.</div>
+
+<div id="err">Waiting for the first Encore publish — the bot writes every ~45s once running.</div>
+
+<div class="hero">
+ <div class="l">Realized P&amp;L <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $30 sleeve · ladder 30/35/40/45/50¢</span></div>
+ <div class="big" id="realized">—</div>
+ <div class="cx" id="herocx"></div>
+</div>
+
+<div class="grid" id="cards"></div>
+
+<h2>Open ladder &amp; fills</h2>
+<div class="scroll"><table id="postbl"><thead><tr><th>Player</th><th>Rung</th><th>State</th></tr></thead><tbody></tbody></table></div>
+<p class="note" id="posnote"></p>
+
+<p class="note" id="footer"></p>
+
+<script>
+const money=x=>(x>=0?'+$':'-$')+Math.abs(x).toFixed(2);
+async function load(){
+  try{
+    const r=await fetch('./data/encore.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw 0;
+    render(await r.json());
+    document.getElementById('err').style.display='none';
+  }catch(e){
+    document.getElementById('err').style.display='block';
+    document.getElementById('statustxt').textContent='waiting for first publish';
+    document.getElementById('dot').className='dot stale';
+  }
+}
+function render(d){
+  const live=d.mode==='LIVE';
+  const b=document.getElementById('modebadge');
+  if(d.stopped){b.textContent='STOPPED';b.className='badge stop';}
+  else if(live){b.textContent='LIVE · REAL MONEY';b.className='badge live';}
+  else{b.textContent='DRYRUN · ZERO ORDERS';b.className='badge dry';}
+  const ageMin=d.generated_epoch?Math.max(0,(Date.now()/1000-d.generated_epoch)/60):999;
+  const dot=document.getElementById('dot'),stt=document.getElementById('statustxt');
+  if(ageMin>5){dot.className='dot stale';stt.textContent=`last update ${Math.round(ageMin)} min ago`;}
+  else{dot.className='dot';stt.textContent=`updated ${Math.round(ageMin)} min ago`;}
+  const A=live?d.live:d.dryrun, D=d.dryrun;
+  const rz=document.getElementById('realized');
+  rz.textContent=money(A.realized||0);
+  rz.className='big '+((A.realized||0)>0?'pos':((A.realized||0)<0?'neg':''));
+  document.getElementById('herosub').textContent=`· $${d.sleeve} sleeve · ladder ${(d.ladder||[]).join('/')}¢`;
+  const winrate=A.settled? (100*(A.wins||0)/A.settled).toFixed(0)+'%' : '—';
+  document.getElementById('herocx').innerHTML=
+    `${A.filled||0} open · ${A.settled||0} settled · ${A.wins||0}W / ${A.losses||0}L (${winrate})`
+    +(A.ev!=null?` · EV <b class="${A.ev>=0?'pos':'neg'}">${A.ev>=0?'+':''}${A.ev}¢</b>/rung`:'')
+    +` · $${d.open_collateral||0} collateral open`
+    +(live?'':`<br><span style="color:var(--muted)">DRYRUN phantom: ${D.settled||0} settled · ${D.rungs||0} rungs placed</span>`);
+  const cards=[
+    ['Mode', live?'LIVE':'DRYRUN', live?'real $30 sleeve':'zero orders — measuring', live?'watch':'pass'],
+    ['Rungs placed', (A.rungs||0), 'resting + filled', 'pass'],
+    ['Open collateral', '$'+(d.open_collateral||0), 'of $'+d.sleeve+' sleeve cap', (d.open_collateral||0)>=d.sleeve*0.9?'watch':'pass'],
+    ['Win rate', winrate, `${A.wins||0}W / ${A.losses||0}L settled`, (A.losses||0)>(A.wins||0)?'fail':'pass'],
+  ];
+  document.getElementById('cards').innerHTML=cards.map(c=>
+    `<div class="card ${c[3]}"><div class="ttl">${c[0]}</div><div class="val">${c[1]}</div><div class="s">${c[2]}</div></div>`).join('');
+  const tb=document.querySelector('#postbl tbody');
+  const rows=(d.positions||[]);
+  tb.innerHTML=rows.length?rows.map(p=>
+    `<tr><td>${p.player}</td><td>${p.L}¢</td><td><span class="chip ${p.status==='FILLED'?'fill':'rest'}">${p.status}</span></td></tr>`).join('')
+    :'<tr><td colspan="3" style="color:var(--muted)">no open ladders yet — arms when today\'s 2+HR props list</td></tr>';
+  document.getElementById('posnote').textContent=`${rows.length} rungs shown (resting = waiting for a spike; filled = a hitter homered and the crowd chased).`;
+  document.getElementById('footer').textContent='Encore fades the "he\'ll do it again" overreaction on 2+HR props. Base-rate: P(2nd HR | 1st) ≈ 4.9% vs the 25–45¢ prices sold. Hold to settlement, no exits.';
+}
+load(); setInterval(load, 60000);
+</script>
+</body>
+</html>
