@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f1">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a09">
-<title>Kalshi — Rung v2</title>
+<title>Kalshi — Rung X</title>
 <style>
 /* [RUNG-V2] same design system as the other tabs; amber accent */
 :root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
@@ -70,8 +70,8 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:
  <a href="./calendar.html">Calendar</a>
  <a href="./mirror.html">Mirror</a>
  <a href="./model.html">Testing</a>
- <a class="active" href="./rungv2.html">Rung v2</a>
- <a href="./rungx.html">Rung X</a>
+ <a href="./rungv2.html">Rung v2</a>
+ <a class="active" href="./rungx.html">Rung X</a>
  <a href="./t12.html">T12 Fade</a>
  <a href="./encore.html">⚾ MLB</a>
  <a href="./appendix.html">Appendix</a>
@@ -79,19 +79,19 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:
 <script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
 
 <div class="top">
- <h1>Rung v2<span class="badge dry" id="modebadge">DRYRUN</span></h1>
+ <h1>Rung X<span class="badge dry" id="modebadge">DRYRUN</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">The panic-fade ladder, v2.1: when a genuine penny-tail <b>bursts ≥18¢ within 5 minutes</b>, sell into
-the sweep at 30/35/40/45¢ (one contract each) and hold to settlement — violent moves are emotion and revert;
-slow grinds are information and the ladder cancels out of their way (burst check at 8 minutes off-tail;
-the old 14-minute stopwatch survives only for post-fill upper rungs, where it tested better). 150 ladder
-slots, quiet tapes prioritized (thin-tape bursts earn ~3× thick). $30 sleeve, adversarially
-audited spec, judged by its own live fills before any real order.</p>
+<p class="sub">Rung v2's panic-fade ladder, run as a live <b>early-exit A/B</b>: every rung now fills <b>two</b> 1-lot
+orders. One leg <b>holds to settlement</b> (the v2.1 control); the other rests a <b>2¢ maker buy-back</b> and
+exits early when the panic reverts. Same arming, ladder, and burst-cancel as v2 — the only new machinery is
+the second leg and its buy-back. The archive says the exit adds ~+1.5¢/fill on the highs, but only as a
+<i>maker</i> bid, so the whole experiment is the live buy-back fill rate: HOLD EV vs EXIT EV over the same
+rungs. $60 sleeve (2 lots/rung), DRYRUN-first, adversarially audited — no real order until the A/B earns it.</p>
 <div id="err">Waiting for the first rungv2 publish — the sidecar writes every ~4 min once running.</div>
 
 <div class="hero">
- <div class="l">Sleeve equity <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $30 basis</span></div>
+ <div class="l">Sleeve equity <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $60 basis</span></div>
  <div class="big" id="equity">—</div>
  <div class="cx" id="herocx"></div>
  <div class="bar"><i id="tbbar" style="width:0%"></i></div>
@@ -114,7 +114,7 @@ const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;r
 
 async function load(){
   try{
-    const r=await fetch('./data/rungv2.json?t='+Date.now(),{cache:'no-store'});
+    const r=await fetch('./data/rungx.json?t='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error(r.status);
     render(await r.json());
     document.getElementById('err').style.display='none';
@@ -155,18 +155,24 @@ function render(d){
 
   const evOk=act.ev_per_event==null?null:(act.ev_per_event>=bench.ev_event_lo);
   const bustPct=act.rungs_settled?100*act.rung_busts/act.rungs_settled:null;
+  const ab=act.ab||{}, delta=ab.exit_minus_hold_c;
   const cards=[
+    {t:'HOLD vs EXIT EV', v:`${ab.hold_ev_c==null?'—':fmtC(ab.hold_ev_c)} → ${ab.exit_ev_c==null?'—':fmtC(ab.exit_ev_c)}`,
+     s:`exit − hold ${delta==null?'—':(delta>0?'+':'')+Number(delta).toFixed(1)+'¢'} · ${ab.n_pairs||0} paired rungs · the whole experiment`,
+     cls:delta==null?'watch':(delta>0?'pass':'fail'), pill:delta==null?'building':(delta>0?'exit wins':'hold wins')},
+    {t:'Buy-back fill rate', v:ab.bb_fill_rate==null?'—':(100*ab.bb_fill_rate).toFixed(1)+'%',
+     s:`${ab.bb_fills||0} of ${ab.n_pairs||0} X-legs bought back at ${ab.buyback_c||2}¢ maker · the key live unknown`,
+     cls:'watch', pill:ab.bb_fill_rate==null?'building':'measuring'},
     {t:'EV per ladder', v:act.ev_per_event==null?'—':fmtC(act.ev_per_event),
-     s:`benchmark +${bench.ev_event_lo}…+${bench.ev_event_hi}¢ (archive, corrected)`,
+     s:`combined H+X · benchmark +${bench.ev_event_lo}…+${bench.ev_event_hi}¢ (archive, corrected)`,
      cls:evOk==null?'watch':(evOk?'pass':'fail'), pill:evOk==null?'building':(evOk?'on track':'below')},
-    {t:'Ladders per day', v:(act.events_settled&&d.generated_epoch)?'—':'—', s:'', hide:true},
     {t:'Rung bust rate', v:act.rungs_settled?`${act.rung_busts||0}/${act.rungs_settled}`:'0/0',
      s:`${bustPct==null?'—':bustPct.toFixed(1)+'%'} of settled · expected ~${bench.rung_bust_pct}% · ${act.busted_ladders||0} busted ladders`,
      cls:bustPct==null?'watch':(bustPct<=22?'pass':'fail'), pill:bustPct==null?'building':(bustPct<=22?'ok':'hot')},
-    {t:'Sleeve drawdown', v:money(act.maxdd), s:'kill fires at $25 peak-to-trough',
-     cls:(act.maxdd||0)<12.5?'pass':((act.maxdd||0)<25?'watch':'fail'),
-     pill:(act.maxdd||0)<12.5?'ok':((act.maxdd||0)<25?'watch':'KILL')},
-    {t:'Mode & caps', v:`${d.mode} · ${d.max_ct} ct/rung`, s:`ladder ${(d.ladder||[]).join('/')}¢ · $${d.sleeve} sleeve · weather only`,
+    {t:'Sleeve drawdown', v:money(act.maxdd), s:'kill fires at $50 peak-to-trough',
+     cls:(act.maxdd||0)<25?'pass':((act.maxdd||0)<50?'watch':'fail'),
+     pill:(act.maxdd||0)<25?'ok':((act.maxdd||0)<50?'watch':'KILL')},
+    {t:'Mode & caps', v:`${d.mode} · 2 lots/rung`, s:`legs H+X · ladder ${(d.ladder||[]).join('/')}¢ · $${d.sleeve} sleeve · weather only`,
      cls:'', pill:live?'live':'paper'},
   ].filter(c=>!c.hide);
   document.getElementById('cards').innerHTML=cards.map(c=>

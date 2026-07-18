@@ -90,6 +90,7 @@ html{-webkit-text-size-adjust:100%}
  <a href="./mirror.html">Mirror</a>
  <a href="./model.html">Testing</a>
  <a href="./rungv2.html">Rung v2</a>
+ <a href="./rungx.html">Rung X</a>
  <a href="./t12.html">T12 Fade</a>
  <a href="./encore.html">⚾ MLB</a>
  <a href="./appendix.html">Appendix</a>
@@ -124,7 +125,7 @@ html{-webkit-text-size-adjust:100%}
 <style>
 .sboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:18px}
 .scol{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px 17px;border-top:3px solid var(--grid)}
-.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708} .scol.t12{border-top-color:#0e9f9f} .scol.enc{border-top-color:#7c5cff}
+.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708} .scol.rvx{border-top-color:#eab308} .scol.t12{border-top-color:#0e9f9f} .scol.enc{border-top-color:#7c5cff}
 .scol .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
 .scol .nm{font-size:13px;font-weight:700}
 .scol .mode{font-size:9px;font-weight:750;letter-spacing:.05em;padding:2px 8px;border-radius:99px;text-transform:uppercase;border:1.5px solid var(--grid);color:var(--muted)}
@@ -273,6 +274,10 @@ async function loadSidecars(){
     const r = await fetch('./data/rungv2.json?t='+Date.now(), {cache:'no-store'});
     if(r.ok){ window._R = await r.json();
       window._rungOpen = (window._R.monitor && window._R.monitor.filled_open_usd) || 0; }
+  }catch(e){}
+  try{
+    const r = await fetch('./data/rungx.json?t='+Date.now(), {cache:'no-store'});
+    if(r.ok){ window._RX = await r.json(); }
   }catch(e){}
   try{
     const r = await fetch('./data/t12.json?t='+Date.now(), {cache:'no-store'});
@@ -454,6 +459,22 @@ function board(){
             + (rows&&resting?`<div class="strades" style="margin-top:2px"><div class="none">+ ${resting} more ladders resting on armed tails.</div></div>`:'');
         })()
       + `<div class="ft">Sell burst panics (≥18¢/5min) at 30–45¢, thin tapes first · armed ${R.monitor?.armed||0} · warming ${R.monitor?.warming||0} · kills armed</div></div>`;
+  }
+  // [2026-07-17] Rung X — rung v2 EARLY-EXIT A/B (leg H holds vs leg X 2¢ maker buy-back)
+  if(window._RX){
+    const X=window._RX, live=X.mode==='LIVE', g=live?X.live:X.dryrun, ab=(g&&g.ab)||{};
+    const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
+    const delta=ab.exit_minus_hold_c;
+    h += `<div class="scol rvx"><div class="hd"><span class="nm">Rung X · early-exit A/B</span><span class="mode ${X.stopped?'dry':(live?'live':'dry')}">${X.stopped?'STOPPED':(live?'LIVE':'DRYRUN')}</span></div>`
+      + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + srow('HOLD EV / rung', ab.hold_ev_c==null?'—':fmtC(ab.hold_ev_c), (ab.hold_ev_c||0)>=0?'pos':'neg')
+      + srow('EXIT EV / rung', ab.exit_ev_c==null?'—':fmtC(ab.exit_ev_c), (ab.exit_ev_c||0)>=0?'pos':'neg')
+      + srow('Exit − Hold', delta==null?'—':(delta>0?'+':'')+fmtC(delta), delta!=null&&delta>0?'pos':(delta==null?'':'neg'))
+      + srow('Buy-back fill', ab.bb_fill_rate==null?'—':pct1(100*ab.bb_fill_rate)+` <span style="color:var(--muted);font-weight:400">@ ${ab.buyback_c||2}¢</span>`)
+      + srow('Paired rungs', ab.n_pairs||0)
+      + srow('Rung bust rate', bustPct==null?'—':pct1(bustPct)+' <span style="color:var(--muted);font-weight:400">/ ~14%</span>', bustPct!=null&&bustPct<=22?'pos':'neg')
+      + srow('Deployed', money((X.monitor&&X.monitor.filled_open_usd)||0)+` <span style="color:var(--muted);font-weight:400">/ $${X.sleeve||60}</span>`)
+      + `<div class="ft">Each rung = 2 lots: one HOLDS to settle, one rests a ${(ab.buyback_c||2)}¢ maker buy-back · measuring the live exit fill rate · armed ${X.monitor?.armed||0} · warming ${X.monitor?.warming||0}</div></div>`;
   }
   // [2026-07-12] T12 spike-fade column — completes the four-sleeve board
   if(window._T){
