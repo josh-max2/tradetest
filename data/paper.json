@@ -1,12 +1,12 @@
 {
- "generated": "2026-07-18 04:27",
- "generated_epoch": 1784348869,
+ "generated": "2026-07-18 04:30",
+ "generated_epoch": 1784349041,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 213.21,
-  "committed": 171.41,
+  "committed": 163.97,
   "locked": 130.64,
-  "resting_commit": 40.77,
+  "resting_commit": 33.33,
   "cap": "free-30.25",
   "start": 48.16
  },
@@ -23,7 +23,7 @@
  },
  "summary": {
   "placed": 531,
-  "resting": 5,
+  "resting": 4,
   "filled": 326,
   "filled_open": 15,
   "settled": 311,
@@ -2546,7 +2546,7 @@
     29.38
    ],
    [
-    15.021,
+    15.023,
     29.38
    ]
   ],
@@ -4512,6 +4512,16 @@
     "n": 15,
     "p5": 1.36,
     "p95": 7.36
+   },
+   {
+    "t": 1784349041,
+    "pnl": 6.52,
+    "roi": 5.0,
+    "green": 95,
+    "real": -18.78,
+    "n": 15,
+    "p5": 1.36,
+    "p95": 7.36
    }
   ],
   "odds_table": {
@@ -5171,21 +5181,6 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHDEN-26JUL17-B96.5",
-   "series": "KXHIGHDEN",
-   "sold_c": 7.0,
-   "collateral": 7.44,
-   "queue_ahead": 1.0,
-   "status": "RESTING",
-   "hrs": 2.5,
-   "close_ts": "2026-07-18T06:59:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXHIGHTSEA-26JUL17-B78.5",
    "series": "KXHIGHTSEA",
    "sold_c": 4.0,
@@ -5728,6 +5723,12 @@
  ],
  "events": [
   {
+   "ts": "07-18 04:29",
+   "kind": "ROLL",
+   "ticker": "KXHIGHDEN-26JUL17-B96.5",
+   "detail": "cancelled \u2014 too close to settle"
+  },
+  {
    "ts": "07-18 03:30",
    "kind": "ROLL",
    "ticker": "KXLOWTAUS-26JUL17-B71.5",
@@ -5960,12 +5961,6 @@
    "kind": "CAP",
    "ticker": "KXHIGHTATL-26JUL17-B88.5",
    "detail": "capital fully deployed"
-  },
-  {
-   "ts": "07-17 10:58",
-   "kind": "STEP_SKIP",
-   "ticker": "KXLOWTAUS-26JUL17-B73.5",
-   "detail": "skipped \u2014 bracket too close to consensus"
   }
  ]
 }
