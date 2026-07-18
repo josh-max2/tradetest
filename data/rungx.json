@@ -1,13 +1,13 @@
 {
- "generated": "2026-07-18 13:15",
- "generated_epoch": 1784380553,
+ "generated": "2026-07-18 13:20",
+ "generated_epoch": 1784380850,
  "mode": "LIVE",
  "sleeve": 60.0,
  "max_ct": 1,
- "open_ev_usd": 0.94,
- "open_n": 4,
+ "open_ev_usd": 3.43,
+ "open_n": 11,
  "green": {
-  "p": 97.7,
+  "p": 99.9,
   "series": [
    [
     1784356929,
@@ -336,6 +336,10 @@
    [
     1784380553,
     97.7
+   ],
+   [
+    1784380850,
+    99.9
    ]
   ]
  },
@@ -375,16 +379,21 @@
   }
  },
  "live": {
-  "events_settled": 0,
-  "ev_per_event": null,
-  "realized": 0.0,
-  "equity": 60.0,
-  "rungs_settled": 0,
+  "events_settled": 1,
+  "ev_per_event": 28.0,
+  "realized": 0.28,
+  "equity": 60.28,
+  "rungs_settled": 1,
   "rung_busts": 0,
   "busted_ladders": 0,
   "maxdd": 0.0,
-  "curve": [],
-  "fills_today": 4,
+  "curve": [
+   [
+    "2026-07-18T13:18",
+    60.28
+   ]
+  ],
+  "fills_today": 12,
   "ab": {
    "n_pairs": 0,
    "hold_ev_c": null,
@@ -399,9 +408,19 @@
   "armed": 115,
   "warming": 55,
   "verified": 125,
-  "filled_open_usd": 2.8
+  "filled_open_usd": 7.1
  },
  "ladders": [
+  {
+   "ticker": "KXHIGHNY-26JUL18-B85.5",
+   "mode": "LIVE",
+   "rungs": "30,35,40,45",
+   "rise_min": null,
+   "ts": "2026-07-18T13:17:02.836814+00:00",
+   "status": "SETTLED",
+   "busted": 0,
+   "pnl_c": 28.0
+  },
   {
    "ticker": "KXHIGHPHIL-26JUL18-T82",
    "mode": "LIVE",
@@ -563,7 +582,7 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHNY-26JUL18-B85.5",
+   "ticker": "KXHIGHNY-26JUL18-T86",
    "mode": "LIVE",
    "rungs": "30,35,40,45",
    "rise_min": null,
@@ -573,7 +592,7 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHNY-26JUL18-T86",
+   "ticker": "KXHIGHPHIL-26JUL18-T82",
    "mode": "LIVE",
    "rungs": "30,35,40,45",
    "rise_min": null,
@@ -634,16 +653,6 @@
   },
   {
    "ticker": "KXHIGHTDAL-26JUL18-B99.5",
-   "mode": "LIVE",
-   "rungs": "30,35,40,45",
-   "rise_min": null,
-   "ts": null,
-   "status": "RESTING",
-   "busted": 0,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHTDAL-26JUL18-T100",
    "mode": "LIVE",
    "rungs": "30,35,40,45",
    "rise_min": null,
