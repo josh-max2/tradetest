@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-19 17:21",
- "generated_epoch": 1784481675,
+ "generated": "2026-07-19 17:26",
+ "generated_epoch": 1784482007,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
   "balance": 266.41,
@@ -16,8 +16,8 @@
   "potential_gain": 4.92,
   "worst_case": -98.08,
   "next_settle": "2026-07-20T04:59:00Z",
-  "expected_balance": 366.44,
-  "expected_pnl": 1.94,
+  "expected_balance": 366.5,
+  "expected_pnl": 2.02,
   "near_win": 12,
   "near_loss": 0
  },
@@ -2738,7 +2738,7 @@
     27.94
    ],
    [
-    16.558,
+    16.562,
     27.94
    ]
   ],
@@ -2788,16 +2788,16 @@
   "deployment": 27,
   "realized": -20.22,
   "exp_roi": {
-   "roi_pct": 3.1,
-   "pnl": 3.01,
+   "roi_pct": 3.2,
+   "pnl": 3.15,
    "collat": 98.08,
-   "exp_busts": 0.22,
+   "exp_busts": 0.21,
    "n": 12,
-   "mkt_pnl": 1.94
+   "mkt_pnl": 2.02
   },
   "win_dist": {
-   "p_green": 80,
-   "p_red": 20,
+   "p_green": 81,
+   "p_red": 19,
    "p5": -9.08,
    "p50": 4.92,
    "p95": 4.92,
@@ -3484,6 +3484,16 @@
     "n": 12,
     "p5": -9.08,
     "p95": 4.92
+   },
+   {
+    "t": 1784481848,
+    "pnl": 3.15,
+    "roi": 3.2,
+    "green": 81,
+    "real": -20.22,
+    "n": 12,
+    "p5": -9.08,
+    "p95": 4.92
    }
   ],
   "odds_table": {
@@ -3603,7 +3613,7 @@
   "activity": {
    "placed_24h": 23,
    "last": "07-19 12:01",
-   "hrs_since": 5.3
+   "hrs_since": 5.4
   }
  },
  "daily": {
@@ -3877,7 +3887,7 @@
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": 2.83,
+    "exp_pnl": 2.97,
     "status": "open"
    }
   ],
@@ -3900,8 +3910,8 @@
   },
   "today": {
    "date": "2026-07-19",
-   "exp_pnl": 3.01,
-   "exp_roi": 3.1,
+   "exp_pnl": 3.15,
+   "exp_roi": 3.2,
    "premium": 4.92,
    "n": 12
   }
@@ -4295,7 +4305,7 @@
    "collateral": 4.8,
    "queue_ahead": 2.0,
    "status": "FILLED",
-   "hrs": 13.6,
+   "hrs": 13.5,
    "close_ts": "2026-07-20T06:59:00Z",
    "ttf_min": 789.0,
    "now_yes": 1.5,
@@ -4355,7 +4365,7 @@
    "collateral": 5.7,
    "queue_ahead": 3.0,
    "status": "FILLED",
-   "hrs": 11.6,
+   "hrs": 11.5,
    "close_ts": "2026-07-20T04:59:00Z",
    "ttf_min": 44.1,
    "now_yes": 1.0,
@@ -4385,7 +4395,7 @@
    "collateral": 5.82,
    "queue_ahead": 11.0,
    "status": "FILLED",
-   "hrs": 11.6,
+   "hrs": 11.5,
    "close_ts": "2026-07-20T04:59:00Z",
    "ttf_min": 23.3,
    "now_yes": 1.0,
@@ -4415,7 +4425,7 @@
    "collateral": 5.82,
    "queue_ahead": 30.58,
    "status": "FILLED",
-   "hrs": 12.6,
+   "hrs": 12.5,
    "close_ts": "2026-07-20T05:59:00Z",
    "ttf_min": 465.0,
    "now_yes": 1.5,
@@ -4433,8 +4443,8 @@
    "hrs": 12.6,
    "close_ts": "2026-07-20T06:00:00Z",
    "ttf_min": 45.9,
-   "now_yes": 3.0,
-   "win_odds": 97.7,
+   "now_yes": 2.5,
+   "win_odds": 98.7,
    "result": null,
    "pnl_c": null
   },
@@ -4490,7 +4500,7 @@
    "collateral": 13.58,
    "queue_ahead": 72.0,
    "status": "SETTLED",
-   "hrs": -35.4,
+   "hrs": -35.5,
    "close_ts": "2026-07-18T05:59:00Z",
    "ttf_min": 10.4,
    "now_yes": null,
@@ -4610,7 +4620,7 @@
    "collateral": 14.4,
    "queue_ahead": 22.0,
    "status": "SETTLED",
-   "hrs": -12.4,
+   "hrs": -12.5,
    "close_ts": "2026-07-19T04:59:00Z",
    "ttf_min": 1.3,
    "now_yes": null,
@@ -4670,7 +4680,7 @@
    "collateral": 14.4,
    "queue_ahead": 23.0,
    "status": "SETTLED",
-   "hrs": -11.4,
+   "hrs": -11.5,
    "close_ts": "2026-07-19T05:59:00Z",
    "ttf_min": 17.4,
    "now_yes": null,
@@ -4755,6 +4765,12 @@
   }
  ],
  "events": [
+  {
+   "ts": "07-19 17:21",
+   "kind": "STEP_SKIP",
+   "ticker": "KXHIGHTNOLA-26JUL19-T95",
+   "detail": "skipped \u2014 bracket too close to consensus"
+  },
   {
    "ts": "07-19 17:18",
    "kind": "STEP_SKIP",
@@ -4987,12 +5003,6 @@
    "ts": "07-19 15:30",
    "kind": "STEP_SKIP",
    "ticker": "KXHIGHTSEA-26JUL19-B81.5",
-   "detail": "skipped \u2014 bracket too close to consensus"
-  },
-  {
-   "ts": "07-19 15:30",
-   "kind": "STEP_SKIP",
-   "ticker": "KXHIGHTSEA-26JUL19-T77",
    "detail": "skipped \u2014 bracket too close to consensus"
   }
  ]
