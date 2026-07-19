@@ -1,34 +1,34 @@
 {
- "generated": "2026-07-19 11:52",
- "generated_epoch": 1784461937,
+ "generated": "2026-07-19 11:55",
+ "generated_epoch": 1784462104,
  "stage": "FULL-KELLY LIVE \u2014 max sizing (equal-split, 6.5%/pos cap), smart+hedge on, 40 series; edge-confirmation window: EV checkpoint at 300 settled, statistical confirmation ~390 (SPRT + EV rails armed)",
  "account": {
-  "balance": 273.66,
+  "balance": 259.66,
   "committed": 184.6,
-  "locked": 84.28,
-  "resting_commit": 100.32,
+  "locked": 97.58,
+  "resting_commit": 87.02,
   "cap": "free-30.25",
   "start": 48.16
  },
  "open": {
-  "n": 10,
+  "n": 11,
   "potential_balance": 361.66,
-  "potential_gain": 3.72,
-  "worst_case": -84.28,
+  "potential_gain": 4.42,
+  "worst_case": -97.58,
   "next_settle": "2026-07-20T04:59:00Z",
-  "expected_balance": 358.8,
-  "expected_pnl": 0.86,
-  "near_win": 9,
+  "expected_balance": 357.57,
+  "expected_pnl": 0.33,
+  "near_win": 10,
   "near_loss": 0
  },
  "summary": {
   "placed": 570,
-  "resting": 10,
-  "filled": 343,
-  "filled_open": 10,
+  "resting": 9,
+  "filled": 344,
+  "filled_open": 11,
   "settled": 333,
   "expired": 45,
-  "fill_rate": 0.6018,
+  "fill_rate": 0.6035,
   "ev": 0.31,
   "adverse": 0.048,
   "realized": -21.42
@@ -2722,7 +2722,7 @@
     26.74
    ],
    [
-    16.33,
+    16.332,
     26.74
    ]
   ],
@@ -2769,24 +2769,24 @@
   "ev_fill": 0.31,
   "ev_target": 2.0,
   "fill_rate": 60,
-  "deployment": 24,
+  "deployment": 27,
   "realized": -21.42,
   "exp_roi": {
-   "roi_pct": 1.9,
-   "pnl": 1.62,
-   "collat": 84.28,
-   "exp_busts": 0.26,
-   "n": 10,
-   "mkt_pnl": 0.86
+   "roi_pct": 1.4,
+   "pnl": 1.39,
+   "collat": 97.58,
+   "exp_busts": 0.32,
+   "n": 11,
+   "mkt_pnl": 0.33
   },
   "win_dist": {
-   "p_green": 77,
-   "p_red": 23,
-   "p5": -11.28,
-   "p50": 3.72,
-   "p95": 3.72,
+   "p_green": 72,
+   "p_red": 28,
+   "p5": -13.58,
+   "p50": 4.42,
+   "p95": 4.42,
    "below50": [],
-   "n": 10
+   "n": 11
   },
   "roi_series": [
    {
@@ -3264,14 +3264,14 @@
     "contracts": 0,
     "wins": 0,
     "losses": 0,
-    "pending": 7,
-    "open_prem": 1.62,
+    "pending": 8,
+    "open_prem": 2.32,
     "collat": 0.0,
     "pnl": null,
     "roi": null,
     "port_pct": null,
     "cum_pct": null,
-    "exp_pnl": 0.54,
+    "exp_pnl": 0.31,
     "status": "open"
    }
   ],
@@ -3294,10 +3294,10 @@
   },
   "today": {
    "date": "2026-07-19",
-   "exp_pnl": 1.62,
-   "exp_roi": 1.9,
-   "premium": 3.72,
-   "n": 10
+   "exp_pnl": 1.39,
+   "exp_roi": 1.4,
+   "premium": 4.42,
+   "n": 11
   }
  },
  "strat_days": {
@@ -3653,21 +3653,6 @@
    "pnl_c": null
   },
   {
-   "ticker": "KXHIGHTDAL-26JUL19-B101.5",
-   "series": "KXHIGHTDAL",
-   "sold_c": 5.0,
-   "collateral": 13.3,
-   "queue_ahead": 5.0,
-   "status": "RESTING",
-   "hrs": 18.1,
-   "close_ts": "2026-07-20T06:00:00Z",
-   "ttf_min": null,
-   "now_yes": null,
-   "win_odds": null,
-   "result": null,
-   "pnl_c": null
-  },
-  {
    "ticker": "KXLOWTAUS-26JUL19-B69.5",
    "series": "KXLOWTAUS",
    "sold_c": 7.0,
@@ -3753,7 +3738,7 @@
    "close_ts": "2026-07-20T08:00:00Z",
    "ttf_min": 11.5,
    "now_yes": 5.5,
-   "win_odds": 97.7,
+   "win_odds": 98.3,
    "result": null,
    "pnl_c": null
   },
@@ -3797,7 +3782,7 @@
    "hrs": 17.1,
    "close_ts": "2026-07-20T04:59:00Z",
    "ttf_min": 44.1,
-   "now_yes": 5.0,
+   "now_yes": 4.5,
    "win_odds": 97.2,
    "result": null,
    "pnl_c": null
@@ -3844,6 +3829,21 @@
    "ttf_min": 465.0,
    "now_yes": 3.5,
    "win_odds": 97.2,
+   "result": null,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTDAL-26JUL19-B101.5",
+   "series": "KXHIGHTDAL",
+   "sold_c": 5.0,
+   "collateral": 13.3,
+   "queue_ahead": 5.0,
+   "status": "FILLED",
+   "hrs": 18.1,
+   "close_ts": "2026-07-20T06:00:00Z",
+   "ttf_min": 45.9,
+   "now_yes": 9.0,
+   "win_odds": 93.1,
    "result": null,
    "pnl_c": null
   },
@@ -4150,6 +4150,18 @@
  ],
  "events": [
   {
+   "ts": "07-19 11:53",
+   "kind": "CAP",
+   "ticker": "KXHIGHTBOS-26JUL19-T84",
+   "detail": "capital fully deployed"
+  },
+  {
+   "ts": "07-19 11:53",
+   "kind": "FILL",
+   "ticker": "KXHIGHTDAL-26JUL19-B101.5",
+   "detail": "filled @ 5.0\u00a2 \u00b7 46m in queue"
+  },
+  {
    "ts": "07-19 11:50",
    "kind": "STEP_SKIP",
    "ticker": "KXHIGHTSFO-26JUL19-T67",
@@ -4376,18 +4388,6 @@
    "kind": "REACH_SKIP",
    "ticker": "KXLOWTNYC-26JUL19-B73.5",
    "detail": "skipped \u2014 temperature within reach of bracket"
-  },
-  {
-   "ts": "07-19 10:16",
-   "kind": "STEP_SKIP",
-   "ticker": "KXHIGHTDAL-26JUL19-T95",
-   "detail": "skipped \u2014 bracket too close to consensus"
-  },
-  {
-   "ts": "07-19 10:16",
-   "kind": "STEP_SKIP",
-   "ticker": "KXHIGHTSATX-26JUL19-T93",
-   "detail": "skipped \u2014 bracket too close to consensus"
   }
  ]
 }
