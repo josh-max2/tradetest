@@ -186,14 +186,16 @@ function render(d){
   if(ageMin>20){ dot.className='dot stale'; stt.textContent=`last update ${Math.round(ageMin)} min ago`; }
   else { dot.className='dot'; stt.textContent=`live · updated ${Math.round(ageMin)} min ago`; }
 
-  // ---- HERO: total equity = free balance + base collateral + LIVE sidecar open costs ----
-  // [audit C2] LIVE sidecar fills debit free balance, so without their open costs the hero
-  // would silently understate the account.
-  const bal = a.balance, locked = a.locked||0;
-  const baseEq = bal==null ? null : bal + locked;
-  const equity = baseEq==null ? null : baseEq + (window._mirrorOpen||0) + (window._rungOpen||0);
+  // ---- HERO: true account total straight from Kalshi = free balance + open-position value ----
+  // [2026-07-21] was bal + base-DB `locked` + sidecar opens; base is OFF so its DB `locked` is
+  // phantom (positions settled on-exchange, cash already in `bal`, base not running to record it)
+  // and got double-counted -> hero read OVER actual. account_total (bal + live portfolio_value from
+  // the API) is the real equity, correct whether base runs or not.
+  const bal = a.balance;
+  const equity = (a.account_total!=null) ? a.account_total
+               : (bal==null ? null : bal + (a.portfolio_value||0));
   document.getElementById('equity').textContent = money(equity);
-  window._baseEquity = baseEq;   // base book only — used by the strategy board
+  window._baseEquity = bal;   // available cash (base book retired) — strategy board
   const inv = d.daily && d.daily.invested;   // start + deposits = the honest % base
   if(inv) document.getElementById('invlbl').textContent = `· invested ${money(inv)}`;
   const realized = s.realized||0;
