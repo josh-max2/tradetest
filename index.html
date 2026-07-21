@@ -191,7 +191,7 @@ function render(d){
   // phantom (positions settled on-exchange, cash already in `bal`, base not running to record it)
   // and got double-counted -> hero read OVER actual. account_total (bal + live portfolio_value from
   // the API) is the real equity, correct whether base runs or not.
-  const bal = a.balance;
+  const bal = a.balance, locked = a.locked||0;   // locked still used by the sub-line below
   const equity = (a.account_total!=null) ? a.account_total
                : (bal==null ? null : bal + (a.portfolio_value||0));
   document.getElementById('equity').textContent = money(equity);
