@@ -101,7 +101,7 @@ html{-webkit-text-size-adjust:100%}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Selling the cheap weather &amp; crypto-daily tails at 3–8¢ and collecting the premium when they expire worthless (~95% do). Post-only maker · full-Kelly equal-split (less the $60 sidecar carve-out: $30 mirror + $30 rung) · same-city hedge · held to settlement.</p>
+<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeves: <b>Rung v2</b> (primary, dynamic sleeve), Rung X (early-exit A/B), T12 (spike-top fade). Base &amp; Mirror retired.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
@@ -199,10 +199,8 @@ function render(d){
   const inv = d.daily && d.daily.invested;   // start + deposits = the honest % base
   if(inv) document.getElementById('invlbl').textContent = `· invested ${money(inv)}`;
   const realized = s.realized||0;
-  let sub = `base realized <span class="${realized>=0?'pos':'neg'}">${signMoney(realized)}</span>`
-          + ` · <b>${money(locked)}</b> working in ${s.filled_open||0} open positions`
-          + ` · ${money(a.resting_commit)} resting`;
-  if(o.n>0 && o.expected_pnl!=null){
+  let sub = `<b>${money(a.balance)}</b> free cash · <b>${money(a.portfolio_value)}</b> in open positions (marked to market)`;
+  if(false){   // [2026-07-23] base-book marked-to-market sub-line retired (base off); combined marks live in the totals row
     const ep=o.expected_pnl;
     sub += `<br><span style="color:var(--muted)">Marked to market now → <b style="color:var(--ink2)">${money(o.expected_balance)}</b> `
          + `<span class="${ep>=0?'pos':'neg'}">(${(ep>=0?'+':'')+money(ep)})</span>`
@@ -210,7 +208,11 @@ function render(d){
          + (o.next_settle?` · next settles ${fmtT(o.next_settle)}`:'') + `</span>`;
   }
   document.getElementById('eqsub').innerHTML = sub;
-  drawPnl(d.pnl_curve||[]);
+  // [2026-07-23] hero chart = COMBINED realized (all live strats), not base's frozen curve.
+  // daily.days is the folded calendar (base + rung v2 + rung x + t12); cumulate its per-day pnl.
+  const _dd = (d.daily && d.daily.days) || [];
+  let _cum = 0; const _combCurve = _dd.map((x,i)=>{ _cum += (x.pnl||0); return [i, _cum]; });
+  drawPnl(_combCurve.length>=2 ? _combCurve : (d.pnl_curve||[]));
 
   // ---- strategy board (base column comes from this feed; sidecars via loadSidecars) ----
   window._P = d;
@@ -246,7 +248,7 @@ function render(d){
     || '<div class="note" style="padding:4px 0">Waiting for activity…</div>';
 
   document.getElementById('footer').textContent =
-    `Weather (high+low) + crypto-daily · post-only maker · full-Kelly equal-split ($60 sidecar carve-out) · held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
+    `Weather high+low tails · post-only maker, zero fee · dynamic-sleeve rung fades held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
 }
 
 function drawPnl(curve){
@@ -261,7 +263,7 @@ function drawPnl(curve){
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:420px">`;
   s+=`<line x1="${L}" y1="${Y(0).toFixed(1)}" x2="${L+pw}" y2="${Y(0).toFixed(1)}" stroke="var(--grid)"/>`;
   s+=`<path d="${dp}" fill="none" stroke="${up?'var(--good)':'var(--crit)'}" stroke-width="2" stroke-linejoin="round"/></svg>`;
-  el.innerHTML='<div style="font-size:10.5px;color:var(--muted);margin-bottom:2px">Realized P&amp;L — cumulative, settled trades</div>'+s;   // [audit K5]
+  el.innerHTML='<div style="font-size:10.5px;color:var(--muted);margin-bottom:2px">Combined realized P&amp;L — all live strategies, cumulative</div>'+s;   // [2026-07-23 audit]
 }
 
 // sidecar feeds for the strategy board — each degrades silently if not yet published
@@ -298,15 +300,15 @@ async function loadSidecars(){
 function totals(){
   const el = document.getElementById('totrow');
   if(!el) return;
-  const P = window._P, M = window._M, R = window._R, T = window._T;
-  const rP = P?.summary?.realized, rM = M?.live?.realized, rR = R?.live?.realized, rT = T?.realized?.pnl_usd;
-  const real = [rP,rM,rR,rT].some(v=>v!=null) ? (rP||0)+(rM||0)+(rR||0)+(rT||0) : null;
-  const eP = P?.open?.expected_pnl, eM = M?.open_ev_usd, eR = R?.open_ev_usd, eT = T?.open_ev_usd;
-  const exp = [eP,eM,eR,eT].some(v=>v!=null) ? (eP||0)+(eM||0)+(eR||0)+(eT||0) : null;
+  const P = window._P, M = window._M, R = window._R, T = window._T, RX = window._RX;
+  const rP = P?.summary?.realized, rM = M?.live?.realized, rR = R?.live?.realized, rT = T?.realized?.pnl_usd, rRX = RX?.live?.realized;
+  const real = [rP,rM,rR,rT,rRX].some(v=>v!=null) ? (rP||0)+(rM||0)+(rR||0)+(rT||0)+(rRX||0) : null;
+  const eP = P?.open?.expected_pnl, eM = M?.open_ev_usd, eR = R?.open_ev_usd, eT = T?.open_ev_usd, eRX = RX?.open_ev_usd;
+  const exp = [eP,eM,eR,eT,eRX].some(v=>v!=null) ? (eP||0)+(eM||0)+(eR||0)+(eT||0)+(eRX||0) : null;
   const proj = (real!=null && exp!=null) ? real+exp : null;
-  const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0)+(T?.open_n||0);
+  const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0)+(T?.open_n||0)+(RX?.open_n||0);
   const sc = v => v==null ? '' : (v>=0?'pos':'neg');
-  const brk = (a,b,c,t) => `base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)} · rung ${c==null?'—':signMoney(c)} · t12 ${t==null?'—':signMoney(t)}`;
+  const brk = (a,b,c,t,x) => `rung ${c==null?'—':signMoney(c)} · rungx ${x==null?'—':signMoney(x)} · t12 ${t==null?'—':signMoney(t)} · base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)}`;
   // [2026-07-12] day-percentile indicator: where does TODAY (projected, all books) rank
   // among every recorded combined day? "13th percentile" = a bad day; 50th = typical.
   const sd = P?.strat_days || {};
@@ -315,7 +317,7 @@ function totals(){
   for(const iso in sd) for(const k in sd[iso]) comb[iso]=(comb[iso]||0)+sd[iso][k].pnl;
   const series = Object.entries(comb).sort();
   const vals = series.map(x=>x[1]);
-  const todayProj = (eP||0)+(eM||0)+(eR||0)+(eT||0);
+  const todayProj = (eP||0)+(eM||0)+(eR||0)+(eT||0)+(eRX||0);
   const ord = n => n%10===1&&n%100!==11?'st':n%10===2&&n%100!==12?'nd':n%10===3&&n%100!==13?'rd':'th';
   let pv='building…', ps=`${vals.length} recorded day${vals.length===1?'':'s'} — needs 5`;
   let pcls='';
@@ -330,8 +332,8 @@ function totals(){
     ps = `today projected ${signMoney(todayProj)} → ${rank}${ord(rank)} of ${vals.length+1} days · last 14d ${signMoney(l14)}`;
   }
   el.innerHTML =
-    `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR,rT)}</div></div>`
-   +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR,eT)}</div></div>`
+    `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR,rT,rRX)}</div></div>`
+   +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR,eT,eRX)}</div></div>`
    +`<div class="tot"><div class="tl">Projected total</div><div class="tv ${sc(proj)}">${signMoney(proj)}</div><div class="ts">realized + open book at market marks</div></div>`
    +`<div class="tot"><div class="tl">Day rank · vs all recorded days</div><div class="tv ${pcls}">${pv}</div><div class="ts">${ps}</div></div>`;
 }
@@ -373,13 +375,13 @@ function board(){
   const el = document.getElementById('sboard');
   if(!el) return;
   const P = window._P, M = window._M, R = window._R;
-  let h = '';
+  let hBase='', hMir='', hRung='', hRungx='', hT12='', hEnc='';   // [2026-07-23] render live rung strats first
   if(P){
     const a=P.account||{}, s=P.summary||{};
     const eq=(a.balance!=null||a.locked!=null)?(a.balance||0)+(a.locked||0):null;
     const dep=(eq&&eq>0)?100*(a.locked||0)/eq:null;
     const bust=s.adverse==null?null:100*s.adverse;
-    h += `<div class="scol base"><div class="hd"><span class="nm">Base · longshot tails</span><span class="mode live">LIVE</span></div>`
+    hBase = `<div class="scol base"><div class="hd"><span class="nm">Base · longshot tails</span><span class="mode dry">RETIRED</span></div>`
       + srow('Realized P&L', signMoney(s.realized), (s.realized||0)>=0?'pos':'neg')
       + srow('Open EV (mkt)', signMoney(P.open?.expected_pnl), (P.open?.expected_pnl||0)>=0?'pos':'neg')
       + greenRow(P.monitor?.win_dist?.p_green,
@@ -407,7 +409,7 @@ function board(){
     const live=M.mode==='LIVE', g=live?M.live:M.dryrun;
     const committed=(M.positions||[]).filter(x=>x.mode===M.mode&&x.status==='FILLED').reduce((a,x)=>a+(x.bid||0)/100,0);
     const bust=g.settled?100*g.losses/g.settled:null;
-    h += `<div class="scol mir"><div class="hd"><span class="nm">Mirror · favorites</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
+    hMir = `<div class="scol mir"><div class="hd"><span class="nm">Mirror · favorites</span><span class="mode ${M.stopped?'dry':(live?'live':'dry')}">${M.stopped?'RETIRED':(live?'LIVE':'DRYRUN')}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
       + srow('Open EV (mkt)', signMoney(M.open_ev_usd), (M.open_ev_usd||0)>=0?'pos':'neg')
       + greenRow(M.green?.p, M.green?.series)
@@ -436,14 +438,14 @@ function board(){
   if(R){
     const live=R.mode==='LIVE', g=live?R.live:R.dryrun;
     const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
-    h += `<div class="scol rv2"><div class="hd"><span class="nm">Rung v2 · panic fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
+    hRung = `<div class="scol rv2"><div class="hd"><span class="nm">Rung v2 · panic fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
       + srow('Open EV (mkt)', signMoney(R.open_ev_usd), (R.open_ev_usd||0)>=0?'pos':'neg')
       + greenRow(R.green?.p, R.green?.series)
       + srow('EV / ladder', g.ev_per_event==null?'—':fmtC(g.ev_per_event), (g.ev_per_event||0)>=34?'pos':'')
       + srow('Rung bust rate', bustPct==null?'—':pct1(bustPct)+' <span style="color:var(--muted);font-weight:400">/ ~14%</span>', bustPct!=null&&bustPct<=22?'pos':'neg')
       + srow('Fills today', g.fills_today||0)
-      + srow('Deployed', money((R.monitor&&R.monitor.filled_open_usd)||0)+' <span style="color:var(--muted);font-weight:400">/ $30</span>')
+      + srow('Deployed', money((R.monitor&&R.monitor.filled_open_usd)||0)+' <span style="color:var(--muted);font-weight:400">/ $'+Math.round(R.sleeve||0)+'</span>')
       + srow('Test B', `${g.events_settled||0} / ${R.testb_target||150}`)
       + (function(){
           const mine=(R.ladders||[]).filter(x=>x.mode===R.mode&&(x.status==='FILLED'||x.status==='SETTLED'))
@@ -467,7 +469,7 @@ function board(){
     const X=window._RX, live=X.mode==='LIVE', g=live?X.live:X.dryrun, ab=(g&&g.ab)||{};
     const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
     const delta=ab.exit_minus_hold_c;
-    h += `<div class="scol rvx"><div class="hd"><span class="nm">Rung X · early-exit A/B</span><span class="mode ${X.stopped?'dry':(live?'live':'dry')}">${X.stopped?'STOPPED':(live?'LIVE':'DRYRUN')}</span></div>`
+    hRungx = `<div class="scol rvx"><div class="hd"><span class="nm">Rung X · early-exit A/B</span><span class="mode ${X.stopped?'dry':(live?'live':'dry')}">${X.stopped?'STOPPED':(live?'LIVE':'DRYRUN')}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
       + srow('HOLD EV / rung', ab.hold_ev_c==null?'—':fmtC(ab.hold_ev_c), (ab.hold_ev_c||0)>=0?'pos':'neg')
       + srow('EXIT EV / rung', ab.exit_ev_c==null?'—':fmtC(ab.exit_ev_c), (ab.exit_ev_c||0)>=0?'pos':'neg')
@@ -483,7 +485,7 @@ function board(){
     const T=window._T, rl=T.realized||{}, c=T.counts||{};
     const live=T.mode==='LIVE';
     const evpf = rl.n ? 100*rl.pnl_usd/rl.n : null;
-    h += `<div class="scol t12"><div class="hd"><span class="nm">T12 · spike-top fade</span><span class="mode ${T.stopped?'dry':(live?'live':'dry')}">${T.stopped?'STOPPED':(live?'LIVE':'DRYRUN')}</span></div>`
+    hT12 = `<div class="scol t12"><div class="hd"><span class="nm">T12 · spike-top fade</span><span class="mode ${T.stopped?'dry':(live?'live':'dry')}">${T.stopped?'STOPPED':(live?'LIVE':'DRYRUN')}</span></div>`
       + srow('Realized P&L', signMoney(rl.pnl_usd), (rl.pnl_usd||0)>=0?'pos':'neg')
       + srow('Open EV (mkt)', signMoney(T.open_ev_usd), (T.open_ev_usd||0)>=0?'pos':'neg')
       + srow('EV / trade', evpf==null?'—':fmtC(evpf)+' <span style="color:var(--muted);font-weight:400">/ +18.9¢ model</span>', evpf!=null&&evpf>=8?'pos':(evpf==null?'':'neg'))
@@ -503,7 +505,7 @@ function board(){
   if(window._E){
     const E=window._E, live=E.mode==='LIVE', g=live?E.live:E.dryrun;
     const bust=g.settled?100*g.losses/g.settled:null;
-    h += `<div class="scol enc"><div class="hd"><span class="nm">⚾ MLB · encore fade</span><span class="mode ${E.stopped?'dry':(live?'live':'dry')}">${E.stopped?'STOPPED':(live?'LIVE · 1-CT':'DRYRUN')}</span></div>`
+    hEnc = `<div class="scol enc"><div class="hd"><span class="nm">⚾ MLB · encore fade</span><span class="mode ${E.stopped?'dry':(live?'live':'dry')}">${E.stopped?'STOPPED':(live?'LIVE · 1-CT':'DRYRUN')}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
       + srow('EV / rung', g.ev==null?'—':fmtC(g.ev), (g.ev||0)>=0?'pos':'')
       + srow('Bust rate', g.settled?`${g.losses||0} / ${g.settled} <span style="color:var(--muted);font-weight:400">/ ~5%</span>`:'0 / 0', bust!=null&&bust<=15?'pos':(bust==null?'':'neg'))
@@ -518,7 +520,7 @@ function board(){
         })()
       + `<div class="ft">PILOT — sell 30¢ on 2+HR props, hold to settle · max 1 contract · judged Aug-15/Sep-1</div></div>`;
   }
-  el.innerHTML = h;
+  el.innerHTML = hRung + hRungx + hT12 + hBase + hMir + hEnc;   // [2026-07-23] LIVE rung strats first; base/mirror/encore (retired) below
 }
 load(); setInterval(load, 60000);
 loadSidecars(); setInterval(loadSidecars, 60000);
