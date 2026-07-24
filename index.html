@@ -101,7 +101,7 @@ html{-webkit-text-size-adjust:100%}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeves: <b>Rung v2</b> (primary, ~$397 sleeve) &amp; Rung X (early-exit A/B). Base, Mirror, T12 &amp; Encore retired.</p>
+<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeve: <b>Rung v2</b> (sole strategy, ~$457 = whole account). Base, Mirror, Rung X, T12 &amp; Encore retired.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
@@ -469,7 +469,7 @@ function board(){
     const X=window._RX, live=X.mode==='LIVE', g=live?X.live:X.dryrun, ab=(g&&g.ab)||{};
     const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
     const delta=ab.exit_minus_hold_c;
-    hRungx = `<div class="scol rvx"><div class="hd"><span class="nm">Rung X · early-exit A/B</span><span class="mode ${X.stopped?'dry':(live?'live':'dry')}">${X.stopped?'STOPPED':(live?'LIVE':'DRYRUN')}</span></div>`
+    hRungx = `<div class="scol rvx"><div class="hd"><span class="nm">Rung X · early-exit A/B</span><span class="mode dry">RETIRED</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
       + srow('HOLD EV / rung', ab.hold_ev_c==null?'—':fmtC(ab.hold_ev_c), (ab.hold_ev_c||0)>=0?'pos':'neg')
       + srow('EXIT EV / rung', ab.exit_ev_c==null?'—':fmtC(ab.exit_ev_c), (ab.exit_ev_c||0)>=0?'pos':'neg')
@@ -520,7 +520,7 @@ function board(){
         })()
       + `<div class="ft">PILOT — sell 30¢ on 2+HR props, hold to settle · max 1 contract · judged Aug-15/Sep-1</div></div>`;
   }
-  el.innerHTML = hRung + hRungx + hBase + hMir + hT12 + hEnc;   // [2026-07-24] LIVE rung strats first (rung v2 + rung x); base/mirror/T12/encore (retired) below
+  el.innerHTML = hRung + hBase + hMir + hRungx + hT12 + hEnc;   // [2026-07-24] rung v2 (sole LIVE sleeve) first; base/mirror/rung x/T12/encore (retired) below
 }
 load(); setInterval(load, 60000);
 loadSidecars(); setInterval(loadSidecars, 60000);
