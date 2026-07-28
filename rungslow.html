@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f1">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a09">
-<title>Kalshi — Rung X</title>
+<title>Kalshi — Rung Slow</title>
 <style>
-/* [RUNG-V2] same design system as the other tabs; amber accent */
+/* [RUNG-SLOW] same design system as the other tabs; TEAL accent to distinguish from Rung v2 (amber) */
 :root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
  --grid:#e7e6df; --border:rgba(16,16,16,.07); --shadow:0 1px 2px rgba(16,16,16,.04),0 10px 30px rgba(16,16,16,.05);
- --s1:#2a78d6; --rv2:#d97708; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
+ --s1:#2a78d6; --rv2:#0d9488; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
 @media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#fff; --ink2:#c3c2b7;
  --muted:#8a8880; --grid:#2a2a28; --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0);
- --s1:#3987e5; --rv2:#efa93a; --goodtext:#16b516; --warn:#e0a52a; } }
+ --s1:#3987e5; --rv2:#2dd4bf; --goodtext:#16b516; --warn:#e0a52a; } }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -71,8 +71,8 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:
  <a href="./mirror.html">Mirror</a>
  <a href="./model.html">Testing</a>
  <a href="./rungv2.html">Rung v2</a>
- <a href="./rungslow.html">Rung Slow</a>
- <a class="active" href="./rungx.html">Rung X</a>
+ <a class="active" href="./rungslow.html">Rung Slow</a>
+ <a href="./rungx.html">Rung X</a>
  <a href="./t12.html">T12 Fade</a>
  <a href="./encore.html">⚾ MLB</a>
  <a href="./appendix.html">Appendix</a>
@@ -80,19 +80,20 @@ td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:
 <script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
 
 <div class="top">
- <h1>Rung X<span class="badge dry" id="modebadge">DRYRUN</span></h1>
+ <h1>Rung Slow<span class="badge dry" id="modebadge">DRYRUN</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Rung v2's panic-fade ladder, run as a live <b>early-exit A/B</b>: every rung now fills <b>two</b> 1-lot
-orders. One leg <b>holds to settlement</b> (the v2.1 control); the other rests a <b>2¢ maker buy-back</b> and
-exits early when the panic reverts. Same arming, ladder, and burst-cancel as v2 — the only new machinery is
-the second leg and its buy-back. The archive says the exit adds ~+1.5¢/fill on the highs, but only as a
-<i>maker</i> bid, so the whole experiment is the live buy-back fill rate: HOLD EV vs EXIT EV over the same
-rungs. $60 sleeve (2 lots/rung), DRYRUN-first, adversarially audited — no real order until the A/B earns it.</p>
-<div id="err">Waiting for the first rungv2 publish — the sidecar writes every ~4 min once running.</div>
+<p class="sub">Rung v2's mirror image. Rung v2 sells the <b>fast panics</b> and cancels out of slow grinds; this
+sleeve does the opposite — it rests <b>nothing</b> at arm, and only when a tail climbs <b>slowly</b> (off-tail
+≥8 min, no ≥18¢ burst) <b>and</b> the event's bracket distribution is <b>diffuse</b> does it place the
+30/35/40/45¢ ladder and hold to settlement. So it never double-trades Rung v2 (fast spikes → <i>skip</i>,
+concentrated grinds → <i>skip</i>) and captures only the +5-8¢/contract slow-diffuse population Rung v2 throws
+away — 1.8× the volume at a thinner, uncorrelated edge. Isolated $100 sleeve, own kills, LIVE pilot since
+2026-07-28.</p>
+<div id="err">Waiting for the first rungslow publish — the sidecar writes every ~4 min once running.</div>
 
 <div class="hero">
- <div class="l">Sleeve equity <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $60 basis</span></div>
+ <div class="l">Sleeve equity <span id="herosub" style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">· $100 basis</span></div>
  <div class="big" id="equity">—</div>
  <div class="cx" id="herocx"></div>
  <div class="bar"><i id="tbbar" style="width:0%"></i></div>
@@ -101,7 +102,7 @@ rungs. $60 sleeve (2 lots/rung), DRYRUN-first, adversarially audited — no real
 
 <div class="grid" id="cards"></div>
 
-<h2>Recent ladders <span style="text-transform:none;letter-spacing:0">— one row = one panic episode</span></h2>
+<h2>Recent ladders <span style="text-transform:none;letter-spacing:0">— one row = one slow-grind capture</span></h2>
 <div class="tbl"><div class="scroll"><table id="ladtbl"></table></div>
 <p class="note" id="ladnote"></p></div>
 
@@ -115,7 +116,7 @@ const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;r
 
 async function load(){
   try{
-    const r=await fetch('./data/rungx.json?t='+Date.now(),{cache:'no-store'});
+    const r=await fetch('./data/rungslow.json?t='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error(r.status);
     render(await r.json());
     document.getElementById('err').style.display='none';
@@ -128,7 +129,7 @@ async function load(){
 }
 
 function render(d){
-  const live=d.mode==='LIVE', act=live?d.live:d.dryrun, bench=d.bench||{};
+  const live=d.mode==='LIVE', act=live?d.live:d.dryrun;
   const badge=document.getElementById('modebadge');
   if(d.stopped){badge.textContent='STOPPED';badge.className='badge stop';}
   else if(live){badge.textContent='LIVE · REAL MONEY';badge.className='badge live';}
@@ -146,36 +147,30 @@ function render(d){
     +(d.open_ev_usd!=null&&(d.open_n||0)>0?` · open rungs expected <b class="${d.open_ev_usd>=0?'pos':'neg'}">${signMoney(d.open_ev_usd)}</b> at market marks`:'')
     +` · ${act.events_settled||0} settled ladders (${act.rungs_settled||0} rungs, ${act.rung_busts||0} busts)`
     +` · max drawdown ${money(act.maxdd)} · ${act.fills_today||0} fills today`
-    +`<br><span style="color:var(--muted)">monitor: ${d.monitor?.armed||0} armed · ${d.monitor?.warming||0} warming toward the 2h clean gate · ${d.monitor?.verified||0} verified tails</span>`;
+    +`<br><span style="color:var(--muted)">monitor: ${d.monitor?.armed||0} armed & watching for a slow grind · ${d.monitor?.warming||0} warming toward the 2h clean gate · ${d.monitor?.verified||0} verified tails</span>`;
   const n=act.events_settled||0, T=d.testb_target||150;
   const pct=Math.min(100,100*n/T);
   document.getElementById('tbbar').style.width=pct.toFixed(1)+'%';
   document.getElementById('tbnote').innerHTML=
-    `<b style="color:var(--ink)">Test B: ${n} / ${T}</b> settled ladders toward the pre-registered judgment `
-    +`<span style="color:var(--muted)">(${pct.toFixed(0)}% — needs EV per ladder inside the +${bench.ev_event_lo}…+${bench.ev_event_hi}¢ benchmark band with CI clear of zero, else the strategy is dropped)</span>`;
+    `<b style="color:var(--ink)">Pilot progress: ${n} / ${T}</b> settled ladders `
+    +`<span style="color:var(--muted)">(${pct.toFixed(0)}% — a brand-new sleeve, judged on its OWN live fills: `
+    +`archive+replay edge is ~+5-8¢/contract, so the kill fires only if realized EV falls under +2¢/contract at 50 settled events)</span>`;
 
-  const evOk=act.ev_per_event==null?null:(act.ev_per_event>=bench.ev_event_lo);
+  const evc=act.ev_per_event;
   const bustPct=act.rungs_settled?100*act.rung_busts/act.rungs_settled:null;
-  const ab=act.ab||{}, delta=ab.exit_minus_hold_c;
   const cards=[
-    {t:'HOLD vs EXIT EV', v:`${ab.hold_ev_c==null?'—':fmtC(ab.hold_ev_c)} → ${ab.exit_ev_c==null?'—':fmtC(ab.exit_ev_c)}`,
-     s:`exit − hold ${delta==null?'—':(delta>0?'+':'')+Number(delta).toFixed(1)+'¢'} · ${ab.n_pairs||0} paired rungs · the whole experiment`,
-     cls:delta==null?'watch':(delta>0?'pass':'fail'), pill:delta==null?'building':(delta>0?'exit wins':'hold wins')},
-    {t:'Buy-back fill rate', v:ab.bb_fill_rate==null?'—':(100*ab.bb_fill_rate).toFixed(1)+'%',
-     s:`${ab.bb_fills||0} of ${ab.n_pairs||0} X-legs bought back at ${ab.buyback_c||2}¢ maker · the key live unknown`,
-     cls:'watch', pill:ab.bb_fill_rate==null?'building':'measuring'},
-    {t:'EV per ladder', v:act.ev_per_event==null?'—':fmtC(act.ev_per_event),
-     s:`combined H+X · benchmark +${bench.ev_event_lo}…+${bench.ev_event_hi}¢ (archive, corrected)`,
-     cls:evOk==null?'watch':(evOk?'pass':'fail'), pill:evOk==null?'building':(evOk?'on track':'below')},
+    {t:'EV per ladder', v:evc==null?'—':fmtC(evc),
+     s:'pilot — expected ~+5-8¢/contract; no validated per-event band yet',
+     cls:evc==null?'watch':(evc>0?'pass':'fail'), pill:evc==null?'building':(evc>0?'positive':'negative')},
     {t:'Rung bust rate', v:act.rungs_settled?`${act.rung_busts||0}/${act.rungs_settled}`:'0/0',
-     s:`${bustPct==null?'—':bustPct.toFixed(1)+'%'} of settled · expected ~${bench.rung_bust_pct}% · ${act.busted_ladders||0} busted ladders`,
-     cls:bustPct==null?'watch':(bustPct<=22?'pass':'fail'), pill:bustPct==null?'building':(bustPct<=22?'ok':'hot')},
-    {t:'Sleeve drawdown', v:money(act.maxdd), s:'kill fires at $50 peak-to-trough',
-     cls:(act.maxdd||0)<25?'pass':((act.maxdd||0)<50?'watch':'fail'),
-     pill:(act.maxdd||0)<25?'ok':((act.maxdd||0)<50?'watch':'KILL')},
-    {t:'Mode & caps', v:`${d.mode} · 2 lots/rung`, s:`legs H+X · ladder ${(d.ladder||[]).join('/')}¢ · $${d.sleeve} sleeve · weather only`,
+     s:`${bustPct==null?'—':bustPct.toFixed(1)+'%'} of settled · slow grinds run ~24-26% (bustier than v2's fast fills, priced in) · ${act.busted_ladders||0} busted ladders`,
+     cls:bustPct==null?'watch':(bustPct<=30?'pass':'fail'), pill:bustPct==null?'building':(bustPct<=30?'ok':'hot')},
+    {t:'Sleeve drawdown', v:money(act.maxdd), s:'kill fires at $25 peak-to-trough (25% of the $100 sleeve)',
+     cls:(act.maxdd||0)<12.5?'pass':((act.maxdd||0)<25?'watch':'fail'),
+     pill:(act.maxdd||0)<12.5?'ok':((act.maxdd||0)<25?'watch':'KILL')},
+    {t:'Mode & caps', v:`${d.mode} · ${d.max_ct} ct/rung`, s:`ladder ${(d.ladder||[]).join('/')}¢ · $${d.sleeve} sleeve · slow-diffuse only · weather`,
      cls:'', pill:live?'live':'paper'},
-  ].filter(c=>!c.hide);
+  ];
   document.getElementById('cards').innerHTML=cards.map(c=>
     `<div class="card ${c.cls||''}"><span class="pill ${c.cls||''}">${esc(c.pill||'')}</span>
      <div class="ttl">${esc(c.t)}</div><div class="val">${c.v}</div><div class="s">${esc(c.s)}</div></div>`).join('');
@@ -189,14 +184,14 @@ function render(d){
   }).join('');
   document.getElementById('ladtbl').innerHTML=
     '<tr><th>market</th><th>mode</th><th>rungs</th><th>rise</th><th>outcome</th><th>P&L</th></tr>'
-    +(rows||'<tr><td colspan="6" style="color:var(--muted);text-align:left">No panic episodes yet — ladders arm as tails pass the 2-hour clean gate.</td></tr>');
+    +(rows||'<tr><td colspan="6" style="color:var(--muted);text-align:left">No captures yet — the sleeve arms tails through the 2-hour clean gate, then waits for a SLOW, diffuse climb. Fast panics and concentrated grinds are deliberately skipped.</td></tr>');
   document.getElementById('ladnote').textContent=
-    'Rise = how fast the market jumped from the tail to 30¢+. Ladders only rest under panic conditions: a rise without burst character (≥18¢ in 5 min) is canceled 8 minutes off the tail, so slow grinds never reach a rung.';
+    'Rise = how long the market took to climb from the tail to 30¢+. Unlike Rung v2, a HIGH rise time is what this sleeve wants: it only places once a rise proves slow (>15 min, no burst) and the distribution is diffuse — the +5-8¢ population Rung v2 cancels away from.';
 
   document.getElementById('footer').innerHTML=
     `Kill rails: ${(d.kills?.rails||[]).map(esc).join(' · ')}`
     +(d.kills?.active?`<br><b class="neg">KILL ACTIVE: ${esc(d.kills.active)}</b>`:'')
-    +`<br>Spec: PREREG_PATH_TESTS_2026-07-09.md (Amendments 4/6/8/9 + v2.1 15/16/17, adversarially audited) · data ${esc(d.generated||'?')} UTC.`;
+    +`<br>Clone of Rung v2, inverted for slow-diffuse grinds (own DB/cids, isolated). Evidence: DAYFLOW_FINDINGS.md slow-grind sections · data ${esc(d.generated||'?')} UTC.`;
 }
 load(); setInterval(load, 60000);
 </script>
