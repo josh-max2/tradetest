@@ -474,11 +474,12 @@ function board(){
     const RS=window._RS, live=RS.mode==='LIVE', g=live?RS.live:RS.dryrun;
     const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
     const _rv2g = R ? (R.mode==='LIVE'?R.live:R.dryrun) : null;                 // compare to the core strategy
-    const rR2 = _rv2g ? _rv2g.realized : null, rsR = g.realized||0, combR = rsR + (rR2||0);
+    const RV2_BASE = 248.35;   // [2026-07-28] Rung v2 realized at Rung Slow's launch -> vs & combined both start from 0
+    const rR2 = _rv2g ? (_rv2g.realized - RV2_BASE) : null, rsR = g.realized||0, combR = rsR + (rR2||0);
     hRungSlow = `<div class="scol rslow"><div class="hd"><span class="nm">Rung Slow · slow-grind fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
-      + srow('vs Rung v2', `${signMoney(rsR)} <span style="color:var(--muted);font-weight:400">vs ${rR2==null?'—':signMoney(rR2)}</span>`, rsR>=0?'pos':'neg')
-      + srow('Combined', `${signMoney(combR)} <span style="color:var(--muted);font-weight:400">v2 + slow</span>`, combR>=0?'pos':'neg')
+      + srow('vs Rung v2 · since launch', `${signMoney(rsR)} <span style="color:var(--muted);font-weight:400">vs ${rR2==null?'—':signMoney(rR2)}</span>`, rsR>=0?'pos':'neg')
+      + srow('Combined · since launch', `${signMoney(combR)} <span style="color:var(--muted);font-weight:400">v2 + slow</span>`, combR>=0?'pos':'neg')
       + srow('Open EV (mkt)', signMoney(RS.open_ev_usd), (RS.open_ev_usd||0)>=0?'pos':'neg')
       + greenRow(RS.green?.p, RS.green?.series)
       + srow('EV / ladder', g.ev_per_event==null?'—':fmtC(g.ev_per_event), (g.ev_per_event||0)>0?'pos':'')
