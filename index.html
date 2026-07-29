@@ -102,7 +102,7 @@ html{-webkit-text-size-adjust:100%}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeve: <b>Rung v2</b> (sole strategy, ~$457 = whole account). Base, Mirror, Rung X, T12 &amp; Encore retired.</p>
+<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeves: <b>Rung v2</b> (~$457, the core) + <b>Rung Slow</b> ($100 slow-grind pilot). Base, Mirror, Rung X, T12 &amp; Encore retired.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
@@ -126,7 +126,7 @@ html{-webkit-text-size-adjust:100%}
 <style>
 .sboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:18px}
 .scol{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px 17px;border-top:3px solid var(--grid)}
-.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708} .scol.rvx{border-top-color:#eab308} .scol.t12{border-top-color:#0e9f9f} .scol.enc{border-top-color:#7c5cff}
+.scol.base{border-top-color:var(--s1)} .scol.mir{border-top-color:#7c3aed} .scol.rv2{border-top-color:#d97708} .scol.rslow{border-top-color:#0d9488} .scol.rvx{border-top-color:#eab308} .scol.t12{border-top-color:#0e9f9f} .scol.enc{border-top-color:#7c5cff}
 .scol .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
 .scol .nm{font-size:13px;font-weight:700}
 .scol .mode{font-size:9px;font-weight:750;letter-spacing:.05em;padding:2px 8px;border-radius:99px;text-transform:uppercase;border:1.5px solid var(--grid);color:var(--muted)}
@@ -281,6 +281,10 @@ async function loadSidecars(){
       window._rungOpen = (window._R.monitor && window._R.monitor.filled_open_usd) || 0; }
   }catch(e){}
   try{
+    const r = await fetch('./data/rungslow.json?t='+Date.now(), {cache:'no-store'});
+    if(r.ok){ window._RS = await r.json(); }
+  }catch(e){}
+  try{
     const r = await fetch('./data/rungx.json?t='+Date.now(), {cache:'no-store'});
     if(r.ok){ window._RX = await r.json(); }
   }catch(e){}
@@ -301,15 +305,15 @@ async function loadSidecars(){
 function totals(){
   const el = document.getElementById('totrow');
   if(!el) return;
-  const P = window._P, M = window._M, R = window._R, T = window._T, RX = window._RX;
-  const rP = P?.summary?.realized, rM = M?.live?.realized, rR = R?.live?.realized, rT = T?.realized?.pnl_usd, rRX = RX?.live?.realized;
-  const real = [rP,rM,rR,rT,rRX].some(v=>v!=null) ? (rP||0)+(rM||0)+(rR||0)+(rT||0)+(rRX||0) : null;
-  const eP = P?.open?.expected_pnl, eM = M?.open_ev_usd, eR = R?.open_ev_usd, eT = T?.open_ev_usd, eRX = RX?.open_ev_usd;
-  const exp = [eP,eM,eR,eT,eRX].some(v=>v!=null) ? (eP||0)+(eM||0)+(eR||0)+(eT||0)+(eRX||0) : null;
+  const P = window._P, M = window._M, R = window._R, T = window._T, RX = window._RX, RS = window._RS;
+  const rP = P?.summary?.realized, rM = M?.live?.realized, rR = R?.live?.realized, rT = T?.realized?.pnl_usd, rRX = RX?.live?.realized, rRS = RS?.live?.realized;
+  const real = [rP,rM,rR,rT,rRX,rRS].some(v=>v!=null) ? (rP||0)+(rM||0)+(rR||0)+(rT||0)+(rRX||0)+(rRS||0) : null;
+  const eP = P?.open?.expected_pnl, eM = M?.open_ev_usd, eR = R?.open_ev_usd, eT = T?.open_ev_usd, eRX = RX?.open_ev_usd, eRS = RS?.open_ev_usd;
+  const exp = [eP,eM,eR,eT,eRX,eRS].some(v=>v!=null) ? (eP||0)+(eM||0)+(eR||0)+(eT||0)+(eRX||0)+(eRS||0) : null;
   const proj = (real!=null && exp!=null) ? real+exp : null;
-  const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0)+(T?.open_n||0)+(RX?.open_n||0);
+  const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0)+(T?.open_n||0)+(RX?.open_n||0)+(RS?.open_n||0);
   const sc = v => v==null ? '' : (v>=0?'pos':'neg');
-  const brk = (a,b,c,t,x) => `rung ${c==null?'—':signMoney(c)} · rungx ${x==null?'—':signMoney(x)} · t12 ${t==null?'—':signMoney(t)} · base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)}`;
+  const brk = (a,b,c,t,x,s) => `rung ${c==null?'—':signMoney(c)} · slow ${s==null?'—':signMoney(s)} · rungx ${x==null?'—':signMoney(x)} · t12 ${t==null?'—':signMoney(t)} · base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)}`;
   // [2026-07-12] day-percentile indicator: where does TODAY (projected, all books) rank
   // among every recorded combined day? "13th percentile" = a bad day; 50th = typical.
   const sd = P?.strat_days || {};
@@ -318,7 +322,7 @@ function totals(){
   for(const iso in sd) for(const k in sd[iso]) comb[iso]=(comb[iso]||0)+sd[iso][k].pnl;
   const series = Object.entries(comb).sort();
   const vals = series.map(x=>x[1]);
-  const todayProj = (eP||0)+(eM||0)+(eR||0)+(eT||0)+(eRX||0);
+  const todayProj = (eP||0)+(eM||0)+(eR||0)+(eT||0)+(eRX||0)+(eRS||0);
   const ord = n => n%10===1&&n%100!==11?'st':n%10===2&&n%100!==12?'nd':n%10===3&&n%100!==13?'rd':'th';
   let pv='building…', ps=`${vals.length} recorded day${vals.length===1?'':'s'} — needs 5`;
   let pcls='';
@@ -333,8 +337,8 @@ function totals(){
     ps = `today projected ${signMoney(todayProj)} → ${rank}${ord(rank)} of ${vals.length+1} days · last 14d ${signMoney(l14)}`;
   }
   el.innerHTML =
-    `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR,rT,rRX)}</div></div>`
-   +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR,eT,eRX)}</div></div>`
+    `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR,rT,rRX,rRS)}</div></div>`
+   +`<div class="tot"><div class="tl">Open trades · expected</div><div class="tv ${sc(exp)}">${signMoney(exp)}</div><div class="ts">${openN} open · ${brk(eP,eM,eR,eT,eRX,eRS)}</div></div>`
    +`<div class="tot"><div class="tl">Projected total</div><div class="tv ${sc(proj)}">${signMoney(proj)}</div><div class="ts">realized + open book at market marks</div></div>`
    +`<div class="tot"><div class="tl">Day rank · vs all recorded days</div><div class="tv ${pcls}">${pv}</div><div class="ts">${ps}</div></div>`;
 }
@@ -376,7 +380,7 @@ function board(){
   const el = document.getElementById('sboard');
   if(!el) return;
   const P = window._P, M = window._M, R = window._R;
-  let hBase='', hMir='', hRung='', hRungx='', hT12='', hEnc='';   // [2026-07-23] render live rung strats first
+  let hBase='', hMir='', hRung='', hRungSlow='', hRungx='', hT12='', hEnc='';   // [2026-07-23] render live rung strats first
   if(P){
     const a=P.account||{}, s=P.summary||{};
     const eq=(a.balance!=null||a.locked!=null)?(a.balance||0)+(a.locked||0):null;
@@ -465,6 +469,34 @@ function board(){
         })()
       + `<div class="ft">Sell burst panics (≥18¢/5min) at 30–45¢, thin tapes first · armed ${R.monitor?.armed||0} · warming ${R.monitor?.warming||0} · kills armed</div></div>`;
   }
+  // [2026-07-28] Rung Slow — the inverted sleeve: captures the SLOW-diffuse grinds Rung v2 discards
+  if(window._RS){
+    const RS=window._RS, live=RS.mode==='LIVE', g=live?RS.live:RS.dryrun;
+    const bustPct=g.rungs_settled?100*g.rung_busts/g.rungs_settled:null;
+    hRungSlow = `<div class="scol rslow"><div class="hd"><span class="nm">Rung Slow · slow-grind fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
+      + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
+      + srow('Open EV (mkt)', signMoney(RS.open_ev_usd), (RS.open_ev_usd||0)>=0?'pos':'neg')
+      + greenRow(RS.green?.p, RS.green?.series)
+      + srow('EV / ladder', g.ev_per_event==null?'—':fmtC(g.ev_per_event), (g.ev_per_event||0)>0?'pos':'')
+      + srow('Rung bust rate', bustPct==null?'—':pct1(bustPct)+' <span style="color:var(--muted);font-weight:400">/ ~25%</span>', bustPct!=null&&bustPct<=30?'pos':'neg')
+      + srow('Fills today', g.fills_today||0)
+      + srow('Deployed', money((RS.monitor&&RS.monitor.filled_open_usd)||0)+' <span style="color:var(--muted);font-weight:400">/ $'+Math.round(RS.sleeve||0)+'</span>')
+      + srow('Pilot', `${g.events_settled||0} / ${RS.testb_target||150}`)
+      + (function(){
+          const mine=(RS.ladders||[]).filter(x=>x.mode===RS.mode&&(x.status==='FILLED'||x.status==='SETTLED'))
+                                    .sort((a,b)=>(b.ts||'').localeCompare(a.ts||''));
+          const rows=mine.slice(0,5).map(x=>{
+            if(x.status==='FILLED')
+              return tRow(x.ticker,'',`${esc(x.rungs||'?')}¢ · <b>open</b>`);
+            const bust=(x.busted||0)>0;
+            return tRow(x.ticker,'',
+              `<span class="${bust?'neg':'pos'}">${bust?'busted':'won'} ${x.pnl_c==null?'':(x.pnl_c>0?'+':'')+x.pnl_c+'¢'}</span>`);
+          }).join('');
+          return strades('Slow-grind captures', rows||null,
+            `No captures yet — waits for a SLOW, diffuse climb (fast panics are Rung v2's).`);
+        })()
+      + `<div class="ft">Rung v2's mirror image — sells the slow-diffuse grinds v2 throws away (>15min climb, no burst), holds to settle · $100 pilot · armed ${RS.monitor?.armed||0} · warming ${RS.monitor?.warming||0}</div></div>`;
+  }
   // [2026-07-17] Rung X — rung v2 EARLY-EXIT A/B (leg H holds vs leg X 2¢ maker buy-back)
   if(window._RX){
     const X=window._RX, live=X.mode==='LIVE', g=live?X.live:X.dryrun, ab=(g&&g.ab)||{};
@@ -521,7 +553,7 @@ function board(){
         })()
       + `<div class="ft">PILOT — sell 30¢ on 2+HR props, hold to settle · max 1 contract · judged Aug-15/Sep-1</div></div>`;
   }
-  el.innerHTML = hRung + hBase + hMir + hRungx + hT12 + hEnc;   // [2026-07-24] rung v2 (sole LIVE sleeve) first; base/mirror/rung x/T12/encore (retired) below
+  el.innerHTML = hRung + hRungSlow + hBase + hMir + hRungx + hT12 + hEnc;   // [2026-07-28] rung v2 first, Rung Slow second (both LIVE); retired sleeves below
 }
 load(); setInterval(load, 60000);
 loadSidecars(); setInterval(loadSidecars, 60000);
