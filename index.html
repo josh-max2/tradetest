@@ -120,6 +120,22 @@ html{-webkit-text-size-adjust:100%}
 .tot .tl{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .tot .tv{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px}
 .tot .ts{font-size:10.5px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
+/* interactive growth chart */
+.glabel{font-size:10.5px;color:var(--muted);margin-bottom:6px}
+.gwrap{position:relative;width:100%;touch-action:pan-y}
+.gsvg{width:100%;height:160px;display:block;overflow:visible;cursor:crosshair}
+@media(max-width:560px){.gsvg{height:130px}}
+.gzero{stroke:var(--grid);stroke-width:1;stroke-dasharray:2 3}
+.gcross{stroke:var(--ink2);stroke-width:1;stroke-dasharray:3 3;pointer-events:none;opacity:0;transition:opacity .1s}
+.gdot{stroke:var(--surface);stroke-width:1.5;pointer-events:none;opacity:0;transition:opacity .1s}
+.gline{filter:drop-shadow(0 1px 3px color-mix(in srgb,var(--ink) 14%,transparent))}
+.gx{font:9px system-ui;fill:var(--muted)}
+.gtip{position:absolute;opacity:0;transition:opacity .1s;pointer-events:none;z-index:6;
+ background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);
+ padding:6px 10px;font-size:11px;white-space:nowrap;line-height:1.4}
+.gtip b{font-weight:650}
+.gtip .gt2{color:var(--ink2);font-variant-numeric:tabular-nums;margin-left:7px}
+.gtip .gt3{font-size:10px;font-variant-numeric:tabular-nums}
 </style>
 
 <!-- STRATEGY BOARD: one column per strategy, all key indicators -->
@@ -212,8 +228,9 @@ function render(d){
   // [2026-07-23] hero chart = COMBINED realized (all live strats), not base's frozen curve.
   // daily.days is the folded calendar (base + rung v2 + rung x + t12); cumulate its per-day pnl.
   const _dd = (d.daily && d.daily.days) || [];
-  let _cum = 0; const _combCurve = _dd.map((x,i)=>{ _cum += (x.pnl||0); return [i, _cum]; });
-  drawPnl(_combCurve.length>=2 ? _combCurve : (d.pnl_curve||[]));
+  let _cum = 0;
+  const _growth = _dd.filter(x=>x.pnl!=null).map(x=>{ _cum += (x.pnl||0); return {date:x.date, cum:_cum, day:x.pnl}; });
+  drawGrowth(_growth);
 
   // ---- strategy board (base column comes from this feed; sidecars via loadSidecars) ----
   window._P = d;
@@ -252,19 +269,49 @@ function render(d){
     `Weather high+low tails · post-only maker, zero fee · dynamic-sleeve rung fades held to settlement · SPRT/EV auto-stops armed · data ${d.generated||'?'} UTC.`;
 }
 
-function drawPnl(curve){
+// [2026-07-31] interactive growth chart — gradient area + hover crosshair/tooltip (self-contained SVG)
+function drawGrowth(series){
   const el=document.getElementById('pnlchart');
-  if(!curve || curve.length<2){ el.innerHTML=''; return; }
-  const W=420,H=64,L=4,R=4,T=8,Bm=8,pw=W-L-R,ph=H-T-Bm;
-  const ys=curve.map(p=>p[1]), ymax=Math.max(...ys,0.01), ymin=Math.min(...ys,0);
-  const pad=(ymax-ymin)*0.15||0.1, lo=ymin-pad, hi=ymax+pad;
-  const X=i=>L+i/(curve.length-1)*pw, Y=v=>T+(1-(v-lo)/(hi-lo))*ph;
-  const up=ys[ys.length-1]>=0;
-  let dp='M'+curve.map((p,i)=>`${X(i).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L');
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:420px">`;
-  s+=`<line x1="${L}" y1="${Y(0).toFixed(1)}" x2="${L+pw}" y2="${Y(0).toFixed(1)}" stroke="var(--grid)"/>`;
-  s+=`<path d="${dp}" fill="none" stroke="${up?'var(--good)':'var(--crit)'}" stroke-width="2" stroke-linejoin="round"/></svg>`;
-  el.innerHTML='<div style="font-size:10.5px;color:var(--muted);margin-bottom:2px">Combined realized P&amp;L — all live strategies, cumulative</div>'+s;   // [2026-07-23 audit]
+  if(!series || series.length<2){ el.innerHTML=''; return; }
+  const W=760,H=160,pL=8,pR=8,pT=16,pB=22, pw=W-pL-pR, ph=H-pT-pB, n=series.length;
+  const ys=series.map(p=>p.cum);
+  const ymax=Math.max(...ys,0), ymin=Math.min(...ys,0), span=(ymax-ymin)||1, pad=span*0.14, lo=ymin-pad, hi=ymax+pad;
+  const X=i=> pL+(n===1?0:i/(n-1))*pw, Y=v=> pT+(1-(v-lo)/(hi-lo))*ph;
+  const up=ys[n-1]>=0, col=up?'var(--good)':'var(--crit)';
+  const line='M'+series.map((p,i)=>`${X(i).toFixed(1)},${Y(p.cum).toFixed(1)}`).join(' L');
+  const area=line+` L${X(n-1).toFixed(1)},${Y(lo).toFixed(1)} L${X(0).toFixed(1)},${Y(lo).toFixed(1)} Z`;
+  const zY=Y(0).toFixed(1);
+  const fmtD=s=>{const d=new Date(s+'T00:00');return isNaN(d)?s:d.toLocaleDateString([],{month:'short',day:'numeric'});};
+  const idxs=[...new Set([0,Math.floor((n-1)/2),n-1])];
+  const xlab=idxs.map(i=>`<text x="${X(i).toFixed(1)}" y="${H-6}" text-anchor="${i===0?'start':i===n-1?'end':'middle'}" class="gx">${esc(fmtD(series[i].date))}</text>`).join('');
+  el.innerHTML=`<div class="glabel">Combined growth — cumulative realized P&amp;L, all live strategies · <span style="color:var(--ink2)">hover any day</span></div>
+   <div class="gwrap"><svg viewBox="0 0 ${W} ${H}" class="gsvg" preserveAspectRatio="none">
+     <defs><linearGradient id="ggrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".26"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
+     <line class="gzero" x1="${pL}" y1="${zY}" x2="${W-pR}" y2="${zY}"/>
+     <path d="${area}" fill="url(#ggrad)"/>
+     <path d="${line}" class="gline" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+     <circle cx="${X(n-1).toFixed(1)}" cy="${Y(ys[n-1]).toFixed(1)}" r="3.5" fill="${col}" stroke="var(--surface)" stroke-width="1.5"/>
+     <line class="gcross" x1="0" y1="${pT}" x2="0" y2="${(pT+ph).toFixed(1)}"/>
+     <circle class="gdot" r="4"/>${xlab}
+   </svg><div class="gtip"></div></div>`;
+  const wrap=el.querySelector('.gwrap'), cross=el.querySelector('.gcross'), dot=el.querySelector('.gdot'), tip=el.querySelector('.gtip');
+  function hover(clientX){
+    const r=wrap.getBoundingClientRect(), cw=r.width||1, ch=r.height||1;
+    let frac=((clientX-r.left)*(W/cw)-pL)/pw; frac=Math.max(0,Math.min(1,frac));
+    const i=Math.round(frac*(n-1)), gx=X(i), gy=Y(series[i].cum), p=series[i];
+    cross.setAttribute('x1',gx.toFixed(1)); cross.setAttribute('x2',gx.toFixed(1)); cross.setAttribute('opacity','1');
+    dot.setAttribute('cx',gx.toFixed(1)); dot.setAttribute('cy',gy.toFixed(1)); dot.setAttribute('fill',col); dot.setAttribute('opacity','1');
+    tip.innerHTML=`<b>${esc(fmtD(p.date))}</b><span class="gt2">${signMoney(p.cum)} total</span><div class="gt3 ${(p.day||0)>=0?'pos':'neg'}">${signMoney(p.day||0)} that day</div>`;
+    tip.style.opacity='1';
+    const pxx=gx*(cw/W), pxy=gy*(ch/H), tw=tip.offsetWidth||120, th=tip.offsetHeight||34;
+    tip.style.left=Math.max(2,Math.min(cw-tw-2,pxx-tw/2))+'px';
+    let top=pxy-th-10; if(top<0) top=pxy+12;
+    tip.style.top=top+'px';
+  }
+  const mv=e=>hover(e.touches?e.touches[0].clientX:e.clientX);
+  wrap.addEventListener('pointermove',mv);
+  wrap.addEventListener('touchmove',mv,{passive:true});
+  wrap.addEventListener('pointerleave',()=>{cross.setAttribute('opacity','0');dot.setAttribute('opacity','0');tip.style.opacity='0';});
 }
 
 // sidecar feeds for the strategy board — each degrades silently if not yet published
