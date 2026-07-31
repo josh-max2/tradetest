@@ -156,11 +156,11 @@ function heatBg(roi){
 
 // per-strategy helpers [2026-07-12]: sd = strat_days[iso] = {mir/rung/t12:{pnl,basis,n}};
 // base comes from rec itself (pnl + collat). ROI = pnl / capital that strategy risked.
-const SLBL={base:'base',mir:'mirror',rung:'rung',t12:'t12'};
+const SLBL={base:'base',mir:'mirror',rung:'rung v2',rungslow:'rung slow',t12:'t12'};
 const BASE_LAST='2026-07-21';   // [2026-07-24] base retired; last settlement Jul 21. Days after = pure sidecar.
 function stratList(rec, sd){
   const out=[]; let side=0;
-  for(const k of ['mir','rung','t12']){
+  for(const k of ['mir','rung','rungslow','t12']){
     const s=(sd||{})[k];
     if(s && s.n>0){ out.push([k, s.pnl, s.basis>0?100*s.pnl/s.basis:null]); side+=s.pnl; }
   }
@@ -176,7 +176,7 @@ function stratList(rec, sd){
 function chipStrip(list){
   if(!list.length) return '';
   return `<div class="chips">`+list.map(([k,p])=>
-    `<span class="chip ${p>0?'pos':(p<0?'neg':'')}">${k==='base'?'B':k==='mir'?'M':k==='rung'?'R':'T'}</span>`).join('')+`</div>`;
+    `<span class="chip ${p>0?'pos':(p<0?'neg':'')}">${k==='base'?'B':k==='mir'?'M':k==='rung'?'R':k==='rungslow'?'S':'T'}</span>`).join('')+`</div>`;
 }
 function stratTip(list){
   return list.map(([k,p,roi])=>`${SLBL[k]} ${signMoney(p)}${roi==null?'':` (${pct1(roi)} on risked)`}`).join('\n');
@@ -286,7 +286,7 @@ function render(d){
     {l:'Open book (expected)', v:signMoney(today.exp_pnl), s:`${today.n||0} open across all days · ${money(today.premium)} at stake`, cls:'accent', vcls:'neutral'},
   ];
   // per-sidecar cumulative cards [2026-07-12]: P&L + return on the capital each risked
-  for(const [k,label] of [['mir','Mirror'],['rung','Rung v2'],['t12','T12 Fade']]){
+  for(const [k,label] of [['mir','Mirror'],['rung','Rung v2'],['rungslow','Rung Slow'],['t12','T12 Fade']]){
     let p=0,b=0,n=0;
     for(const iso in sd){ const s=sd[iso][k]; if(s){p+=s.pnl;b+=s.basis;n++;} }
     stats.push({l:label+' · cumulative', v:signMoney(n?p:null),
@@ -324,7 +324,7 @@ function render(d){
   const deposits = (daily.invested!=null && startBal) ? daily.invested - startBal : null;
   document.getElementById('footer').innerHTML =
     `Each cell: <b>all-books return</b> (top), that day's <b>% of the whole portfolio</b> (day) and the running <b>cumulative portfolio %</b> (total). `
-    + `The B/M/R/T chips mark which strategies settled that day (green = that book won; base/mirror/rung x/T12 are retired, so recent days are Rung v2 only); hover any cell for the per-strategy breakdown — P&amp;L and <b>return on the capital that strategy risked</b>. On mobile, each day row shows the itemization inline. `
+    + `The B/M/R/S/T chips mark which strategies settled that day (green = that book won; base/mirror/rung x/T12 are retired, so recent days are Rung v2 (R) + Rung Slow (S)); hover any cell for the per-strategy breakdown — P&amp;L and <b>return on the capital that strategy risked</b>. On mobile, each day row shows the itemization inline. `
     + `Portfolio % is vs total invested capital (${money(daily.invested)}${deposits!=null?` = ${money(startBal)} start + ${money(deposits)} deposits`:''}), so deposits count as capital, not gains. `
     + `<b>ROI</b> (return ÷ collateral at risk) and win/loss are in each day's hover tooltip. `
     + `Days bucket by event date; a day settles the following morning, so "N pending" marks stragglers not yet resolved. Data ${esc(d.generated||'?')} UTC.`;
