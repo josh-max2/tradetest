@@ -114,8 +114,8 @@ html{-webkit-text-size-adjust:100%}
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
 <p class="sub">For each elapsed trading day: realized <b>return</b>, the day's <b>% of the whole portfolio</b>, and the
-running <b>cumulative portfolio %</b>. A day is the book of markets with that event date. Today is still open, so it
-shows the book's <em>expected</em> value, not a settled number.</p>
+running <b>cumulative portfolio %</b>. A day is the positions we <b>entered (filled) that day</b> — the P&amp;L shows on the
+day we bought in, not the next morning it settles. Today is still open, so it shows the book's <em>expected</em> value.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <div class="stats" id="stats"></div>
@@ -327,7 +327,7 @@ function render(d){
     + `The B/M/R/S/T chips mark which strategies settled that day (green = that book won; base/mirror/rung x/T12 are retired, so recent days are Rung v2 (R) + Rung Slow (S)); hover any cell for the per-strategy breakdown — P&amp;L and <b>return on the capital that strategy risked</b>. On mobile, each day row shows the itemization inline. `
     + `Portfolio % is vs total invested capital (${money(daily.invested)}${deposits!=null?` = ${money(startBal)} start + ${money(deposits)} deposits`:''}), so deposits count as capital, not gains. `
     + `<b>ROI</b> (return ÷ collateral at risk) and win/loss are in each day's hover tooltip. `
-    + `Days bucket by event date; a day settles the following morning, so "N pending" marks stragglers not yet resolved. Data ${esc(d.generated||'?')} UTC.`;
+    + `Days bucket by the day we <b>filled (bought)</b> the position, in local time — a market's return always lands on the day we entered it, never the next-morning settlement; "N pending" marks that day's entries not yet settled. Data ${esc(d.generated||'?')} UTC.`;
 }
 
 load(); setInterval(load, 60000);
