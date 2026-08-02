@@ -102,7 +102,7 @@ html{-webkit-text-size-adjust:100%}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeves: <b>Rung v2</b> (~$457, the core) + <b>Rung Slow</b> ($100 slow-grind pilot). Base, Mirror, Rung X, T12 &amp; Encore retired.</p>
+<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeve: <b>Rung v2</b> (the core, sole live strategy). Rung Slow, Base, Mirror, Rung X, T12 &amp; Encore retired.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
@@ -523,7 +523,7 @@ function board(){
     const _rv2g = R ? (R.mode==='LIVE'?R.live:R.dryrun) : null;                 // compare to the core strategy
     const RV2_BASE = 248.35;   // [2026-07-28] Rung v2 realized at Rung Slow's launch -> vs & combined both start from 0
     const rR2 = _rv2g ? (_rv2g.realized - RV2_BASE) : null, rsR = g.realized||0, combR = rsR + (rR2||0);
-    hRungSlow = `<div class="scol rslow"><div class="hd"><span class="nm">Rung Slow · slow-grind fade</span><span class="mode ${live?'live':'dry'}">${live?'LIVE':'DRYRUN'}</span></div>`
+    hRungSlow = `<div class="scol rslow"><div class="hd"><span class="nm">Rung Slow · slow-grind fade</span><span class="mode ${RS.stopped?'dry':(live?'live':'dry')}">${RS.stopped?'RETIRED':(live?'LIVE':'DRYRUN')}</span></div>`
       + srow('Realized P&L', signMoney(g.realized), (g.realized||0)>=0?'pos':'neg')
       + srow('vs Rung v2 · since launch', `${signMoney(rsR)} <span style="color:var(--muted);font-weight:400">vs ${rR2==null?'—':signMoney(rR2)}</span>`, rsR>=0?'pos':'neg')
       + srow('Combined · since launch', `${signMoney(combR)} <span style="color:var(--muted);font-weight:400">v2 + slow</span>`, combR>=0?'pos':'neg')
@@ -605,7 +605,7 @@ function board(){
         })()
       + `<div class="ft">PILOT — sell 30¢ on 2+HR props, hold to settle · max 1 contract · judged Aug-15/Sep-1</div></div>`;
   }
-  el.innerHTML = hRung + hRungSlow + hBase + hMir + hRungx + hT12 + hEnc;   // [2026-07-28] rung v2 first, Rung Slow second (both LIVE); retired sleeves below
+  el.innerHTML = hRung + hBase + hMir + hRungSlow + hRungx + hT12 + hEnc;   // [2026-08-02] rung v2 (sole live) first; Rung Slow retired, grouped with the other retired sleeves
 }
 load(); setInterval(load, 60000);
 loadSidecars(); setInterval(loadSidecars, 60000);

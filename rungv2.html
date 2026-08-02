@@ -164,9 +164,8 @@ function render(d){
     {t:'Rung bust rate', v:act.rungs_settled?`${act.rung_busts||0}/${act.rungs_settled}`:'0/0',
      s:`${bustPct==null?'—':bustPct.toFixed(1)+'%'} of settled · expected ~${bench.rung_bust_pct}% · ${act.busted_ladders||0} busted ladders`,
      cls:bustPct==null?'watch':(bustPct<=22?'pass':'fail'), pill:bustPct==null?'building':(bustPct<=22?'ok':'hot')},
-    {t:'Sleeve drawdown', v:money(act.maxdd), s:'kill fires at $25 peak-to-trough',
-     cls:(act.maxdd||0)<12.5?'pass':((act.maxdd||0)<25?'watch':'fail'),
-     pill:(act.maxdd||0)<12.5?'ok':((act.maxdd||0)<25?'watch':'KILL')},
+    {t:'Sleeve drawdown', v:money(act.maxdd), s:'daily-net · informational (drawdown halt retired 2026-08-02)',
+     cls:'', pill:''},
     {t:'Mode & caps', v:`${d.mode} · ${d.max_ct} ct/rung`, s:`ladder ${(d.ladder||[]).join('/')}¢ · $${d.sleeve} sleeve · weather only`,
      cls:'', pill:live?'live':'paper'},
   ].filter(c=>!c.hide);
