@@ -1,18 +1,14 @@
 {
- "generated": "2026-08-05 11:00",
- "generated_epoch": 1785927602,
+ "generated": "2026-08-05 11:05",
+ "generated_epoch": 1785927916,
  "mode": "LIVE",
  "sleeve": 917.7,
  "max_ct": 42,
- "open_ev_usd": 30.88,
- "open_n": 14,
+ "open_ev_usd": 11.89,
+ "open_n": 1,
  "green": {
-  "p": 88.2,
+  "p": 99.0,
   "series": [
-   [
-    1785810379,
-    98.6
-   ],
    [
     1785810680,
     98.6
@@ -1608,6 +1604,10 @@
    [
     1785927602,
     88.2
+   ],
+   [
+    1785927916,
+    99.0
    ]
   ]
  },
@@ -1638,13 +1638,13 @@
   "fills_today": 0
  },
  "live": {
-  "events_settled": 115,
-  "ev_per_event": 495.8,
-  "realized": 570.2,
-  "equity": 1487.9,
-  "rungs_settled": 272,
-  "rung_busts": 35,
-  "busted_ladders": 10,
+  "events_settled": 120,
+  "ev_per_event": 503.9,
+  "realized": 604.7,
+  "equity": 1522.4,
+  "rungs_settled": 286,
+  "rung_busts": 39,
+  "busted_ladders": 11,
   "maxdd": 13.65,
   "curve": [
    [
@@ -2106,26 +2106,56 @@
    [
     "2026-08-04T11:02",
     1487.9
+   ],
+   [
+    "2026-08-05T11:02",
+    1390.4
+   ],
+   [
+    "2026-08-05T11:02",
+    1448.9
+   ],
+   [
+    "2026-08-05T11:02",
+    1459.7
+   ],
+   [
+    "2026-08-05T11:02",
+    1518.2
+   ],
+   [
+    "2026-08-05T11:02",
+    1522.4
    ]
   ],
-  "fills_today": 0
+  "fills_today": 1
  },
  "monitor": {
   "armed": 127,
   "warming": 677,
   "verified": 4646,
-  "filled_open_usd": 327.5
+  "filled_open_usd": 28.7
  },
  "ladders": [
+  {
+   "ticker": "KXLOWTMIN-26AUG05-B52.5",
+   "mode": "LIVE",
+   "rungs": "30,35,40,45",
+   "rise_min": null,
+   "ts": "2026-08-05T11:02:36.061562+00:00",
+   "status": "RESTING",
+   "busted": 0,
+   "pnl_c": null
+  },
   {
    "ticker": "KXLOWTPHX-26AUG04-B85.5",
    "mode": "LIVE",
    "rungs": "30",
    "rise_min": null,
    "ts": "2026-08-04T14:46:10.395824+00:00",
-   "status": "FILLED",
+   "status": "SETTLED",
    "busted": 0,
-   "pnl_c": null
+   "pnl_c": 420.0
   },
   {
    "ticker": "KXLOWTDC-26AUG04-B71.5",
@@ -2133,9 +2163,9 @@
    "rungs": "30",
    "rise_min": null,
    "ts": "2026-08-04T14:10:33.441328+00:00",
-   "status": "FILLED",
+   "status": "SETTLED",
    "busted": 0,
-   "pnl_c": null
+   "pnl_c": 1080.0
   },
   {
    "ticker": "KXLOWTAUS-26AUG04-T70",
@@ -2143,9 +2173,9 @@
    "rungs": "30,35,40,45",
    "rise_min": 0.0,
    "ts": "2026-08-04T06:02:49.224140+00:00",
-   "status": "FILLED",
+   "status": "SETTLED",
    "busted": 0,
-   "pnl_c": null
+   "pnl_c": 5850.0
   },
   {
    "ticker": "KXHIGHTPHX-26AUG04-T109",
@@ -2153,9 +2183,9 @@
    "rungs": "30,35,40,45",
    "rise_min": null,
    "ts": "2026-08-04T05:04:07.427721+00:00",
-   "status": "FILLED",
-   "busted": 0,
-   "pnl_c": null
+   "status": "SETTLED",
+   "busted": 1,
+   "pnl_c": -9750.0
   },
   {
    "ticker": "KXLOWTPHIL-26AUG04-T62",
@@ -2163,9 +2193,9 @@
    "rungs": "30,35,40,45",
    "rise_min": 0.0,
    "ts": "2026-08-04T05:02:55.046759+00:00",
-   "status": "FILLED",
+   "status": "SETTLED",
    "busted": 0,
-   "pnl_c": null
+   "pnl_c": 5850.0
   },
   {
    "ticker": "KXLOWTPHX-26AUG03-B90.5",
@@ -2356,16 +2386,6 @@
    "status": "SETTLED",
    "busted": 0,
    "pnl_c": 1690.0
-  },
-  {
-   "ticker": "KXHIGHTSEA-26JUL29-T74",
-   "mode": "LIVE",
-   "rungs": "30",
-   "rise_min": null,
-   "ts": "2026-07-29T21:04:32.483990+00:00",
-   "status": "SETTLED",
-   "busted": 0,
-   "pnl_c": 540.0
   }
  ],
  "kills": {
