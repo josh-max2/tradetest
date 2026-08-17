@@ -7,15 +7,14 @@
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a09">
 <title>Kalshi — Calendar</title>
 <style>
-:root{ --surface:#ffffff; --page:#f5f5f1; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8880;
- --grid:#e7e6df; --border:rgba(16,16,16,.07); --shadow:0 1px 2px rgba(16,16,16,.04),0 10px 30px rgba(16,16,16,.05);
- --s1:#2a78d6; --good:#0ca30c; --goodtext:#068506; --warn:#c98a12; --crit:#d03b3b; }
-@media (prefers-color-scheme: dark){ :root{ --surface:#151514; --page:#0a0a09; --ink:#fff; --ink2:#c3c2b7;
- --muted:#8a8880; --grid:#2a2a28; --border:rgba(255,255,255,.08); --shadow:0 0 0 rgba(0,0,0,0);
- --s1:#3987e5; --goodtext:#16b516; --warn:#e0a52a; } }
+/* [2026-08-17] Desk Terminal identity — matches the rebuilt front page (dark-only, mono). */
+:root{ --surface:#151b23; --page:#0d1117; --ink:#d7dde5; --ink2:#8b95a3; --muted:#8b95a3;
+ --grid:#232b36; --border:#232b36; --shadow:0 0 0 rgba(0,0,0,0);
+ --s1:#e8b33e; --good:#43c07a; --goodtext:#43c07a; --warn:#e8b33e; --crit:#e2606b; }
 *{box-sizing:border-box}
-body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
- padding:26px 5vw 80px;max-width:880px;margin-inline:auto}
+body{margin:0;background:var(--page);color:var(--ink);font:13px/1.55 ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+ padding:22px 4vw 80px;max-width:880px;margin-inline:auto}
+.pct-tag{position:absolute;top:5px;right:7px;font-size:8.5px;color:var(--ink2);font-weight:700}
 .nav{display:flex;gap:4px;width:max-content;margin:0 0 24px;padding:4px;background:var(--surface);
  border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
 .nav a{padding:7px 16px;border-radius:9px;font:600 13px system-ui;color:var(--muted);text-decoration:none}
@@ -97,10 +96,7 @@ html{-webkit-text-size-adjust:100%}
 <body>
 <div class="nav">
  <a href="./index.html">Live</a>
- <a href="./monitor.html">Monitor</a>
  <a class="active" href="./calendar.html">Calendar</a>
- <a href="./rungv2.html">Rung v2</a>
- <a href="./appendix.html">Appendix</a>
 </div>
 <script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
 
@@ -206,8 +202,9 @@ function cell(iso, dd, rec, todayISO, today, sd){
   const tip = `${iso}\nAll books: ${signMoney(dayTot)}\n`+stratTip(items)
     +`\n—\nday ${pct1(rec.port_pct)} of portfolio · to date ${pct1(rec.cum_pct)}`
     +`\n${rec.wins}W/${rec.losses}L · ${rec.contracts} ct · ${money(rec.collat)} at risk`;
+  const _p=(window._PCTS&&window._PCTS.length>=5)?Math.round(100*window._PCTS.filter(v=>v<dayTot).length/window._PCTS.length):null;
   return `<div class="cell ${isToday?'today':''}" style="background:${heatBg(rec.roi)}" title="${esc(tip)}">
-    <span class="dnum">${dd}</span>
+    <span class="dnum">${dd}</span>${_p==null?'':`<span class="pct-tag">P${_p}</span>`}
     <div class="pnl ${cls}">${signMoney(dayTot)}</div>
     <div class="roi ${dcls}">${pct1(rec.port_pct)}<span class="sub"> day</span></div>
     <div class="tot ${ccls}">${pct1(rec.cum_pct)}<span class="sub"> total</span></div>
@@ -297,6 +294,8 @@ function render(d){
   if(!days.length){ cal.innerHTML='<div class="cal-card"><div class="note" style="text-align:center;padding:24px 0">No settled days yet — the calendar fills in as books settle each morning.</div></div>'; }
   else {
     const dayMap={}; days.forEach(x=>dayMap[x.date]=x);
+    // [2026-08-17] day-percentile tags: every settled day ranked against all settled days
+    window._PCTS = days.filter(x=>x.n>0&&x.pnl!=null).map(x=>x.pnl).sort((a,b)=>a-b);
     const sorted=days.map(x=>x.date).concat(Object.keys(sd)).sort();   // include sidecar-only dates
     const a=parseISO(sorted[0]), b=parseISO(sorted[sorted.length-1]);
     const months=[]; let y=a.y, m=a.m;
