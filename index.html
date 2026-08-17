@@ -59,6 +59,22 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
 .bt .p{font-size:10.5px;color:var(--ink2)}
 .bt .p b{color:var(--ink)}
 
+/* tests in flight */
+.tests{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 18px}
+.tc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 13px}
+.tc .hd{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.tc .nm{font-size:12px;font-weight:700;color:var(--hi)}
+.tc .chip{font-size:9px;font-weight:700;letter-spacing:.08em;padding:1px 7px;border-radius:99px;border:1px solid var(--line);text-transform:uppercase}
+.tc .chip.live{color:var(--green);border-color:var(--green)}
+.tc .chip.paper{color:var(--blue);border-color:var(--blue)}
+.tc .chip.logging{color:var(--amber);border-color:var(--amber)}
+.tc .chip.frozen,.tc .chip.queued{color:var(--ink2)}
+.tc .st{font-size:11px;color:var(--ink2);margin-top:4px;line-height:1.5}
+.tc .prog{height:4px;background:var(--line2);border-radius:99px;margin-top:7px;overflow:hidden}
+.tc .prog i{display:block;height:100%;background:var(--blue);border-radius:99px}
+.tc .rd{font-size:10px;color:var(--ink2);margin-top:5px}
+.tc .rd b{color:var(--amber);font-weight:700}
+
 /* feed */
 .feed{margin:0 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 0;font-size:11.5px}
 .feed .row{display:grid;grid-template-columns:52px 96px 1fr;gap:10px;padding:5px 14px;border-bottom:1px solid var(--line2)}
@@ -80,6 +96,7 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
  .eq{font-size:31px}
  .hr{padding:13px 14px}
  .board{grid-template-columns:1fr 1fr;margin:0 10px}
+ .tests{grid-template-columns:1fr;margin:0 10px}
  h2{margin:22px 10px 8px}
  .feed{margin:0 10px}
  .note{margin:8px 10px 0}
@@ -114,6 +131,9 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
  <h2>Today vs every recorded day <span style="text-transform:none;letter-spacing:0;font-weight:400">· percentile fills as the day runs</span></h2>
  <div class="board" id="board"></div>
  <div class="note" id="boardnote"></div>
+
+ <h2>Tests in flight <span style="text-transform:none;letter-spacing:0;font-weight:400">· every experiment, its progress, its read date</span></h2>
+ <div class="tests" id="tests"></div>
 
  <h2>Feed</h2>
  <div class="feed" id="feed"></div>
@@ -208,6 +228,13 @@ function render(P,R){
  });
  $('board').innerHTML=h;
  $('boardnote').textContent='Percentiles rank today against every recorded live day; early-day readings are naturally low and fill in as the day runs.';
+ // tests in flight
+ $('tests').innerHTML=((P.tests)||[]).map(t=>
+   `<div class="tc"><div class="hd"><span class="nm">${t.name}</span><span class="chip ${t.status}">${t.status}</span></div>`
+  +`<div class="st">${t.stat||'—'}</div>`
+  +(t.prog!=null?`<div class="prog"><i style="width:${t.prog}%"></i></div><div class="rd">${t.prog_label||''} · reads <b>${t.read}</b></div>`
+                :`<div class="rd">reads <b>${t.read}</b></div>`)
+  +`</div>`).join('')||'<div class="tc"><div class="st">no tests registered</div></div>';
  // feed
  $('feed').innerHTML=((T.feed)||[]).map(f=>{
   const t=(f.ts||'').slice(11,16);
