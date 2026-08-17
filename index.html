@@ -369,7 +369,11 @@ function totals(){
   for(const iso in sd) for(const k in sd[iso]) comb[iso]=(comb[iso]||0)+sd[iso][k].pnl;
   const series = Object.entries(comb).sort();
   const vals = series.map(x=>x[1]);
-  const todayProj = (eP||0)+(eM||0)+(eR||0)+(eT||0)+(eRX||0)+(eRS||0);
+  // [2026-08-17 fix] TODAY's projection must not wear yesterday's unsettled book: rung v2's
+  // open EV is split by fill-day in paper.json (rungv2_open). Prior-day pending is shown
+  // separately in the subtitle instead of masquerading as today.
+  const eRt = P?.rungv2_open?.today_ev_usd, eRp = P?.rungv2_open?.prior_ev_usd;
+  const todayProj = (eP||0)+(eM||0)+((eRt!=null?eRt:eR)||0)+(eT||0)+(eRX||0)+(eRS||0);
   const ord = n => n%10===1&&n%100!==11?'st':n%10===2&&n%100!==12?'nd':n%10===3&&n%100!==13?'rd':'th';
   let pv='building…', ps=`${vals.length} recorded day${vals.length===1?'':'s'} — needs 5`;
   let pcls='';
@@ -381,7 +385,7 @@ function totals(){
     pcls = pctile>=50?'pos':(pctile<25?'neg':'');
     const cutoff = new Date(Date.now()-14*864e5).toISOString().slice(0,10);
     const l14 = series.filter(([iso])=>iso>=cutoff).reduce((a,x)=>a+x[1],0);
-    ps = `today projected ${signMoney(todayProj)} → ${rank}${ord(rank)} of ${vals.length+1} days · last 14d ${signMoney(l14)}`;
+    ps = `today projected ${signMoney(todayProj)}${(eRp!=null&&Math.abs(eRp)>=0.5)?` (+ yest pending ${signMoney(eRp)})`:''} → ${rank}${ord(rank)} of ${vals.length+1} days · last 14d ${signMoney(l14)}`;
   }
   el.innerHTML =
     `<div class="tot"><div class="tl">Total P&amp;L · realized</div><div class="tv ${sc(real)}">${signMoney(real)}</div><div class="ts">${brk(rP,rM,rR,rT,rRX,rRS)}</div></div>`
