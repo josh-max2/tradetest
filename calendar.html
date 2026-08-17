@@ -277,14 +277,20 @@ function render(d){
      cls:(worst&&worst.pnl>=0?'good':worst?'bad':''), vcls:(worst&&worst.pnl>=0?'pos':worst?'neg':'')},
     {l:'Open book (expected)', v:signMoney(today.exp_pnl), s:`${today.n||0} open across all days · ${money(today.premium)} at stake`, cls:'accent', vcls:'neutral'},
   ];
-  // per-sidecar cumulative cards [2026-07-12]: P&L + return on the capital each risked
-  for(const [k,label] of [['mir','Mirror'],['rung','Rung v2'],['rungslow','Rung Slow'],['t12','T12 Fade']]){
-    let p=0,b=0,n=0;
-    for(const iso in sd){ const s=sd[iso][k]; if(s){p+=s.pnl;b+=s.basis;n++;} }
-    stats.push({l:label+' · cumulative', v:signMoney(n?p:null),
-      s:n?`${pct1(b>0?100*p/b:null)} on ${money(b)} risked · ${n} day${n===1?'':'s'}`:'no settled days yet',
-      cls:n?(p>=0?'good':'bad'):'', vcls:n?(p>=0?'pos':'neg'):''});
+  // [2026-08-17] one live strategy card + retired strategies merged into a single net line
+  let rp=0,rb=0,rn=0, xp=0,xn=0;
+  for(const iso in sd){
+    for(const k in sd[iso]){
+      const s=sd[iso][k];
+      if(k==='rung'){rp+=s.pnl;rb+=s.basis;rn++;}
+      else{xp+=s.pnl;xn++;}
+    }
   }
+  stats.push({l:'Rung v2 · cumulative', v:signMoney(rn?rp:null),
+    s:rn?`${pct1(rb>0?100*rp/rb:null)} on ${money(rb)} risked · ${rn} day${rn===1?'':'s'}`:'no settled days yet',
+    cls:rn?(rp>=0?'good':'bad'):'', vcls:rn?(rp>=0?'pos':'neg'):''});
+  if(xn) stats.push({l:'Retired strategies · net', v:signMoney(xp),
+    s:`${xn} strategy-days across the retired sleeves`, cls:xp>=0?'good':'bad', vcls:xp>=0?'pos':'neg'});
   document.getElementById('stats').innerHTML = stats.map(c=>
     `<div class="stat ${c.cls||''}"><div class="l">${c.l}</div>
      <div class="v ${c.vcls||''}">${c.v}</div><div class="s">${esc(c.s)}</div></div>`).join('');
