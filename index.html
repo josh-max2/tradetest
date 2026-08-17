@@ -87,13 +87,7 @@ html{-webkit-text-size-adjust:100%}
  <a class="active" href="./index.html">Live</a>
  <a href="./monitor.html">Monitor</a>
  <a href="./calendar.html">Calendar</a>
- <a href="./mirror.html">Mirror</a>
- <a href="./model.html">Testing</a>
  <a href="./rungv2.html">Rung v2</a>
- <a href="./rungslow.html">Rung Slow</a>
- <a href="./rungx.html">Rung X</a>
- <a href="./t12.html">T12 Fade</a>
- <a href="./encore.html">⚾ MLB</a>
  <a href="./appendix.html">Appendix</a>
 </div>
 <script>document.querySelector('.nav .active')?.scrollIntoView({inline:'center',block:'nearest'})</script>
@@ -102,7 +96,7 @@ html{-webkit-text-size-adjust:100%}
  <h1>Kalshi Live Trading<span class="live-badge">● LIVE · REAL MONEY</span></h1>
  <div class="status"><span class="dot" id="dot"></span><span id="statustxt">loading…</span></div>
 </div>
-<p class="sub">Live weather-tail fades — selling panic spikes in cheap short-term temperature tails at 30–45¢ (post-only maker, zero fee) and holding to settlement; ~80–86% expire worthless. Active sleeve: <b>Rung v2</b> (the core, sole live strategy). Rung Slow, Base, Mirror, Rung X, T12 &amp; Encore retired.</p>
+<p class="sub">Live weather panic fade — resting sell ladders at 30–45¢ on cheap temperature tails (post-only maker, zero fee), held to settlement; most panics expire worthless and the premium stays. Sole live strategy: <b>Rung v2</b>.</p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <!-- HERO: equity -->
@@ -360,7 +354,10 @@ function totals(){
   const proj = (real!=null && exp!=null) ? real+exp : null;
   const openN = (P?.open?.n||0)+(M?.open_n||0)+(R?.open_n||0)+(T?.open_n||0)+(RX?.open_n||0)+(RS?.open_n||0);
   const sc = v => v==null ? '' : (v>=0?'pos':'neg');
-  const brk = (a,b,c,t,x,s) => `rung ${c==null?'—':signMoney(c)} · slow ${s==null?'—':signMoney(s)} · rungx ${x==null?'—':signMoney(x)} · t12 ${t==null?'—':signMoney(t)} · base ${a==null?'—':signMoney(a)} · mir ${b==null?'—':signMoney(b)}`;
+  // [2026-08-17] retired strategies no longer itemized on the dash; their (static) realized
+  // stays inside the total as one line so the account arithmetic remains honest.
+  const brk = (a,b,c,t,x,s) => { const rest=(a||0)+(b||0)+(t||0)+(x||0)+(s||0);
+    return `rung v2 ${c==null?'—':signMoney(c)}${Math.abs(rest)>=0.005?` · retired strats ${signMoney(rest)}`:''}`; };
   // [2026-07-12] day-percentile indicator: where does TODAY (projected, all books) rank
   // among every recorded combined day? "13th percentile" = a bad day; 50th = typical.
   const sd = P?.strat_days || {};
@@ -609,7 +606,7 @@ function board(){
         })()
       + `<div class="ft">PILOT — sell 30¢ on 2+HR props, hold to settle · max 1 contract · judged Aug-15/Sep-1</div></div>`;
   }
-  el.innerHTML = hRung + hBase + hMir + hRungSlow + hRungx + hT12 + hEnc;   // [2026-08-02] rung v2 (sole live) first; Rung Slow retired, grouped with the other retired sleeves
+  el.innerHTML = hRung;   // [2026-08-17 Josh] retired-strategy cards removed from the dash entirely; their realized P&L stays inside the totals (fetches kept). History lives in the unlinked tab pages + calendar.
 }
 load(); setInterval(load, 60000);
 loadSidecars(); setInterval(loadSidecars, 60000);
