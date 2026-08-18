@@ -59,6 +59,23 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
 .bt .p{font-size:10.5px;color:var(--ink2)}
 .bt .p b{color:var(--ink)}
 
+/* liquidation */
+.liq{margin:14px 18px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px 10px}
+.liq .hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 14px}
+.liq .big{font-size:29px;font-weight:700;color:var(--hi);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.liq .big small{font-size:13px;font-weight:600;margin-left:9px}
+.liq .lbl{font-size:10.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.liq .split{font-size:11px;color:var(--ink2);margin-top:2px}
+.liq .split b{color:var(--ink)}
+.trends{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:11px 0 8px}
+.trend{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:6px 9px}
+.trend .k{font-size:9.5px;letter-spacing:.1em;color:var(--ink2);text-transform:uppercase}
+.trend .v{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px}
+.trend .v.up{color:var(--green)} .trend .v.dn{color:var(--red)} .trend .v.flat{color:var(--ink2)}
+#liqchart{display:block;width:100%;height:150px}
+.liq .legend{display:flex;gap:14px;font-size:10.5px;color:var(--ink2);margin-top:4px}
+.liq .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
 /* tests in flight */
 .tests{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 18px}
 .tc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 13px}
@@ -97,6 +114,13 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
  .hr{padding:13px 14px}
  .board{grid-template-columns:1fr 1fr;margin:0 10px}
  .tests{grid-template-columns:1fr;margin:0 10px}
+ .liq{margin:12px 10px 0;padding:12px 14px 9px}
+ .liq .big{font-size:24px}
+ .trends{grid-template-columns:repeat(4,1fr);gap:4px}
+ .trend{padding:5px 6px}
+ .trend .v{font-size:12.5px}
+ .trend .k{font-size:8.5px;letter-spacing:.06em}
+ #liqchart{height:120px}
  h2{margin:22px 10px 8px}
  .feed{margin:0 10px}
  .note{margin:8px 10px 0}
@@ -126,6 +150,18 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
    <div class="inst"><span class="k">supply trend yoy</span><span class="v g" id="i-supply">—</span></div>
    <div class="inst"><span class="k">P(green day)</span><span class="v" id="i-green">—</span></div>
   </div>
+ </div>
+
+ <div class="liq">
+  <div class="hd">
+   <div><div class="lbl">Liquidation value · sell everything now</div>
+    <div class="big" id="liq-now">—<small id="liq-today"></small></div>
+    <div class="split" id="liq-split">—</div></div>
+   <div class="legend"><span><i style="background:#2f5d8a"></i>cash</span><span><i style="background:#e8b33e"></i>open positions</span></div>
+  </div>
+  <div class="trends" id="liq-trends"></div>
+  <svg id="liqchart" preserveAspectRatio="none"></svg>
+  <div class="legend" id="liq-span"></div>
  </div>
 
  <h2>Today vs every recorded day <span style="text-transform:none;letter-spacing:0;font-weight:400">· percentile fills as the day runs</span></h2>
@@ -171,16 +207,17 @@ function settleClock(ridingCt){
 
 async function load(){
  try{
-  const [pr,rr]=await Promise.all([
+  const [pr,rr,lr]=await Promise.all([
     fetch('./data/paper.json?t='+Date.now(),{cache:'no-store'}),
-    fetch('./data/rungv2.json?t='+Date.now(),{cache:'no-store'})]);
+    fetch('./data/rungv2.json?t='+Date.now(),{cache:'no-store'}),
+    fetch('./data/liquidation.json?t='+Date.now(),{cache:'no-store'})]);
   if(!pr.ok) throw new Error(pr.status);
-  const P=await pr.json(), R=rr.ok?await rr.json():{};
-  render(P,R); $('err').style.display='none';
+  const P=await pr.json(), R=rr.ok?await rr.json():{}, L=lr.ok?await lr.json():{series:[]};
+  render(P,R,L); $('err').style.display='none';
  }catch(e){ console.error(e); $('err').style.display='block'; }
 }
 
-function render(P,R){
+function render(P,R,L){
  const T=P.terminal||{}, S=T.status||{}, O=P.rungv2_open||{};
  // status bar
  $('b-hb').textContent='HB '+(S.hb_age_s==null?'—':S.hb_age_s+'s');
@@ -228,6 +265,14 @@ function render(P,R){
  });
  $('board').innerHTML=h;
  $('boardnote').textContent='Percentiles rank today against every recorded live day; early-day readings are naturally low and fill in as the day runs.';
+ // liquidation value + trends + stacked chart
+ const LQ=P.liq||{};
+ $('liq-now').innerHTML=money(LQ.now)+(LQ.today_delta!=null?`<small class="${LQ.today_delta>=0?'up':'dn'}" style="color:${LQ.today_delta>=0?'var(--green)':'var(--red)'}">${sm(LQ.today_delta)} today</small>`:'');
+ $('liq-split').innerHTML=`<b>${money(LQ.balance)}</b> cash + <b>${money(LQ.positions)}</b> open positions at Kalshi marks`;
+ const TR=[['1h',LQ.d1h],['6h',LQ.d6h],['12h',LQ.d12h],['24h',LQ.d24h]];
+ $('liq-trends').innerHTML=TR.map(([k,v])=>
+   `<div class="trend"><div class="k">${k}</div><div class="v ${v==null?'flat':(v>0?'up':(v<0?'dn':'flat'))}">${v==null?'—':sm(v)}</div></div>`).join('');
+ drawLiq((L&&L.series)||[]);
  // tests in flight
  $('tests').innerHTML=((P.tests)||[]).map(t=>
    `<div class="tc"><div class="hd"><span class="nm">${t.name}</span><span class="chip ${t.status}">${t.status}</span></div>`
@@ -247,6 +292,45 @@ function render(P,R){
   }catch(e){d=`<b>${shortTk(f.tk)}</b>`;}
   return `<div class="row"><span class="t">${t}</span><span class="k ${f.k}">${f.k.replace('LIVE_','').replace('_',' ')}</span><span class="d">${d}</span></div>`;
  }).join('')||'<div class="row"><span class="t">—</span><span class="k"></span><span class="d">quiet</span></div>';
+}
+
+function drawLiq(ser){
+ const svg=$('liqchart');
+ if(!ser||ser.length<2){svg.innerHTML='';$('liq-span').textContent='building series — first points collected';return;}
+ const W=760,H=150;
+ const MT=4, MB=H-16;          // value curve band
+ const SB_T=H-14, SB_H=10;     // composition strip
+ const t0=ser[0][0], t1=ser[ser.length-1][0], span=Math.max(t1-t0,1);
+ const tot=ser.map(p=>p[1]);
+ let lo=Math.min(...tot), hi=Math.max(...tot);
+ const pad=(hi-lo)*0.14||10; lo-=pad; hi+=pad;
+ const X=t=>((t-t0)/span)*W, Y=v=>MB-((v-lo)/(hi-lo))*(MB-MT-8);
+ const line=ser.map(p=>`${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L');
+ // midnight markers
+ let grid='';
+ for(let i=1;i<ser.length;i++){
+   const a=new Date(ser[i-1][0]*1000).getDate(), b=new Date(ser[i][0]*1000).getDate();
+   if(a!==b){const x=X(ser[i][0]).toFixed(1);
+     grid+=`<line x1="${x}" y1="${MT}" x2="${x}" y2="${MB}" stroke="#2a3441" stroke-dasharray="3,3"/>`
+        +`<text x="${+x+4}" y="${MT+10}" fill="#8b95a3" font-size="9">${new Date(ser[i][0]*1000).toLocaleDateString([],{month:'short',day:'numeric'})}</text>`;}
+ }
+ // composition strip: share of value sitting in open positions (amber) vs cash (blue)
+ let strip='';
+ for(let i=1;i<ser.length;i++){
+   const x0=X(ser[i-1][0]), x1=X(ser[i][0]), w=Math.max(x1-x0,0.6);
+   const t=ser[i][1]||1, posFrac=Math.max(0,Math.min(1,(t-ser[i][2])/t));
+   strip+=`<rect x="${x0.toFixed(1)}" y="${SB_T}" width="${w.toFixed(1)}" height="${SB_H}" fill="#2f5d8a"/>`
+        +`<rect x="${x0.toFixed(1)}" y="${SB_T}" width="${w.toFixed(1)}" height="${(SB_H*posFrac).toFixed(1)}" fill="#e8b33e"/>`;
+ }
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ svg.innerHTML=grid
+  +`<path d="M${line} L${X(t1).toFixed(1)},${MB} L${X(t0).toFixed(1)},${MB} Z" fill="#e8b33e" fill-opacity=".10"/>`
+  +`<path d="M${line}" fill="none" stroke="#e8b33e" stroke-width="2" stroke-linejoin="round"/>`
+  +strip
+  +`<text x="4" y="${MT+9}" fill="#8b95a3" font-size="10">${money(hi)}</text>`
+  +`<text x="4" y="${MB-3}" fill="#8b95a3" font-size="10">${money(lo)}</text>`;
+ const hrs=((t1-t0)/3600).toFixed(0);
+ $('liq-span').textContent=`${ser.length} marks over ${hrs}h · strip below = share held in open positions vs cash · moves with marks, jumps at settlement`;
 }
 
 function drawGrowth(pts){
