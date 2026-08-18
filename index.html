@@ -76,6 +76,20 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
 .liq .legend{display:flex;gap:14px;font-size:10.5px;color:var(--ink2);margin-top:4px}
 .liq .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 
+/* order flow */
+.flow{margin:10px 18px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 18px 10px}
+.flow .hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 14px;margin-bottom:8px}
+.flow .lbl{font-size:10.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.flow .tot{font-size:11.5px;color:var(--ink2)}
+.flow .tot b{color:var(--ink);font-weight:700}
+#flowchart{display:block;width:100%;height:132px}
+.mkts{margin-top:9px;border-top:1px solid var(--line2);padding-top:8px}
+.mkts .r{display:grid;grid-template-columns:1fr 62px 78px 72px;gap:8px;font-size:11px;padding:3px 0;color:var(--ink2)}
+.mkts .r.h{color:var(--ink2);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line2);padding-bottom:5px;margin-bottom:2px}
+.mkts .r b{color:var(--hi);font-weight:600}
+.mkts .r .n{text-align:right;font-variant-numeric:tabular-nums}
+.mkts .r .f{text-align:right;font-variant-numeric:tabular-nums;color:var(--amber);font-weight:700}
+
 /* tests in flight */
 .tests{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 18px}
 .tc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 13px}
@@ -121,6 +135,9 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
  .trend .v{font-size:12.5px}
  .trend .k{font-size:8.5px;letter-spacing:.06em}
  #liqchart{height:120px}
+ .flow{margin:10px 10px 0;padding:12px 14px 9px}
+ #flowchart{height:112px}
+ .mkts .r{grid-template-columns:1fr 44px 60px 56px;gap:5px;font-size:10px}
  h2{margin:22px 10px 8px}
  .feed{margin:0 10px}
  .note{margin:8px 10px 0}
@@ -162,6 +179,12 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
   <div class="trends" id="liq-trends"></div>
   <svg id="liqchart" preserveAspectRatio="none"></svg>
   <div class="legend" id="liq-span"></div>
+ </div>
+
+ <div class="flow">
+  <div class="hd"><div class="lbl">Order flow · same 48h window</div><div class="tot" id="flow-tot">—</div></div>
+  <svg id="flowchart" preserveAspectRatio="none"></svg>
+  <div class="mkts" id="flow-mkts"></div>
  </div>
 
  <h2>Today vs every recorded day <span style="text-transform:none;letter-spacing:0;font-weight:400">· percentile fills as the day runs</span></h2>
@@ -273,6 +296,7 @@ function render(P,R,L){
  $('liq-trends').innerHTML=TR.map(([k,v])=>
    `<div class="trend"><div class="k">${k}</div><div class="v ${v==null?'flat':(v>0?'up':(v<0?'dn':'flat'))}">${v==null?'—':sm(v)}</div></div>`).join('');
  drawLiq((L&&L.series)||[]);
+ drawFlow(P.flow||{}, (L&&L.series)||[]);
  // tests in flight
  $('tests').innerHTML=((P.tests)||[]).map(t=>
    `<div class="tc"><div class="hd"><span class="nm">${t.name}</span><span class="chip ${t.status}">${t.status}</span></div>`
@@ -331,6 +355,47 @@ function drawLiq(ser){
   +`<text x="4" y="${MB-3}" fill="#8b95a3" font-size="10">${money(lo)}</text>`;
  const hrs=((t1-t0)/3600).toFixed(0);
  $('liq-span').textContent=`${ser.length} marks over ${hrs}h · strip below = share held in open positions vs cash · moves with marks, jumps at settlement`;
+}
+
+function drawFlow(F, liqSer){
+ const svg=$('flowchart'), B=F.buckets||[];
+ $('flow-tot').innerHTML = B.length
+   ? `<b>${(F.tot_orders||0).toLocaleString()}</b> orders · <b>${(F.tot_placed_ct||0).toLocaleString()}</b> ct placed · <b>${(F.tot_filled_ct||0).toLocaleString()}</b> ct filled · <b>${F.n_markets||0}</b> markets`
+   : 'no order flow in window';
+ if(!B.length){svg.innerHTML='';$('flow-mkts').innerHTML='';return;}
+ // share the liquidation chart's exact x-window so the two line up
+ const nowS=Math.floor(Date.now()/1000);
+ const t0=(liqSer&&liqSer.length)?liqSer[0][0]:nowS-(F.hours||48)*3600;
+ const t1=(liqSer&&liqSer.length)?liqSer[liqSer.length-1][0]:nowS;
+ const span=Math.max(t1-t0,1);
+ const W=760,H=132, P1T=14,P1B=64, P2T=76,P2B=118;   // two panels, shared x, separate scales
+ const X=t=>((t-t0)/span)*W;
+ const ep=k=>Date.parse(k+':00:00Z')/1000;
+ const bw=Math.max(W/Math.max((span/3600),1)-1.2, 2);
+ const maxO=Math.max(...B.map(b=>b[1]),1), maxF=Math.max(...B.map(b=>b[3]),1);
+ let bars='';
+ B.forEach(b=>{
+   const x=X(ep(b[0])); if(x<-bw||x>W) return;
+   const ho=(b[1]/maxO)*(P1B-P1T-11), hf=(b[3]/maxF)*(P2B-P2T-11);   // 11px reserved for the panel label
+   if(b[1]>0) bars+=`<rect x="${x.toFixed(1)}" y="${(P1B-ho).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(ho,1).toFixed(1)}" fill="#5b9bd9" fill-opacity=".8"/>`;
+   if(b[3]>0) bars+=`<rect x="${x.toFixed(1)}" y="${(P2B-hf).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(hf,1.5).toFixed(1)}" fill="#e8b33e"/>`;
+ });
+ let grid='';
+ B.forEach((b,i)=>{ if(!i) return;
+   const d0=new Date(ep(B[i-1][0])*1000).getDate(), d1=new Date(ep(b[0])*1000).getDate();
+   if(d0!==d1){const x=X(ep(b[0])).toFixed(1);
+     grid+=`<line x1="${x}" y1="8" x2="${x}" y2="${P2B}" stroke="#2a3441" stroke-dasharray="3,3"/>`
+        +`<text x="${+x+4}" y="12" fill="#8b95a3" font-size="9">${new Date(ep(b[0])*1000).toLocaleDateString([],{month:'short',day:'numeric'})}</text>`;}
+ });
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ svg.innerHTML=grid+bars
+  +`<line x1="0" y1="${P1B}" x2="${W}" y2="${P1B}" stroke="#232b36"/>`
+  +`<line x1="0" y1="${P2B}" x2="${W}" y2="${P2B}" stroke="#232b36"/>`
+  +`<text x="4" y="${P1T+8}" fill="#5b9bd9" font-size="9.5">ORDERS PLACED / HR · peak ${maxO}</text>`
+  +`<text x="4" y="${P2T+8}" fill="#e8b33e" font-size="9.5">CONTRACTS FILLED / HR · peak ${maxF}</text>`;
+ const rows=(F.markets||[]).map(m=>
+   `<div class="r"><span><b>${shortTk(m[0])}</b></span><span class="n">${m[1]}</span><span class="n">${(m[2]||0).toLocaleString()}</span><span class="f">${m[3]?m[3].toLocaleString():'—'}</span></div>`).join('');
+ $('flow-mkts').innerHTML=`<div class="r h"><span>Most active markets · 48h</span><span class="n">orders</span><span class="n">ct placed</span><span class="n">filled</span></div>`+rows;
 }
 
 function drawGrowth(pts){
