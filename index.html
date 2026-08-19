@@ -230,17 +230,19 @@ function settleClock(ridingCt){
 
 async function load(){
  try{
-  const [pr,rr,lr]=await Promise.all([
+  const [pr,rr,lr,ra]=await Promise.all([
     fetch('./data/paper.json?t='+Date.now(),{cache:'no-store'}),
     fetch('./data/rungv2.json?t='+Date.now(),{cache:'no-store'}),
-    fetch('./data/liquidation.json?t='+Date.now(),{cache:'no-store'})]);
+    fetch('./data/liquidation.json?t='+Date.now(),{cache:'no-store'}),
+    fetch('./data/rain.json?t='+Date.now(),{cache:'no-store'})]);
   if(!pr.ok) throw new Error(pr.status);
   const P=await pr.json(), R=rr.ok?await rr.json():{}, L=lr.ok?await lr.json():{series:[]};
-  render(P,R,L); $('err').style.display='none';
+  const RN=ra.ok?await ra.json():null;
+  render(P,R,L,RN); $('err').style.display='none';
  }catch(e){ console.error(e); $('err').style.display='block'; }
 }
 
-function render(P,R,L){
+function render(P,R,L,RN){
  const T=P.terminal||{}, S=T.status||{}, O=P.rungv2_open||{};
  // status bar
  $('b-hb').textContent='HB '+(S.hb_age_s==null?'—':S.hb_age_s+'s');
@@ -297,6 +299,18 @@ function render(P,R,L){
    `<div class="trend"><div class="k">${k}</div><div class="v ${v==null?'flat':(v>0?'up':(v<0?'dn':'flat'))}">${v==null?'—':sm(v)}</div></div>`).join('');
  drawLiq((L&&L.series)||[]);
  drawFlow(P.flow||{}, (L&&L.series)||[]);
+ // rain sleeve card (its own bot/DB, so it rides in the tests strip)
+ if(RN){
+   const st = RN.stopped ? 'frozen' : (RN.mode==='LIVE' ? 'live' : 'paper');
+   const ev = RN.ev_c_per_ct==null ? '—' : (RN.ev_c_per_ct>=0?'+':'')+RN.ev_c_per_ct+'c/ct';
+   (P.tests=P.tests||[]).unshift({name:'Rain sleeve · '+RN.mode, status:st,
+     read:'EV bar +'+(RN.ev_bar?.c??5)+'c at '+(RN.ev_bar?.n??20)+' settled',
+     stat:`${RN.open_markets}/${RN.cap_markets} markets · ${RN.resting} resting · `
+        +`realized ${(RN.realized_usd>=0?'+':'')}$${(RN.realized_usd??0).toFixed(2)} · `
+        +`${RN.settled_markets} settled (${RN.busts} busts) · ${ev}`,
+     prog: RN.ev_bar? Math.min(100, Math.round(100*(RN.settled_markets||0)/RN.ev_bar.n)) : null,
+     prog_label: `${RN.settled_markets||0}/${RN.ev_bar?.n??20} settled`});
+ }
  // tests in flight
  $('tests').innerHTML=((P.tests)||[]).map(t=>
    `<div class="tc"><div class="hd"><span class="nm">${t.name}</span><span class="chip ${t.status}">${t.status}</span></div>`
