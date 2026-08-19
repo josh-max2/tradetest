@@ -90,6 +90,30 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
 .mkts .r .n{text-align:right;font-variant-numeric:tabular-nums}
 .mkts .r .f{text-align:right;font-variant-numeric:tabular-nums;color:var(--amber);font-weight:700}
 
+/* rain sleeve — its OWN section, never blended with rung v2 */
+.rain{margin:10px 18px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 18px 12px}
+.rain .hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin-bottom:9px}
+.rain .lbl{font-size:10.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.rain .chip{font-size:9px;font-weight:700;letter-spacing:.08em;padding:1px 8px;border-radius:99px;border:1px solid var(--green);color:var(--green);text-transform:uppercase}
+.rain .chip.dry{color:var(--blue);border-color:var(--blue)}
+.rain .chip.stop{color:var(--red);border-color:var(--red)}
+.rain .big{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.rk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.rk .b{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:8px 10px}
+.rk .b .k{font-size:9.5px;letter-spacing:.08em;color:var(--ink2);text-transform:uppercase}
+.rk .b .v{font-size:18px;font-weight:700;color:var(--hi);margin-top:2px;font-variant-numeric:tabular-nums}
+.rk .b .s{font-size:10px;color:var(--ink2)}
+.rmk{font-size:11px}
+.rmk .r{display:grid;grid-template-columns:1fr 58px 1fr 68px;gap:8px;padding:4px 0;border-bottom:1px solid var(--line2);align-items:center}
+.rmk .r.h{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);border-bottom:1px solid var(--line)}
+.rmk .r:last-child{border-bottom:0}
+.rmk b{color:var(--hi);font-weight:600}
+.rmk .lad{font-family:ui-monospace,Consolas,monospace}
+.rmk .lad i{font-style:normal;color:var(--ink2)}
+.rmk .lad i.f{color:var(--amber);font-weight:700}
+.rmk .amt{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.rain .cfg{font-size:10px;color:var(--ink2);margin-top:8px;border-top:1px solid var(--line2);padding-top:7px}
+
 /* tests in flight */
 .tests{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 18px}
 .tc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 13px}
@@ -128,6 +152,9 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
  .hr{padding:13px 14px}
  .board{grid-template-columns:1fr 1fr;margin:0 10px}
  .tests{grid-template-columns:1fr;margin:0 10px}
+ .rain{margin:10px 10px 0;padding:12px 14px 10px}
+ .rk{grid-template-columns:1fr 1fr;gap:6px}
+ .rmk .r{grid-template-columns:1fr 44px 1fr 58px;gap:5px;font-size:10px}
  .liq{margin:12px 10px 0;padding:12px 14px 9px}
  .liq .big{font-size:24px}
  .trends{grid-template-columns:repeat(4,1fr);gap:4px}
@@ -154,7 +181,7 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
 
  <div class="hero">
   <div class="hl">
-   <div class="klbl">Equity <span id="inv" style="text-transform:none;letter-spacing:0"></span></div>
+   <div class="klbl">Account equity · all strategies <span id="inv" style="text-transform:none;letter-spacing:0"></span></div>
    <div class="eq" id="eq">—</div>
    <div class="attr" id="attr">—</div>
    <svg id="growth" preserveAspectRatio="none"></svg>
@@ -171,7 +198,7 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
 
  <div class="liq">
   <div class="hd">
-   <div><div class="lbl">Liquidation value · sell everything now</div>
+   <div><div class="lbl">Liquidation value · whole account (rung v2 + rain)</div>
     <div class="big" id="liq-now">—<small id="liq-today"></small></div>
     <div class="split" id="liq-split">—</div></div>
    <div class="legend"><span><i style="background:#2f5d8a"></i>cash</span><span><i style="background:#e8b33e"></i>open positions</span></div>
@@ -182,14 +209,17 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
  </div>
 
  <div class="flow">
-  <div class="hd"><div class="lbl">Order flow · same 48h window</div><div class="tot" id="flow-tot">—</div></div>
+  <div class="hd"><div class="lbl">Rung v2 order flow · same 48h window</div><div class="tot" id="flow-tot">—</div></div>
   <svg id="flowchart" preserveAspectRatio="none"></svg>
   <div class="mkts" id="flow-mkts"></div>
  </div>
 
- <h2>Today vs every recorded day <span style="text-transform:none;letter-spacing:0;font-weight:400">· percentile fills as the day runs</span></h2>
+ <h2>Rung v2 · today vs every recorded day <span style="text-transform:none;letter-spacing:0;font-weight:400">· temperature sleeve only</span></h2>
  <div class="board" id="board"></div>
  <div class="note" id="boardnote"></div>
+
+ <h2>Rain sleeve <span style="text-transform:none;letter-spacing:0;font-weight:400">&middot; separate strategy, separate book, separate P&amp;L</span></h2>
+ <div class="rain" id="rain"></div>
 
  <h2>Tests in flight <span style="text-transform:none;letter-spacing:0;font-weight:400">· every experiment, its progress, its read date</span></h2>
  <div class="tests" id="tests"></div>
@@ -299,18 +329,7 @@ function render(P,R,L,RN){
    `<div class="trend"><div class="k">${k}</div><div class="v ${v==null?'flat':(v>0?'up':(v<0?'dn':'flat'))}">${v==null?'—':sm(v)}</div></div>`).join('');
  drawLiq((L&&L.series)||[]);
  drawFlow(P.flow||{}, (L&&L.series)||[]);
- // rain sleeve card (its own bot/DB, so it rides in the tests strip)
- if(RN){
-   const st = RN.stopped ? 'frozen' : (RN.mode==='LIVE' ? 'live' : 'paper');
-   const ev = RN.ev_c_per_ct==null ? '—' : (RN.ev_c_per_ct>=0?'+':'')+RN.ev_c_per_ct+'c/ct';
-   (P.tests=P.tests||[]).unshift({name:'Rain sleeve · '+RN.mode, status:st,
-     read:'EV bar +'+(RN.ev_bar?.c??5)+'c at '+(RN.ev_bar?.n??20)+' settled',
-     stat:`${RN.open_markets}/${RN.cap_markets} markets · ${RN.resting} resting · `
-        +`realized ${(RN.realized_usd>=0?'+':'')}$${(RN.realized_usd??0).toFixed(2)} · `
-        +`${RN.settled_markets} settled (${RN.busts} busts) · ${ev}`,
-     prog: RN.ev_bar? Math.min(100, Math.round(100*(RN.settled_markets||0)/RN.ev_bar.n)) : null,
-     prog_label: `${RN.settled_markets||0}/${RN.ev_bar?.n??20} settled`});
- }
+ renderRain(RN);
  // tests in flight
  $('tests').innerHTML=((P.tests)||[]).map(t=>
    `<div class="tc"><div class="hd"><span class="nm">${t.name}</span><span class="chip ${t.status}">${t.status}</span></div>`
@@ -369,6 +388,40 @@ function drawLiq(ser){
   +`<text x="4" y="${MB-3}" fill="#8b95a3" font-size="10">${money(lo)}</text>`;
  const hrs=((t1-t0)/3600).toFixed(0);
  $('liq-span').textContent=`${ser.length} marks over ${hrs}h · strip below = share held in open positions vs cash · moves with marks, jumps at settlement`;
+}
+
+function renderRain(R){
+ const el=$('rain'); if(!el) return;
+ if(!R){ el.innerHTML='<div class="rmk">rain feed not published yet</div>'; return; }
+ const chip = R.stopped ? '<span class="chip stop">stopped</span>'
+            : (R.mode==='LIVE' ? '<span class="chip">live</span>' : '<span class="chip dry">dryrun</span>');
+ const ev = R.ev_c_per_ct==null ? '\u2014' : (R.ev_c_per_ct>=0?'+':'')+R.ev_c_per_ct+'\u00a2';
+ const days = R.daily||[];
+ const perDay = days.length ? (days.reduce(function(a,d){return a+d.pnl;},0)/days.length) : null;
+ const barC = (R.ev_bar&&R.ev_bar.c)!=null?R.ev_bar.c:5;
+ const barN = (R.ev_bar&&R.ev_bar.n)!=null?R.ev_bar.n:20;
+ const rows = (R.markets||[]).map(function(m){
+   const lad = (m.rungs||[]).map(function(r){
+     return '<i class="'+(r.filled>0?'f':'')+'">'+(r.filled>0?r.filled:'\u00b7')+'</i>'; }).join(' ');
+   const res = m.result==='yes' ? ' <span style="color:var(--red)">RAIN</span>'
+             : m.result==='no' ? ' <span style="color:var(--green)">dry</span>' : '';
+   const col = m.pnl>0?'var(--green)':(m.pnl<0?'var(--red)':'var(--ink2)');
+   return '<div class="r"><span><b>'+m.city+'</b> '+m.ticker.split('-')[1].slice(5)+res+'</span>'
+        + '<span>'+m.region+'</span><span class="lad">'+lad+'</span>'
+        + '<span class="amt" style="color:'+col+'">'+(m.pnl?sm(m.pnl):'\u2014')+'</span></div>';
+ }).join('');
+ el.innerHTML =
+   '<div class="hd"><div><div class="lbl">Rain sleeve \u2014 realized (this strategy only)</div>'
+  +'<div class="big" style="color:'+((R.realized_usd||0)>=0?'var(--green)':'var(--red)')+'">'+sm(R.realized_usd)+'</div></div>'+chip+'</div>'
+  +'<div class="rk">'
+  +'<div class="b"><div class="k">At risk now</div><div class="v">'+money(R.collateral_at_risk)+'</div><div class="s">'+R.open_markets+'/'+R.cap_markets+' markets \u00b7 '+R.resting+' resting</div></div>'
+  +'<div class="b"><div class="k">Settled</div><div class="v">'+R.settled_markets+'</div><div class="s">'+R.busts+' rained</div></div>'
+  +'<div class="b"><div class="k">EV / contract</div><div class="v" style="color:'+(R.ev_c_per_ct==null?'var(--hi)':(R.ev_c_per_ct>=barC?'var(--green)':'var(--red)'))+'">'+ev+'</div><div class="s">kill bar +'+barC+'\u00a2 at '+barN+'</div></div>'
+  +'<div class="b"><div class="k">Per day</div><div class="v" style="color:'+(perDay==null?'var(--hi)':(perDay>=0?'var(--green)':'var(--red)'))+'">'+(perDay==null?'\u2014':sm(perDay))+'</div><div class="s">'+days.length+' settled day'+(days.length===1?'':'s')+'</div></div>'
+  +'</div>'
+  +'<div class="rmk"><div class="r h"><span>market</span><span>region</span><span>ladder 45/55/65/75</span><span style="text-align:right">P&amp;L</span></div>'
+  + rows + '</div>'
+  +'<div class="cfg">ladder '+JSON.stringify(R.ladder_size||{})+' \u00b7 arm window '+(R.window_h?R.window_h[0]:'')+'\u2013'+(R.window_h?R.window_h[1]:'')+'h to close \u00b7 late-cut '+R.late_cut_h+'h \u00b7 city cooldown '+R.cooldown_h+'h after a bust \u00b7 max '+R.cap_markets+' markets / 2 per region</div>';
 }
 
 function drawFlow(F, liqSer){
