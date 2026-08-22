@@ -1,11 +1,11 @@
 {
- "generated": "2026-08-22 10:56",
- "generated_epoch": 1787396186,
+ "generated": "2026-08-22 11:01",
+ "generated_epoch": 1787396497,
  "stage": "LIVE weather sleeves (2026-07-24): rung v2 ($397 sleeve, earn-and-keep, ~18 ct/rung) + rung x (early-exit A/B, $60). RETIRED: base (Jul-21, -$26.62 final), T12 (Jul-24, flat/-$0.44), encore (Jul-20), mirror (self-killed). Live P&L is on the per-strategy tabs + the (combined) calendar.",
  "account": {
-  "balance": 496.68,
-  "portfolio_value": 968.16,
-  "account_total": 1464.84,
+  "balance": 496.03,
+  "portfolio_value": 1004.63,
+  "account_total": 1500.66,
   "committed": 0,
   "locked": 0,
   "resting_commit": 0,
@@ -14,11 +14,11 @@
  },
  "open": {
   "n": 0,
-  "potential_balance": 496.68,
+  "potential_balance": 496.03,
   "potential_gain": 0,
   "worst_case": 0,
   "next_settle": null,
-  "expected_balance": 496.68,
+  "expected_balance": 496.03,
   "expected_pnl": 0,
   "near_win": 0,
   "near_loss": 0
@@ -2916,7 +2916,7 @@
     21.54
    ],
    [
-    50.291,
+    50.294,
     21.54
    ]
   ],
@@ -8101,7 +8101,7 @@
   "activity": {
    "placed_24h": 0,
    "last": "07-21 03:31",
-   "hrs_since": 775.4
+   "hrs_since": 775.5
   }
  },
  "daily": {
@@ -8912,8 +8912,8 @@
     "contracts": 0,
     "wins": 0,
     "losses": 0,
-    "pending": 1,
-    "open_prem": 7.5,
+    "pending": 2,
+    "open_prem": 7.85,
     "collat": 0.0,
     "pnl": null,
     "roi": null,
@@ -9347,58 +9347,58 @@
   }
  },
  "rungv2_open": {
-  "today_ev_usd": 1.25,
-  "prior_ev_usd": 166.69,
-  "today_n": 1,
+  "today_ev_usd": 6.29,
+  "prior_ev_usd": 197.47,
+  "today_n": 2,
   "prior_n": 18
  },
  "terminal": {
   "status": {
-   "hb_age_s": 9,
-   "resting": 487,
-   "armed": 122,
-   "riding_ct": 1168
+   "hb_age_s": 8,
+   "resting": 476,
+   "armed": 119,
+   "riding_ct": 1169
   },
   "board": {
    "pnl": {
-    "v": 1.25,
-    "pct": 14,
+    "v": 6.29,
+    "pct": 35,
     "n": 43,
     "unit": "$"
    },
    "supply": {
-    "v": 0,
+    "v": 1,
     "pct": 0,
     "n": 43,
     "unit": "bursts"
    },
    "volume": {
-    "v": 25,
+    "v": 26,
     "pct": 27,
     "n": 44,
     "unit": "ct"
    },
    "premium": {
-    "v": 7.5,
-    "pct": 25,
+    "v": 7.85,
+    "pct": 27,
     "n": 44,
     "unit": "$"
    },
    "capture": {
-    "v": null,
-    "pct": null,
+    "v": 100.0,
+    "pct": 42,
     "n": 43,
     "unit": "%"
    },
    "complete": {
-    "v": 28.41,
-    "pct": 23,
+    "v": 14.77,
+    "pct": 0,
     "n": 44,
     "unit": "%"
    },
    "depth": {
-    "v": null,
-    "pct": null,
+    "v": 0.0,
+    "pct": 0,
     "n": 43,
     "unit": "%"
    }
@@ -9415,6 +9415,18 @@
    "chunky_share_bust_pct": 30
   },
   "feed": [
+   {
+    "ts": "2026-08-22T10:57:36.568190+00:00",
+    "k": "SPIKE_FILL",
+    "tk": "KXLOWTDAL-26AUG22-B78.5",
+    "d": "{\"episode\": 3, \"peak\": 35.0, \"new_rungs\": null, \"rise_min\": 59.6}"
+   },
+   {
+    "ts": "2026-08-22T10:57:36.565412+00:00",
+    "k": "FILL_ON_CANCEL",
+    "tk": "KXLOWTDAL-26AUG22-B78.5",
+    "d": "{\"L\": 35, \"ct\": 1}"
+   },
    {
     "ts": "2026-08-22T10:56:22.941213+00:00",
     "k": "LIVE_FILL",
@@ -9486,18 +9498,6 @@
     "k": "ARM",
     "tk": "KXLOWTAUS-26AUG22-B77.5",
     "d": "{\"episode\": 1, \"clean_h\": 2.0}"
-   },
-   {
-    "ts": "2026-08-22T09:59:23.261583+00:00",
-    "k": "REARM",
-    "tk": "KXLOWTAUS-26AUG22-T73",
-    "d": "{\"episode\": 5}"
-   },
-   {
-    "ts": "2026-08-22T09:56:41.795267+00:00",
-    "k": "REARM",
-    "tk": "KXLOWTDAL-26AUG22-B78.5",
-    "d": "{\"episode\": 3}"
    }
   ],
   "retired_realized": 4.07
@@ -9514,23 +9514,23 @@
    "name": "Sizing gate @68-79ct",
    "status": "live",
    "read": "Sep 1",
-   "stat": "completeness 68.7% (gate \u226580) \u00b7 drift walking the curve",
+   "stat": "completeness 67.6% (gate \u226580) \u00b7 drift walking the curve",
    "prog": null
   },
   {
    "name": "Slow-belt shadow",
    "status": "logging",
    "read": "~Sep 1 (3wk)",
-   "stat": "1,489 crossings \u00b7 138 markets since 2026-08-12",
+   "stat": "1,491 crossings \u00b7 138 markets since 2026-08-12",
    "prog": null
   },
   {
    "name": "Rain paper pilot",
    "status": "paper",
    "read": "\u226540 settled \u00b7 ~Sep 1",
-   "stat": "+1085 USD \u00b7 6281 ct \u00b7 6 busts \u00b7 +17.3c/ct (bar +5 corr-adj)",
+   "stat": "+1297 USD \u00b7 6881 ct \u00b7 6 busts \u00b7 +18.9c/ct (bar +5 corr-adj)",
    "prog": 100,
-   "prog_label": "43/40 settled"
+   "prog_label": "47/40 settled"
   },
   {
    "name": "Skew-velocity model",
@@ -9555,16 +9555,16 @@
   }
  ],
  "liq": {
-  "now": 1464.84,
-  "balance": 496.68,
-  "positions": 968.16,
+  "now": 1500.66,
+  "balance": 496.03,
+  "positions": 1004.63,
   "n_pts": 602,
   "today_open": 1494.69,
-  "today_delta": -29.85,
-  "d1h": -39.53,
-  "d6h": 63.23,
-  "d12h": 156.18,
-  "d24h": 137.63,
+  "today_delta": 5.97,
+  "d1h": -5.33,
+  "d6h": 99.05,
+  "d12h": 192.0,
+  "d24h": 174.95,
   "span_h": 47.9
  },
  "flow": {
@@ -9572,8 +9572,8 @@
   "buckets": [
    [
     "2026-08-20T11",
-    76,
-    6840,
+    72,
+    6480,
     0
    ],
    [
@@ -9856,7 +9856,7 @@
     "2026-08-22T10",
     40,
     3520,
-    25
+    26
    ]
   ],
   "markets": [
@@ -9870,7 +9870,7 @@
     "KXLOWTDAL-26AUG22-B78.5",
     12,
     1056,
-    187
+    188
    ],
    [
     "KXLOWTATL-26AUG22-T74",
@@ -9909,10 +9909,10 @@
     72
    ]
   ],
-  "tot_orders": 2164,
-  "tot_placed_ct": 205728,
-  "tot_filled_ct": 1194,
-  "n_markets": 356
+  "tot_orders": 2160,
+  "tot_placed_ct": 205368,
+  "tot_filled_ct": 1195,
+  "n_markets": 355
  },
  "odds_table": {
   "cols": [
@@ -10036,7 +10036,7 @@
    "collateral": 4.6,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -797.9,
+   "hrs": -798.0,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 145.9,
    "now_yes": null,
@@ -10051,7 +10051,7 @@
    "collateral": 5.82,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -797.9,
+   "hrs": -798.0,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 245.4,
    "now_yes": null,
@@ -10066,7 +10066,7 @@
    "collateral": 5.7,
    "queue_ahead": 8.0,
    "status": "SETTLED",
-   "hrs": -797.9,
+   "hrs": -798.0,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 571.3,
    "now_yes": null,
@@ -10081,7 +10081,7 @@
    "collateral": 18.8,
    "queue_ahead": 5.0,
    "status": "SETTLED",
-   "hrs": -797.9,
+   "hrs": -798.0,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 0.7,
    "now_yes": null,
@@ -10111,7 +10111,7 @@
    "collateral": 5.82,
    "queue_ahead": 13.0,
    "status": "SETTLED",
-   "hrs": -796.9,
+   "hrs": -797.0,
    "close_ts": "2026-07-20T06:00:00Z",
    "ttf_min": 151.6,
    "now_yes": null,
@@ -10126,7 +10126,7 @@
    "collateral": 12.61,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -796.9,
+   "hrs": -797.0,
    "close_ts": "2026-07-20T06:00:00Z",
    "ttf_min": 410.1,
    "now_yes": null,
@@ -10141,7 +10141,7 @@
    "collateral": 13.3,
    "queue_ahead": 5.0,
    "status": "SETTLED",
-   "hrs": -796.9,
+   "hrs": -797.0,
    "close_ts": "2026-07-20T06:00:00Z",
    "ttf_min": 45.9,
    "now_yes": null,
@@ -10171,7 +10171,7 @@
    "collateral": 4.8,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -794.9,
+   "hrs": -795.0,
    "close_ts": "2026-07-20T08:00:00Z",
    "ttf_min": 11.5,
    "now_yes": null,
@@ -10186,7 +10186,7 @@
    "collateral": 6.58,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -773.9,
+   "hrs": -774.0,
    "close_ts": "2026-07-21T05:00:00Z",
    "ttf_min": 713.7,
    "now_yes": null,
@@ -10201,7 +10201,7 @@
    "collateral": 13.3,
    "queue_ahead": 2.0,
    "status": "SETTLED",
-   "hrs": -773.9,
+   "hrs": -774.0,
    "close_ts": "2026-07-21T05:00:00Z",
    "ttf_min": 61.3,
    "now_yes": null,
@@ -10246,7 +10246,7 @@
    "collateral": 6.51,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -772.9,
+   "hrs": -773.0,
    "close_ts": "2026-07-21T06:00:00Z",
    "ttf_min": 227.1,
    "now_yes": null,
@@ -10261,7 +10261,7 @@
    "collateral": 13.8,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -772.9,
+   "hrs": -773.0,
    "close_ts": "2026-07-21T06:00:00Z",
    "ttf_min": 41.7,
    "now_yes": null,
@@ -10276,7 +10276,7 @@
    "collateral": 13.58,
    "queue_ahead": 2.0,
    "status": "SETTLED",
-   "hrs": -772.9,
+   "hrs": -773.0,
    "close_ts": "2026-07-21T06:00:00Z",
    "ttf_min": 174.9,
    "now_yes": null,
@@ -10291,7 +10291,7 @@
    "collateral": 6.72,
    "queue_ahead": 5.0,
    "status": "SETTLED",
-   "hrs": -771.9,
+   "hrs": -772.0,
    "close_ts": "2026-07-21T07:00:00Z",
    "ttf_min": 478.0,
    "now_yes": null,
@@ -10306,7 +10306,7 @@
    "collateral": 15.64,
    "queue_ahead": 6.0,
    "status": "SETTLED",
-   "hrs": -771.9,
+   "hrs": -772.0,
    "close_ts": "2026-07-21T07:00:00Z",
    "ttf_min": 671.3,
    "now_yes": null,
@@ -10321,7 +10321,7 @@
    "collateral": 8.55,
    "queue_ahead": 6.0,
    "status": "SETTLED",
-   "hrs": -770.9,
+   "hrs": -771.0,
    "close_ts": "2026-07-21T08:00:00Z",
    "ttf_min": 17.5,
    "now_yes": null,
