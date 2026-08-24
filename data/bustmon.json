@@ -1,0 +1,105 @@
+{
+ "generated": "2026-08-24T03:20:18.277711+00:00",
+ "asof": "2026-08-23",
+ "window_days": 30,
+ "warn": 22.0,
+ "kill": 25.0,
+ "adj_breakeven": {
+  "30": 27.7,
+  "35": 29.1,
+  "40": 37.5,
+  "45": 38.9
+ },
+ "overall": {
+  "events": 98,
+  "days": 29,
+  "busts": 11,
+  "rate": 11.224489795918368,
+  "ct": 7938.0,
+  "pnl_c": 113515.0,
+  "c_per_ct": 14.300201562106324,
+  "status": "OK",
+  "flags": [
+   "N=29 independent days (<30) \u2014 estimate is noisy"
+  ]
+ },
+ "by_series": {
+  "KXHIGH": {
+   "events": 41,
+   "days": 25,
+   "busts": 7,
+   "rate": 17.073170731707318,
+   "ct": 4245.0,
+   "pnl_c": 29250.0,
+   "c_per_ct": 6.890459363957597,
+   "status": "OK",
+   "flags": [
+    "N=25 independent days (<30) \u2014 estimate is noisy"
+   ]
+  },
+  "KXLOWT": {
+   "events": 57,
+   "days": 24,
+   "busts": 4,
+   "rate": 7.017543859649122,
+   "ct": 3693.0,
+   "pnl_c": 84265.0,
+   "c_per_ct": 22.817492553479557,
+   "status": "OK",
+   "flags": [
+    "N=24 independent days (<30) \u2014 estimate is noisy"
+   ]
+  }
+ },
+ "by_rung": {
+  "30": {
+   "events": 98,
+   "days": 29,
+   "busts": 11,
+   "rate": 11.224489795918368,
+   "ct": 3945.0,
+   "pnl_c": 72450.0,
+   "c_per_ct": 18.365019011406844,
+   "adj_breakeven": 27.7,
+   "margin_pp": 16.5,
+   "status": "OK"
+  },
+  "35": {
+   "events": 59,
+   "days": 25,
+   "busts": 11,
+   "rate": 18.64406779661017,
+   "ct": 2133.0,
+   "pnl_c": 25955.0,
+   "c_per_ct": 12.168307548054383,
+   "adj_breakeven": 29.1,
+   "margin_pp": 10.5,
+   "status": "OK"
+  },
+  "40": {
+   "events": 34,
+   "days": 20,
+   "busts": 9,
+   "rate": 26.470588235294116,
+   "ct": 1092.0,
+   "pnl_c": 14980.0,
+   "c_per_ct": 13.717948717948717,
+   "adj_breakeven": 37.5,
+   "margin_pp": 11.0,
+   "status": "OK"
+  },
+  "45": {
+   "events": 21,
+   "days": 13,
+   "busts": 7,
+   "rate": 33.333333333333336,
+   "ct": 754.0,
+   "pnl_c": -70.0,
+   "c_per_ct": -0.09283819628647215,
+   "adj_breakeven": 38.9,
+   "margin_pp": 5.6,
+   "status": "OK"
+  }
+ },
+ "alarms": []
+}
