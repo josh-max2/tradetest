@@ -1,11 +1,11 @@
 {
- "generated": "2026-08-24 21:39",
- "generated_epoch": 1787607559,
+ "generated": "2026-08-24 21:43",
+ "generated_epoch": 1787607802,
  "stage": "LIVE weather sleeves (2026-07-24): rung v2 ($397 sleeve, earn-and-keep, ~18 ct/rung) + rung x (early-exit A/B, $60). RETIRED: base (Jul-21, -$26.62 final), T12 (Jul-24, flat/-$0.44), encore (Jul-20), mirror (self-killed). Live P&L is on the per-strategy tabs + the (combined) calendar.",
  "account": {
-  "balance": 1636.92,
-  "portfolio_value": 233.57,
-  "account_total": 1870.49,
+  "balance": 1594.44,
+  "portfolio_value": 288.19,
+  "account_total": 1882.63,
   "committed": 0,
   "locked": 0,
   "resting_commit": 0,
@@ -14,11 +14,11 @@
  },
  "open": {
   "n": 0,
-  "potential_balance": 1636.92,
+  "potential_balance": 1594.44,
   "potential_gain": 0,
   "worst_case": 0,
   "next_settle": null,
-  "expected_balance": 1636.92,
+  "expected_balance": 1594.44,
   "expected_pnl": 0,
   "near_win": 0,
   "near_loss": 0
@@ -2916,7 +2916,7 @@
     21.54
    ],
    [
-    52.737,
+    52.74,
     21.54
    ]
   ],
@@ -8101,7 +8101,7 @@
   "activity": {
    "placed_24h": 0,
    "last": "07-21 03:31",
-   "hrs_since": 834.1
+   "hrs_since": 834.2
   }
  },
  "daily": {
@@ -8944,8 +8944,8 @@
     "contracts": 0,
     "wins": 0,
     "losses": 0,
-    "pending": 2,
-    "open_prem": 65.7,
+    "pending": 3,
+    "open_prem": 83.7,
     "collat": 0.0,
     "pnl": null,
     "roi": null,
@@ -9400,22 +9400,22 @@
   }
  },
  "rungv2_open": {
-  "today_ev_usd": 59.11,
+  "today_ev_usd": 74.11,
   "prior_ev_usd": 0.0,
-  "today_n": 2,
+  "today_n": 3,
   "prior_n": 0
  },
  "terminal": {
   "status": {
-   "hb_age_s": 13,
-   "resting": 598,
+   "hb_age_s": 14,
+   "resting": 597,
    "armed": 224,
-   "riding_ct": 219
+   "riding_ct": 279
   },
   "board": {
    "pnl": {
-    "v": 59.11,
-    "pct": 70,
+    "v": 74.11,
+    "pct": 85,
     "n": 46,
     "unit": "$"
    },
@@ -9426,26 +9426,26 @@
     "unit": "bursts"
    },
    "volume": {
-    "v": 219,
-    "pct": 72,
+    "v": 279,
+    "pct": 78,
     "n": 46,
     "unit": "ct"
    },
    "premium": {
-    "v": 65.7,
-    "pct": 61,
+    "v": 83.7,
+    "pct": 74,
     "n": 46,
     "unit": "$"
    },
    "capture": {
-    "v": 200.0,
-    "pct": 87,
+    "v": 300.0,
+    "pct": 93,
     "n": 45,
     "unit": "%"
    },
    "complete": {
-    "v": 99.55,
-    "pct": 89,
+    "v": 85.58,
+    "pct": 67,
     "n": 46,
     "unit": "%"
    },
@@ -9468,6 +9468,18 @@
    "chunky_share_bust_pct": 30
   },
   "feed": [
+   {
+    "ts": "2026-08-24T21:43:16.211032+00:00",
+    "k": "LIVE_FILL",
+    "tk": "KXHIGHTMIN-26AUG24-T85",
+    "d": "{\"L\": 30, \"order_status\": \"resting\", \"fc\": 60, \"ct\": 60}"
+   },
+   {
+    "ts": "2026-08-24T21:43:16.208792+00:00",
+    "k": "PARTIAL_CANCEL",
+    "tk": "KXHIGHTMIN-26AUG24-T85",
+    "d": "{\"L\": 30, \"filled\": 60, \"of\": 106}"
+   },
    {
     "ts": "2026-08-24T21:39:07.765149+00:00",
     "k": "REARM",
@@ -9539,18 +9551,6 @@
     "k": "REARM",
     "tk": "KXHIGHTSFO-26AUG24-T76",
     "d": "{\"episode\": 4}"
-   },
-   {
-    "ts": "2026-08-24T19:41:19.219051+00:00",
-    "k": "ARM",
-    "tk": "KXLOWTDEN-26AUG25-B57.5",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
-   },
-   {
-    "ts": "2026-08-24T19:34:16.757199+00:00",
-    "k": "ARM",
-    "tk": "KXLOWTNOLA-26AUG25-B73.5",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
    }
   ],
   "retired_realized": 4.07
@@ -9567,7 +9567,7 @@
    "name": "Sizing gate @68-79ct",
    "status": "live",
    "read": "Sep 1",
-   "stat": "completeness 70.5% (gate \u226580) \u00b7 drift walking the curve",
+   "stat": "completeness 70.3% (gate \u226580) \u00b7 drift walking the curve",
    "prog": null
   },
   {
@@ -9608,16 +9608,16 @@
   }
  ],
  "liq": {
-  "now": 1870.49,
-  "balance": 1636.92,
-  "positions": 233.57,
+  "now": 1882.63,
+  "balance": 1594.44,
+  "positions": 288.19,
   "n_pts": 615,
   "today_open": 1754.62,
-  "today_delta": 115.87,
-  "d1h": 0.0,
-  "d6h": 60.42,
-  "d12h": 103.15,
-  "d24h": 232.47,
+  "today_delta": 128.01,
+  "d1h": 12.14,
+  "d6h": 72.56,
+  "d12h": 115.29,
+  "d24h": 244.61,
   "span_h": 48.0
  },
  "flow": {
@@ -9903,7 +9903,7 @@
     "2026-08-24T21",
     176,
     19360,
-    0
+    60
    ]
   ],
   "markets": [
@@ -9938,6 +9938,12 @@
     89
    ],
    [
+    "KXHIGHTMIN-26AUG24-T85",
+    8,
+    848,
+    60
+   ],
+   [
     "KXLOWTDEN-26AUG23-T66",
     8,
     712,
@@ -9948,17 +9954,11 @@
     32,
     3440,
     0
-   ],
-   [
-    "KXLOWTPHX-26AUG24-T83",
-    28,
-    3000,
-    0
    ]
   ],
   "tot_orders": 2052,
   "tot_placed_ct": 208184,
-  "tot_filled_ct": 839,
+  "tot_filled_ct": 899,
   "n_markets": 357
  },
  "odds_table": {
