@@ -1,12 +1,12 @@
 {
- "generated": "2026-08-24T12:09:03.798402+00:00",
+ "generated": "2026-08-24T12:15:03.781928+00:00",
  "mode": "LIVE",
  "daily": [
   {
    "day": "26AUG23",
-   "pnl": 7.04,
-   "ct": 12.83,
-   "markets": 1,
+   "pnl": 20.69,
+   "ct": 35.83,
+   "markets": 2,
    "busts": 0
   }
  ],
@@ -870,19 +870,19 @@
      "L": 45,
      "placed": 3,
      "filled": 3.0,
-     "status": "FILLED"
+     "status": "SETTLED"
     },
     {
      "L": 55,
      "placed": 7,
      "filled": 7.0,
-     "status": "FILLED"
+     "status": "SETTLED"
     },
     {
      "L": 65,
      "placed": 13,
      "filled": 13.0,
-     "status": "FILLED"
+     "status": "SETTLED"
     },
     {
      "L": 75,
@@ -892,8 +892,8 @@
     }
    ],
    "filled_ct": 23.0,
-   "result": null,
-   "pnl": 0.0
+   "result": "no",
+   "pnl": 13.65
   },
   {
    "ticker": "KXRAIN-26AUG23-DAL",
@@ -1200,9 +1200,43 @@
    "filled_ct": 0,
    "result": null,
    "pnl": 0.0
+  },
+  {
+   "ticker": "KXRAIN-26AUG24-MIN",
+   "city": "MIN",
+   "region": "MW",
+   "rungs": [
+    {
+     "L": 45,
+     "placed": 3,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 55,
+     "placed": 7,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 65,
+     "placed": 13,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 75,
+     "placed": 26,
+     "filled": 0,
+     "status": "RESTING"
+    }
+   ],
+   "filled_ct": 0,
+   "result": null,
+   "pnl": 0.0
   }
  ],
- "collateral_at_risk": 88.6,
+ "collateral_at_risk": 95.1,
  "ladder_size": {
   "45": 3,
   "55": 7,
@@ -1224,20 +1258,20 @@
  ],
  "maxct": 34,
  "cap_markets": 6,
- "settled_markets": 1,
+ "settled_markets": 2,
  "realized_usd": 1.84,
- "ev_c_per_ct": 14.34,
+ "ev_c_per_ct": 5.13,
  "busts": 0,
  "open_markets": 6,
  "open_tickers": [
-  "KXRAIN-26AUG23-CHI",
   "KXRAIN-26AUG24-ATL",
   "KXRAIN-26AUG24-AUS",
   "KXRAIN-26AUG24-BOS",
   "KXRAIN-26AUG24-CHI",
-  "KXRAIN-26AUG24-DC"
+  "KXRAIN-26AUG24-DC",
+  "KXRAIN-26AUG24-MIN"
  ],
- "resting": 20,
+ "resting": 24,
  "ev_bar": {
   "c": 5.0,
   "n": 20
