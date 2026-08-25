@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-25T10:55:03.085237+00:00",
+ "generated": "2026-08-25T11:01:03.354381+00:00",
  "mode": "LIVE",
  "daily": [
   {
@@ -7,6 +7,13 @@
    "pnl": 20.69,
    "ct": 35.83,
    "markets": 2,
+   "busts": 0
+  },
+  {
+   "day": "26AUG24",
+   "pnl": 11.95,
+   "ct": 20.39,
+   "markets": 1,
    "busts": 0
   }
  ],
@@ -1108,19 +1115,19 @@
      "L": 45,
      "placed": 3,
      "filled": 3.0,
-     "status": "FILLED"
+     "status": "SETTLED"
     },
     {
      "L": 55,
      "placed": 7,
      "filled": 7.0,
-     "status": "FILLED"
+     "status": "SETTLED"
     },
     {
      "L": 65,
      "placed": 13,
      "filled": 10.39,
-     "status": "FILLED"
+     "status": "SETTLED"
     },
     {
      "L": 75,
@@ -1130,8 +1137,8 @@
     }
    ],
    "filled_ct": 20.39,
-   "result": null,
-   "pnl": 0.0
+   "result": "no",
+   "pnl": 11.95
   },
   {
    "ticker": "KXRAIN-26AUG24-CHI",
@@ -1372,6 +1379,40 @@
    "pnl": 0.0
   },
   {
+   "ticker": "KXRAIN-26AUG25-DC",
+   "city": "DC",
+   "region": "NE",
+   "rungs": [
+    {
+     "L": 45,
+     "placed": 3,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 55,
+     "placed": 7,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 65,
+     "placed": 13,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 75,
+     "placed": 26,
+     "filled": 0,
+     "status": "RESTING"
+    }
+   ],
+   "filled_ct": 0,
+   "result": null,
+   "pnl": 0.0
+  },
+  {
    "ticker": "KXRAIN-26AUG25-OKC",
    "city": "OKC",
    "region": "SC",
@@ -1406,7 +1447,7 @@
    "pnl": 0.0
   }
  ],
- "collateral_at_risk": 88.6,
+ "collateral_at_risk": 95.1,
  "ladder_size": {
   "45": 3,
   "55": 7,
@@ -1428,20 +1469,20 @@
  ],
  "maxct": 34,
  "cap_markets": 6,
- "settled_markets": 2,
- "realized_usd": 1.84,
- "ev_c_per_ct": 5.13,
+ "settled_markets": 3,
+ "realized_usd": 6.75,
+ "ev_c_per_ct": 12.01,
  "busts": 0,
  "open_markets": 6,
  "open_tickers": [
-  "KXRAIN-26AUG24-BOS",
   "KXRAIN-26AUG25-ATL",
   "KXRAIN-26AUG25-AUS",
   "KXRAIN-26AUG25-BOS",
   "KXRAIN-26AUG25-CHI",
+  "KXRAIN-26AUG25-DC",
   "KXRAIN-26AUG25-OKC"
  ],
- "resting": 20,
+ "resting": 24,
  "ev_bar": {
   "c": 5.0,
   "n": 20
