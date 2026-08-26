@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-26T12:01:03.624469+00:00",
+ "generated": "2026-08-26T12:07:03.904797+00:00",
  "mode": "LIVE",
  "daily": [
   {
@@ -13,6 +13,13 @@
    "day": "26AUG24",
    "pnl": 11.95,
    "ct": 20.39,
+   "markets": 1,
+   "busts": 0
+  },
+  {
+   "day": "26AUG25",
+   "pnl": 1.35,
+   "ct": 3.0,
    "markets": 1,
    "busts": 0
   }
@@ -1421,7 +1428,7 @@
      "L": 45,
      "placed": 3,
      "filled": 3.0,
-     "status": "FILLED"
+     "status": "SETTLED"
     },
     {
      "L": 55,
@@ -1443,8 +1450,8 @@
     }
    ],
    "filled_ct": 3.0,
-   "result": null,
-   "pnl": 0.0
+   "result": "no",
+   "pnl": 1.35
   },
   {
    "ticker": "KXRAIN-26AUG26-BOS",
@@ -1583,6 +1590,40 @@
    "pnl": 0.0
   },
   {
+   "ticker": "KXRAIN-26AUG26-LV",
+   "city": "LV",
+   "region": "W",
+   "rungs": [
+    {
+     "L": 45,
+     "placed": 3,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 55,
+     "placed": 7,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 65,
+     "placed": 13,
+     "filled": 0,
+     "status": "RESTING"
+    },
+    {
+     "L": 75,
+     "placed": 26,
+     "filled": 0,
+     "status": "RESTING"
+    }
+   ],
+   "filled_ct": 0,
+   "result": null,
+   "pnl": 0.0
+  },
+  {
    "ticker": "KXRAIN-26AUG26-MIN",
    "city": "MIN",
    "region": "MW",
@@ -1617,7 +1658,7 @@
    "pnl": 0.0
   }
  ],
- "collateral_at_risk": 80.9,
+ "collateral_at_risk": 95.1,
  "ladder_size": {
   "45": 3,
   "55": 7,
@@ -1639,20 +1680,20 @@
  ],
  "maxct": 34,
  "cap_markets": 6,
- "settled_markets": 3,
- "realized_usd": 6.75,
- "ev_c_per_ct": 12.01,
+ "settled_markets": 4,
+ "realized_usd": 1.35,
+ "ev_c_per_ct": 2.28,
  "busts": 0,
  "open_markets": 6,
  "open_tickers": [
-  "KXRAIN-26AUG25-OKC",
   "KXRAIN-26AUG26-BOS",
   "KXRAIN-26AUG26-DC",
   "KXRAIN-26AUG26-HOU",
   "KXRAIN-26AUG26-LAX",
+  "KXRAIN-26AUG26-LV",
   "KXRAIN-26AUG26-MIN"
  ],
- "resting": 20,
+ "resting": 24,
  "ev_bar": {
   "c": 5.0,
   "n": 20
