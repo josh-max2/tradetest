@@ -326,7 +326,7 @@ function render(P,R,L,RN){
  const POT=LQ.potential;
  $('liq-now').innerHTML=money(LQ.now)
    +(LQ.today_delta!=null?`<small class="${LQ.today_delta>=0?'up':'dn'}" style="color:${LQ.today_delta>=0?'var(--green)':'var(--red)'}">${sm(LQ.today_delta)} today</small>`:'')
-   +((POT&&POT.upside_usd!=null)?`<small style="color:#2fbf9f" title="premium locked in CURRENTLY FILLED open positions if they all resolve our way — excludes positions under 20% win odds${POT.excl_n?` (${POT.excl_n} excluded, $${POT.excl_risk_usd} at risk)`:''}"> ↑ potential +$${POT.upside_usd.toFixed(2)} on open fills</small>`:'');
+   +((POT&&POT.upside_usd!=null)?`<small style="color:#2fbf9f" title="REMAINING upside beyond current marks if every open filled position at ≥20% win odds settles our way (Kalshi-app framing)${POT.excl_n?` — excludes ${POT.excl_n} position(s) under 20% odds, $${POT.excl_risk_usd} at risk`:''}"> ↑ potential +$${POT.upside_usd.toFixed(2)} on open fills</small>`:'');
  $('liq-split').innerHTML=`<b>${money(LQ.balance)}</b> cash + <b>${money(LQ.positions)}</b> open positions at Kalshi marks`;
  const TR=[['1h',LQ.d1h],['6h',LQ.d6h],['12h',LQ.d12h],['24h',LQ.d24h]];
  $('liq-trends').innerHTML=TR.map(([k,v])=>
