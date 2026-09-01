@@ -154,6 +154,7 @@ h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--in
  .tests{grid-template-columns:1fr;margin:0 10px}
  .rain{margin:10px 10px 0;padding:12px 14px 10px}
  .rk{grid-template-columns:1fr 1fr;gap:6px}
+ .liq .big small{display:block;margin-left:0;margin-top:3px}
  .rmk .r{grid-template-columns:1fr 44px 1fr 58px;gap:5px;font-size:10px}
  .liq{margin:12px 10px 0;padding:12px 14px 9px}
  .liq .big{font-size:24px}
@@ -322,7 +323,10 @@ function render(P,R,L,RN){
  $('boardnote').textContent='Percentiles rank today against every recorded live day; early-day readings are naturally low and fill in as the day runs.';
  // liquidation value + trends + stacked chart
  const LQ=P.liq||{};
- $('liq-now').innerHTML=money(LQ.now)+(LQ.today_delta!=null?`<small class="${LQ.today_delta>=0?'up':'dn'}" style="color:${LQ.today_delta>=0?'var(--green)':'var(--red)'}">${sm(LQ.today_delta)} today</small>`:'');
+ const POT=LQ.potential;
+ $('liq-now').innerHTML=money(LQ.now)
+   +(LQ.today_delta!=null?`<small class="${LQ.today_delta>=0?'up':'dn'}" style="color:${LQ.today_delta>=0?'var(--green)':'var(--red)'}">${sm(LQ.today_delta)} today</small>`:'')
+   +((POT&&POT.upside_usd!=null)?`<small style="color:#2fbf9f" title="premium locked in CURRENTLY FILLED open positions if they all resolve our way — excludes positions under 20% win odds${POT.excl_n?` (${POT.excl_n} excluded, $${POT.excl_risk_usd} at risk)`:''}"> ↑ potential +$${POT.upside_usd.toFixed(2)} on open fills</small>`:'');
  $('liq-split').innerHTML=`<b>${money(LQ.balance)}</b> cash + <b>${money(LQ.positions)}</b> open positions at Kalshi marks`;
  const TR=[['1h',LQ.d1h],['6h',LQ.d6h],['12h',LQ.d12h],['24h',LQ.d24h]];
  $('liq-trends').innerHTML=TR.map(([k,v])=>
