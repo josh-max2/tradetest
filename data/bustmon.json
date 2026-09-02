@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-02T12:00:01.527957+00:00",
+ "generated": "2026-09-02T18:00:01.532965+00:00",
  "asof": "2026-09-02",
  "window_days": 30,
  "warn": 22.0,
@@ -11,13 +11,13 @@
   "45": 38.9
  },
  "overall": {
-  "events": 97,
+  "events": 101,
   "days": 29,
-  "busts": 12,
-  "rate": 12.371134020618557,
-  "ct": 12134.0,
-  "pnl_c": 58934.0,
-  "c_per_ct": 4.856930937860557,
+  "busts": 13,
+  "rate": 12.871287128712872,
+  "ct": 12759.0,
+  "pnl_c": 71596.0,
+  "c_per_ct": 5.611411552629517,
   "status": "OK",
   "flags": [
    "N=29 independent days (<30) \u2014 estimate is noisy"
@@ -25,56 +25,56 @@
  },
  "by_series": {
   "KXHIGH": {
-   "events": 43,
+   "events": 46,
    "days": 22,
-   "busts": 6,
-   "rate": 13.953488372093023,
-   "ct": 5512.0,
-   "pnl_c": 86942.0,
-   "c_per_ct": 15.77322206095791,
+   "busts": 7,
+   "rate": 15.217391304347826,
+   "ct": 6088.0,
+   "pnl_c": 98134.0,
+   "c_per_ct": 16.119250985545335,
    "status": "OK",
    "flags": [
     "N=22 independent days (<30) \u2014 estimate is noisy"
    ]
   },
   "KXLOWT": {
-   "events": 54,
+   "events": 55,
    "days": 25,
    "busts": 6,
-   "rate": 11.11111111111111,
-   "ct": 6622.0,
-   "pnl_c": -28008.0,
-   "c_per_ct": -4.229537903956508,
+   "rate": 10.909090909090908,
+   "ct": 6671.0,
+   "pnl_c": -26538.0,
+   "c_per_ct": -3.9781142257532602,
    "status": "KILL",
    "flags": [
     "N=25 independent days (<30) \u2014 estimate is noisy",
-    "PnL backstop: -4.23c/ct < 2.0c floor"
+    "PnL backstop: -3.98c/ct < 2.0c floor"
    ]
   }
  },
  "by_rung": {
   "30": {
-   "events": 97,
+   "events": 101,
    "days": 29,
-   "busts": 12,
-   "rate": 12.371134020618557,
-   "ct": 5254.0,
-   "pnl_c": 96620.0,
-   "c_per_ct": 18.389798248953177,
+   "busts": 13,
+   "rate": 12.871287128712872,
+   "ct": 5423.0,
+   "pnl_c": 97690.0,
+   "c_per_ct": 18.01401438318274,
    "adj_breakeven": 27.7,
-   "margin_pp": 15.3,
+   "margin_pp": 14.8,
    "status": "OK"
   },
   "35": {
-   "events": 38,
-   "days": 21,
+   "events": 39,
+   "days": 22,
    "busts": 9,
-   "rate": 23.68421052631579,
-   "ct": 1974.0,
-   "pnl_c": 16090.0,
-   "c_per_ct": 8.15096251266464,
+   "rate": 23.076923076923077,
+   "ct": 2014.0,
+   "pnl_c": 17490.0,
+   "c_per_ct": 8.68421052631579,
    "adj_breakeven": 29.1,
-   "margin_pp": 5.4,
+   "margin_pp": 6.0,
    "status": "OK"
   },
   "40": {
@@ -103,7 +103,7 @@
   }
  },
  "alarms": [
-  "KXLOWT KILL at 11.1%",
+  "KXLOWT KILL at 10.9%",
   "rung 45c UNDERWATER (margin -1.1pp)"
  ]
 }
