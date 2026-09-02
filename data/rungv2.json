@@ -1,26 +1,14 @@
 {
- "generated": "2026-09-02 14:02",
- "generated_epoch": 1788357731,
+ "generated": "2026-09-02 14:11",
+ "generated_epoch": 1788358293,
  "mode": "LIVE",
  "sleeve": 1452.54,
  "max_ct": 48,
- "open_ev_usd": -18.73,
- "open_n": 9,
+ "open_ev_usd": 11.29,
+ "open_n": 5,
  "green": {
-  "p": 41.0,
+  "p": 76.5,
   "series": [
-   [
-    1788246920,
-    0.0
-   ],
-   [
-    1788247235,
-    0.0
-   ],
-   [
-    1788247538,
-    0.0
-   ],
    [
     1788247851,
     0.0
@@ -1608,6 +1596,18 @@
    [
     1788357731,
     41.0
+   ],
+   [
+    1788357973,
+    95.0
+   ],
+   [
+    1788357974,
+    29.9
+   ],
+   [
+    1788358293,
+    76.5
    ]
   ]
  },
@@ -1655,23 +1655,15 @@
   "fills_today": 0
  },
  "live": {
-  "events_settled": 216,
-  "ev_per_event": 575.4,
-  "realized": 1242.94,
-  "equity": 1590.44,
-  "rungs_settled": 513,
-  "rung_busts": 97,
-  "busted_ladders": 22,
+  "events_settled": 218,
+  "ev_per_event": 558.2,
+  "realized": 1216.86,
+  "equity": 1564.36,
+  "rungs_settled": 518,
+  "rung_busts": 99,
+  "busted_ladders": 23,
   "maxdd": 749.37,
   "curve": [
-   [
-    "2026-07-16T11:01",
-    1459.69
-   ],
-   [
-    "2026-07-16T11:01",
-    1460.34
-   ],
    [
     "2026-07-16T11:01",
     1459.64
@@ -2463,17 +2455,35 @@
    [
     "2026-09-02T12:07",
     2695.48
+   ],
+   [
+    "2026-09-02T14:08",
+    2639.88
+   ],
+   [
+    "2026-09-02T14:08",
+    2669.4
    ]
   ],
-  "fills_today": 4
+  "fills_today": 5
  },
  "monitor": {
-  "armed": 141,
-  "warming": 1408,
+  "armed": 140,
+  "warming": 1411,
   "verified": 9567,
-  "filled_open_usd": 233.26
+  "filled_open_usd": 142.68
  },
  "ladders": [
+  {
+   "ticker": "KXHIGHTHOU-26SEP02-B95.5",
+   "mode": "LIVE",
+   "rungs": "30",
+   "rise_min": 110.42,
+   "ts": "2026-09-02T14:03:27.058539+00:00",
+   "status": "FILLED",
+   "busted": 0,
+   "pnl_c": null
+  },
   {
    "ticker": "KXLOWTDEN-26SEP02-T61",
    "mode": "LIVE",
@@ -2510,9 +2520,9 @@
    "rungs": "30,31",
    "rise_min": 134.8,
    "ts": "2026-09-01T20:04:52.269198+00:00",
-   "status": "FILLED",
-   "busted": 0,
-   "pnl_c": null
+   "status": "SETTLED",
+   "busted": 1,
+   "pnl_c": -5560.0
   },
   {
    "ticker": "KXHIGHTSFO-26SEP01-T72",
@@ -2520,9 +2530,9 @@
    "rungs": "30,31,32",
    "rise_min": 6.16,
    "ts": "2026-09-01T18:34:48.873997+00:00",
-   "status": "FILLED",
+   "status": "SETTLED",
    "busted": 0,
-   "pnl_c": null
+   "pnl_c": 2952.0
   },
   {
    "ticker": "KXHIGHTDC-26SEP01-B98.5",
@@ -2713,16 +2723,6 @@
    "status": "SETTLED",
    "busted": 0,
    "pnl_c": 3740.0
-  },
-  {
-   "ticker": "KXHIGHLAX-26AUG30-B80.5",
-   "mode": "LIVE",
-   "rungs": "30,31,32,33,34",
-   "rise_min": null,
-   "ts": "2026-08-30T16:15:23.416411+00:00",
-   "status": "SETTLED",
-   "busted": 0,
-   "pnl_c": 6116.0
   }
  ],
  "kills": {
