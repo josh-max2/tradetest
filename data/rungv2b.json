@@ -1,26 +1,14 @@
 {
- "generated": "2026-09-03 12:59",
- "generated_epoch": 1788440376,
+ "generated": "2026-09-03 13:08",
+ "generated_epoch": 1788440929,
  "mode": "LIVE",
  "sleeve": 638.57,
  "max_ct": 43,
- "open_ev_usd": -144.64,
- "open_n": 7,
+ "open_ev_usd": -115.4,
+ "open_n": 6,
  "green": {
   "p": 0.0,
   "series": [
-   [
-    1788382443,
-    0.2
-   ],
-   [
-    1788382506,
-    87.0
-   ],
-   [
-    1788382727,
-    0.2
-   ],
    [
     1788382785,
     97.0
@@ -1608,6 +1596,18 @@
    [
     1788440376,
     0.0
+   ],
+   [
+    1788440682,
+    0.0
+   ],
+   [
+    1788440685,
+    0.0
+   ],
+   [
+    1788440929,
+    0.0
    ]
   ]
  },
@@ -1641,22 +1641,27 @@
   "fills_today": 0
  },
  "live": {
-  "events_settled": 0,
-  "ev_per_event": null,
-  "realized": 0.0,
-  "equity": 638.57,
-  "rungs_settled": 0,
-  "rung_busts": 0,
-  "busted_ladders": 0,
-  "maxdd": 0.0,
-  "curve": [],
+  "events_settled": 1,
+  "ev_per_event": -3010.0,
+  "realized": -30.1,
+  "equity": 608.47,
+  "rungs_settled": 1,
+  "rung_busts": 1,
+  "busted_ladders": 1,
+  "maxdd": 30.1,
+  "curve": [
+   [
+    "2026-09-03T13:04",
+    608.47
+   ]
+  ],
   "fills_today": 0
  },
  "monitor": {
-  "armed": 130,
+  "armed": 129,
   "warming": 149,
   "verified": 604,
-  "filled_open_usd": 151.4
+  "filled_open_usd": 121.3
  },
  "ladders": [
   {
@@ -1685,9 +1690,9 @@
    "rungs": "30",
    "rise_min": 10.33,
    "ts": "2026-09-02T13:28:44.778128+00:00",
-   "status": "FILLED",
-   "busted": 0,
-   "pnl_c": null
+   "status": "SETTLED",
+   "busted": 1,
+   "pnl_c": -3010.0
   },
   {
    "ticker": "KXHIGHAUS-26SEP03-B95.5",
@@ -1701,16 +1706,6 @@
   },
   {
    "ticker": "KXHIGHAUS-26SEP03-B97.5",
-   "mode": "LIVE",
-   "rungs": "30,35,40,45,50,55,60",
-   "rise_min": null,
-   "ts": null,
-   "status": "RESTING",
-   "busted": 0,
-   "pnl_c": null
-  },
-  {
-   "ticker": "KXHIGHAUS-26SEP03-T102",
    "mode": "LIVE",
    "rungs": "30,35,40,45,50,55,60",
    "rise_min": null,
@@ -1901,6 +1896,16 @@
   },
   {
    "ticker": "KXHIGHTATL-26SEP03-B93.5",
+   "mode": "LIVE",
+   "rungs": "30,35,40,45,50,55,60",
+   "rise_min": null,
+   "ts": null,
+   "status": "RESTING",
+   "busted": 0,
+   "pnl_c": null
+  },
+  {
+   "ticker": "KXHIGHTATL-26SEP03-B99.5",
    "mode": "LIVE",
    "rungs": "30,35,40,45,50,55,60",
    "rise_min": null,
