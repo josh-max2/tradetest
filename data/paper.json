@@ -1,11 +1,11 @@
 {
- "generated": "2026-09-03 17:18",
- "generated_epoch": 1788455931,
+ "generated": "2026-09-03 17:21",
+ "generated_epoch": 1788456104,
  "stage": "LIVE weather sleeves (2026-07-24): rung v2 ($397 sleeve, earn-and-keep, ~18 ct/rung) + rung x (early-exit A/B, $60). RETIRED: base (Jul-21, -$26.62 final), T12 (Jul-24, flat/-$0.44), encore (Jul-20), mirror (self-killed). Live P&L is on the per-strategy tabs + the (combined) calendar.",
  "account": {
-  "balance": 263.23,
-  "portfolio_value": 4.09,
-  "account_total": 267.32,
+  "balance": 239.51,
+  "portfolio_value": 35.69,
+  "account_total": 275.2,
   "committed": 0,
   "locked": 0,
   "resting_commit": 0,
@@ -14,11 +14,11 @@
  },
  "open": {
   "n": 0,
-  "potential_balance": 263.23,
+  "potential_balance": 239.51,
   "potential_gain": 0,
   "worst_case": 0,
   "next_settle": null,
-  "expected_balance": 263.23,
+  "expected_balance": 239.51,
   "expected_pnl": 0,
   "near_win": 0,
   "near_loss": 0
@@ -2916,7 +2916,7 @@
     21.54
    ],
    [
-    62.556,
+    62.558,
     21.54
    ]
   ],
@@ -9088,8 +9088,8 @@
     "contracts": 0,
     "wins": 0,
     "losses": 0,
-    "pending": 1,
-    "open_prem": 2.1,
+    "pending": 6,
+    "open_prem": 12.96,
     "collat": 0.0,
     "pnl": null,
     "roi": null,
@@ -9607,22 +9607,22 @@
   }
  },
  "rungv2_open": {
-  "today_ev_usd": -3.85,
+  "today_ev_usd": 3.96,
   "prior_ev_usd": 0.0,
-  "today_n": 1,
+  "today_n": 6,
   "prior_n": 0
  },
  "terminal": {
   "status": {
-   "hb_age_s": 6,
-   "resting": 5250,
+   "hb_age_s": 17,
+   "resting": 5245,
    "armed": 250,
-   "riding_ct": 7
+   "riding_ct": 41
   },
   "board": {
    "pnl": {
-    "v": -3.85,
-    "pct": 13,
+    "v": 3.96,
+    "pct": 29,
     "n": 55,
     "unit": "$"
    },
@@ -9633,26 +9633,26 @@
     "unit": "bursts"
    },
    "volume": {
-    "v": 7,
-    "pct": 5,
+    "v": 41,
+    "pct": 27,
     "n": 55,
     "unit": "ct"
    },
    "premium": {
-    "v": 2.1,
-    "pct": 5,
+    "v": 12.96,
+    "pct": 31,
     "n": 55,
     "unit": "$"
    },
    "capture": {
-    "v": 16.67,
-    "pct": 0,
+    "v": 33.33,
+    "pct": 2,
     "n": 54,
     "unit": "%"
    },
    "complete": {
-    "v": 100.0,
-    "pct": 91,
+    "v": 97.62,
+    "pct": 89,
     "n": 55,
     "unit": "%"
    },
@@ -9675,6 +9675,42 @@
    "chunky_share_bust_pct": 30
   },
   "feed": [
+   {
+    "ts": "2026-09-03T17:20:09.339161+00:00",
+    "k": "LIVE_FILL",
+    "tk": "KXHIGHTHOU-26SEP03-B94.5",
+    "d": "{\"L\": 34, \"order_status\": \"resting\", \"fc\": 6, \"ct\": 6}"
+   },
+   {
+    "ts": "2026-09-03T17:20:09.337253+00:00",
+    "k": "PARTIAL_CANCEL",
+    "tk": "KXHIGHTHOU-26SEP03-B94.5",
+    "d": "{\"L\": 34, \"filled\": 6, \"of\": 7}"
+   },
+   {
+    "ts": "2026-09-03T17:20:09.152481+00:00",
+    "k": "LIVE_FILL",
+    "tk": "KXHIGHTHOU-26SEP03-B94.5",
+    "d": "{\"L\": 33, \"order_status\": \"executed\", \"fc\": 7, \"ct\": 7}"
+   },
+   {
+    "ts": "2026-09-03T17:20:09.151428+00:00",
+    "k": "LIVE_FILL",
+    "tk": "KXHIGHTHOU-26SEP03-B94.5",
+    "d": "{\"L\": 32, \"order_status\": \"executed\", \"fc\": 7, \"ct\": 7}"
+   },
+   {
+    "ts": "2026-09-03T17:20:09.150549+00:00",
+    "k": "LIVE_FILL",
+    "tk": "KXHIGHTHOU-26SEP03-B94.5",
+    "d": "{\"L\": 31, \"order_status\": \"executed\", \"fc\": 7, \"ct\": 7}"
+   },
+   {
+    "ts": "2026-09-03T17:20:09.149038+00:00",
+    "k": "LIVE_FILL",
+    "tk": "KXHIGHTHOU-26SEP03-B94.5",
+    "d": "{\"L\": 30, \"order_status\": \"executed\", \"fc\": 7, \"ct\": 7}"
+   },
    {
     "ts": "2026-09-03T17:18:48.142852+00:00",
     "k": "ARM",
@@ -9722,42 +9758,6 @@
     "k": "SPIKE_FILL",
     "tk": "KXHIGHTBOS-26SEP03-B73.5",
     "d": "{\"episode\": 1, \"peak\": 43.0, \"new_rungs\": null, \"rise_min\": 32.9}"
-   },
-   {
-    "ts": "2026-09-03T16:48:21.768027+00:00",
-    "k": "ARM",
-    "tk": "KXLOWTOKC-26SEP04-B66.5",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
-   },
-   {
-    "ts": "2026-09-03T16:45:42.608958+00:00",
-    "k": "ARM",
-    "tk": "KXHIGHTBOS-26SEP04-T80",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
-   },
-   {
-    "ts": "2026-09-03T16:42:55.011893+00:00",
-    "k": "ARM",
-    "tk": "KXLOWTPHX-26SEP03-B81.5",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
-   },
-   {
-    "ts": "2026-09-03T16:41:31.232824+00:00",
-    "k": "ARM",
-    "tk": "KXHIGHTBOS-26SEP03-B79.5",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
-   },
-   {
-    "ts": "2026-09-03T16:36:06.441321+00:00",
-    "k": "ARM",
-    "tk": "KXLOWTDAL-26SEP04-B72.5",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
-   },
-   {
-    "ts": "2026-09-03T16:36:05.026301+00:00",
-    "k": "ARM",
-    "tk": "KXLOWTAUS-26SEP03-B77.5",
-    "d": "{\"episode\": 1, \"clean_h\": 2.0}"
    }
   ],
   "retired_realized": 4.07
@@ -9815,20 +9815,20 @@
   }
  ],
  "liq": {
-  "now": 267.32,
-  "balance": 263.23,
-  "positions": 4.09,
+  "now": 275.2,
+  "balance": 239.51,
+  "positions": 35.69,
   "n_pts": 719,
   "today_open": 610.03,
-  "today_delta": -342.71,
-  "d1h": -2.42,
-  "d6h": -34.61,
-  "d12h": -386.71,
-  "d24h": -1290.98,
+  "today_delta": -334.83,
+  "d1h": 5.75,
+  "d6h": -26.73,
+  "d12h": -378.83,
+  "d24h": -1279.33,
   "span_h": 48.0,
   "potential": {
-   "upside_usd": 0.15,
-   "n": 3,
+   "upside_usd": 5.22,
+   "n": 8,
    "excl_n": 1,
    "excl_risk_usd": 4.9
   }
@@ -9966,7 +9966,7 @@
     "2026-09-03T17",
     105,
     735,
-    0
+    34
    ]
   ],
   "markets": [
@@ -10021,7 +10021,7 @@
   ],
   "tot_orders": 9028,
   "tot_placed_ct": 217737,
-  "tot_filled_ct": 2209,
+  "tot_filled_ct": 2243,
   "n_markets": 429
  },
  "odds_table": {
@@ -10146,7 +10146,7 @@
    "collateral": 4.6,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -1092.3,
+   "hrs": -1092.4,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 145.9,
    "now_yes": null,
@@ -10161,7 +10161,7 @@
    "collateral": 5.82,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -1092.3,
+   "hrs": -1092.4,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 245.4,
    "now_yes": null,
@@ -10176,7 +10176,7 @@
    "collateral": 5.7,
    "queue_ahead": 8.0,
    "status": "SETTLED",
-   "hrs": -1092.3,
+   "hrs": -1092.4,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 571.3,
    "now_yes": null,
@@ -10191,7 +10191,7 @@
    "collateral": 18.8,
    "queue_ahead": 5.0,
    "status": "SETTLED",
-   "hrs": -1092.3,
+   "hrs": -1092.4,
    "close_ts": "2026-07-20T05:00:00Z",
    "ttf_min": 0.7,
    "now_yes": null,
@@ -10206,7 +10206,7 @@
    "collateral": 5.82,
    "queue_ahead": 30.58,
    "status": "SETTLED",
-   "hrs": -1091.3,
+   "hrs": -1091.4,
    "close_ts": "2026-07-20T05:59:00Z",
    "ttf_min": 465.0,
    "now_yes": null,
@@ -10221,7 +10221,7 @@
    "collateral": 5.82,
    "queue_ahead": 13.0,
    "status": "SETTLED",
-   "hrs": -1091.3,
+   "hrs": -1091.4,
    "close_ts": "2026-07-20T06:00:00Z",
    "ttf_min": 151.6,
    "now_yes": null,
@@ -10236,7 +10236,7 @@
    "collateral": 12.61,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -1091.3,
+   "hrs": -1091.4,
    "close_ts": "2026-07-20T06:00:00Z",
    "ttf_min": 410.1,
    "now_yes": null,
@@ -10251,7 +10251,7 @@
    "collateral": 13.3,
    "queue_ahead": 5.0,
    "status": "SETTLED",
-   "hrs": -1091.3,
+   "hrs": -1091.4,
    "close_ts": "2026-07-20T06:00:00Z",
    "ttf_min": 45.9,
    "now_yes": null,
@@ -10266,7 +10266,7 @@
    "collateral": 4.8,
    "queue_ahead": 2.0,
    "status": "SETTLED",
-   "hrs": -1090.3,
+   "hrs": -1090.4,
    "close_ts": "2026-07-20T06:59:00Z",
    "ttf_min": 789.0,
    "now_yes": null,
@@ -10281,7 +10281,7 @@
    "collateral": 4.8,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -1089.3,
+   "hrs": -1089.4,
    "close_ts": "2026-07-20T08:00:00Z",
    "ttf_min": 11.5,
    "now_yes": null,
@@ -10296,7 +10296,7 @@
    "collateral": 6.58,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -1068.3,
+   "hrs": -1068.4,
    "close_ts": "2026-07-21T05:00:00Z",
    "ttf_min": 713.7,
    "now_yes": null,
@@ -10311,7 +10311,7 @@
    "collateral": 13.3,
    "queue_ahead": 2.0,
    "status": "SETTLED",
-   "hrs": -1068.3,
+   "hrs": -1068.4,
    "close_ts": "2026-07-21T05:00:00Z",
    "ttf_min": 61.3,
    "now_yes": null,
@@ -10326,7 +10326,7 @@
    "collateral": 7.76,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -1067.3,
+   "hrs": -1067.4,
    "close_ts": "2026-07-21T05:59:00Z",
    "ttf_min": 574.3,
    "now_yes": null,
@@ -10341,7 +10341,7 @@
    "collateral": 20.37,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -1067.3,
+   "hrs": -1067.4,
    "close_ts": "2026-07-21T05:59:00Z",
    "ttf_min": 8.8,
    "now_yes": null,
@@ -10356,7 +10356,7 @@
    "collateral": 6.51,
    "queue_ahead": 4.0,
    "status": "SETTLED",
-   "hrs": -1067.3,
+   "hrs": -1067.4,
    "close_ts": "2026-07-21T06:00:00Z",
    "ttf_min": 227.1,
    "now_yes": null,
@@ -10371,7 +10371,7 @@
    "collateral": 13.8,
    "queue_ahead": 1.0,
    "status": "SETTLED",
-   "hrs": -1067.3,
+   "hrs": -1067.4,
    "close_ts": "2026-07-21T06:00:00Z",
    "ttf_min": 41.7,
    "now_yes": null,
@@ -10386,7 +10386,7 @@
    "collateral": 13.58,
    "queue_ahead": 2.0,
    "status": "SETTLED",
-   "hrs": -1067.3,
+   "hrs": -1067.4,
    "close_ts": "2026-07-21T06:00:00Z",
    "ttf_min": 174.9,
    "now_yes": null,
@@ -10401,7 +10401,7 @@
    "collateral": 6.72,
    "queue_ahead": 5.0,
    "status": "SETTLED",
-   "hrs": -1066.3,
+   "hrs": -1066.4,
    "close_ts": "2026-07-21T07:00:00Z",
    "ttf_min": 478.0,
    "now_yes": null,
@@ -10416,7 +10416,7 @@
    "collateral": 15.64,
    "queue_ahead": 6.0,
    "status": "SETTLED",
-   "hrs": -1066.3,
+   "hrs": -1066.4,
    "close_ts": "2026-07-21T07:00:00Z",
    "ttf_min": 671.3,
    "now_yes": null,
@@ -10431,7 +10431,7 @@
    "collateral": 8.55,
    "queue_ahead": 6.0,
    "status": "SETTLED",
-   "hrs": -1065.3,
+   "hrs": -1065.4,
    "close_ts": "2026-07-21T08:00:00Z",
    "ttf_min": 17.5,
    "now_yes": null,
