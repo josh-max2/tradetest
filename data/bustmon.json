@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-08T12:00:01.817781+00:00",
+ "generated": "2026-09-08T18:00:01.821512+00:00",
  "asof": "2026-09-08",
  "window_days": 30,
  "warn": 22.0,
@@ -11,32 +11,32 @@
   "45": 38.9
  },
  "overall": {
-  "events": 15,
+  "events": 16,
   "days": 6,
   "busts": 3,
-  "rate": 20.0,
-  "ct": 701.0,
-  "pnl_c": -110.0,
-  "c_per_ct": -0.15691868758915833,
+  "rate": 18.75,
+  "ct": 749.0,
+  "pnl_c": 1450.0,
+  "c_per_ct": 1.9359145527369825,
   "status": "KILL",
   "flags": [
    "N=6 independent days (<30) \u2014 estimate is noisy",
-   "PnL backstop: -0.16c/ct < 2.0c floor"
+   "PnL backstop: 1.94c/ct < 2.0c floor"
   ]
  },
  "by_series": {
   "KXHIGH": {
-   "events": 7,
+   "events": 8,
    "days": 4,
    "busts": 1,
-   "rate": 14.285714285714286,
-   "ct": 430.0,
-   "pnl_c": -3670.0,
-   "c_per_ct": -8.534883720930232,
+   "rate": 12.5,
+   "ct": 478.0,
+   "pnl_c": -2110.0,
+   "c_per_ct": -4.414225941422594,
    "status": "KILL",
    "flags": [
     "N=4 independent days (<30) \u2014 estimate is noisy",
-    "PnL backstop: -8.53c/ct < 2.0c floor"
+    "PnL backstop: -4.41c/ct < 2.0c floor"
    ]
   },
   "KXLOWT": {
@@ -55,27 +55,27 @@
  },
  "by_rung": {
   "30": {
-   "events": 15,
+   "events": 16,
    "days": 6,
    "busts": 3,
-   "rate": 20.0,
-   "ct": 296.0,
-   "pnl_c": -1320.0,
-   "c_per_ct": -4.45945945945946,
+   "rate": 18.75,
+   "ct": 320.0,
+   "pnl_c": -600.0,
+   "c_per_ct": -1.875,
    "adj_breakeven": 27.7,
-   "margin_pp": 7.7,
+   "margin_pp": 8.9,
    "status": "OK"
   },
   "35": {
-   "events": 8,
+   "events": 9,
    "days": 4,
    "busts": 1,
-   "rate": 12.5,
-   "ct": 142.0,
-   "pnl_c": 670.0,
-   "c_per_ct": 4.71830985915493,
+   "rate": 11.11111111111111,
+   "ct": 166.0,
+   "pnl_c": 1510.0,
+   "c_per_ct": 9.096385542168674,
    "adj_breakeven": 29.1,
-   "margin_pp": 16.6,
+   "margin_pp": 18.0,
    "status": "OK"
   },
   "40": {
@@ -104,7 +104,7 @@
   }
  },
  "alarms": [
-  "KXHIGH KILL at 14.3%",
+  "KXHIGH KILL at 12.5%",
   "KXLOWT KILL at 25.0%"
  ]
 }
