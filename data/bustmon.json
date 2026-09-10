@@ -1,6 +1,6 @@
 {
- "generated": "2026-09-10T06:00:01.454385+00:00",
- "asof": "2026-09-09",
+ "generated": "2026-09-10T12:00:01.457122+00:00",
+ "asof": "2026-09-10",
  "window_days": 30,
  "warn": 22.0,
  "kill": 25.0,
@@ -11,16 +11,16 @@
   "45": 38.9
  },
  "overall": {
-  "events": 17,
-  "days": 7,
+  "events": 18,
+  "days": 8,
   "busts": 3,
-  "rate": 17.647058823529413,
-  "ct": 761.0,
-  "pnl_c": 1810.0,
-  "c_per_ct": 2.378449408672799,
+  "rate": 16.666666666666668,
+  "ct": 764.0,
+  "pnl_c": 1900.0,
+  "c_per_ct": 2.486910994764398,
   "status": "OK",
   "flags": [
-   "N=7 independent days (<30) \u2014 estimate is noisy"
+   "N=8 independent days (<30) \u2014 estimate is noisy"
   ]
  },
  "by_series": {
@@ -39,30 +39,30 @@
    ]
   },
   "KXLOWT": {
-   "events": 8,
-   "days": 5,
+   "events": 9,
+   "days": 6,
    "busts": 2,
-   "rate": 25.0,
-   "ct": 271.0,
-   "pnl_c": 3560.0,
-   "c_per_ct": 13.136531365313653,
-   "status": "KILL",
+   "rate": 22.22222222222222,
+   "ct": 274.0,
+   "pnl_c": 3650.0,
+   "c_per_ct": 13.321167883211679,
+   "status": "WARN",
    "flags": [
-    "N=5 independent days (<30) \u2014 estimate is noisy"
+    "N=6 independent days (<30) \u2014 estimate is noisy"
    ]
   }
  },
  "by_rung": {
   "30": {
-   "events": 17,
-   "days": 7,
+   "events": 18,
+   "days": 8,
    "busts": 3,
-   "rate": 17.647058823529413,
-   "ct": 332.0,
-   "pnl_c": -240.0,
-   "c_per_ct": -0.7228915662650602,
+   "rate": 16.666666666666668,
+   "ct": 335.0,
+   "pnl_c": -150.0,
+   "c_per_ct": -0.44776119402985076,
    "adj_breakeven": 27.7,
-   "margin_pp": 10.1,
+   "margin_pp": 11.0,
    "status": "OK"
   },
   "35": {
@@ -104,6 +104,6 @@
  },
  "alarms": [
   "KXHIGH KILL at 11.1%",
-  "KXLOWT KILL at 25.0%"
+  "KXLOWT WARN at 22.2%"
  ]
 }
