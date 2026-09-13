@@ -1,6 +1,6 @@
 {
- "generated": "2026-09-13T06:00:01.534641+00:00",
- "asof": "2026-09-12",
+ "generated": "2026-09-13T12:00:01.548373+00:00",
+ "asof": "2026-09-13",
  "window_days": 30,
  "warn": 22.0,
  "kill": 25.0,
@@ -11,31 +11,31 @@
   "45": 38.9
  },
  "overall": {
-  "events": 21,
-  "days": 10,
+  "events": 22,
+  "days": 11,
   "busts": 3,
-  "rate": 14.285714285714286,
-  "ct": 855.0,
-  "pnl_c": 4760.0,
-  "c_per_ct": 5.567251461988304,
+  "rate": 13.636363636363637,
+  "ct": 883.0,
+  "pnl_c": 5600.0,
+  "c_per_ct": 6.342015855039637,
   "status": "OK",
   "flags": [
-   "N=10 independent days (<30) \u2014 estimate is noisy"
+   "N=11 independent days (<30) \u2014 estimate is noisy"
   ]
  },
  "by_series": {
   "KXHIGH": {
-   "events": 11,
-   "days": 6,
+   "events": 12,
+   "days": 7,
    "busts": 1,
-   "rate": 9.090909090909092,
-   "ct": 537.0,
-   "pnl_c": -295.0,
-   "c_per_ct": -0.5493482309124768,
+   "rate": 8.333333333333334,
+   "ct": 565.0,
+   "pnl_c": 545.0,
+   "c_per_ct": 0.9646017699115044,
    "status": "KILL",
    "flags": [
-    "N=6 independent days (<30) \u2014 estimate is noisy",
-    "PnL backstop: -0.55c/ct < 2.0c floor"
+    "N=7 independent days (<30) \u2014 estimate is noisy",
+    "PnL backstop: 0.96c/ct < 2.0c floor"
    ]
   },
   "KXLOWT": {
@@ -54,15 +54,15 @@
  },
  "by_rung": {
   "30": {
-   "events": 21,
-   "days": 10,
+   "events": 22,
+   "days": 11,
    "busts": 3,
-   "rate": 14.285714285714286,
-   "ct": 400.0,
-   "pnl_c": 1800.0,
-   "c_per_ct": 4.5,
+   "rate": 13.636363636363637,
+   "ct": 428.0,
+   "pnl_c": 2640.0,
+   "c_per_ct": 6.168224299065421,
    "adj_breakeven": 27.7,
-   "margin_pp": 13.4,
+   "margin_pp": 14.1,
    "status": "OK"
   },
   "35": {
@@ -103,6 +103,6 @@
   }
  },
  "alarms": [
-  "KXHIGH KILL at 9.1%"
+  "KXHIGH KILL at 8.3%"
  ]
 }
