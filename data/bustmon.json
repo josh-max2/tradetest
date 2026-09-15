@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-15T12:00:01.579934+00:00",
+ "generated": "2026-09-15T18:00:01.560442+00:00",
  "asof": "2026-09-15",
  "window_days": 30,
  "warn": 22.0,
@@ -11,13 +11,13 @@
   "45": 38.9
  },
  "overall": {
-  "events": 26,
+  "events": 28,
   "days": 13,
-  "busts": 3,
-  "rate": 11.538461538461538,
-  "ct": 1293.0,
-  "pnl_c": 19950.0,
-  "c_per_ct": 15.429234338747099,
+  "busts": 4,
+  "rate": 14.285714285714286,
+  "ct": 1378.0,
+  "pnl_c": 14670.0,
+  "c_per_ct": 10.645863570391873,
   "status": "OK",
   "flags": [
    "N=13 independent days (<30) \u2014 estimate is noisy"
@@ -25,55 +25,55 @@
  },
  "by_series": {
   "KXHIGH": {
-   "events": 15,
+   "events": 16,
    "days": 9,
    "busts": 1,
-   "rate": 6.666666666666667,
-   "ct": 923.0,
-   "pnl_c": 13295.0,
-   "c_per_ct": 14.404117009750813,
+   "rate": 6.25,
+   "ct": 928.0,
+   "pnl_c": 13445.0,
+   "c_per_ct": 14.488146551724139,
    "status": "OK",
    "flags": [
     "N=9 independent days (<30) \u2014 estimate is noisy"
    ]
   },
   "KXLOWT": {
-   "events": 11,
-   "days": 8,
-   "busts": 2,
-   "rate": 18.181818181818183,
-   "ct": 370.0,
-   "pnl_c": 6655.0,
-   "c_per_ct": 17.986486486486488,
-   "status": "OK",
+   "events": 12,
+   "days": 9,
+   "busts": 3,
+   "rate": 25.0,
+   "ct": 450.0,
+   "pnl_c": 1225.0,
+   "c_per_ct": 2.7222222222222223,
+   "status": "KILL",
    "flags": [
-    "N=8 independent days (<30) \u2014 estimate is noisy"
+    "N=9 independent days (<30) \u2014 estimate is noisy"
    ]
   }
  },
  "by_rung": {
   "30": {
-   "events": 26,
+   "events": 28,
    "days": 13,
-   "busts": 3,
-   "rate": 11.538461538461538,
-   "ct": 606.0,
-   "pnl_c": 7980.0,
-   "c_per_ct": 13.168316831683168,
+   "busts": 4,
+   "rate": 14.285714285714286,
+   "ct": 657.0,
+   "pnl_c": 4910.0,
+   "c_per_ct": 7.473363774733638,
    "adj_breakeven": 27.7,
-   "margin_pp": 16.2,
+   "margin_pp": 13.4,
    "status": "OK"
   },
   "35": {
-   "events": 14,
+   "events": 15,
    "days": 8,
-   "busts": 1,
-   "rate": 7.142857142857143,
-   "ct": 290.0,
-   "pnl_c": 5850.0,
-   "c_per_ct": 20.17241379310345,
+   "busts": 2,
+   "rate": 13.333333333333334,
+   "ct": 324.0,
+   "pnl_c": 3640.0,
+   "c_per_ct": 11.234567901234568,
    "adj_breakeven": 29.1,
-   "margin_pp": 22.0,
+   "margin_pp": 15.8,
    "status": "OK"
   },
   "40": {
@@ -101,5 +101,7 @@
    "status": "OK"
   }
  },
- "alarms": []
+ "alarms": [
+  "KXLOWT KILL at 25.0%"
+ ]
 }
