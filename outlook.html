@@ -1,0 +1,212 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Outlook — expected value &amp; counterparty mix</title>
+<style>
+:root{--surface:#151b23;--page:#0d1117;--ink:#d7dde5;--ink2:#8b95a3;--muted:#8b95a3;
+ --grid:#232b36;--border:#232b36;--s1:#e8b33e;--good:#43c07a;--crit:#e2606b;
+ --mono:ui-monospace,"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-size:15px;line-height:1.5;
+ font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+.nav{display:flex;gap:4px;overflow-x:auto;margin-bottom:18px;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:7px 13px;border-radius:7px;color:var(--ink2);text-decoration:none;font-size:13px;white-space:nowrap}
+.nav a.active{color:var(--ink);background:color-mix(in srgb,var(--s1) 13%,transparent)}
+h1{font-size:21px;margin:0 0 4px;font-weight:650;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px;margin:6px 0 20px;max-width:74ch}
+h2{font-size:15px;font-weight:620;margin:26px 0 4px}
+.h2sub{color:var(--muted);font-size:12px;margin:0 0 12px;max-width:78ch}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);
+ border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.stat{background:var(--surface);padding:12px 14px}
+.stat .l{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px}
+.stat .s{font-size:11px;color:var(--muted);margin-top:1px}
+.pos{color:var(--good)}.neg{color:var(--crit)}.amb{color:var(--s1)}
+table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:6px 9px;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}
+thead th{color:var(--muted);font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+.warn{border-left:2px solid var(--crit);background:color-mix(in srgb,var(--crit) 8%,transparent);
+ border-radius:0 7px 7px 0;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55;margin-bottom:14px}
+.warn b{color:var(--crit)}
+.note{border-left:2px solid var(--s1);background:color-mix(in srgb,var(--s1) 8%,transparent);
+ border-radius:0 7px 7px 0;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55}
+.note b{color:var(--s1)}
+.tagm{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
+ padding:2px 6px;border-radius:99px;border:1px solid currentColor}
+.t-meas{color:var(--good)}.t-edge{color:var(--s1)}.t-extr{color:var(--crit)}
+svg{display:block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle}
+#err{color:var(--crit);font-size:13px;margin-bottom:12px}
+footer{color:var(--muted);font-size:11.5px;border-top:1px solid var(--grid);padding-top:14px;margin-top:26px;line-height:1.6}
+@media(max-width:680px){.wrap{padding:14px 11px 50px}.stat .v{font-size:16px}table{font-size:11px}th,td{padding:5px 6px}}
+</style>
+<div class="wrap">
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a href="./calendar.html">Calendar</a>
+ <a class="active" href="./outlook.html">Outlook</a>
+</div>
+<h1>Outlook</h1>
+<p class="sub">What the next week, month and year look like on our own measured fills — and who is
+on the other side of those trades. The second half matters because this strategy sells insurance:
+we need people <em>buying</em> panic, not other desks fading it alongside us.</p>
+<div id="err">Loading…</div>
+<div id="body" style="display:none">
+
+<h2>Expected value</h2>
+<p class="h2sub" id="evsub"></p>
+<div class="stats" id="evstats"></div>
+<div class="card"><table id="evtab"></table></div>
+<div class="warn" id="evwarn"></div>
+
+<h2>Who is on the other side</h2>
+<p class="h2sub">In a freakout market at 25¢ and above, a <b>taker-YES</b> trade is someone paying up
+to <em>buy</em> the tail — an insurance buyer, the flow we earn from. A <b>taker-NO</b> trade is
+someone paying up to <em>sell</em> it — another fader, i.e. competition. The ratio reads directly on
+who we trade against.</p>
+<div class="stats" id="cpstats"></div>
+<div class="card"><div style="overflow-x:auto"><svg id="cpchart"></svg></div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--good)"></span> buyer share (insurance demand)</span>
+    <span><span class="sw" style="background:var(--crit)"></span> fader share (competition)</span>
+    <span><span style="display:inline-block;width:16px;border-top:2px dashed var(--s1);vertical-align:middle"></span> trend</span>
+  </div></div>
+<div class="card" style="overflow-x:auto"><table id="cptab"></table></div>
+<div class="warn" id="cpwarn"></div>
+
+<footer id="foot"></footer>
+</div></div>
+<script>
+const money=v=>(v==null?'—':(v<0?'−$':'$')+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0}));
+const money2=v=>(v==null?'—':(v<0?'−$':'+$')+Math.abs(v).toFixed(2));
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e};
+
+function tag(ct, obsMax){
+  if (ct <= obsMax) return '<span class="tagm t-meas">measured size</span>';
+  if (ct <= obsMax*2) return '<span class="tagm t-edge">beyond observed</span>';
+  return '<span class="tagm t-extr">extrapolation</span>';
+}
+
+function render(d){
+  const b=d.basis, p=d.projection;
+  document.getElementById('evsub').innerHTML =
+    `Resampled from <b>${b.days} days</b> of our own 4-rung fills (${b.first} → ${b.last}, `
+    + `${b.contracts.toLocaleString()} contracts, edge <b>${b.edge_c_per_ct>=0?'+':''}${b.edge_c_per_ct}¢/ct</b>). `
+    + `Whole days are resampled so bust clustering survives; size compounds at CAP_K ${b.cap_k} and `
+    + `<b>capture decays</b> on the measured size bands, going flat past MAX_CT ${b.obs_max_ct}.`;
+  document.getElementById('evstats').innerHTML = ['week','month','year'].map(k=>{
+    const x=p[k];
+    return `<div class="stat"><div class="l">next ${k}</div>
+      <div class="v ${x.median>=0?'pos':'neg'}">${money(x.median)}</div>
+      <div class="s">${money(x.p5)} … ${money(x.p95)} (90% range)</div></div>`;}).join('')
+    + `<div class="stat"><div class="l">today</div><div class="v amb">${b.max_ct} ct</div>
+       <div class="s">sleeve ${money(b.sleeve)} · CAP_K ${b.cap_k}</div></div>`;
+  document.getElementById('evtab').innerHTML =
+    `<thead><tr><th>horizon</th><th>days</th><th>p5</th><th>median</th><th>p95</th><th>ends at</th><th></th></tr></thead><tbody>`
+    + ['week','month','year'].map(k=>{const x=p[k];
+      return `<tr><td>next ${k}</td><td>${x.days}</td><td class="${x.p5>=0?'pos':'neg'}">${money(x.p5)}</td>
+      <td class="${x.median>=0?'pos':'neg'}"><b>${money(x.median)}</b></td><td class="pos">${money(x.p95)}</td>
+      <td>${x.end_ct} ct</td><td>${tag(x.end_ct,b.obs_max_ct)}</td></tr>`;}).join('')+'</tbody>';
+  const bands=Object.entries(b.capture_bands).map(([k,v])=>`${k}: ${v}`).join(' · ');
+  document.getElementById('evwarn').innerHTML =
+    `<b>Read the size tag, not just the number.</b> The year figure ends at a MAX_CT we have never
+     traded, so it is the saturation model talking, not evidence. Measured capture by size band —
+     ${esc(bands)} contracts/day per unit of size — is <em>falling</em>, which is why income plateaus
+     instead of compounding. Worst observed day is ${b.worst_day_per_ct} per contract of size, and
+     that scales with everything above.`;
+
+  const cp=d.counterparty||[];
+  if(cp.length){
+    const last=cp[cp.length-1], first=cp[0];
+    const n=cp.length, xs=cp.map((_,i)=>i), ys=cp.map(w=>w.buyer_share);
+    const mx=xs.reduce((a,b)=>a+b,0)/n, my=ys.reduce((a,b)=>a+b,0)/n;
+    const slope=xs.reduce((a,x,i)=>a+(x-mx)*(ys[i]-my),0)/Math.max(xs.reduce((a,x)=>a+(x-mx)**2,0),1e-9);
+    const paired=cp.filter(w=>w.our_pnl!=null);
+    let r=null;
+    if(paired.length>=4){
+      const a=paired.map(w=>w.buyer_share), c=paired.map(w=>w.our_pnl);
+      const ma=a.reduce((s,v)=>s+v,0)/a.length, mc=c.reduce((s,v)=>s+v,0)/c.length;
+      const num=a.reduce((s,v,i)=>s+(v-ma)*(c[i]-mc),0);
+      const den=Math.sqrt(a.reduce((s,v)=>s+(v-ma)**2,0)*c.reduce((s,v)=>s+(v-mc)**2,0));
+      r=den?num/den:null;
+    }
+    document.getElementById('cpstats').innerHTML =
+      `<div class="stat"><div class="l">buyer share now</div>
+        <div class="v ${last.buyer_share>=50?'pos':'neg'}">${last.buyer_share}%</div>
+        <div class="s">week of ${last.week} · ${last.markets} markets</div></div>
+       <div class="stat"><div class="l">trend</div>
+        <div class="v ${slope>=0?'pos':'neg'}">${slope>=0?'+':''}${slope.toFixed(2)} pts/wk</div>
+        <div class="s">${slope>=0?'insurance demand rising':'faders gaining share'} · ${n} weeks</div></div>
+       <div class="stat"><div class="l">range</div>
+        <div class="v amb">${Math.min(...ys).toFixed(1)}–${Math.max(...ys).toFixed(1)}%</div>
+        <div class="s">${first.week} → ${last.week}</div></div>
+       <div class="stat"><div class="l">vs our P&amp;L</div>
+        <div class="v ${r==null?'':(r>0.3?'pos':'neg')}">${r==null?'n/a':(r>=0?'+':'')+r.toFixed(2)}</div>
+        <div class="s">${paired.length} overlapping weeks</div></div>`;
+
+    const W=880,H=210,M={t:16,r:20,b:34,l:44},pw=W-M.l-M.r,ph=H-M.t-M.b;
+    const s=el('svg',{viewBox:`0 0 ${W} ${H}`,width:'100%',style:'min-width:600px;height:auto',
+      role:'img','aria-label':'Weekly buyer share'});
+    for(let v=0;v<=100;v+=25){
+      const y=M.t+ph*(1-v/100);
+      s.appendChild(el('line',{x1:M.l,x2:M.l+pw,y1:y,y2:y,stroke:v===50?'var(--ink2)':'var(--grid)','stroke-width':v===50?1.3:1}));
+      const t=el('text',{x:M.l-8,y:y+4,'text-anchor':'end',fill:'var(--muted)','font-size':10,'font-family':'var(--mono)'});
+      t.textContent=v+'%';s.appendChild(t);}
+    const step=pw/n, bw=Math.min(34,step*0.6);
+    cp.forEach((w,i)=>{
+      const cx=M.l+step*i+step/2, h=ph*w.buyer_share/100;
+      s.appendChild(el('rect',{x:cx-bw/2,y:M.t+ph-h,width:bw,height:h,rx:2,fill:'var(--good)','fill-opacity':.85}));
+      s.appendChild(el('rect',{x:cx-bw/2,y:M.t,width:bw,height:ph-h,rx:2,fill:'var(--crit)','fill-opacity':.22}));
+      const _tiptext=`${w.week}\nbuyer ${w.buyer_share}%  (${w.buy_ct.toLocaleString()} ct bought / ${w.sell_ct.toLocaleString()} sold)\n${w.markets} markets, ${w.trades} trades\nsmall-trade share ${w.small_share}%`+(w.our_pnl!=null?`\nour P&L ${money2(w.our_pnl)}`:'');
+      const hit=el('rect',{x:cx-step/2,y:M.t,width:step,height:ph,fill:'transparent'});
+      const tt=el('title');tt.textContent=_tiptext;hit.appendChild(tt);s.appendChild(hit);
+      if(i%2===0||i===n-1){const t=el('text',{x:cx,y:M.t+ph+17,'text-anchor':'middle',fill:'var(--muted)','font-size':9.5,'font-family':'var(--mono)'});
+        t.textContent=w.week.slice(5);s.appendChild(t);}
+    });
+    const pts=cp.map((w,i)=>`${M.l+step*i+step/2},${M.t+ph*(1-(my+slope*(i-mx))/100)}`).join(' ');
+    s.appendChild(el('polyline',{points:pts,fill:'none',stroke:'var(--s1)','stroke-width':2,'stroke-dasharray':'5 3'}));
+    document.getElementById('cpchart').replaceWith(Object.assign(s,{id:'cpchart'}));
+
+    document.getElementById('cptab').innerHTML =
+      `<thead><tr><th>week</th><th>mkts</th><th>trades</th><th>bought</th><th>sold</th><th>buyer</th><th>small&lt;50ct</th><th>our P&amp;L</th></tr></thead><tbody>`
+      + cp.slice().reverse().map(w=>`<tr><td>${w.week}</td><td>${w.markets}</td><td>${w.trades.toLocaleString()}</td>
+        <td>${w.buy_ct.toLocaleString()}</td><td>${w.sell_ct.toLocaleString()}</td>
+        <td class="${w.buyer_share>=50?'pos':'neg'}"><b>${w.buyer_share}%</b></td>
+        <td>${w.small_share}%</td>
+        <td class="${w.our_pnl==null?'':(w.our_pnl>=0?'pos':'neg')}">${w.our_pnl==null?'—':money2(w.our_pnl)}</td></tr>`).join('')
+      + '</tbody>';
+    document.getElementById('cpwarn').innerHTML =
+      `<b>Not validated — track it, do not trade on it.</b> Across the ${paired.length} weeks where we
+       have both numbers the correlation with our P&amp;L is
+       <b>${r==null?'n/a':(r>=0?'+':'')+r.toFixed(2)}</b>, and our best week so far had one of the
+       <em>lowest</em> buyer shares. That is the opposite of the thesis. The sample is far too small to
+       conclude either way, and the weekly figure also moves with which markets get sampled. What the
+       series is good for today is direction: buyer share has moved
+       ${slope>=0?'<b>up</b>':'<b>down</b>'} ${Math.abs(slope).toFixed(2)} points a week over
+       ${n} weeks. If it turns decisively down while our edge falls with it, that is the signal worth
+       acting on — and this page exists so we would see it.`;
+  }
+  document.getElementById('foot').innerHTML =
+    `Generated ${esc(d.generated)}. ${esc(d.caveat)}`;
+  document.getElementById('err').style.display='none';
+  document.getElementById('body').style.display='block';
+}
+async function load(){
+  try{
+    const r=await fetch('./data/outlook.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw 0;
+    render(await r.json());
+  }catch(e){
+    document.getElementById('err').textContent='Outlook data not published yet — run ev_outlook.py.';
+  }
+}
+load(); setInterval(load, 300000);
+</script>

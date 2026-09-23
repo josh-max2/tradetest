@@ -1,0 +1,171 @@
+{
+ "generated": "2026-09-23 12:49",
+ "basis": {
+  "days": 48,
+  "first": "2026-07-10",
+  "last": "2026-09-23",
+  "edge_c_per_ct": 16.99,
+  "contracts": 9494,
+  "sleeve": 1883.49,
+  "max_ct": 188,
+  "cap_k": 10.0,
+  "obs_max_ct": 218.0,
+  "capture_bands": {
+   "0-25": 4.064,
+   "25-60": 5.165,
+   "60-110": 3.708,
+   "110-400": 2.076
+  },
+  "worst_day_per_ct": -1.946
+ },
+ "projection": {
+  "week": {
+   "days": 7,
+   "p5": 10.71,
+   "median": 644.45,
+   "p95": 1079.54,
+   "end_sleeve": 2524.45,
+   "end_ct": 252
+  },
+  "month": {
+   "days": 30,
+   "p5": 1787.02,
+   "median": 3158.2,
+   "p95": 4080.52,
+   "end_sleeve": 5038.2,
+   "end_ct": 504
+  },
+  "year": {
+   "days": 365,
+   "p5": 29230.94,
+   "median": 32801.1,
+   "p95": 36273.19,
+   "end_sleeve": 34681.1,
+   "end_ct": 3468
+  }
+ },
+ "counterparty": [
+  {
+   "week": "2026-07-13",
+   "markets": 14,
+   "trades": 56,
+   "buy_ct": 163,
+   "sell_ct": 294,
+   "buyer_share": 35.7,
+   "block_ct": 0,
+   "small_share": 71.1,
+   "our_pnl": null
+  },
+  {
+   "week": "2026-07-20",
+   "markets": 14,
+   "trades": 3891,
+   "buy_ct": 28403,
+   "sell_ct": 12956,
+   "buyer_share": 68.7,
+   "block_ct": 0,
+   "small_share": 56.1,
+   "our_pnl": null
+  },
+  {
+   "week": "2026-07-27",
+   "markets": 14,
+   "trades": 4540,
+   "buy_ct": 28808,
+   "sell_ct": 20533,
+   "buyer_share": 58.4,
+   "block_ct": 0,
+   "small_share": 55.5,
+   "our_pnl": null
+  },
+  {
+   "week": "2026-08-03",
+   "markets": 14,
+   "trades": 4247,
+   "buy_ct": 37465,
+   "sell_ct": 27881,
+   "buyer_share": 57.3,
+   "block_ct": 0,
+   "small_share": 42.8,
+   "our_pnl": null
+  },
+  {
+   "week": "2026-08-10",
+   "markets": 14,
+   "trades": 5522,
+   "buy_ct": 42328,
+   "sell_ct": 31158,
+   "buyer_share": 57.6,
+   "block_ct": 0,
+   "small_share": 49.0,
+   "our_pnl": null
+  },
+  {
+   "week": "2026-08-17",
+   "markets": 14,
+   "trades": 5037,
+   "buy_ct": 51477,
+   "sell_ct": 100496,
+   "buyer_share": 33.9,
+   "block_ct": 0,
+   "small_share": 27.0,
+   "our_pnl": null
+  },
+  {
+   "week": "2026-08-24",
+   "markets": 14,
+   "trades": 3119,
+   "buy_ct": 25512,
+   "sell_ct": 16667,
+   "buyer_share": 60.5,
+   "block_ct": 0,
+   "small_share": 57.2,
+   "our_pnl": null
+  },
+  {
+   "week": "2026-08-31",
+   "markets": 14,
+   "trades": 2950,
+   "buy_ct": 33970,
+   "sell_ct": 32766,
+   "buyer_share": 50.9,
+   "block_ct": 0,
+   "small_share": 36.2,
+   "our_pnl": 105.9
+  },
+  {
+   "week": "2026-09-07",
+   "markets": 14,
+   "trades": 3749,
+   "buy_ct": 36949,
+   "sell_ct": 21557,
+   "buyer_share": 63.2,
+   "block_ct": 0,
+   "small_share": 48.1,
+   "our_pnl": 181.55
+  },
+  {
+   "week": "2026-09-14",
+   "markets": 14,
+   "trades": 2774,
+   "buy_ct": 18570,
+   "sell_ct": 13306,
+   "buyer_share": 58.3,
+   "block_ct": 0,
+   "small_share": 67.7,
+   "our_pnl": 342.45
+  },
+  {
+   "week": "2026-09-21",
+   "markets": 14,
+   "trades": 2655,
+   "buy_ct": 21913,
+   "sell_ct": 11570,
+   "buyer_share": 65.4,
+   "block_ct": 0,
+   "small_share": 56.8,
+   "our_pnl": 63.3
+  }
+ ],
+ "caveat": "Projection resamples whole days from our own 4-rung fills; capture decays on the measured size bands and goes flat past MAX_CT 218, the largest size ever run. Counterparty mix is NOT validated against P&L - on the first weeks the lowest buyer share coincided with our best week."
+}
