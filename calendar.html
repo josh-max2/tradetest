@@ -114,6 +114,7 @@ day we bought in, not the next morning it settles. Today is still open, so it sh
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <div class="stats" id="stats"></div>
+<div id="trend"></div>
 <div id="cal"></div>
 <div id="calList"></div>
 <div class="legend" id="legend"></div>
@@ -215,6 +216,49 @@ function cell(iso, dd, rec, todayISO, today, sd){
     ${chipStrip(items)}${pend}</div>`;
 }
 
+// [2026-09-23 Josh] TREND: one bar per settled day (P&L) with cumulative % overlaid.
+// Sits above the month grids so the shape of the run reads before the day detail.
+function renderTrend(days){
+  const box=document.getElementById('trend'); if(!box) return;
+  const S=days.filter(d=>d.pnl!=null);
+  if(S.length<2){ box.innerHTML=''; return; }
+  const W=900,H=250,M={t:18,r:58,b:30,l:56},pw=W-M.l-M.r,ph=H-M.t-M.b;
+  const lo=Math.min(0,...S.map(d=>d.pnl))*1.15, hi=Math.max(...S.map(d=>d.pnl))*1.12;
+  const y=v=>M.t+ph*(1-(v-lo)/(hi-lo));
+  const cmax=Math.max(...S.map(d=>d.cum_pct||0))*1.08||1, y2=v=>M.t+ph*(1-v/cmax);
+  const step=pw/S.length, bw=Math.min(26,step*0.62);
+  const esc2=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  let g='',bars='',lbl='';
+  const tick=Math.max(25,Math.round((hi-lo)/5/25)*25);
+  for(let v=Math.ceil(lo/tick)*tick; v<=hi; v+=tick){
+    const z=Math.abs(v)<0.01;
+    g+=`<line x1="${M.l}" x2="${M.l+pw}" y1="${y(v)}" y2="${y(v)}" stroke="${z?'var(--ink2)':'var(--grid)'}" stroke-width="${z?1.3:1}"/>`
+     +`<text x="${M.l-9}" y="${y(v)+4}" text-anchor="end" fill="var(--muted)" font-size="10" font-family="ui-monospace,monospace">${v<0?'-$'+Math.abs(v):'$'+v}</text>`;}
+  S.forEach((d,i)=>{
+    const cx=M.l+step*i+step/2, y0=y(0), y1=y(d.pnl);
+    const top=Math.min(y0,y1), h=Math.max(Math.abs(y1-y0),1.5);
+    const tip=`${d.date}\n${d.pnl>=0?'+':'-'}$${Math.abs(d.pnl).toFixed(2)}  (${(d.port_pct??0).toFixed(2)}% of portfolio)\ncumulative ${(d.cum_pct??0).toFixed(2)}%\n${d.wins||0}W / ${d.losses||0}L · ${d.contracts||0} ct`;
+    bars+=`<rect x="${cx-bw/2}" y="${top}" width="${bw}" height="${h}" rx="2" fill="var(--${d.pnl>=0?'good':'crit'})"><title>${esc2(tip)}</title></rect>`;
+    if(i%3===0||i===S.length-1) lbl+=`<text x="${cx}" y="${M.t+ph+18}" text-anchor="middle" fill="var(--muted)" font-size="10" font-family="ui-monospace,monospace">${d.date.slice(5)}</text>`;});
+  const cp=S.map((d,i)=>`${M.l+step*i+step/2},${y2(d.cum_pct||0)}`).join(' ');
+  const last=S[S.length-1];
+  box.innerHTML=`<div class="cal-card" style="margin-bottom:14px">
+    <div class="cal-title">Daily return &amp; cumulative <span style="font-weight:400;color:var(--muted);font-size:12px">— bar = that day, line = running total</span></div>
+    <div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" width="100%" style="min-width:620px;height:auto" role="img"
+      aria-label="Daily profit and loss with cumulative return">
+      ${g}${bars}
+      <polyline points="${cp}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-dasharray="5 3" stroke-linejoin="round"/>
+      ${lbl}
+      <text x="${M.l+pw+8}" y="${y2(last.cum_pct||0)+4}" fill="var(--s1)" font-size="12"
+        font-family="ui-monospace,monospace" font-weight="700">${(last.cum_pct??0).toFixed(1)}%</text>
+    </svg></div>
+    <div style="display:flex;gap:18px;margin-top:6px;font-family:ui-monospace,monospace;font-size:11px;color:var(--muted);flex-wrap:wrap">
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--good)"></span> gain day</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--crit)"></span> loss day</span>
+      <span><span style="display:inline-block;width:16px;height:0;border-top:2px dashed var(--s1);vertical-align:middle"></span> cumulative %</span>
+      <span style="margin-left:auto">hover a bar for the day</span></div></div>`;
+}
+
 function monthCard(y, m, dayMap, todayISO, today, sdMap){
   const startWd = new Date(y,m,1).getDay();          // 0=Sun
   const nDays = new Date(y,m+1,0).getDate();
@@ -305,6 +349,8 @@ function render(d){
   document.getElementById('stats').innerHTML = stats.map(c=>
     `<div class="stat ${c.cls||''}"><div class="l">${c.l}</div>
      <div class="v ${c.vcls||''}">${c.v}</div><div class="s">${esc(c.s)}</div></div>`).join('');
+
+  renderTrend(days);          // [2026-09-23] trend first, month grid below
 
   // calendar month grids (every month spanned by data, newest first)
   const cal=document.getElementById('cal');
