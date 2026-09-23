@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-23 12:49",
+ "generated": "2026-09-23 13:10",
  "basis": {
   "days": 48,
   "first": "2026-07-10",
@@ -54,6 +54,7 @@
    "buyer_share": 35.7,
    "block_ct": 0,
    "small_share": 71.1,
+   "low_vol": true,
    "our_pnl": null
   },
   {
@@ -65,6 +66,7 @@
    "buyer_share": 68.7,
    "block_ct": 0,
    "small_share": 56.1,
+   "low_vol": false,
    "our_pnl": null
   },
   {
@@ -76,6 +78,7 @@
    "buyer_share": 58.4,
    "block_ct": 0,
    "small_share": 55.5,
+   "low_vol": false,
    "our_pnl": null
   },
   {
@@ -87,6 +90,7 @@
    "buyer_share": 57.3,
    "block_ct": 0,
    "small_share": 42.8,
+   "low_vol": false,
    "our_pnl": null
   },
   {
@@ -98,6 +102,7 @@
    "buyer_share": 57.6,
    "block_ct": 0,
    "small_share": 49.0,
+   "low_vol": false,
    "our_pnl": null
   },
   {
@@ -109,6 +114,7 @@
    "buyer_share": 33.9,
    "block_ct": 0,
    "small_share": 27.0,
+   "low_vol": false,
    "our_pnl": null
   },
   {
@@ -120,6 +126,7 @@
    "buyer_share": 60.5,
    "block_ct": 0,
    "small_share": 57.2,
+   "low_vol": false,
    "our_pnl": null
   },
   {
@@ -131,6 +138,7 @@
    "buyer_share": 50.9,
    "block_ct": 0,
    "small_share": 36.2,
+   "low_vol": false,
    "our_pnl": 105.9
   },
   {
@@ -142,6 +150,7 @@
    "buyer_share": 63.2,
    "block_ct": 0,
    "small_share": 48.1,
+   "low_vol": false,
    "our_pnl": 181.55
   },
   {
@@ -153,6 +162,7 @@
    "buyer_share": 58.3,
    "block_ct": 0,
    "small_share": 67.7,
+   "low_vol": false,
    "our_pnl": 342.45
   },
   {
@@ -164,8 +174,50 @@
    "buyer_share": 65.4,
    "block_ct": 0,
    "small_share": 56.8,
+   "low_vol": false,
    "our_pnl": 63.3
   }
  ],
- "caveat": "Projection resamples whole days from our own 4-rung fills; capture decays on the measured size bands and goes flat past MAX_CT 218, the largest size ever run. Counterparty mix is NOT validated against P&L - on the first weeks the lowest buyer share coincided with our best week."
+ "trend": {
+  "slope": 0.034,
+  "slope_all": 1.013,
+  "n": 10,
+  "n_all": 11,
+  "dropped": [
+   "2026-07-13"
+  ],
+  "min_ct": 5000
+ },
+ "trigger": {
+  "threshold": 48.3,
+  "frozen_on": "2026-09-21",
+  "basis_weeks": 10,
+  "rule": "2 consecutive",
+  "firing": false,
+  "run": 0,
+  "below_weeks": [
+   "2026-08-17"
+  ],
+  "latest": 65.4
+ },
+ "realized": {
+  "d7": {
+   "pnl": 330.15,
+   "traded_days": 6,
+   "span_days": 7,
+   "ct": 1554,
+   "per_day": 47.16,
+   "per_week": 330.15
+  },
+  "era": {
+   "pnl": 512.65,
+   "traded_days": 11,
+   "span_days": 12,
+   "ct": 2314,
+   "per_day": 42.72,
+   "per_week": 299.05
+  },
+  "era_start": "2026-09-11"
+ },
+ "caveat": "Projection resamples whole days from our own 4-rung fills; capture decays on the measured size bands and goes flat past MAX_CT 218, the largest size ever run. Counterparty mix is NOT validated against P&L - on the first weeks the lowest buyer share coincided with our best week. Its trend uses only weeks with at least 5000 contracts; thinner weeks are shown but do not vote."
 }
