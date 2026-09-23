@@ -42,7 +42,16 @@ h1{font-size:21px;font-weight:650;margin:0}
 /* calendar */
 .cal-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);
  padding:16px 18px 20px;margin-bottom:18px}
-.cal-title{font-size:15px;font-weight:650;margin:2px 2px 14px}
+.cal-title{font-size:15px;font-weight:650;margin:2px 2px 6px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cal-title .mtot{font-family:ui-monospace,monospace;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.cal-title .mpct{font-family:ui-monospace,monospace;font-size:11.5px;color:var(--muted);font-weight:500}
+.mstat{display:flex;gap:14px;flex-wrap:wrap;font-family:ui-monospace,monospace;font-size:10.5px;
+  color:var(--muted);margin:0 2px 8px;font-variant-numeric:tabular-nums}
+.mproj{margin:0 2px 14px;padding:7px 10px;border-left:2px solid var(--s1);border-radius:0 5px 5px 0;
+  background:color-mix(in srgb,var(--s1) 8%,transparent);font-family:ui-monospace,monospace;
+  font-size:10.5px;color:var(--ink2);line-height:1.5}
+.mproj b{color:var(--s1);font-weight:700}
+@media(max-width:680px){.mstat{gap:9px;font-size:9.5px}.mproj{font-size:9.5px}}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .cal-grid.head{margin-bottom:6px}
 .cal-grid.head .wd{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-align:center}
@@ -151,6 +160,7 @@ const cellMoney = v => {
 };
 const pct1 = v => v==null ? '—' : (v>=0?'+':'') + v.toFixed(1) + '%';
 const esc = s => { const d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
+let _INVESTED=null;
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const parseISO = s => { const [y,m,d]=s.split('-').map(Number); return {y,m:m-1,d}; };   // local, no TZ shift
 const dLabel = iso => { const p=parseISO(iso); return `${MON[p.m]} ${p.d}`; };
@@ -295,8 +305,40 @@ function monthCard(y, m, dayMap, todayISO, today, sdMap){
     cells += cell(iso, dd, dayMap[iso], todayISO, today, (sdMap||{})[iso]);
   }
   const head = ['S','M','T','W','T','F','S'].map(x=>`<div class="wd">${x}</div>`).join('');
+  // [2026-09-23 Josh] month stats + a projection while the month is still running.
+  const pre=`${y}-${String(m+1).padStart(2,'0')}-`;
+  const md=Object.keys(dayMap).filter(k=>k.startsWith(pre)).map(k=>dayMap[k]).filter(r=>r.pnl!=null);
+  let hdr=`<div class="cal-title"><span>${MON[m]} ${y}</span></div>`, stat='', proj='';
+  if(md.length){
+    const tot=md.reduce((a,r)=>a+r.pnl,0);
+    const w=md.reduce((a,r)=>a+(r.wins||0),0), l=md.reduce((a,r)=>a+(r.losses||0),0);
+    const ct=md.reduce((a,r)=>a+(r.contracts||0),0);
+    const avg=tot/md.length;
+    const gd=md.filter(r=>r.pnl>0).length, rd=md.filter(r=>r.pnl<0).length;
+    const mp=_INVESTED?100*tot/_INVESTED:null;
+    hdr=`<div class="cal-title"><span>${MON[m]} ${y}</span>
+      <span><span class="mtot ${tot>=0?'pos':'neg'}">${signMoney(tot)}</span>
+      ${mp==null?'':`<span class="mpct"> · ${pct1(mp)} of portfolio</span>`}</span></div>`;
+    stat=`<div class="mstat"><span>${md.length} day${md.length===1?'':'s'}</span>
+      <span>${gd}↑ / ${rd}↓</span><span>${w}W / ${l}L</span>
+      <span>${ct.toLocaleString()} ct</span><span>avg ${signMoney(avg)}/day</span></div>`;
+    // projection: only while this month is the CURRENT one and days remain
+    const tIso=todayISO||'', inThis=tIso.startsWith(pre);
+    if(inThis){
+      const dnum=parseInt(tIso.slice(8),10);
+      const left=nDays-dnum;
+      if(left>0){
+        const est=tot+left*avg;
+        const first=parseInt(md[0].date.slice(8),10);
+        proj=`<div class="mproj"><b>Projection</b> — ${left} day${left===1?'':'s'} left at the
+          month's ${signMoney(avg)}/day average ⇒ <b>${signMoney(est)}</b> for ${MON[m]}
+          ${_INVESTED?`(${pct1(100*est/_INVESTED)} of portfolio)`:''}.
+          <span style="opacity:.75">Straight-line on ${md.length} day${md.length===1?'':'s'}${first>1?`, from the ${first}${first%10==1&&first!=11?'st':first%10==2&&first!=12?'nd':first%10==3&&first!=13?'rd':'th'}`:''} — a single bust day moves it materially.</span></div>`;
+      }
+    }
+  }
   return `<div class="cal-card">
-    <div class="cal-title">${MON[m]} ${y}</div>
+    ${hdr}${stat}${proj}
     <div class="cal-grid head">${head}</div>
     <div class="cal-grid">${cells}</div></div>`;
 }
@@ -355,6 +397,7 @@ function render(d){
     `<div class="stat ${c.cls||''}"><div class="l">${c.l}</div>
      <div class="v ${c.vcls||''}">${c.v}</div><div class="s">${esc(c.s)}</div></div>`).join('');
 
+  _INVESTED = daily.invested || null;   // [2026-09-23] month header % of portfolio
   renderTrend(days);          // [2026-09-23] trend first, month grid below
 
   // calendar month grids (every month spanned by data, newest first)
