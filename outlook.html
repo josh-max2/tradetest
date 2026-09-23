@@ -145,25 +145,39 @@ function render(d){
     const x=p[k];
     return '<div class="stat"><div class="l">next '+k+'</div>'
       +'<div class="v '+(x.median>=0?'pos':'neg')+'">'+money(x.median)+'</div>'
-      +'<div class="s">'+money(x.p5)+' … '+money(x.p95)+' (90% range)</div></div>';}).join('')
+      +'<div class="s">centre '+(x.centre_lo!=null?money(x.centre_lo)+' … '+money(x.centre_hi)
+          :money(x.p5)+' … '+money(x.p95))+'</div></div>';}).join('')
     + '<div class="stat"><div class="l">size today</div><div class="v amb">'+b.max_ct+'<span class="u">ct</span></div>'
     + '<div class="s">sleeve '+money(b.sleeve)+' · CAP_K '+b.cap_k+'</div></div>';
 
   document.getElementById('evtab').innerHTML =
-    '<thead><tr><th>horizon</th><th class="hide-sm">days</th><th>p5</th><th>median</th><th>p95</th><th>ends at</th></tr></thead><tbody>'
+    '<thead><tr><th>horizon</th><th>median</th><th class="hide-sm" title="spread of outcomes, holding the edge and capture curve fixed">outcome 90%</th>'
+    +'<th title="how well we know the median itself, re-estimating edge and capture">centre 90%</th>'
+    +'<th class="hide-sm">ends at</th></tr></thead><tbody>'
     + ['week','month','year'].map(function(k){const x=p[k];
-      return '<tr><td>'+k+'<br>'+tag(x.end_ct,b.obs_max_ct)+'</td><td class="hide-sm">'+x.days+'</td>'
-      +'<td class="'+(x.p5>=0?'pos':'neg')+'">'+money(x.p5)+'</td>'
+      return '<tr><td>'+k+'<br>'+tag(x.end_ct,b.obs_max_ct)+'</td>'
       +'<td class="'+(x.median>=0?'pos':'neg')+'"><b>'+money(x.median)+'</b></td>'
-      +'<td class="pos">'+money(x.p95)+'</td><td>'+x.end_ct+' ct</td></tr>';}).join('')+'</tbody>';
+      +'<td class="hide-sm">'+money(x.p5)+' … '+money(x.p95)+'</td>'
+      +'<td class="amb">'+(x.centre_lo!=null?money(x.centre_lo)+' … '+money(x.centre_hi):'—')+'</td>'
+      +'<td class="hide-sm">'+x.end_ct+' ct</td></tr>';}).join('')+'</tbody>';
 
-  const bands=Object.entries(b.capture_bands).map(function(e){return e[0]+': '+e[1];}).join(' · ');
+  const bands=Object.entries(b.capture_bands).map(function(e){
+    var v=e[1]; return e[0]+': '+(v&&v.capture!=null?v.capture+' ('+v.days+'d)':v);}).join(' · ');
   document.getElementById('evwarn').innerHTML =
-    '<b>Read the size tag, not just the number.</b> The year figure ends at a MAX_CT we have never '
-    +'traded, so it is the saturation model talking, not evidence. Measured capture by size band — '
-    +esc(bands)+' contracts/day per unit of size — is <em>falling</em>, which is why income plateaus '
-    +'instead of compounding. Worst observed day is '+b.worst_day_per_ct+' per contract of size, and '
-    +'that scales with everything above.';
+    '<b>The two ranges mean different things, and the wider one is the honest one.</b> '
+    +'<em>Outcome 90%</em> is how lumpy results are if the model is right — it resamples days but holds '
+    +'the edge and the capture curve fixed, as if we knew them exactly. <em>Centre 90%</em> re-estimates '
+    +'both inside a day-clustered bootstrap, and is how well we know the median itself. For the year they '
+    +'disagree badly: the outcome band spans '+money(p.year.p5)+'–'+money(p.year.p95)+' (about ±10%), the '
+    +'centre band '+money(p.year.centre_lo)+'–'+money(p.year.centre_hi)+' — a factor of '
+    +(p.year.centre_hi/Math.max(p.year.centre_lo,1)).toFixed(1)+'. Quote the centre band.'
+    +'<br><br><b>Why it is that wide.</b> Measured capture by size band — '+esc(bands)+' contracts/day per '
+    +'unit of size, with the days behind each — is <em>falling</em>, which is why income plateaus instead of '
+    +'compounding. But the top band rests on just <b>'+b.top_band_days+' days</b>, and it governs every '
+    +'projection past a week. The largest size we have ever actually run is <b>'+b.obs_max_ct+' ct</b>; the '
+    +'month figure ends at '+p.month.end_ct+' and the year at '+p.year.end_ct+'. Profit is also lumpy — the '
+    +'top 5 of '+b.days+' days are '+b.conc_top5+'% of it, though '+b.pos_day_pct+'% of days are positive. '
+    +'Worst observed day is '+b.worst_day_per_ct+' per contract of size, and that scales with everything above.';
 
   const R=d.realized||{}, wk=p.week;
   if(R.d7 && R.era){

@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-23 13:24",
+ "generated": "2026-09-23 14:05",
  "basis": {
   "days": 48,
   "first": "2026-07-10",
@@ -9,39 +9,60 @@
   "sleeve": 1883.49,
   "max_ct": 188,
   "cap_k": 10.0,
-  "obs_max_ct": 218.0,
+  "obs_max_ct": 188.0,
   "capture_bands": {
-   "0-25": 4.064,
-   "25-60": 5.165,
-   "60-110": 3.708,
-   "110-400": 2.076
+   "0-25": {
+    "capture": 4.064,
+    "days": 16
+   },
+   "25-60": {
+    "capture": 5.165,
+    "days": 12
+   },
+   "60-110": {
+    "capture": 3.708,
+    "days": 15
+   },
+   "110-400": {
+    "capture": 2.076,
+    "days": 5
+   }
   },
-  "worst_day_per_ct": -1.946
+  "worst_day_per_ct": -1.946,
+  "top_band_days": 5,
+  "conc_top5": 52.8,
+  "pos_day_pct": 83.3
  },
  "projection": {
   "week": {
    "days": 7,
-   "p5": 10.71,
-   "median": 644.45,
-   "p95": 1079.54,
-   "end_sleeve": 2524.45,
-   "end_ct": 252
+   "p5": 32.16,
+   "median": 574.02,
+   "p95": 881.94,
+   "end_sleeve": 2454.02,
+   "end_ct": 245,
+   "centre_lo": 331.44,
+   "centre_hi": 1001.97
   },
   "month": {
    "days": 30,
-   "p5": 1787.02,
-   "median": 3158.2,
-   "p95": 4080.52,
-   "end_sleeve": 5038.2,
-   "end_ct": 504
+   "p5": 1358.63,
+   "median": 2318.98,
+   "p95": 3098.01,
+   "end_sleeve": 4198.98,
+   "end_ct": 420,
+   "centre_lo": 1222.66,
+   "centre_hi": 4367.14
   },
   "year": {
    "days": 365,
-   "p5": 29230.94,
-   "median": 32801.1,
-   "p95": 36273.19,
-   "end_sleeve": 34681.1,
-   "end_ct": 3468
+   "p5": 24829.92,
+   "median": 27886.4,
+   "p95": 30872.77,
+   "end_sleeve": 29766.4,
+   "end_ct": 2977,
+   "centre_lo": 15386.56,
+   "centre_hi": 47937.44
   }
  },
  "counterparty": [
@@ -263,5 +284,5 @@
   "era_start": "2026-09-11",
   "model_start_ct": 188
  },
- "caveat": "Projection resamples whole days from our own 4-rung fills; capture decays on the measured size bands and goes flat past MAX_CT 218, the largest size ever run. Counterparty mix is NOT validated against P&L: only complete weeks may be paired and there are too few of them to compute a correlation. Trades are paginated (the API caps at 1000 rows newest-first, which silently truncated the busiest markets before this was fixed). The trend uses only weeks with at least 5000 contracts; thinner weeks are shown but do not vote."
+ "caveat": "Projection resamples whole days from our own 4-rung fills; capture decays on the measured size bands and goes flat past MAX_CT 188, the largest size ever run. Counterparty mix is NOT validated against P&L: only complete weeks may be paired and there are too few of them to compute a correlation. Trades are paginated (the API caps at 1000 rows newest-first, which silently truncated the busiest markets before this was fixed). The trend uses only weeks with at least 5000 contracts; thinner weeks are shown but do not vote."
 }
