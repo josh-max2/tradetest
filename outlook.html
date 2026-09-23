@@ -18,33 +18,52 @@ h1{font-size:21px;margin:0 0 4px;font-weight:650;letter-spacing:-.01em}
 h2{font-size:15px;font-weight:620;margin:26px 0 4px}
 .h2sub{color:var(--muted);font-size:12px;margin:0 0 12px;max-width:78ch}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--border);
  border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px}
-.stat{background:var(--surface);padding:12px 14px}
+.stat{background:var(--surface);padding:12px 14px;min-width:0}
 .stat .l{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.stat .v{font-family:var(--mono);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px}
-.stat .s{font-size:11px;color:var(--muted);margin-top:1px}
+.stat .v{font-family:var(--mono);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;
+ margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat .v .u{font-size:11px;font-weight:500;color:var(--muted);margin-left:3px;letter-spacing:0}
+.stat .s{font-size:11px;color:var(--muted);margin-top:1px;overflow-wrap:anywhere}
 .pos{color:var(--good)}.neg{color:var(--crit)}.amb{color:var(--s1)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
-th,td{text-align:right;padding:6px 9px;border-bottom:1px solid var(--grid)}
+th,td{text-align:right;padding:6px 9px;border-bottom:1px solid var(--grid);white-space:nowrap}
 th:first-child,td:first-child{text-align:left}
 thead th{color:var(--muted);font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
 tbody tr:last-child td{border-bottom:none}
+tr.thin td{color:var(--muted);opacity:.62}
 .warn{border-left:2px solid var(--crit);background:color-mix(in srgb,var(--crit) 8%,transparent);
  border-radius:0 7px 7px 0;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55;margin-bottom:14px}
 .warn b{color:var(--crit)}
 .note{border-left:2px solid var(--s1);background:color-mix(in srgb,var(--s1) 8%,transparent);
- border-radius:0 7px 7px 0;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55}
+ border-radius:0 7px 7px 0;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55;margin-bottom:14px}
 .note b{color:var(--s1)}
+.ok{border-left:2px solid var(--good);background:color-mix(in srgb,var(--good) 8%,transparent);
+ border-radius:0 7px 7px 0;padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.55;margin-bottom:14px}
+.ok b{color:var(--good)}
 .tagm{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;
- padding:2px 6px;border-radius:99px;border:1px solid currentColor}
+ padding:1px 5px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
 .t-meas{color:var(--good)}.t-edge{color:var(--s1)}.t-extr{color:var(--crit)}
+td .tagm{display:inline-block;margin-top:3px}
 svg{display:block}
-.legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle}
 #err{color:var(--crit);font-size:13px;margin-bottom:12px}
 footer{color:var(--muted);font-size:11.5px;border-top:1px solid var(--grid);padding-top:14px;margin-top:26px;line-height:1.6}
-@media(max-width:680px){.wrap{padding:14px 11px 50px}.stat .v{font-size:16px}table{font-size:11px}th,td{padding:5px 6px}}
+@media(max-width:680px){
+ .wrap{padding:14px 11px 50px}
+ .stat .v{font-size:16px}.stat .v .u{font-size:10px}
+ table{font-size:11px}th,td{padding:5px 6px}
+ .hide-sm{display:none}
+ .tagm{font-size:9px;padding:1px 4px}
+}
+@media(max-width:440px){
+ table{font-size:10.5px}
+ th,td{padding:5px 4px}
+ .stats{grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}
+}
 </style>
 <div class="wrap">
 <div class="nav">
@@ -58,12 +77,20 @@ on the other side of those trades. The second half matters because this strategy
 we need people <em>buying</em> panic, not other desks fading it alongside us.</p>
 <div id="err">Loading…</div>
 <div id="body" style="display:none">
+<div id="stale"></div>
 
 <h2>Expected value</h2>
 <p class="h2sub" id="evsub"></p>
 <div class="stats" id="evstats"></div>
-<div class="card"><table id="evtab"></table></div>
+<div class="card"><div class="tw"><table id="evtab"></table></div></div>
 <div class="warn" id="evwarn"></div>
+
+<h2>Model vs what we actually made</h2>
+<p class="h2sub">The projection is fitted on these same days, so this is a sanity check, not an
+out-of-sample test. It earns its keep from here on: if realised drifts persistently below the
+model's range, the model is wrong and this is where it shows.</p>
+<div class="stats" id="rlstats"></div>
+<div class="note" id="rlnote"></div>
 
 <h2>Who is on the other side</h2>
 <p class="h2sub">In a freakout market at 25¢ and above, a <b>taker-YES</b> trade is someone paying up
@@ -71,131 +98,222 @@ to <em>buy</em> the tail — an insurance buyer, the flow we earn from. A <b>tak
 someone paying up to <em>sell</em> it — another fader, i.e. competition. The ratio reads directly on
 who we trade against.</p>
 <div class="stats" id="cpstats"></div>
-<div class="card"><div style="overflow-x:auto"><svg id="cpchart"></svg></div>
+<div id="trigbox"></div>
+<div class="card"><div class="tw"><svg id="cpchart"></svg></div>
   <div class="legend">
     <span><span class="sw" style="background:var(--good)"></span> buyer share (insurance demand)</span>
     <span><span class="sw" style="background:var(--crit)"></span> fader share (competition)</span>
     <span><span style="display:inline-block;width:16px;border-top:2px dashed var(--s1);vertical-align:middle"></span> trend</span>
+    <span><span class="sw" style="background:var(--good);opacity:.25"></span> too thin to count</span>
   </div></div>
-<div class="card" style="overflow-x:auto"><table id="cptab"></table></div>
+<div class="card"><div class="tw"><table id="cptab"></table></div></div>
 <div class="warn" id="cpwarn"></div>
 
 <footer id="foot"></footer>
 </div></div>
 <script>
-const money=v=>(v==null?'—':(v<0?'−$':'$')+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0}));
+const money=v=>(v==null?'—':(v<0?'−$':'$')+Math.abs(v).toLocaleString(undefined,{maximumFractionDigits:0}));
 const money2=v=>(v==null?'—':(v<0?'−$':'+$')+Math.abs(v).toFixed(2));
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const NS='http://www.w3.org/2000/svg';
 const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e};
+const tag=(ct,m)=> ct<=m?'<span class="tagm t-meas">measured size</span>'
+  : ct<=m*2?'<span class="tagm t-edge">beyond observed</span>'
+  : '<span class="tagm t-extr">extrapolation</span>';
 
-function tag(ct, obsMax){
-  if (ct <= obsMax) return '<span class="tagm t-meas">measured size</span>';
-  if (ct <= obsMax*2) return '<span class="tagm t-edge">beyond observed</span>';
-  return '<span class="tagm t-extr">extrapolation</span>';
+function staleness(gen){
+  const t=Date.parse(String(gen).replace(' ','T'));
+  if(isNaN(t)) return '';
+  const h=(Date.now()-t)/3.6e6;
+  if(h<24) return '';
+  return '<div class="warn"><b>Stale — '+(h<48?Math.round(h)+' hours':Math.round(h/24)+' days')
+    +' old.</b> These numbers were generated '+esc(gen)+' and the refresh has not run since. Treat every '
+    +'figure below as of that date, and check that ev_outlook.py is still being called.</div>';
 }
 
 function render(d){
   const b=d.basis, p=d.projection;
-  document.getElementById('evsub').innerHTML =
-    `Resampled from <b>${b.days} days</b> of our own 4-rung fills (${b.first} → ${b.last}, `
-    + `${b.contracts.toLocaleString()} contracts, edge <b>${b.edge_c_per_ct>=0?'+':''}${b.edge_c_per_ct}¢/ct</b>). `
-    + `Whole days are resampled so bust clustering survives; size compounds at CAP_K ${b.cap_k} and `
-    + `<b>capture decays</b> on the measured size bands, going flat past MAX_CT ${b.obs_max_ct}.`;
-  document.getElementById('evstats').innerHTML = ['week','month','year'].map(k=>{
-    const x=p[k];
-    return `<div class="stat"><div class="l">next ${k}</div>
-      <div class="v ${x.median>=0?'pos':'neg'}">${money(x.median)}</div>
-      <div class="s">${money(x.p5)} … ${money(x.p95)} (90% range)</div></div>`;}).join('')
-    + `<div class="stat"><div class="l">today</div><div class="v amb">${b.max_ct} ct</div>
-       <div class="s">sleeve ${money(b.sleeve)} · CAP_K ${b.cap_k}</div></div>`;
-  document.getElementById('evtab').innerHTML =
-    `<thead><tr><th>horizon</th><th>days</th><th>p5</th><th>median</th><th>p95</th><th>ends at</th><th></th></tr></thead><tbody>`
-    + ['week','month','year'].map(k=>{const x=p[k];
-      return `<tr><td>next ${k}</td><td>${x.days}</td><td class="${x.p5>=0?'pos':'neg'}">${money(x.p5)}</td>
-      <td class="${x.median>=0?'pos':'neg'}"><b>${money(x.median)}</b></td><td class="pos">${money(x.p95)}</td>
-      <td>${x.end_ct} ct</td><td>${tag(x.end_ct,b.obs_max_ct)}</td></tr>`;}).join('')+'</tbody>';
-  const bands=Object.entries(b.capture_bands).map(([k,v])=>`${k}: ${v}`).join(' · ');
-  document.getElementById('evwarn').innerHTML =
-    `<b>Read the size tag, not just the number.</b> The year figure ends at a MAX_CT we have never
-     traded, so it is the saturation model talking, not evidence. Measured capture by size band —
-     ${esc(bands)} contracts/day per unit of size — is <em>falling</em>, which is why income plateaus
-     instead of compounding. Worst observed day is ${b.worst_day_per_ct} per contract of size, and
-     that scales with everything above.`;
+  document.getElementById('stale').innerHTML = staleness(d.generated);
 
-  const cp=d.counterparty||[];
+  document.getElementById('evsub').innerHTML =
+    'Resampled from <b>'+b.days+' days</b> of our own 4-rung fills ('+b.first+' → '+b.last+', '
+    + b.contracts.toLocaleString()+' contracts, edge <b>'+(b.edge_c_per_ct>=0?'+':'')+b.edge_c_per_ct+'¢/ct</b>). '
+    + 'Whole days are resampled so bust clustering survives; size compounds at CAP_K '+b.cap_k+' and '
+    + '<b>capture decays</b> on the measured size bands, going flat past MAX_CT '+b.obs_max_ct+'.';
+
+  document.getElementById('evstats').innerHTML = ['week','month','year'].map(function(k){
+    const x=p[k];
+    return '<div class="stat"><div class="l">next '+k+'</div>'
+      +'<div class="v '+(x.median>=0?'pos':'neg')+'">'+money(x.median)+'</div>'
+      +'<div class="s">'+money(x.p5)+' … '+money(x.p95)+' (90% range)</div></div>';}).join('')
+    + '<div class="stat"><div class="l">size today</div><div class="v amb">'+b.max_ct+'<span class="u">ct</span></div>'
+    + '<div class="s">sleeve '+money(b.sleeve)+' · CAP_K '+b.cap_k+'</div></div>';
+
+  document.getElementById('evtab').innerHTML =
+    '<thead><tr><th>horizon</th><th class="hide-sm">days</th><th>p5</th><th>median</th><th>p95</th><th>ends at</th></tr></thead><tbody>'
+    + ['week','month','year'].map(function(k){const x=p[k];
+      return '<tr><td>'+k+'<br>'+tag(x.end_ct,b.obs_max_ct)+'</td><td class="hide-sm">'+x.days+'</td>'
+      +'<td class="'+(x.p5>=0?'pos':'neg')+'">'+money(x.p5)+'</td>'
+      +'<td class="'+(x.median>=0?'pos':'neg')+'"><b>'+money(x.median)+'</b></td>'
+      +'<td class="pos">'+money(x.p95)+'</td><td>'+x.end_ct+' ct</td></tr>';}).join('')+'</tbody>';
+
+  const bands=Object.entries(b.capture_bands).map(function(e){return e[0]+': '+e[1];}).join(' · ');
+  document.getElementById('evwarn').innerHTML =
+    '<b>Read the size tag, not just the number.</b> The year figure ends at a MAX_CT we have never '
+    +'traded, so it is the saturation model talking, not evidence. Measured capture by size band — '
+    +esc(bands)+' contracts/day per unit of size — is <em>falling</em>, which is why income plateaus '
+    +'instead of compounding. Worst observed day is '+b.worst_day_per_ct+' per contract of size, and '
+    +'that scales with everything above.';
+
+  const R=d.realized||{}, wk=p.week;
+  if(R.d7 && R.era){
+    const ratio = wk.median ? R.d7.per_week/wk.median : null;
+    const inRange = R.d7.per_week>=wk.p5 && R.d7.per_week<=wk.p95;
+    document.getElementById('rlstats').innerHTML =
+      '<div class="stat"><div class="l">last 7 days</div>'
+      +'<div class="v '+(R.d7.pnl>=0?'pos':'neg')+'">'+money2(R.d7.pnl)+'</div>'
+      +'<div class="s">'+R.d7.traded_days+' trading days · '+R.d7.ct.toLocaleString()+' ct</div></div>'
+      +'<div class="stat"><div class="l">era to date</div>'
+      +'<div class="v '+(R.era.pnl>=0?'pos':'neg')+'">'+money2(R.era.pnl)+'</div>'
+      +'<div class="s">since '+R.era_start+' · '+R.era.traded_days+'/'+R.era.span_days+' days</div></div>'
+      +'<div class="stat"><div class="l">realised per day</div>'
+      +'<div class="v '+(R.era.per_day>=0?'pos':'neg')+'">'+money2(R.era.per_day)+'</div>'
+      +'<div class="s">era average, per calendar day</div></div>'
+      +'<div class="stat"><div class="l">vs model week</div>'
+      +'<div class="v '+(inRange?'amb':'neg')+'">'+(ratio==null?'—':Math.round(ratio*100))+'<span class="u">%</span></div>'
+      +'<div class="s">'+money(R.d7.per_week)+' actual vs '+money(wk.median)+' median</div></div>';
+    document.getElementById('rlnote').innerHTML =
+      '<b>'+(inRange?'Inside the model range.':'Outside the model range.')+'</b> The last 7 days ran at '
+      +money(R.d7.per_week)+' against a modelled median of '+money(wk.median)+' — '+Math.round(ratio*100)
+      +'% of centre, '+(inRange?'and comfortably inside the 90% band '+money(wk.p5)+' … '+money(wk.p95)
+      :'and <em>outside</em> the 90% band '+money(wk.p5)+' … '+money(wk.p95))
+      +'. One week decides nothing: the band is wide because daily P&amp;L is dominated by whether a bust '
+      +'lands, so expect readings from near zero to well above centre. <b>What to watch is persistence</b> — '
+      +'several consecutive weeks below centre means the capture or edge assumption has moved, not that we '
+      +'got unlucky.';
+  }
+
+  const cp=d.counterparty||[], T=d.trend||{}, G=d.trigger;
   if(cp.length){
-    const last=cp[cp.length-1], first=cp[0];
-    const n=cp.length, xs=cp.map((_,i)=>i), ys=cp.map(w=>w.buyer_share);
-    const mx=xs.reduce((a,b)=>a+b,0)/n, my=ys.reduce((a,b)=>a+b,0)/n;
-    const slope=xs.reduce((a,x,i)=>a+(x-mx)*(ys[i]-my),0)/Math.max(xs.reduce((a,x)=>a+(x-mx)**2,0),1e-9);
-    const paired=cp.filter(w=>w.our_pnl!=null);
+    const last=cp[cp.length-1], n=cp.length;
+    const ok=cp.map(function(w,i){return {w:w,i:i};}).filter(function(o){return !o.w.low_vol;});
+    const ys=ok.map(function(o){return o.w.buyer_share;});
+    const slope=(T.slope!=null)?T.slope:0;
+    const mx=ok.reduce(function(a,o){return a+o.i;},0)/Math.max(ok.length,1);
+    const my=ys.reduce(function(a,v){return a+v;},0)/Math.max(ys.length,1);
+    const paired=cp.filter(function(w){return w.our_pnl!=null && !w.low_vol;});
     let r=null;
     if(paired.length>=4){
-      const a=paired.map(w=>w.buyer_share), c=paired.map(w=>w.our_pnl);
-      const ma=a.reduce((s,v)=>s+v,0)/a.length, mc=c.reduce((s,v)=>s+v,0)/c.length;
-      const num=a.reduce((s,v,i)=>s+(v-ma)*(c[i]-mc),0);
-      const den=Math.sqrt(a.reduce((s,v)=>s+(v-ma)**2,0)*c.reduce((s,v)=>s+(v-mc)**2,0));
+      const a=paired.map(function(w){return w.buyer_share;}), c=paired.map(function(w){return w.our_pnl;});
+      const ma=a.reduce(function(s,v){return s+v;},0)/a.length, mc=c.reduce(function(s,v){return s+v;},0)/c.length;
+      const num=a.reduce(function(s,v,i){return s+(v-ma)*(c[i]-mc);},0);
+      const den=Math.sqrt(a.reduce(function(s,v){return s+(v-ma)*(v-ma);},0)*c.reduce(function(s,v){return s+(v-mc)*(v-mc);},0));
       r=den?num/den:null;
     }
+    const flat=Math.abs(slope)<0.25;
     document.getElementById('cpstats').innerHTML =
-      `<div class="stat"><div class="l">buyer share now</div>
-        <div class="v ${last.buyer_share>=50?'pos':'neg'}">${last.buyer_share}%</div>
-        <div class="s">week of ${last.week} · ${last.markets} markets</div></div>
-       <div class="stat"><div class="l">trend</div>
-        <div class="v ${slope>=0?'pos':'neg'}">${slope>=0?'+':''}${slope.toFixed(2)} pts/wk</div>
-        <div class="s">${slope>=0?'insurance demand rising':'faders gaining share'} · ${n} weeks</div></div>
-       <div class="stat"><div class="l">range</div>
-        <div class="v amb">${Math.min(...ys).toFixed(1)}–${Math.max(...ys).toFixed(1)}%</div>
-        <div class="s">${first.week} → ${last.week}</div></div>
-       <div class="stat"><div class="l">vs our P&amp;L</div>
-        <div class="v ${r==null?'':(r>0.3?'pos':'neg')}">${r==null?'n/a':(r>=0?'+':'')+r.toFixed(2)}</div>
-        <div class="s">${paired.length} overlapping weeks</div></div>`;
+      '<div class="stat"><div class="l">buyer share now</div>'
+      +'<div class="v '+(last.buyer_share>=50?'pos':'neg')+'">'+last.buyer_share+'<span class="u">%</span></div>'
+      +'<div class="s">week of '+last.week+' · '+last.markets+' markets</div></div>'
+      +'<div class="stat"><div class="l">trend</div>'
+      +'<div class="v '+(flat?'amb':(slope>0?'pos':'neg'))+'">'+(slope>=0?'+':'')+slope.toFixed(2)+'<span class="u">pts/wk</span></div>'
+      +'<div class="s">'+(flat?'flat — no drift either way':(slope>0?'insurance demand rising':'faders gaining share'))
+      +' · '+(T.n||ok.length)+' weeks</div></div>'
+      +'<div class="stat"><div class="l">range</div>'
+      +'<div class="v amb">'+Math.min.apply(null,ys).toFixed(1)+'–'+Math.max.apply(null,ys).toFixed(1)+'<span class="u">%</span></div>'
+      +'<div class="s">weeks with ≥'+(T.min_ct||5000).toLocaleString()+' ct</div></div>'
+      +'<div class="stat"><div class="l">vs our P&amp;L</div>'
+      +'<div class="v '+(r==null?'':(r>0.3?'pos':'neg'))+'">'+(r==null?'n/a':(r>=0?'+':'')+r.toFixed(2))+'</div>'
+      +'<div class="s">'+paired.length+' overlapping weeks</div></div>';
+
+    if(G && G.threshold!=null){
+      document.getElementById('trigbox').innerHTML = G.firing
+        ? '<div class="warn"><b>Watch trigger FIRING.</b> Buyer share has been below the pre-registered '
+          +G.threshold+'% for '+G.run+' consecutive qualifying weeks (currently '+G.latest+'%). That is the '
+          +'pattern we said would justify a look at whether faders are crowding us. It is a prompt to '
+          +'investigate, not a reason to stop — the metric is still unvalidated.</div>'
+        : '<div class="ok"><b>Watch trigger quiet.</b> Pre-registered on '+G.frozen_on+' at <b>'+G.threshold
+          +'%</b> (mean − 1 SD over '+G.basis_weeks+' qualifying weeks, frozen so it cannot drift to fit later '
+          +'data). It fires only on <b>two consecutive</b> qualifying weeks below that — one bad week is '
+          +'weather. Latest '+G.latest+'%, current run '+G.run+'.'
+          +(G.below_weeks && G.below_weeks.length?' Single weeks below so far: '+G.below_weeks.join(', ')+'.':'')
+          +'</div>';
+    }
 
     const W=880,H=210,M={t:16,r:20,b:34,l:44},pw=W-M.l-M.r,ph=H-M.t-M.b;
-    const s=el('svg',{viewBox:`0 0 ${W} ${H}`,width:'100%',style:'min-width:600px;height:auto',
+    const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'min-width:600px;height:auto',
       role:'img','aria-label':'Weekly buyer share'});
     for(let v=0;v<=100;v+=25){
       const y=M.t+ph*(1-v/100);
       s.appendChild(el('line',{x1:M.l,x2:M.l+pw,y1:y,y2:y,stroke:v===50?'var(--ink2)':'var(--grid)','stroke-width':v===50?1.3:1}));
       const t=el('text',{x:M.l-8,y:y+4,'text-anchor':'end',fill:'var(--muted)','font-size':10,'font-family':'var(--mono)'});
       t.textContent=v+'%';s.appendChild(t);}
+    if(G && G.threshold!=null){
+      const y=M.t+ph*(1-G.threshold/100);
+      s.appendChild(el('line',{x1:M.l,x2:M.l+pw,y1:y,y2:y,stroke:'var(--crit)','stroke-width':1.2,'stroke-dasharray':'2 4'}));
+      const t=el('text',{x:M.l+5,y:y+11,'text-anchor':'start',fill:'var(--crit)','font-size':9.5,'font-family':'var(--mono)'});
+      t.textContent='trigger '+G.threshold+'%';s.appendChild(t);}
     const step=pw/n, bw=Math.min(34,step*0.6);
-    cp.forEach((w,i)=>{
-      const cx=M.l+step*i+step/2, h=ph*w.buyer_share/100;
-      s.appendChild(el('rect',{x:cx-bw/2,y:M.t+ph-h,width:bw,height:h,rx:2,fill:'var(--good)','fill-opacity':.85}));
-      s.appendChild(el('rect',{x:cx-bw/2,y:M.t,width:bw,height:ph-h,rx:2,fill:'var(--crit)','fill-opacity':.22}));
-      const _tiptext=`${w.week}\nbuyer ${w.buyer_share}%  (${w.buy_ct.toLocaleString()} ct bought / ${w.sell_ct.toLocaleString()} sold)\n${w.markets} markets, ${w.trades} trades\nsmall-trade share ${w.small_share}%`+(w.our_pnl!=null?`\nour P&L ${money2(w.our_pnl)}`:'');
+    cp.forEach(function(w,i){
+      const cx=M.l+step*i+step/2, h=ph*w.buyer_share/100, thin=!!w.low_vol;
+      s.appendChild(el('rect',{x:cx-bw/2,y:M.t+ph-h,width:bw,height:h,rx:2,fill:'var(--good)',
+        'fill-opacity':thin?0.25:0.85,stroke:thin?'var(--good)':'none','stroke-width':thin?1:0,
+        'stroke-dasharray':thin?'3 2':''}));
+      s.appendChild(el('rect',{x:cx-bw/2,y:M.t,width:bw,height:ph-h,rx:2,fill:'var(--crit)','fill-opacity':thin?0.07:0.22}));
+      const tt=el('title');
+      tt.textContent=w.week+'\nbuyer '+w.buyer_share+'%  ('+w.buy_ct.toLocaleString()+' ct bought / '
+        +w.sell_ct.toLocaleString()+' sold)\n'+w.markets+' markets, '+w.trades+' trades\nsmall-trade share '
+        +w.small_share+'%'+(thin?'\nTOO THIN TO COUNT — excluded from trend':'')
+        +(w.our_pnl!=null?'\nour P&L '+money2(w.our_pnl):'');
       const hit=el('rect',{x:cx-step/2,y:M.t,width:step,height:ph,fill:'transparent'});
-      const tt=el('title');tt.textContent=_tiptext;hit.appendChild(tt);s.appendChild(hit);
-      if(i%2===0||i===n-1){const t=el('text',{x:cx,y:M.t+ph+17,'text-anchor':'middle',fill:'var(--muted)','font-size':9.5,'font-family':'var(--mono)'});
+      hit.appendChild(tt);s.appendChild(hit);
+      if(i%2===0||i===n-1){
+        const t=el('text',{x:cx,y:M.t+ph+17,'text-anchor':'middle',fill:'var(--muted)','font-size':9.5,'font-family':'var(--mono)'});
         t.textContent=w.week.slice(5);s.appendChild(t);}
     });
-    const pts=cp.map((w,i)=>`${M.l+step*i+step/2},${M.t+ph*(1-(my+slope*(i-mx))/100)}`).join(' ');
-    s.appendChild(el('polyline',{points:pts,fill:'none',stroke:'var(--s1)','stroke-width':2,'stroke-dasharray':'5 3'}));
+    if(ok.length>2){
+      const pts=ok.map(function(o){return (M.l+step*o.i+step/2)+','+(M.t+ph*(1-(my+slope*(o.i-mx))/100));}).join(' ');
+      s.appendChild(el('polyline',{points:pts,fill:'none',stroke:'var(--s1)','stroke-width':2,'stroke-dasharray':'5 3'}));
+    }
     document.getElementById('cpchart').replaceWith(Object.assign(s,{id:'cpchart'}));
 
     document.getElementById('cptab').innerHTML =
-      `<thead><tr><th>week</th><th>mkts</th><th>trades</th><th>bought</th><th>sold</th><th>buyer</th><th>small&lt;50ct</th><th>our P&amp;L</th></tr></thead><tbody>`
-      + cp.slice().reverse().map(w=>`<tr><td>${w.week}</td><td>${w.markets}</td><td>${w.trades.toLocaleString()}</td>
-        <td>${w.buy_ct.toLocaleString()}</td><td>${w.sell_ct.toLocaleString()}</td>
-        <td class="${w.buyer_share>=50?'pos':'neg'}"><b>${w.buyer_share}%</b></td>
-        <td>${w.small_share}%</td>
-        <td class="${w.our_pnl==null?'':(w.our_pnl>=0?'pos':'neg')}">${w.our_pnl==null?'—':money2(w.our_pnl)}</td></tr>`).join('')
-      + '</tbody>';
+      '<thead><tr><th>week</th><th class="hide-sm">mkts</th><th class="hide-sm">trades</th><th>bought</th>'
+      +'<th>sold</th><th>buyer</th><th title="share of volume in trades under 50 contracts">small</th>'
+      +'<th>our P&amp;L</th></tr></thead><tbody>'
+      + cp.slice().reverse().map(function(w){
+        return '<tr class="'+(w.low_vol?'thin':'')+'"><td>'+w.week+(w.low_vol?' *':'')+'</td>'
+        +'<td class="hide-sm">'+w.markets+'</td><td class="hide-sm">'+w.trades.toLocaleString()+'</td>'
+        +'<td>'+w.buy_ct.toLocaleString()+'</td><td>'+w.sell_ct.toLocaleString()+'</td>'
+        +'<td class="'+(w.low_vol?'':(w.buyer_share>=50?'pos':'neg'))+'"><b>'+w.buyer_share+'%</b></td>'
+        +'<td>'+w.small_share+'%</td>'
+        +'<td class="'+(w.our_pnl==null?'':(w.our_pnl>=0?'pos':'neg'))+'">'+(w.our_pnl==null?'—':money2(w.our_pnl))+'</td></tr>';
+      }).join('') + '</tbody>';
+
+    const thinW=cp.filter(function(w){return w.low_vol;});
+    const minThin=thinW.length?Math.min.apply(null,thinW.map(function(w){return w.buy_ct+w.sell_ct;})):0;
+    const big=cp.filter(function(w){return !w.low_vol;}).slice().sort(function(a,b){return a.buyer_share-b.buyer_share;})[0];
     document.getElementById('cpwarn').innerHTML =
-      `<b>Not validated — track it, do not trade on it.</b> Across the ${paired.length} weeks where we
-       have both numbers the correlation with our P&amp;L is
-       <b>${r==null?'n/a':(r>=0?'+':'')+r.toFixed(2)}</b>, and our best week so far had one of the
-       <em>lowest</em> buyer shares. That is the opposite of the thesis. The sample is far too small to
-       conclude either way, and the weekly figure also moves with which markets get sampled. What the
-       series is good for today is direction: buyer share has moved
-       ${slope>=0?'<b>up</b>':'<b>down</b>'} ${Math.abs(slope).toFixed(2)} points a week over
-       ${n} weeks. If it turns decisively down while our edge falls with it, that is the signal worth
-       acting on — and this page exists so we would see it.`;
+      '<b>Not validated — track it, do not trade on it.</b> Across the '+paired.length+' weeks where we have '
+      +'both numbers the correlation with our P&amp;L is <b>'+(r==null?'n/a':(r>=0?'+':'')+r.toFixed(2))+'</b>, '
+      +'and our best week so far had one of the <em>lowest</em> buyer shares. That is the opposite of the '
+      +'thesis, and the sample is far too small to conclude either way.'
+      +(T.dropped && T.dropped.length
+        ? '<br><br><b>The trend excludes '+T.dropped.length+' thin week'+(T.dropped.length>1?'s':'')+' ('
+          +T.dropped.join(', ')+', marked *).</b> This matters: across all '+T.n_all+' weeks the slope reads '
+          +(T.slope_all>=0?'+':'')+T.slope_all+' pts/wk, but that is one '+minThin.toLocaleString()
+          +'-contract week sitting low at the left edge. On the '+T.n+' weeks with real volume the slope is '
+          +(slope>=0?'+':'')+slope.toFixed(2)+' — <b>flat</b>. Flat is the honest read: no evidence that '
+          +'sophisticated flow is crowding us out, and none that demand is growing either.'
+        : '')
+      +(big
+        ? '<br><br><b>The one week that looked like the feared regime was '+big.week+' at '+big.buyer_share+'%</b> — '
+          +big.sell_ct.toLocaleString()+' contracts sold against '+big.buy_ct.toLocaleString()+' bought, with only '
+          +big.small_share+'% of volume in small trades. That is size selling the tail, i.e. desks doing what we do. '
+          +'It has not repeated.'
+        : '');
   }
-  document.getElementById('foot').innerHTML =
-    `Generated ${esc(d.generated)}. ${esc(d.caveat)}`;
+  document.getElementById('foot').innerHTML = 'Generated '+esc(d.generated)+'. '+esc(d.caveat);
   document.getElementById('err').style.display='none';
   document.getElementById('body').style.display='block';
 }
