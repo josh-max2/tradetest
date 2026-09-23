@@ -72,7 +72,6 @@ h1{font-size:21px;font-weight:650;margin:0}
 .legend{font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px;border:1px solid var(--border)}
 /* mobile agenda list — replaces the 7-col grid on narrow screens where $ values won't fit */
-#calList{display:none;flex-direction:column;gap:8px;margin-bottom:18px}
 .dayrow{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);
  border-left:3px solid var(--grid);border-radius:12px;padding:11px 14px;box-shadow:var(--shadow)}
 .dayrow.today{border-color:var(--s1);border-left-color:var(--s1)}
@@ -84,7 +83,9 @@ h1{font-size:21px;font-weight:650;margin:0}
 .dayrow .dramt{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap;flex-shrink:0}
 .dayrow .dramt.neutral{color:var(--ink)}
 .dayrow .live{font-size:9.5px}
-@media(max-width:680px){ #cal{display:none} #calList{display:flex} }
+/* [2026-09-23 Josh] the narrow-screen agenda ROWS are gone — the month grid shows at every
+   width and scrolls sideways inside its card rather than being swapped out. */
+@media(max-width:680px){ .cal-grid{min-width:498px} .cal-card{overflow-x:auto} .cell{min-height:56px} }
 
 /* ---- mobile polish (2026-07-08) ---- */
 html{-webkit-text-size-adjust:100%}
@@ -116,7 +117,6 @@ day we bought in, not the next morning it settles. Today is still open, so it sh
 <div class="stats" id="stats"></div>
 <div id="trend"></div>
 <div id="cal"></div>
-<div id="calList"></div>
 <div class="legend" id="legend"></div>
 <p class="note" id="footer"></p>
 
@@ -276,27 +276,6 @@ function monthCard(y, m, dayMap, todayISO, today, sdMap){
 }
 
 const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-function dayRow(rec, todayISO, today, sd){
-  const p = parseISO(rec.date);
-  const wd = WD[new Date(p.y,p.m,p.d).getDay()];
-  const date = `<div class="drdate"><b>${MON[p.m]} ${p.d}</b><span>${wd}</span></div>`;
-  if(rec.n===0 && rec.pending>0){                       // fully-open day -> ITS OWN expected value
-    const ex = rec.exp_pnl!=null ? rec.exp_pnl : (today||{}).exp_pnl;   // [calendar fix]
-    return `<div class="dayrow ${rec.date===todayISO?'today':''}">${date}
-      <div class="drmid"><span class="live">● OPEN</span> · expected, this day's book only<br>${rec.pending} open · ${money(rec.open_prem)} premium at stake</div>
-      <div class="dramt neutral">${signMoney(ex)}</div></div>`;
-  }
-  const items = stratList(rec, sd);
-  const dayTot = rec.pnl;                 // [2026-07-24] combined bucket already; no sidecar re-add
-  const cls = dayTot>=0 ? 'pos' : 'neg', wr = rec.wins + rec.losses;
-  const pend = rec.pending>0 ? ` · <span style="color:var(--warn)">${rec.pending} pending${rec.exp_pnl!=null?` (exp ${signMoney(rec.exp_pnl)})`:''}</span>` : '';
-  // itemized per-strategy line: P&L + return on the capital that strategy risked [2026-07-12]
-  const itn = items.map(([k,p,roi])=>
-    `<b class="${p>0?'pos':(p<0?'neg':'')}">${SLBL[k]}</b> ${signMoney(p)}${roi==null?'':` <span style="color:var(--muted)">(${pct1(roi)})</span>`}`).join(' · ');
-  return `<div class="dayrow ${rec.date===todayISO?'today':''}" style="border-left-color:${dayTot>=0?'var(--good)':'var(--crit)'};background:${heatBg(rec.roi)}">${date}
-    <div class="drmid">${itn||'—'}<br><span style="color:var(--muted)">${rec.wins}/${wr} wins · ${rec.contracts} ct${pend}</span></div>
-    <div class="dramt ${cls}">${signMoney(dayTot)}</div></div>`;
-}
 
 function render(d){
   const daily = d.daily || {};
@@ -366,12 +345,6 @@ function render(d){
     months.reverse();
     cal.innerHTML = months.map(([yy,mm])=>monthCard(yy,mm,dayMap,todayISO,today,sd)).join('');
   }
-
-  // mobile agenda list (same data, shown <=680px) — full-width rows so $ values never clip
-  const active = days.filter(x=>x.n>0 || x.pending>0).slice().reverse();   // newest first
-  document.getElementById('calList').innerHTML = active.length
-    ? active.map(x=>dayRow(x, todayISO, today, sd[x.date])).join('')
-    : '<div class="note">No settled days yet — fills in as books settle each morning.</div>';
 
   document.getElementById('legend').innerHTML =
     `<span><span class="sw" style="background:${heatBg(6)}"></span>green day (profit)</span>`
