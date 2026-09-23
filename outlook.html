@@ -85,6 +85,17 @@ we need people <em>buying</em> panic, not other desks fading it alongside us.</p
 <div class="card"><div class="tw"><table id="evtab"></table></div></div>
 <div class="warn" id="evwarn"></div>
 
+<h2>Capacity — what actually caps this</h2>
+<p class="h2sub">Two things are measured and they do not sit together comfortably. Captured contracts
+scale <b>linearly with our size</b> across every size we have ever run (elasticity +1.01, CI
+[0.80,&nbsp;1.24]), and <b>availability does not bind</b> — we take about 6% of the flow printing at
+our rungs (elasticity to availability +0.06, CI [−1.41,&nbsp;+1.39], i.e. zero). Extrapolate that law
+for a year and it pays $77m, which the venue cannot clear. So it stops somewhere, and where it stops
+is the single largest unknown in the whole page.</p>
+<div class="stats" id="capstats"></div>
+<div class="card"><div class="tw"><table id="kaptab"></table></div></div>
+<div class="note" id="capnote"></div>
+
 <h2>Model vs what we actually made</h2>
 <p class="h2sub">The projection is fitted on these same days, so this is a sanity check, not an
 out-of-sample test. It earns its keep from here on: if realised drifts persistently below the
@@ -140,9 +151,9 @@ function render(d){
     +'operating scale (≥'+b.basis_min_ct+' ct), because a 5-contract day tells us nothing about a '
     +'281-contract one. '+b.first+' → '+b.last+', '+b.contracts.toLocaleString()+' contracts, edge <b>'
     +(b.edge_c_per_ct>=0?'+':'')+b.edge_c_per_ct+'¢/ct</b>. Whole days are resampled so bust clustering '
-    +'survives. Flow is held at the <b>'+b.plateau_ct_per_day+' contracts/day</b> we actually take at our '
-    +'current size, measured on the '+b.plateau_days+' days run above '+b.plateau_cut+' ct — demand-limited, '
-    +'so more size buys no more flow.';
+    +'survives. Capture follows the <b>measured linear law</b> (+1.01 elasticity to size, anchored on the '
+    +b.plateau_ct_per_day+' contracts/day we take at our current size) up to an explicit ceiling — the share '
+    +'of available flow we hold today. See Capacity below for what happens if that share can grow.';
 
   document.getElementById('evstats').innerHTML = ['week','month','year'].map(function(k){
     const x=p[k];
@@ -186,6 +197,50 @@ function render(d){
     +'figure ends at '+p.month.end_ct+' and the year at '+p.year.end_ct+' — sizes at which nothing has been '
     +'measured. Worst observed day is '+b.worst_day_per_ct+' per contract of size, and that scales with '
     +'everything above.';
+
+  const cap=d.capacity, scn=d.scenarios;
+  if(cap && scn){
+    document.getElementById('capstats').innerHTML =
+      '<div class="stat"><div class="l">flow at our rungs</div>'
+      +'<div class="v amb">'+Math.round(cap.annual_ct_day).toLocaleString()+'<span class="u">ct/day</span></div>'
+      +'<div class="s">annual mean · summer '+Math.round(cap.summer_ct_day).toLocaleString()+'</div></div>'
+      +'<div class="stat"><div class="l">our share today</div>'
+      +'<div class="v pos">'+(100*scn.now_kappa).toFixed(1)+'<span class="u">%</span></div>'
+      +'<div class="s">'+Math.round(b.plateau_ct_per_day)+' of '+Math.round(cap.summer_ct_day).toLocaleString()+' ct/day</div></div>'
+      +'<div class="stat"><div class="l">winter availability</div>'
+      +'<div class="v amb">'+cap.winter_index.toFixed(2)+'<span class="u">x</span></div>'
+      +'<div class="s">vs summer — but it does not bind</div></div>'
+      +'<div class="stat"><div class="l">bust rate</div>'
+      +'<div class="v neg">'+(100*cap.bust_annual).toFixed(1)+'<span class="u">%</span></div>'
+      +'<div class="s">annual vs '+(100*cap.bust_summer).toFixed(1)+'% in our basis window</div></div>';
+    document.getElementById('kaptab').innerHTML =
+      '<thead><tr><th>max share we could hold</th><th class="hide-sm">ceiling</th><th class="hide-sm">binds at</th>'
+      +'<th>week</th><th class="hide-sm">month</th><th>year</th></tr></thead><tbody>'
+      + scn.by_kappa.map(function(r){
+        var here=Math.abs(r.kappa-scn.now_kappa)<0.006;
+        return '<tr'+(here?' style="background:color-mix(in srgb,var(--s1) 9%,transparent)"':'')+'>'
+        +'<td>'+(100*r.kappa).toFixed(1)+'%'+(here?' <span class="tagm t-meas">today</span>':'')+'</td>'
+        +'<td class="hide-sm">'+Math.round(r.ceiling_ct_day).toLocaleString()+' ct/day</td>'
+        +'<td class="hide-sm">'+Math.round(r.binds_at_ct).toLocaleString()+' ct</td>'
+        +'<td>'+money(r.week.median)+'</td>'
+        +'<td class="hide-sm">'+money(r.month.median)+'</td>'
+        +'<td class="'+(here?'pos':'amb')+'"><b>'+money(r.year.median)+'</b></td></tr>';}).join('')
+      +'</tbody>';
+    var y0=scn.by_kappa[0].year.median, y1=scn.by_kappa[scn.by_kappa.length-1].year.median;
+    document.getElementById('capnote').innerHTML =
+      '<b>The week is an estimate; the year is a capacity assumption.</b> Across the whole range of that '
+      +'unknown the week barely moves — size cannot compound far enough in 7 days to touch the ceiling — '
+      +'while the year runs from '+money(y0)+' to '+money(y1)+', a factor of '+(y1/y0).toFixed(0)+'. '
+      +'The highlighted row holds our share at the current '+(100*scn.now_kappa).toFixed(1)+'%, which is the '
+      +'conservative read and the one the headline uses. Anything above it is a bet that a passive maker '
+      +'can hold a bigger share of the book than we have ever held.'
+      +'<br><br><b>Seasonality cuts both ways and mostly cancels.</b> Winter carries '+cap.winter_index.toFixed(2)
+      +'x the summer flow at our rungs, but since availability does not bind, that is headroom rather than '
+      +'income. What does carry through is the bust rate: '+(100*cap.bust_summer).toFixed(1)+'% in our Jul–Sep '
+      +'basis against '+(100*cap.bust_annual).toFixed(1)+'% annually, so a full year runs slightly worse than '
+      +'our sample suggests. Measured over '+cap.months.length+' months, '+cap.first+' to '+cap.last+' — the '
+      +'only full annual cycle we hold. It sets SHAPE only; the level always comes from our own fills.';
+  }
 
   const R=d.realized||{}, wk=p.week;
   if(R.d7 && R.era){
