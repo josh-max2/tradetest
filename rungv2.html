@@ -109,7 +109,7 @@ const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':s;r
 
 async function load(){
   try{
-    const r=await fetch('./data/rungv2.json?t='+Date.now(),{cache:'no-store'});
+    const r=await fetch('./data/rungv2b.json?t='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error(r.status);
     render(await r.json());
     document.getElementById('err').style.display='none';
