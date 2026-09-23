@@ -136,10 +136,13 @@ function render(d){
   document.getElementById('stale').innerHTML = staleness(d.generated);
 
   document.getElementById('evsub').innerHTML =
-    'Resampled from <b>'+b.days+' days</b> of our own 4-rung fills ('+b.first+' → '+b.last+', '
-    + b.contracts.toLocaleString()+' contracts, edge <b>'+(b.edge_c_per_ct>=0?'+':'')+b.edge_c_per_ct+'¢/ct</b>). '
-    + 'Whole days are resampled so bust clustering survives; size compounds at CAP_K '+b.cap_k+' and '
-    + '<b>capture decays</b> on the measured size bands, going flat past MAX_CT '+b.obs_max_ct+'.';
+    'Resampled from <b>'+b.days+' of '+b.days_all+' days</b> of our own 4-rung fills — only those run at '
+    +'operating scale (≥'+b.basis_min_ct+' ct), because a 5-contract day tells us nothing about a '
+    +'281-contract one. '+b.first+' → '+b.last+', '+b.contracts.toLocaleString()+' contracts, edge <b>'
+    +(b.edge_c_per_ct>=0?'+':'')+b.edge_c_per_ct+'¢/ct</b>. Whole days are resampled so bust clustering '
+    +'survives. Flow is held at the <b>'+b.plateau_ct_per_day+' contracts/day</b> we actually take at our '
+    +'current size, measured on the '+b.plateau_days+' days run above '+b.plateau_cut+' ct — demand-limited, '
+    +'so more size buys no more flow.';
 
   document.getElementById('evstats').innerHTML = ['week','month','year'].map(function(k){
     const x=p[k];
@@ -171,13 +174,18 @@ function render(d){
     +'disagree badly: the outcome band spans '+money(p.year.p5)+'–'+money(p.year.p95)+' (about ±10%), the '
     +'centre band '+money(p.year.centre_lo)+'–'+money(p.year.centre_hi)+' — a factor of '
     +(p.year.centre_hi/Math.max(p.year.centre_lo,1)).toFixed(1)+'. Quote the centre band.'
-    +'<br><br><b>Why it is that wide.</b> Measured capture by size band — '+esc(bands)+' contracts/day per '
-    +'unit of size, with the days behind each — is <em>falling</em>, which is why income plateaus instead of '
-    +'compounding. But the top band rests on just <b>'+b.top_band_days+' days</b>, and it governs every '
-    +'projection past a week. The largest size we have ever actually run is <b>'+b.obs_max_ct+' ct</b>; the '
-    +'month figure ends at '+p.month.end_ct+' and the year at '+p.year.end_ct+'. Profit is also lumpy — the '
-    +'top 5 of '+b.days+' days are '+b.conc_top5+'% of it, though '+b.pos_day_pct+'% of days are positive. '
-    +'Worst observed day is '+b.worst_day_per_ct+' per contract of size, and that scales with everything above.';
+    +'<br><br><b>Why it is that wide: everything rests on '+b.plateau_days+' days.</b> The projection starts '
+    +'at '+b.max_ct+' ct and only grows, so the only capture figure it ever reads is the plateau — and that is '
+    +'measured on the '+b.plateau_days+' days we have run above '+b.plateau_cut+' ct. Nothing else in the '
+    +'sample constrains it. Earlier this number was taken from a band spanning 110–400 ct, which let one big '
+    +'weather day at 110 ct set the flow assumption for 188 ct and overstated it by a third '
+    +'(390 vs '+b.plateau_ct_per_day+' contracts/day). Capture by band — '+esc(bands)+' contracts/day per unit '
+    +'of size — falls steeply across exactly that range, which is why pooling it was wrong.'
+    +'<br><br>Profit is lumpy on top of that: the top 5 of '+b.days+' days are '+b.conc_top5+'% of it, though '
+    +b.pos_day_pct+'% of days are positive. The largest size ever run is <b>'+b.obs_max_ct+' ct</b>; the month '
+    +'figure ends at '+p.month.end_ct+' and the year at '+p.year.end_ct+' — sizes at which nothing has been '
+    +'measured. Worst observed day is '+b.worst_day_per_ct+' per contract of size, and that scales with '
+    +'everything above.';
 
   const R=d.realized||{}, wk=p.week;
   if(R.d7 && R.era){
