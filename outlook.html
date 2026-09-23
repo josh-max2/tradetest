@@ -167,8 +167,9 @@ function render(d){
 
   const R=d.realized||{}, wk=p.week;
   if(R.d7 && R.era){
-    const ratio = wk.median ? R.d7.per_week/wk.median : null;
+    const pct = R.d7.pct_of_size_matched;
     const inRange = R.d7.per_week>=wk.p5 && R.d7.per_week<=wk.p95;
+    const good = pct!=null && pct>=75;
     document.getElementById('rlstats').innerHTML =
       '<div class="stat"><div class="l">last 7 days</div>'
       +'<div class="v '+(R.d7.pnl>=0?'pos':'neg')+'">'+money2(R.d7.pnl)+'</div>'
@@ -179,18 +180,22 @@ function render(d){
       +'<div class="stat"><div class="l">realised per day</div>'
       +'<div class="v '+(R.era.per_day>=0?'pos':'neg')+'">'+money2(R.era.per_day)+'</div>'
       +'<div class="s">era average, per calendar day</div></div>'
-      +'<div class="stat"><div class="l">vs model week</div>'
-      +'<div class="v '+(inRange?'amb':'neg')+'">'+(ratio==null?'—':Math.round(ratio*100))+'<span class="u">%</span></div>'
-      +'<div class="s">'+money(R.d7.per_week)+' actual vs '+money(wk.median)+' median</div></div>';
+      +'<div class="stat"><div class="l">vs size-matched model</div>'
+      +'<div class="v '+(good?'pos':'amb')+'">'+(pct==null?'—':pct)+'<span class="u">%</span></div>'
+      +'<div class="s">'+money(R.d7.per_week)+' actual vs '+money(R.d7.exp_week_at_size)
+      +' expected at '+R.d7.mean_ct+' ct</div></div>';
     document.getElementById('rlnote').innerHTML =
-      '<b>'+(inRange?'Inside the model range.':'Outside the model range.')+'</b> The last 7 days ran at '
-      +money(R.d7.per_week)+' against a modelled median of '+money(wk.median)+' — '+Math.round(ratio*100)
-      +'% of centre, '+(inRange?'and comfortably inside the 90% band '+money(wk.p5)+' … '+money(wk.p95)
-      :'and <em>outside</em> the 90% band '+money(wk.p5)+' … '+money(wk.p95))
-      +'. One week decides nothing: the band is wide because daily P&amp;L is dominated by whether a bust '
-      +'lands, so expect readings from near zero to well above centre. <b>What to watch is persistence</b> — '
-      +'several consecutive weeks below centre means the capture or edge assumption has moved, not that we '
-      +'got unlucky.';
+      '<b>Compare like with like.</b> The headline projection starts at '+R.model_start_ct+' ct and compounds, '
+      +'but the last 7 days actually ran at an average of <b>'+R.d7.mean_ct+' ct</b> — so a raw comparison '
+      +'against the '+money(wk.median)+' median would charge us for size we were never carrying. Held at the '
+      +'size we did run, the same model expects '+money(R.d7.exp_week_at_size)+' and we made '
+      +money(R.d7.per_week)+' — <b>'+pct+'% of a size-matched expectation</b>'
+      +(inRange?', and inside the raw 90% band '+money(wk.p5)+' … '+money(wk.p95)+'.':'.')
+      +' Over the era to date the same comparison reads '+R.era.pct_of_size_matched+'% ('+money(R.era.per_week)
+      +'/wk against '+money(R.era.exp_week_at_size)+' at '+R.era.mean_ct+' ct). '
+      +'One week decides nothing — daily P&amp;L is dominated by whether a bust lands, so expect readings from '
+      +'near zero to well above centre. <b>What to watch is persistence</b>: several consecutive weeks below a '
+      +'size-matched 100% means the capture or edge assumption has moved, not that we got unlucky.';
   }
 
   const cp=d.counterparty||[], T=d.trend||{}, G=d.trigger;
@@ -201,7 +206,8 @@ function render(d){
     const slope=(T.slope!=null)?T.slope:0;
     const mx=ok.reduce(function(a,o){return a+o.i;},0)/Math.max(ok.length,1);
     const my=ys.reduce(function(a,v){return a+v;},0)/Math.max(ys.length,1);
-    const paired=cp.filter(function(w){return w.our_pnl!=null && !w.low_vol;});
+    const paired=cp.filter(function(w){return w.our_pnl!=null && !w.low_vol && w.pnl_full;});
+    const partial=cp.filter(function(w){return w.our_pnl!=null && !w.pnl_full;});
     let r=null;
     if(paired.length>=4){
       const a=paired.map(function(w){return w.buyer_share;}), c=paired.map(function(w){return w.our_pnl;});
@@ -223,8 +229,9 @@ function render(d){
       +'<div class="v amb">'+Math.min.apply(null,ys).toFixed(1)+'–'+Math.max.apply(null,ys).toFixed(1)+'<span class="u">%</span></div>'
       +'<div class="s">weeks with ≥'+(T.min_ct||5000).toLocaleString()+' ct</div></div>'
       +'<div class="stat"><div class="l">vs our P&amp;L</div>'
-      +'<div class="v '+(r==null?'':(r>0.3?'pos':'neg'))+'">'+(r==null?'n/a':(r>=0?'+':'')+r.toFixed(2))+'</div>'
-      +'<div class="s">'+paired.length+' overlapping weeks</div></div>';
+      +'<div class="v '+(r==null?'amb':(r>0.3?'pos':'neg'))+'">'+(r==null?'n/a':(r>=0?'+':'')+r.toFixed(2))+'</div>'
+      +'<div class="s">'+(r==null?'only '+paired.length+' complete week'+(paired.length===1?'':'s')+' — too few'
+        :paired.length+' complete weeks')+'</div></div>';
 
     if(G && G.threshold!=null){
       document.getElementById('trigbox').innerHTML = G.firing
@@ -233,14 +240,19 @@ function render(d){
           +'pattern we said would justify a look at whether faders are crowding us. It is a prompt to '
           +'investigate, not a reason to stop — the metric is still unvalidated.</div>'
         : '<div class="ok"><b>Watch trigger quiet.</b> Pre-registered on '+G.frozen_on+' at <b>'+G.threshold
-          +'%</b> (mean − 1 SD over '+G.basis_weeks+' qualifying weeks, frozen so it cannot drift to fit later '
-          +'data). It fires only on <b>two consecutive</b> qualifying weeks below that — one bad week is '
-          +'weather. Latest '+G.latest+'%, current run '+G.run+'.'
+          +'%</b> and frozen, so it cannot drift to fit later data. It fires only on <b>two consecutive</b> '
+          +'qualifying weeks below that — one bad week is weather. Latest '+G.latest+'%, current run '+G.run+'.'
           +(G.below_weeks && G.below_weeks.length?' Single weeks below so far: '+G.below_weeks.join(', ')+'.':'')
+          +(G.median!=null?'<br><br>Built as median − robust SD (median '+G.median+'%, MAD-based spread '
+            +G.robust_sd+') over '+G.basis_weeks+' qualifying weeks, <em>not</em> the plain mean − 1 SD, which '
+            +'would sit at '+G.plain_mean_1sd+'%. The plain version is dragged down by the single '
+            +'low week it is supposed to detect, so a sustained slide to the mid-50s — clearly below the normal '
+            +'range — would never have fired it. A false alarm costs a look; a miss costs the thing we are '
+            +'watching for.':'')
           +'</div>';
     }
 
-    const W=880,H=210,M={t:16,r:20,b:34,l:44},pw=W-M.l-M.r,ph=H-M.t-M.b;
+    const W=880,H=210,M={t:16,r:66,b:34,l:44},pw=W-M.l-M.r,ph=H-M.t-M.b;
     const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'min-width:600px;height:auto',
       role:'img','aria-label':'Weekly buyer share'});
     for(let v=0;v<=100;v+=25){
@@ -251,8 +263,10 @@ function render(d){
     if(G && G.threshold!=null){
       const y=M.t+ph*(1-G.threshold/100);
       s.appendChild(el('line',{x1:M.l,x2:M.l+pw,y1:y,y2:y,stroke:'var(--crit)','stroke-width':1.2,'stroke-dasharray':'2 4'}));
-      const t=el('text',{x:M.l+5,y:y+11,'text-anchor':'start',fill:'var(--crit)','font-size':9.5,'font-family':'var(--mono)'});
-      t.textContent='trigger '+G.threshold+'%';s.appendChild(t);}
+      const t=el('text',{x:M.l+pw+5,y:y+3.5,'text-anchor':'start',fill:'var(--crit)','font-size':9.5,'font-family':'var(--mono)'});
+      t.textContent=G.threshold+'%';s.appendChild(t);
+      const t2=el('text',{x:M.l+pw+5,y:y+13.5,'text-anchor':'start',fill:'var(--crit)','font-size':8,'font-family':'var(--mono)'});
+      t2.textContent='trigger';s.appendChild(t2);}
     const step=pw/n, bw=Math.min(34,step*0.6);
     cp.forEach(function(w,i){
       const cx=M.l+step*i+step/2, h=ph*w.buyer_share/100, thin=!!w.low_vol;
@@ -287,24 +301,31 @@ function render(d){
         +'<td>'+w.buy_ct.toLocaleString()+'</td><td>'+w.sell_ct.toLocaleString()+'</td>'
         +'<td class="'+(w.low_vol?'':(w.buyer_share>=50?'pos':'neg'))+'"><b>'+w.buyer_share+'%</b></td>'
         +'<td>'+w.small_share+'%</td>'
-        +'<td class="'+(w.our_pnl==null?'':(w.our_pnl>=0?'pos':'neg'))+'">'+(w.our_pnl==null?'—':money2(w.our_pnl))+'</td></tr>';
+        +'<td class="'+(w.our_pnl==null?'':(w.our_pnl>=0?'pos':'neg'))+'" '
+        +(w.our_pnl!=null&&!w.pnl_full?'title="partial week - only '+w.pnl_days+' days inside the P&L window"':'')
+        +'>'+(w.our_pnl==null?'—':money2(w.our_pnl)+(w.pnl_full?'':' †'))+'</td></tr>';
       }).join('') + '</tbody>';
 
     const thinW=cp.filter(function(w){return w.low_vol;});
     const minThin=thinW.length?Math.min.apply(null,thinW.map(function(w){return w.buy_ct+w.sell_ct;})):0;
     const big=cp.filter(function(w){return !w.low_vol;}).slice().sort(function(a,b){return a.buyer_share-b.buyer_share;})[0];
     document.getElementById('cpwarn').innerHTML =
-      '<b>Not validated — track it, do not trade on it.</b> Across the '+paired.length+' weeks where we have '
-      +'both numbers the correlation with our P&amp;L is <b>'+(r==null?'n/a':(r>=0?'+':'')+r.toFixed(2))+'</b>, '
-      +'and our best week so far had one of the <em>lowest</em> buyer shares. That is the opposite of the '
-      +'thesis, and the sample is far too small to conclude either way.'
+      '<b>Not validated — track it, do not trade on it.</b> '
+      +(r==null
+        ? 'We have only <b>'+paired.length+' complete overlapping week'+(paired.length===1?'':'s')+'</b> — our '
+          +'P&amp;L history starts mid-week and the current week is still running, so the '+partial.length
+          +' fragment'+(partial.length===1?'':'s')+' marked † cannot be compared against a full week of flow. '
+          +'That is too few to compute a correlation at all, let alone trust one.'
+        : 'Across the '+paired.length+' complete weeks where we have both numbers the correlation with our '
+          +'P&amp;L is <b>'+(r>=0?'+':'')+r.toFixed(2)+'</b> — far too small a sample to conclude either way.')
       +(T.dropped && T.dropped.length
         ? '<br><br><b>The trend excludes '+T.dropped.length+' thin week'+(T.dropped.length>1?'s':'')+' ('
-          +T.dropped.join(', ')+', marked *).</b> This matters: across all '+T.n_all+' weeks the slope reads '
-          +(T.slope_all>=0?'+':'')+T.slope_all+' pts/wk, but that is one '+minThin.toLocaleString()
-          +'-contract week sitting low at the left edge. On the '+T.n+' weeks with real volume the slope is '
-          +(slope>=0?'+':'')+slope.toFixed(2)+' — <b>flat</b>. Flat is the honest read: no evidence that '
-          +'sophisticated flow is crowding us out, and none that demand is growing either.'
+          +T.dropped.join(', ')+', marked *).</b> Across all '+T.n_all+' weeks the slope reads '
+          +(T.slope_all>=0?'+':'')+T.slope_all+' pts/wk, but that is a single '+minThin.toLocaleString()
+          +'-contract week — a few hundred contracts — swinging an 11-point regression from its left edge. '
+          +'On the '+T.n+' weeks with real volume the slope is '+(slope>=0?'+':'')+slope.toFixed(2)
+          +' — <b>flat</b>. Flat is the honest read: no evidence that sophisticated flow is crowding us out, '
+          +'and none that insurance demand is growing either.'
         : '')
       +(big
         ? '<br><br><b>The one week that looked like the feared regime was '+big.week+' at '+big.buyer_share+'%</b> — '
