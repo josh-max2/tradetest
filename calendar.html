@@ -109,7 +109,8 @@ html{-webkit-text-size-adjust:100%}
 </div>
 <p class="sub">For each elapsed trading day: realized <b>return</b>, the day's <b>% of the whole portfolio</b>, and the
 running <b>cumulative portfolio %</b>. A day is the positions we <b>entered (filled) that day</b> — the P&amp;L shows on the
-day we bought in, not the next morning it settles. Today is still open, so it shows the book's <em>expected</em> value.</p>
+day we bought in, not the next morning it settles. Today is still open, so it shows the book's <em>expected</em> value.
+<span id="scope" class="sub"></span></p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
 <div class="stats" id="stats"></div>
@@ -255,6 +256,13 @@ function dayRow(rec, todayISO, today, sd){
 
 function render(d){
   const daily = d.daily || {};
+  const _cs = daily.chart_start;
+  const _sc = document.getElementById('scope');
+  if (_sc) _sc.innerHTML = _cs
+    ? `<br><b>Window:</b> this page starts ${_cs} — the first day the live sleeve (rung v2b) ran on its own. `
+      + `The retired contiguous-ladder config was shut down 2026-09-03; its history is kept in the trade DBs, `
+      + `not shown here.`
+    : '';
   const days = daily.days || [];
   const today = daily.today || {};
   const todayISO = today.date || null;
