@@ -424,24 +424,29 @@ function render(d){
   if(ss && ss.bands){
     document.getElementById('sstab').innerHTML =
       '<thead><tr><th>market size</th><th class="hide-sm">markets</th><th>median volume</th>'
-      +'<th>insurance-buyer share</th></tr></thead><tbody>'
+      +'<th>buyer share</th><th>fade EV</th></tr></thead><tbody>'
       + ss.bands.map(function(b){
         return '<tr><td>'+b.band+'</td><td class="hide-sm">'+b.n+'</td>'
         +'<td>'+b.median_ct.toLocaleString()+' ct</td>'
-        +'<td class="'+(b.buyer_share>=50?'pos':'neg')+'"><b>'+b.buyer_share+'%</b></td></tr>';}).join('')
+        +'<td class="'+(b.buyer_share>=50?'pos':'neg')+'"><b>'+b.buyer_share+'%</b></td>'
+        +'<td class="'+(b.gross_ev>=0?'pos':'neg')+'">'+(b.gross_ev>=0?'+':'')+b.gross_ev+'¢</td></tr>';}).join('')
       +'</tbody>';
     var sm=ss.bands[0].buyer_share, lg=ss.bands[ss.bands.length-1].buyer_share;
     document.getElementById('ssnote').innerHTML =
-      '<b>Directionally yes, statistically no.</b> The largest markets do carry the lowest '
-      +'insurance-buyer share ('+lg+'% against '+sm+'% in the smallest) — the direction the worry '
-      +'predicts. But the correlation between market size and buyer share is <b>'+ss.corr+'</b>, '
-      +'95% CI ['+ss.lo+', '+ss.hi+'] across '+ss.n+' markets. It spans zero, and the middle two bands '
-      +'are not ordered. <b>So there is no adjustment to make to any number on this page.</b>'
-      +'<br><br>It is still the right thing to watch, because the mechanism is real even where the '
-      +'measurement is not yet: this venue grew <b>'+((cap&&cap.growth_yoy)?cap.growth_yoy+'x':'sharply')
-      +'</b> year-on-year, and if scale does pull in desks, this table should turn before the edge does. '
-      +'Two things would make it convincing — the ordering becoming monotonic across all four bands, and '
-      +'the correlation interval clearing zero.';
+      '<b>The conclusion holds. The proposed mechanism does not.</b> Fade EV falls monotonically across '
+      +'all four size bands — <b>+'+ss.bands[0].gross_ev+'¢ in the smallest markets down to +'
+      +ss.bands[3].gross_ev+'¢ in the largest</b>, a '+(ss.bands[0].gross_ev-ss.bands[3].gross_ev).toFixed(1)
+      +'¢ decline. So bigger markets really are worse to fade.'
+      +'<br><br>But it is <em>not</em> because the crowd got sharper. Buyer share does not predict EV at all '
+      +'(correlation <b>'+ss.share_ev_corr+'</b>), and buyer share itself is not ordered across the bands. '
+      +'The chain "bigger → more desks → worse EV" breaks at its middle link. What the data actually shows '
+      +'is simpler: <b>big markets are just better priced</b>, and the counterparty mix is not what is doing it.'
+      +'<br><br>Neither correlation is significant on its own — size→EV is <b>'+ss.ev_corr+'</b> '
+      +'95% CI ['+ss.ev_lo+', '+ss.ev_hi+'], size→buyer-share is <b>'+ss.corr+'</b> ['+ss.lo+', '+ss.hi+'], '
+      +'across '+ss.n+' markets. And this is the ARCHIVE population (+32.5¢ average) — our own book earns '
+      +'+17.6¢ from a gated subset, and on our own fills the size cut flips sign between eras. '
+      +'<b>So: no allocation change, and no forecast adjustment.</b> The monotonic EV column is the part '
+      +'worth re-checking as the market keeps growing.';
   }
   document.getElementById('foot').innerHTML = 'Generated '+esc(d.generated)+'. '+esc(d.caveat);
   document.getElementById('err').style.display='none';
