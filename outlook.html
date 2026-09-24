@@ -205,7 +205,7 @@ function render(d){
     document.getElementById('capstats').innerHTML =
       '<div class="stat"><div class="l">flow at our rungs</div>'
       +'<div class="v amb">'+Math.round(cap.annual_ct_day).toLocaleString()+'<span class="u">ct/day</span></div>'
-      +'<div class="s">annual mean · summer '+Math.round(cap.summer_ct_day).toLocaleString()+'</div></div>'
+      +'<div class="s">annual mean'+(cap.growth_yoy?' · market grew '+cap.growth_yoy+'x year-on-year':'')+'</div></div>'
       +'<div class="stat"><div class="l">our share today</div>'
       +'<div class="v pos">'+(100*scn.now_kappa).toFixed(1)+'<span class="u">%</span></div>'
       +'<div class="s">'+Math.round(b.plateau_ct_per_day)+' of '+Math.round(cap.summer_ct_day).toLocaleString()+' ct/day</div></div>'
