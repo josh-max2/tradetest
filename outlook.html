@@ -165,7 +165,7 @@ function render(d){
     + '<div class="s">sleeve '+money(b.sleeve)+' · CAP_K '+b.cap_k+'</div></div>';
 
   document.getElementById('evtab').innerHTML =
-    '<thead><tr><th>horizon</th><th>median</th><th class="hide-sm" title="spread of outcomes, holding the edge and capture curve fixed">outcome 90%</th>'
+    '<thead><tr><th>horizon</th><th>median</th><th class="hide-sm" title="where the actual result should land 90% of the time, with edge and capture uncertainty integrated in">predictive 90%</th>'
     +'<th title="how well we know the median itself, re-estimating edge and capture">centre 90%</th>'
     +'<th class="hide-sm">ends at</th></tr></thead><tbody>'
     + ['week','month','year'].map(function(k){const x=p[k];
@@ -178,13 +178,15 @@ function render(d){
   const bands=Object.entries(b.capture_bands).map(function(e){
     var v=e[1]; return e[0]+': '+(v&&v.capture!=null?v.capture+' ('+v.days+'d)':v);}).join(' · ');
   document.getElementById('evwarn').innerHTML =
-    '<b>The two ranges mean different things, and the wider one is the honest one.</b> '
-    +'<em>Outcome 90%</em> is how lumpy results are if the model is right — it resamples days but holds '
-    +'the edge and the capture curve fixed, as if we knew them exactly. <em>Centre 90%</em> re-estimates '
-    +'both inside a day-clustered bootstrap, and is how well we know the median itself. For the year they '
-    +'disagree badly: the outcome band spans '+money(p.year.p5)+'–'+money(p.year.p95)+' (about ±10%), the '
-    +'centre band '+money(p.year.centre_lo)+'–'+money(p.year.centre_hi)+' — a factor of '
-    +(p.year.centre_hi/Math.max(p.year.centre_lo,1)).toFixed(1)+'. Quote the centre band.'
+    '<b>The two ranges answer different questions.</b> <em>Predictive 90%</em> is where the actual '
+    +'result should land — day-to-day noise AND our uncertainty about the edge and capture curve, '
+    +'integrated together. <em>Centre 90%</em> is how well we know the median itself. Use predictive to '
+    +'ask "what might I actually book"; use centre to ask "how much do we really know".'
+    +'<br><br>This was wrong until 2026-09-24: the published band held edge and capture FIXED at their '
+    +'point estimates, so it was a "if the model is exactly right" band, not a forecast. Walk-forward '
+    +'on 5-day windows, that band contained the actual outcome <b>57% of the time, not 90%</b>. '
+    +'Integrating parameter uncertainty raised coverage to 86% at ~1.4x the width. The wider band is '
+    +'the honest one.'
     +'<br><br><b>Why it is that wide: everything rests on '+b.plateau_days+' days.</b> The projection starts '
     +'at '+b.max_ct+' ct and only grows, so the only capture figure it ever reads is the plateau — and that is '
     +'measured on the '+b.plateau_days+' days we have run above '+b.plateau_cut+' ct. Nothing else in the '
