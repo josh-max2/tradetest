@@ -1,17 +1,17 @@
 {
- "generated": "2026-09-30 20:16 UTC",
- "generated_mt": "09-30 14:16 MT",
- "generated_epoch": 1790799386.7460747,
+ "generated": "2026-09-30 20:34 UTC",
+ "generated_mt": "09-30 14:34 MT",
+ "generated_epoch": 1790800481.4362922,
  "health": {
-  "heartbeat_age_s": 21,
+  "heartbeat_age_s": 5,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 1.6,
-  "last_trade_age_s": 2,
+  "last_trade_age_s": 0,
   "subscribed": 754,
-  "wethr_calls": 2280,
-  "bursts": 517,
+  "wethr_calls": 2312,
+  "bursts": 526,
   "scheduled_task": true
  },
  "experiments": [
@@ -254,12 +254,12 @@
      "label": "outside windows",
      "stats": {
       "n": 42,
-      "decided": 37,
+      "decided": 38,
       "yes": 20,
-      "no": 17,
-      "pending": 5,
-      "yes_rate": 54.1,
-      "provisional": 3,
+      "no": 18,
+      "pending": 4,
+      "yes_rate": 52.6,
+      "provisional": 4,
       "dollars": 20.0,
       "dollar_mkts": 12
      }
@@ -376,18 +376,18 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 18,
-    "decided": 17,
+    "n": 20,
+    "decided": 19,
     "yes": 1,
-    "no": 16,
+    "no": 18,
     "pending": 1,
-    "yes_rate": 5.9,
-    "provisional": 8,
+    "yes_rate": 5.3,
+    "provisional": 10,
     "dollars": 13.5,
     "dollar_mkts": 9
    },
    "extra": {
-    "ceiling_skips": 265
+    "ceiling_skips": 271
    },
    "rows": [
     {
@@ -559,6 +559,20 @@
      "resting": 0
     },
     {
+     "t": "09-29 14:11",
+     "tk": "KXHIGHTHOU-26SEP30-B91.5",
+     "px": 49,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
      "t": "09-29 14:12",
      "tk": "KXHIGHAUS-26SEP29-B99.5",
      "px": 34,
@@ -591,7 +605,7 @@
      "tk": "KXHIGHTSATX-26SEP30-B96.5",
      "px": 36,
      "res": "no~",
-     "now": 4,
+     "now": 2,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -629,6 +643,20 @@
      "resting": 0
     },
     {
+     "t": "09-29 21:18",
+     "tk": "KXHIGHTDAL-26SEP30-B95.5",
+     "px": 30,
+     "res": "no~",
+     "now": 1,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
      "t": "09-30 04:34",
      "tk": "KXLOWTBOS-26SEP30-B60.5",
      "px": 39,
@@ -644,7 +672,7 @@
     }
    ],
    "headline": {
-    "est": 504.18,
+    "est": 633.14,
     "how": "missed spikes \u00d7 our avg $ per won (+64) / busted (-528) market",
     "exp_lo": 30,
     "exp_hi": 490,
@@ -767,7 +795,7 @@
      "tk": "KXTEMPCHIHS-26SEP3017-T64.99",
      "px": 35,
      "res": "pending",
-     "now": 25,
+     "now": 17,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -823,7 +851,7 @@
      "tk": "KXTEMPMIAH-26SEP3017-T80.99",
      "px": 51,
      "res": "pending",
-     "now": 26,
+     "now": 32,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -896,7 +924,7 @@
      "tk": "KXHIGHLAX-26SEP30-B84.5",
      "px": 27,
      "res": "no~",
-     "now": 3,
+     "now": 2,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1162,7 +1190,7 @@
    "E6",
    "E9"
   ],
-  "live_total": 553.18,
+  "live_total": 682.14,
   "live_per_month": null,
   "days": 1.6,
   "base_live": 22.7,
@@ -1194,26 +1222,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 210,
-    "shared_pct": 61.4,
+    "ladders": 200,
+    "shared_pct": 59.0,
     "median_other": 18.0
    },
    {
     "rung": 35,
-    "ladders": 210,
-    "shared_pct": 11.0,
+    "ladders": 200,
+    "shared_pct": 8.5,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 210,
-    "shared_pct": 8.6,
-    "median_other": 20.0
+    "ladders": 200,
+    "shared_pct": 7.5,
+    "median_other": 21.0
    },
    {
     "rung": 45,
-    "ladders": 210,
-    "shared_pct": 19.0,
+    "ladders": 200,
+    "shared_pct": 15.5,
     "median_other": 15.0
    }
   ]
