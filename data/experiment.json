@@ -1,16 +1,16 @@
 {
- "generated": "2026-09-30 06:28 UTC",
- "generated_mt": "09-30 00:28 MT",
- "generated_epoch": 1790749706.6810937,
+ "generated": "2026-09-30 06:30 UTC",
+ "generated_mt": "09-30 00:30 MT",
+ "generated_epoch": 1790749807.7235827,
  "health": {
-  "heartbeat_age_s": 7,
+  "heartbeat_age_s": 18,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 1.0,
-  "last_trade_age_s": 1,
+  "last_trade_age_s": 7,
   "subscribed": 1640,
-  "wethr_calls": 3737,
+  "wethr_calls": 3739,
   "bursts": 309,
   "scheduled_task": false
  },
@@ -26,25 +26,25 @@
    "target": 30,
    "stats": {
     "n": 2,
-    "decided": 1,
+    "decided": 2,
     "yes": 0,
-    "no": 1,
-    "pending": 1,
+    "no": 2,
+    "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 1,
-    "dollars": 6.0,
-    "dollar_mkts": 1
+    "provisional": 2,
+    "dollars": 9.0,
+    "dollar_mkts": 2
    },
    "reference": {
     "n": 5,
-    "decided": 1,
+    "decided": 2,
     "yes": 0,
-    "no": 1,
-    "pending": 4,
+    "no": 2,
+    "pending": 3,
     "yes_rate": 0.0,
-    "provisional": 1,
-    "dollars": 6.0,
-    "dollar_mkts": 1
+    "provisional": 2,
+    "dollars": 9.0,
+    "dollar_mkts": 2
    },
    "rows": [
     {
@@ -69,12 +69,12 @@
      "t": "09-29 19:34",
      "tk": "KXLOWTSEA-26SEP29-B51.5",
      "px": 31,
-     "res": "pending",
-     "now": 10,
+     "res": "no~",
+     "now": 4,
      "legs": 8,
      "ct": 8,
-     "pnl": 0.0,
-     "prov": false,
+     "pnl": 3.0,
+     "prov": true,
      "fair": 15.1,
      "onesided": 0,
      "resting": 0,
@@ -84,6 +84,13 @@
      "r4": 1
     }
    ],
+   "headline": {
+    "est": 9.0,
+    "how": "extra order repeats our $ on flagged markets",
+    "exp_lo": -34,
+    "exp_hi": -34,
+    "exp_note": "\u2248 $0/mo at $2k alone (model, D131); +$316 last-30 backtest"
+   },
    "dollars_ok": true
   },
   {
@@ -97,25 +104,25 @@
    "target": 30,
    "stats": {
     "n": 2,
-    "decided": 1,
+    "decided": 2,
     "yes": 0,
-    "no": 1,
-    "pending": 1,
+    "no": 2,
+    "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 1,
-    "dollars": 6.0,
-    "dollar_mkts": 1
+    "provisional": 2,
+    "dollars": 9.0,
+    "dollar_mkts": 2
    },
    "reference": {
     "n": 5,
-    "decided": 1,
+    "decided": 2,
     "yes": 0,
-    "no": 1,
-    "pending": 4,
+    "no": 2,
+    "pending": 3,
     "yes_rate": 0.0,
-    "provisional": 1,
-    "dollars": 6.0,
-    "dollar_mkts": 1
+    "provisional": 2,
+    "dollars": 9.0,
+    "dollar_mkts": 2
    },
    "rows": [
     {
@@ -140,12 +147,12 @@
      "t": "09-29 19:34",
      "tk": "KXLOWTSEA-26SEP29-B51.5",
      "px": 31,
-     "res": "pending",
-     "now": 10,
+     "res": "no~",
+     "now": 4,
      "legs": 8,
      "ct": 8,
-     "pnl": 0.0,
-     "prov": false,
+     "pnl": 3.0,
+     "prov": true,
      "fair": 15.1,
      "onesided": 0,
      "resting": 0,
@@ -155,6 +162,13 @@
      "r4": 1
     }
    ],
+   "headline": {
+    "est": 9.0,
+    "how": "extra order repeats our $ on flagged, not one-sided markets",
+    "exp_lo": 278,
+    "exp_hi": 278,
+    "exp_note": "+$278/mo (model at $2k, D131)"
+   },
    "dollars_ok": true
   },
   {
@@ -179,16 +193,23 @@
    },
    "reference": {
     "n": 5,
-    "decided": 1,
+    "decided": 2,
     "yes": 0,
-    "no": 1,
-    "pending": 4,
+    "no": 2,
+    "pending": 3,
     "yes_rate": 0.0,
-    "provisional": 1,
-    "dollars": 6.0,
-    "dollar_mkts": 1
+    "provisional": 2,
+    "dollars": 9.0,
+    "dollar_mkts": 2
    },
    "rows": [],
+   "headline": {
+    "est": 0,
+    "how": "$ saved by pulling flagged ladders (\u2212 = winners cut)",
+    "exp_lo": null,
+    "exp_hi": null,
+    "exp_note": "unproven \u2014 +$155 to +$248 last-30 on own fills, archive null"
+   },
    "dollars_ok": true
   },
   {
@@ -233,14 +254,14 @@
      "label": "outside windows",
      "stats": {
       "n": 33,
-      "decided": 11,
-      "yes": 4,
-      "no": 7,
-      "pending": 22,
-      "yes_rate": 36.4,
-      "provisional": 11,
-      "dollars": 13.5,
-      "dollar_mkts": 6
+      "decided": 13,
+      "yes": 5,
+      "no": 8,
+      "pending": 20,
+      "yes_rate": 38.5,
+      "provisional": 13,
+      "dollars": 16.5,
+      "dollar_mkts": 7
      }
     }
    ],
@@ -321,6 +342,13 @@
      "since": 18.316666666666666
     }
    ],
+   "headline": {
+    "est": 0,
+    "how": "$ saved by pulling our ladders in the windows",
+    "exp_lo": null,
+    "exp_hi": null,
+    "exp_note": "unproven out of sample \u2014 +$220 last-30 in-sample"
+   },
    "dollars_ok": true
   },
   {
@@ -474,6 +502,13 @@
      "resting": 0
     }
    ],
+   "headline": {
+    "est": 207.97,
+    "how": "missed spikes \u00d7 our avg $ per won (+69) / busted (-528) market",
+    "exp_lo": 30,
+    "exp_hi": 490,
+    "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
+   },
    "dollars_ok": false
   },
   {
@@ -615,6 +650,13 @@
      "resting": 0
     }
    ],
+   "headline": {
+    "est": 40.0,
+    "how": "spikes \u00d7 +$15 per NO / \u2212$35 per YES (one 30\u00a2 rung at 50 ct)",
+    "exp_lo": 375,
+    "exp_hi": 450,
+    "exp_note": "+$375 to +$450/mo (model)"
+   },
    "dollars_ok": false
   },
   {
@@ -751,6 +793,13 @@
      "resting": 4
     }
    ],
+   "headline": {
+    "est": 112.44,
+    "how": "near-misses \u00d7 112 ct at 25\u00a2 (+25\u00a2 win / \u221275\u00a2 bust)",
+    "exp_lo": null,
+    "exp_hi": null,
+    "exp_note": "+$340 last-30 (same money as E1/E2 \u2014 pick one)"
+   },
    "dollars_ok": false
   },
   {
@@ -767,14 +816,14 @@
      "label": "tail 7\u20138\u00a2",
      "stats": {
       "n": 4,
-      "decided": 1,
+      "decided": 2,
       "yes": 0,
-      "no": 1,
-      "pending": 3,
+      "no": 2,
+      "pending": 2,
       "yes_rate": 0.0,
-      "provisional": 1,
-      "dollars": 6.0,
-      "dollar_mkts": 1
+      "provisional": 2,
+      "dollars": 9.0,
+      "dollar_mkts": 2
      }
     },
     {
@@ -793,6 +842,13 @@
     }
    ],
    "rows": [],
+   "headline": {
+    "est": -9.0,
+    "how": "$ of our 7\u20138\u00a2-tail markets a 6\u00a2 rule would skip (sign flipped)",
+    "exp_lo": 0,
+    "exp_hi": 0,
+    "exp_note": "\u2248 $0/mo \u2014 quality, not $"
+   },
    "dollars_ok": true
   },
   {
@@ -822,9 +878,35 @@
    ],
    "max_ct": 219,
    "rows": [],
+   "headline": {
+    "est": -0.0,
+    "how": "capping lows at 100/rung forgoes the $ of contracts above 100",
+    "exp_lo": -52,
+    "exp_hi": -52,
+    "exp_note": "\u2212$52/mo avg, much better bad months (model)"
+   },
    "dollars_ok": false
   }
  ],
+ "overall": {
+  "compat": [
+   "E2",
+   "E5",
+   "E6",
+   "E9"
+  ],
+  "live_total": 256.97,
+  "live_per_month": null,
+  "days": 1.0,
+  "base_live": 9.0,
+  "model_add_lo": 800,
+  "model_add_hi": 1300,
+  "real_add_lo": 500,
+  "real_add_hi": 850,
+  "real_base": 1100,
+  "real_with_lo": 1600,
+  "real_with_hi": 1950
+ },
  "monitors": {
   "edge": [
    {

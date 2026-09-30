@@ -29,7 +29,8 @@ h2{font-size:15px;font-weight:620;margin:0 0 4px}
 table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
 th,td{text-align:right;padding:5px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
 th:first-child,td:first-child,td.l,th.l{text-align:left}
-#glance td.l{white-space:normal;min-width:180px}
+#glance td.l{white-space:normal;min-width:170px}
+#glance .tag{margin-top:3px;white-space:normal}
 #glance td.l:last-child{color:var(--ink2);font-size:11.5px}
 thead th{color:var(--muted);font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
 tbody tr:last-child td{border-bottom:none}
@@ -37,6 +38,12 @@ tbody tr:last-child td{border-bottom:none}
  border:1px solid currentColor;white-space:nowrap;display:inline-block}
 .kv{display:grid;grid-template-columns:92px 1fr;gap:4px 12px;font-size:13px;color:var(--ink2);margin-top:8px}
 .kv b{color:var(--muted);font-weight:500;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding-top:3px}
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.hero .stat .v{font-size:24px}
+.hl{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;margin-top:12px}
+.hl .big{font-family:var(--mono);font-size:20px;font-weight:700}
+.hl .lab{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hl .how{font-size:11.5px;color:var(--muted)}
 .bar{height:6px;background:var(--grid);border-radius:99px;overflow:hidden;margin-top:6px}
 .bar i{display:block;height:100%;background:var(--s1)}
 .warn{border-left:2px solid var(--crit);background:color-mix(in srgb,var(--crit) 8%,transparent);border-radius:0 7px 7px 0;
@@ -64,6 +71,7 @@ orders. Each card says what the idea is, what it would change in the bot, what t
 shows so far. Refreshes about every 15 minutes.</p>
 <div id="err">Loading…</div>
 <div id="body" style="display:none">
+<div id="overall"></div>
 <div id="health"></div>
 <div class="note" id="rule"></div>
 <div class="sec">At a glance</div>
@@ -93,7 +101,7 @@ function statusTag(s){
 }
 function progress(dec,tgt){
   const f=Math.min(100,Math.round(100*dec/Math.max(tgt,1)));
-  return '<div class="bar"><i style="width:'+f+'%"></i></div><div class="stat"><div class="s" style="padding:0">'+dec+' of '+tgt+' decided markets for a first read</div></div>';
+  return '<div class="bar"><i style="width:'+f+'%"></i></div>';
 }
 function stats(s,dollars,label){
   return '<div class="stats">'
@@ -135,7 +143,27 @@ function decided(e){
   if(e.sizes) return e.sizes.reduce((a,s)=>a+s.legs,0);
   return 0;
 }
+
+function expTxt(h){ if(h.exp_lo==null) return '<span class="mut">no $ forecast</span>';
+  return h.exp_lo===h.exp_hi? m0(h.exp_lo)+'/mo' : m0(h.exp_lo)+' to '+m0(h.exp_hi)+'/mo'; }
+const m0=v=>v==null?'—':(v<0?'−$':'+$')+Math.abs(Math.round(v)).toLocaleString();
+function headline(e,dec){ const h=e.headline;
+  return '<div class="hl"><div><div class="lab">would have added so far</div><div class="big '+(h.est>=0?'pos':'neg')+'">'+m2(h.est)+'</div><div class="how">'+esc(h.how)+'</div></div>'
+   +'<div><div class="lab">expected</div><div class="big amb">'+expTxt(h)+'</div><div class="how">'+esc(h.exp_note)+'</div></div>'
+   +'<div><div class="lab">test progress</div><div class="big">'+dec+'/'+e.target+'</div><div class="how">decided markets for a first read</div></div></div>'; }
+function overall(d){ const o=d.overall; if(!o) return '';
+  return '<div class="hero">'
+   +'<div class="stat"><div class="l">all changes · would have added so far</div><div class="v '+(o.live_total>=0?'pos':'neg')+'">'+m2(o.live_total)+'</div>'
+     +'<div class="s">'+o.days+(o.days==1?' day':' days')+' of tracking · '+o.compat.join(' + ')+' (no double counting)</div></div>'
+   +'<div class="stat"><div class="l">live pace per month</div><div class="v">'+(o.live_per_month==null?'<span class="mut" style="font-size:15px">after 7 days</span>':m0(o.live_per_month))+'</div>'
+     +'<div class="s">too noisy to project before a week</div></div>'
+   +'<div class="stat"><div class="l">expected added per month</div><div class="v amb">'+m0(o.real_add_lo)+'–'+m0(o.real_add_hi).replace('+','')+'</div>'
+     +'<div class="s">realistic; model says '+m0(o.model_add_lo)+'–'+m0(o.model_add_hi).replace('+','')+' (D131, at $2,000)</div></div>'
+   +'<div class="stat"><div class="l">month without → with</div><div class="v" style="font-size:17px;white-space:normal">~$'+o.real_base.toLocaleString()+' → $'+o.real_with_lo.toLocaleString()+'–'+o.real_with_hi.toLocaleString()+'</div>'
+     +'<div class="s">realistic, scaled to what the bot actually made</div></div>'
+   +'</div>'; }
 function render(d){
+  document.getElementById('overall').innerHTML=overall(d);
   const h=d.health;
   document.getElementById('health').innerHTML=
     (h.alive?'':'<div class="warn"><b>Tracker is DOWN</b> — last heartbeat '+Math.round(h.heartbeat_age_s/60)+' min ago. Nothing below is updating.</div>')
@@ -148,14 +176,14 @@ function render(d){
     +'<div class="stat"><div class="l">Wethr calls</div><div class="v">'+(h.wethr_calls||0).toLocaleString()+'</div><div class="s">this run · cap 5,000/day</div></div>'
     +'</div>';
   document.getElementById('rule').innerHTML='<b>How outcomes are scored.</b> '+esc(d.rule)+' Settled results replace provisional ones automatically.';
-  document.getElementById('glance').innerHTML='<thead><tr><th>#</th><th class="l">experiment</th><th class="hide-sm">status</th><th>progress</th><th class="l">live so far</th></tr></thead><tbody>'
-    +d.experiments.map(e=>'<tr><td>'+e.id+'</td><td class="l"><a href="#'+e.id+'" style="color:var(--ink)">'+esc(e.name)+'</a></td><td class="hide-sm">'+statusTag(e.status)
-      +'</td><td>'+decided(e)+'/'+e.target+'</td><td class="l">'+keyLine(e)+'</td></tr>').join('')+'</tbody>';
+  document.getElementById('glance').innerHTML='<thead><tr><th>#</th><th class="l">experiment</th><th>progress</th><th>added so far</th><th class="hide-sm">expected</th><th class="l">live so far</th></tr></thead><tbody>'
+    +d.experiments.map(e=>'<tr><td>'+e.id+'</td><td class="l"><a href="#'+e.id+'" style="color:var(--ink)">'+esc(e.name)+'</a><br>'+statusTag(e.status)
+      +'</td><td>'+decided(e)+'/'+e.target+'</td><td class="'+(e.headline.est>=0?'pos':'neg')+'"><b>'+m2(e.headline.est)+'</b></td><td class="hide-sm amb">'+expTxt(e.headline)+'</td><td class="l">'+keyLine(e)+'</td></tr>').join('')+'</tbody>';
   document.getElementById('exps').innerHTML=d.experiments.map(e=>{
     let x='<div class="card" id="'+e.id+'"><h2>'+e.id+' · '+esc(e.name)+' '+statusTag(e.status)+'</h2>'
       +'<div class="kv"><b>what</b><div>'+esc(e.what)+'</div><b>if confirmed</b><div>'+esc(e.change)+'</div>'
       +'<b>backtest</b><div>'+esc(e.backtest)+'</div><b>measured as</b><div>'+esc(e.metric)+'</div></div>'
-      +progress(decided(e),e.target);
+      +headline(e,decided(e))+progress(decided(e),e.target);
     if(e.stats) x+=stats(e.stats,e.dollars_ok);
     if(e.reference) x+='<p class="sub" style="margin:0">Reference — all bot-B filled markets since tracking began: '+e.reference.decided+' decided, YES '+pct(e.reference.yes_rate)+', '+m2(e.reference.dollars)+'.</p>';
     if(e.extra&&e.extra.ceiling_skips!=null) x+='<p class="sub" style="margin:0">Markets the bot skipped at its ceiling since tracking began: '+e.extra.ceiling_skips+'.</p>';
