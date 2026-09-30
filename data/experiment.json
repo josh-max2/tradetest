@@ -1,17 +1,17 @@
 {
- "generated": "2026-09-30 21:09 UTC",
- "generated_mt": "09-30 15:09 MT",
- "generated_epoch": 1790802585.4609838,
+ "generated": "2026-09-30 21:29 UTC",
+ "generated_mt": "09-30 15:29 MT",
+ "generated_epoch": 1790803799.4891748,
  "health": {
-  "heartbeat_age_s": 9,
+  "heartbeat_age_s": 23,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
-  "days": 1.6,
+  "days": 1.7,
   "last_trade_age_s": 1,
   "subscribed": 794,
-  "wethr_calls": 2427,
-  "bursts": 538,
+  "wethr_calls": 2470,
+  "bursts": 543,
   "scheduled_task": true
  },
  "experiments": [
@@ -376,18 +376,18 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 21,
-    "decided": 20,
+    "n": 22,
+    "decided": 21,
     "yes": 1,
-    "no": 19,
+    "no": 20,
     "pending": 1,
-    "yes_rate": 5.0,
-    "provisional": 11,
+    "yes_rate": 4.8,
+    "provisional": 12,
     "dollars": 24.0,
     "dollar_mkts": 15
    },
    "extra": {
-    "ceiling_skips": 276
+    "ceiling_skips": 277
    },
    "rows": [
     {
@@ -531,6 +531,20 @@
      "resting": 0
     },
     {
+     "t": "09-29 12:03",
+     "tk": "KXHIGHTNOLA-26SEP30-B90.5",
+     "px": 53,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
      "t": "09-29 13:07",
      "tk": "KXHIGHMIA-26SEP30-B86.5",
      "px": 39,
@@ -605,7 +619,7 @@
      "tk": "KXHIGHTSATX-26SEP30-B96.5",
      "px": 36,
      "res": "no~",
-     "now": 1,
+     "now": 0,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -675,7 +689,7 @@
      "tk": "KXHIGHCHI-26SEP30-B71.5",
      "px": 30,
      "res": "no~",
-     "now": 4,
+     "now": 2,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -686,7 +700,7 @@
     }
    ],
    "headline": {
-    "est": 697.62,
+    "est": 762.1,
     "how": "missed spikes \u00d7 our avg $ per won (+64) / busted (-528) market",
     "exp_lo": 30,
     "exp_hi": 490,
@@ -708,11 +722,11 @@
      "label": "KXTEMPCHIHS",
      "stats": {
       "n": 4,
-      "decided": 3,
+      "decided": 4,
       "yes": 1,
-      "no": 2,
-      "pending": 1,
-      "yes_rate": 33.3,
+      "no": 3,
+      "pending": 0,
+      "yes_rate": 25.0,
       "provisional": 0,
       "dollars": 0,
       "dollar_mkts": 0
@@ -736,11 +750,11 @@
      "label": "KXTEMPMIAH",
      "stats": {
       "n": 1,
-      "decided": 0,
-      "yes": 0,
+      "decided": 1,
+      "yes": 1,
       "no": 0,
-      "pending": 1,
-      "yes_rate": null,
+      "pending": 0,
+      "yes_rate": 100.0,
       "provisional": 0,
       "dollars": 0,
       "dollar_mkts": 0
@@ -808,8 +822,8 @@
      "t": "09-30 14:07",
      "tk": "KXTEMPCHIHS-26SEP3017-T64.99",
      "px": 35,
-     "res": "pending",
-     "now": 50,
+     "res": "no",
+     "now": null,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -864,8 +878,8 @@
      "t": "09-30 14:05",
      "tk": "KXTEMPMIAH-26SEP3017-T80.99",
      "px": 51,
-     "res": "pending",
-     "now": 50,
+     "res": "yes",
+     "now": null,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -876,7 +890,7 @@
     }
    ],
    "headline": {
-    "est": 40.0,
+    "est": 20.0,
     "how": "spikes \u00d7 +$15 per NO / \u2212$35 per YES (one 30\u00a2 rung at 50 ct)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -1064,7 +1078,7 @@
      "tk": "KXLOWTHOU-26SEP30-B75.5",
      "px": 29,
      "res": "no~",
-     "now": 3,
+     "now": 2,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1218,9 +1232,9 @@
    "E6",
    "E9"
   ],
-  "live_total": 746.62,
+  "live_total": 791.1,
   "live_per_month": null,
-  "days": 1.6,
+  "days": 1.7,
   "base_live": 22.7,
   "model_add_lo": 800,
   "model_add_hi": 1300,
@@ -1251,7 +1265,7 @@
    {
     "rung": 30,
     "ladders": 248,
-    "shared_pct": 55.2,
+    "shared_pct": 55.6,
     "median_other": 17.0
    },
    {
@@ -1263,13 +1277,13 @@
    {
     "rung": 40,
     "ladders": 248,
-    "shared_pct": 6.0,
+    "shared_pct": 6.5,
     "median_other": 23.0
    },
    {
     "rung": 45,
     "ladders": 248,
-    "shared_pct": 16.9,
+    "shared_pct": 16.5,
     "median_other": 15.0
    }
   ]
