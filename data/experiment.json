@@ -1,16 +1,16 @@
 {
- "generated": "2026-09-30 17:13 UTC",
- "generated_mt": "09-30 11:13 MT",
- "generated_epoch": 1790788393.6248946,
+ "generated": "2026-09-30 17:21 UTC",
+ "generated_mt": "09-30 11:21 MT",
+ "generated_epoch": 1790788871.8006477,
  "health": {
-  "heartbeat_age_s": 8,
+  "heartbeat_age_s": 6,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 1.5,
-  "last_trade_age_s": 1,
+  "last_trade_age_s": 3,
   "subscribed": 834,
-  "wethr_calls": 1770,
+  "wethr_calls": 1785,
   "bursts": 454,
   "scheduled_task": true
  },
@@ -368,26 +368,26 @@
   },
   {
    "id": "E5",
-   "name": "Raise the armed-market ceiling 150 \u2192 200",
-   "status": "candidate \u2014 config change",
-   "what": "On busy days the bot hits its 150-market limit and skips arming new ones. This counts spikes on markets it skipped for that reason.",
+   "name": "Armed-market ceiling 150 \u2192 200 (LIVE since 09-30 11:19 MT)",
+   "status": "live \u2014 monitoring",
+   "what": "Raised to 200 on 09-30 at 11:19 MT. Counts spikes on markets the bot still skips at its limit (150 before the change, 200 after) \u2014 a measure of what a higher limit would still catch.",
    "change": "One number in the bot config. Settled-NO spikes here are wins a higher ceiling could have caught.",
    "backtest": "+$16/day (CI +$1 to +$35), +$142 since Sep 11. 250+ fails.",
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
     "n": 11,
-    "decided": 10,
+    "decided": 9,
     "yes": 1,
-    "no": 9,
-    "pending": 1,
-    "yes_rate": 10.0,
-    "provisional": 1,
-    "dollars": 10.5,
-    "dollar_mkts": 7
+    "no": 8,
+    "pending": 2,
+    "yes_rate": 11.1,
+    "provisional": 0,
+    "dollars": 9.0,
+    "dollar_mkts": 6
    },
    "extra": {
-    "ceiling_skips": 234
+    "ceiling_skips": 238
    },
    "rows": [
     {
@@ -506,12 +506,12 @@
      "t": "09-29 15:06",
      "tk": "KXLOWTNYC-26SEP30-B58.5",
      "px": 46,
-     "res": "no~",
-     "now": 6,
+     "res": "pending",
+     "now": 13,
      "legs": 4,
      "ct": 4,
-     "pnl": 1.5,
-     "prov": true,
+     "pnl": 0.0,
+     "prov": false,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -546,7 +546,7 @@
     }
    ],
    "headline": {
-    "est": 52.82,
+    "est": -11.66,
     "how": "missed spikes \u00d7 our avg $ per won (+64) / busted (-528) market",
     "exp_lo": 30,
     "exp_hi": 490,
@@ -742,7 +742,7 @@
      "tk": "KXHIGHDEN-26SEP30-B59.5",
      "px": 28,
      "res": "no~",
-     "now": 6,
+     "now": 8,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -770,7 +770,7 @@
      "tk": "KXHIGHTMIN-26SEP30-B72.5",
      "px": 29,
      "res": "pending",
-     "now": 26,
+     "now": 28,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -826,7 +826,7 @@
      "tk": "KXLOWTCHI-26SEP30-B58.5",
      "px": 25,
      "res": "no~",
-     "now": 9,
+     "now": 8,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -980,10 +980,10 @@
   },
   {
    "id": "E9",
-   "name": "Size caution: contracts above ~100 (lows) / ~198 (highs) per rung",
-   "status": "monitor \u2192 sizing decision",
+   "name": "Lows capped at 100/rung (LIVE since 09-30 11:19 MT); highs above ~198 watched",
+   "status": "live \u2014 monitoring",
    "what": "Market-wide, extra contracts beyond these sizes lose (lows) or barely pay (highs). This tracks what OUR contracts above the line earn.",
-   "change": "If negative, cap lows per-rung size at 100 while highs keep growing (config).",
+   "change": "Lows capped at 100 per rung from 09-30 11:19 MT (orders already resting at 219 keep their size until they fill or re-arm). Highs keep growing with capital; this still watches highs above 198.",
    "backtest": "Market-wide: lows marginal \u00a2/ct \u221216 at 100\u2192150; highs +4 at 198\u2192250 (CI spans 0). Model: capping lows \u2248 \u2212$50\u2013100/month avg, much better bad months.",
    "metric": "Realised $ of the contracts above the line, since the 09-19 size raise.",
    "target": 30,
@@ -1022,7 +1022,7 @@
    "E6",
    "E9"
   ],
-  "live_total": 101.82,
+  "live_total": 37.34,
   "live_per_month": null,
   "days": 1.5,
   "base_live": 25.2,
@@ -1061,19 +1061,19 @@
    {
     "rung": 35,
     "ladders": 158,
-    "shared_pct": 12.0,
+    "shared_pct": 10.8,
     "median_other": 15.0
    },
    {
     "rung": 40,
     "ladders": 158,
-    "shared_pct": 5.7,
-    "median_other": 45.0
+    "shared_pct": 6.3,
+    "median_other": 30.0
    },
    {
     "rung": 45,
     "ladders": 158,
-    "shared_pct": 21.5,
+    "shared_pct": 20.3,
     "median_other": 15.0
    }
   ]
