@@ -1,17 +1,17 @@
 {
- "generated": "2026-09-30 14:18 UTC",
- "generated_mt": "09-30 08:18 MT",
- "generated_epoch": 1790777900.8426523,
+ "generated": "2026-09-30 14:33 UTC",
+ "generated_mt": "09-30 08:33 MT",
+ "generated_epoch": 1790778809.2955883,
  "health": {
-  "heartbeat_age_s": 16,
+  "heartbeat_age_s": 24,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 1.4,
-  "last_trade_age_s": 0,
+  "last_trade_age_s": 4,
   "subscribed": 560,
-  "wethr_calls": 1290,
-  "bursts": 411,
+  "wethr_calls": 1320,
+  "bursts": 412,
   "scheduled_task": true
  },
  "experiments": [
@@ -698,13 +698,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 12,
-    "decided": 10,
+    "n": 13,
+    "decided": 12,
     "yes": 0,
-    "no": 10,
-    "pending": 2,
+    "no": 12,
+    "pending": 1,
     "yes_rate": 0.0,
-    "provisional": 4,
+    "provisional": 6,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -728,7 +728,7 @@
      "tk": "KXHIGHDEN-26SEP30-B59.5",
      "px": 28,
      "res": "no~",
-     "now": 4,
+     "now": 3,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -741,8 +741,8 @@
      "t": "09-29 10:16",
      "tk": "KXHIGHMIA-26SEP30-B82.5",
      "px": 25,
-     "res": "pending",
-     "now": 16,
+     "res": "no~",
+     "now": 0,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -798,7 +798,21 @@
      "tk": "KXLOWTCHI-26SEP30-B58.5",
      "px": 25,
      "res": "pending",
-     "now": 14,
+     "now": 15,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 11:05",
+     "tk": "KXLOWTCHI-26SEP30-B64.5",
+     "px": 26,
+     "res": "no~",
+     "now": 0,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -826,7 +840,7 @@
      "tk": "KXLOWTHOU-26SEP30-B75.5",
      "px": 29,
      "res": "no~",
-     "now": 8,
+     "now": 4,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -879,7 +893,7 @@
     }
    ],
    "headline": {
-    "est": 266.03,
+    "est": 319.24,
     "how": "near-misses \u00d7 106 ct at 25\u00a2 (+25\u00a2 win / \u221275\u00a2 bust)",
     "exp_lo": null,
     "exp_hi": null,
@@ -1012,26 +1026,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 131,
-    "shared_pct": 72.5,
+    "ladders": 136,
+    "shared_pct": 73.5,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 131,
-    "shared_pct": 15.3,
-    "median_other": 25.0
+    "ladders": 136,
+    "shared_pct": 15.4,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 131,
-    "shared_pct": 11.5,
+    "ladders": 136,
+    "shared_pct": 11.8,
     "median_other": 30.0
    },
    {
     "rung": 45,
-    "ladders": 131,
-    "shared_pct": 21.4,
+    "ladders": 136,
+    "shared_pct": 22.1,
     "median_other": 19.0
    }
   ]
