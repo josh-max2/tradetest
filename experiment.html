@@ -1,0 +1,183 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Experiment — live strategy tracking</title>
+<style>
+:root{--surface:#151b23;--page:#0d1117;--ink:#d7dde5;--ink2:#8b95a3;--muted:#8b95a3;
+ --grid:#232b36;--border:#232b36;--s1:#e8b33e;--good:#43c07a;--crit:#e2606b;
+ --mono:ui-monospace,"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-size:15px;line-height:1.5;
+ font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+.nav{display:flex;gap:4px;overflow-x:auto;margin-bottom:18px;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:7px 13px;border-radius:7px;color:var(--ink2);text-decoration:none;font-size:13px;white-space:nowrap}
+.nav a.active{color:var(--ink);background:color-mix(in srgb,var(--s1) 13%,transparent)}
+h1{font-size:21px;margin:0 0 4px;font-weight:650;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px;margin:6px 0 20px;max-width:78ch}
+h2{font-size:15px;font-weight:620;margin:0 0 4px}
+.sec{font-size:15px;font-weight:620;margin:28px 0 10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--border);
+ border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:12px 0}
+.stat{background:var(--surface);padding:10px 12px;min-width:0}
+.stat .l{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:var(--mono);font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px;white-space:nowrap}
+.stat .s{font-size:11px;color:var(--muted);margin-top:1px}
+.pos{color:var(--good)}.neg{color:var(--crit)}.amb{color:var(--s1)}.mut{color:var(--muted)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:5px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+th:first-child,td:first-child,td.l,th.l{text-align:left}
+#glance td.l{white-space:normal;min-width:180px}
+#glance td.l:last-child{color:var(--ink2);font-size:11.5px}
+thead th{color:var(--muted);font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:99px;
+ border:1px solid currentColor;white-space:nowrap;display:inline-block}
+.kv{display:grid;grid-template-columns:92px 1fr;gap:4px 12px;font-size:13px;color:var(--ink2);margin-top:8px}
+.kv b{color:var(--muted);font-weight:500;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding-top:3px}
+.bar{height:6px;background:var(--grid);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--s1)}
+.warn{border-left:2px solid var(--crit);background:color-mix(in srgb,var(--crit) 8%,transparent);border-radius:0 7px 7px 0;
+ padding:10px 14px;font-size:12.5px;color:var(--ink2);margin-bottom:14px}
+.warn b{color:var(--crit)}
+.note{border-left:2px solid var(--s1);background:color-mix(in srgb,var(--s1) 8%,transparent);border-radius:0 7px 7px 0;
+ padding:10px 14px;font-size:12.5px;color:var(--ink2);margin-bottom:14px}
+.note b{color:var(--s1)}
+details{margin-top:10px}summary{cursor:pointer;color:var(--ink2);font-size:12.5px}
+#err{color:var(--crit);font-size:13px;margin-bottom:12px}
+footer{color:var(--muted);font-size:11.5px;border-top:1px solid var(--grid);padding-top:14px;margin-top:26px}
+@media(max-width:680px){.wrap{padding:14px 11px 50px}.stat .v{font-size:15px}table{font-size:11px}th,td{padding:4px 5px}
+ .hide-sm{display:none}.kv{grid-template-columns:1fr}}
+</style>
+<div class="wrap">
+<div class="nav">
+ <a href="./index.html">Live</a>
+ <a href="./calendar.html">Calendar</a>
+ <a href="./outlook.html">Outlook</a>
+ <a class="active" href="./experiment.html">Experiment</a>
+</div>
+<h1>Experiment</h1>
+<p class="sub">Every candidate strategy being ghost-tracked live, scored on real markets as they happen. Nothing here places
+orders. Each card says what the idea is, what it would change in the bot, what the backtest expected, and what live data
+shows so far. Refreshes about every 15 minutes.</p>
+<div id="err">Loading…</div>
+<div id="body" style="display:none">
+<div id="health"></div>
+<div class="note" id="rule"></div>
+<div class="sec">At a glance</div>
+<div class="card"><div class="tw"><table id="glance"></table></div></div>
+<div id="exps"></div>
+<div class="sec">Monitors</div>
+<div class="card"><h2>Our edge by month (4-rung fills, since Sep 11)</h2>
+ <p class="sub" style="margin:4px 0 8px">Market-wide, the maker edge faded in 2026; this is the check that ours has not. Review lows if a month goes clearly negative.</p>
+ <div class="tw"><table id="edge"></table></div></div>
+<div class="card"><h2>Competition at our exact prices</h2>
+ <p class="sub" style="margin:4px 0 8px">Latest order-book snapshot: how many of the watched ladders have another seller resting at the same price as our rung, and how big. The full queue census (Sep) had 75–85% of our orders first in line; being behind costs fill count, not fill quality (D129).</p>
+ <div class="tw"><table id="queue"></table></div></div>
+<footer id="foot"></footer>
+</div></div>
+<script>
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const m2=v=>v==null?'—':(v<0?'−$':'+$')+Math.abs(v).toFixed(2);
+const pct=v=>v==null?'—':v+'%';
+function res(r){
+  const p=r.endsWith('~'), y=r.startsWith('yes'), n=r.startsWith('no');
+  if(!y&&!n) return '<span class="mut">pending</span>';
+  return '<span class="'+(y?'neg':'pos')+'">'+(y?'YES':'NO')+(p?'~':'')+'</span>';
+}
+function statusTag(s){
+  const c=/shadow|forward|monitor/.test(s)?'amb':(/candidate/.test(s)?'pos':'mut');
+  return '<span class="tag '+c+'">'+esc(s)+'</span>';
+}
+function progress(dec,tgt){
+  const f=Math.min(100,Math.round(100*dec/Math.max(tgt,1)));
+  return '<div class="bar"><i style="width:'+f+'%"></i></div><div class="stat"><div class="s" style="padding:0">'+dec+' of '+tgt+' decided markets for a first read</div></div>';
+}
+function stats(s,dollars,label){
+  return '<div class="stats">'
+   +'<div class="stat"><div class="l">'+(label||'markets')+'</div><div class="v">'+s.n+'</div><div class="s">'+s.pending+' pending</div></div>'
+   +'<div class="stat"><div class="l">decided</div><div class="v">'+s.decided+'</div><div class="s">'+s.provisional+' provisional (~)</div></div>'
+   +'<div class="stat"><div class="l">YES / NO</div><div class="v"><span class="neg">'+s.yes+'</span> / <span class="pos">'+s.no+'</span></div><div class="s">YES = bust for a seller</div></div>'
+   +'<div class="stat"><div class="l">YES rate</div><div class="v '+(s.yes_rate==null?'':(s.yes_rate>25?'neg':'pos'))+'">'+pct(s.yes_rate)+'</div><div class="s">of decided</div></div>'
+   +(dollars?'<div class="stat"><div class="l">$</div><div class="v '+(s.dollars>=0?'pos':'neg')+'">'+m2(s.dollars)+'</div><div class="s">'+s.dollar_mkts+' markets with our fills</div></div>':'')
+   +'</div>';
+}
+function groups(gs,dollars){
+  return '<div class="tw"><table><thead><tr><th>group</th><th>markets</th><th>decided</th><th>YES</th><th>NO</th><th>YES rate</th>'
+   +(dollars?'<th>our $</th>':'')+'</tr></thead><tbody>'
+   +gs.map(g=>{const s=g.stats;return '<tr><td>'+esc(g.label)+'</td><td>'+s.n+'</td><td>'+s.decided+'</td><td class="neg">'+s.yes+'</td><td class="pos">'+s.no
+     +'</td><td><b>'+pct(s.yes_rate)+'</b></td>'+(dollars?'<td class="'+(s.dollars>=0?'pos':'neg')+'">'+(s.dollar_mkts?m2(s.dollars):'—')+'</td>':'')+'</tr>';}).join('')
+   +'</tbody></table></div>';
+}
+function rows(rs,dollars,since){
+  if(!rs||!rs.length) return '<p class="sub" style="margin:10px 0 0">No markets yet.</p>';
+  return '<details><summary>Latest '+rs.length+' markets</summary><div class="tw"><table><thead><tr><th>time MT</th><th>market</th><th>spike</th>'
+   +(since?'<th>min after reading</th>':'')+'<th class="hide-sm">fair</th><th class="hide-sm">1-sided</th><th>result</th><th class="hide-sm">now</th>'
+   +(dollars?'<th>our ct</th><th>our $</th>':'')+'</tr></thead><tbody>'
+   +rs.slice().reverse().map(r=>'<tr><td>'+esc(r.t)+'</td><td class="l">'+esc(r.tk)+'</td><td>'+r.px+'¢</td>'
+     +(since?'<td>'+(r.since==null?'—':Math.round(r.since))+'</td>':'')
+     +'<td class="hide-sm">'+(r.fair==null?'—':r.fair+'%')+'</td><td class="hide-sm">'+(r.onesided?'<span class="neg">yes</span>':'no')+'</td>'
+     +'<td>'+res(r.res)+'</td><td class="hide-sm">'+(r.now==null?'—':r.now+'¢')+'</td>'
+     +(dollars?'<td>'+(r.ct||'—')+'</td><td class="'+(r.pnl==null?'':(r.pnl>=0?'pos':'neg'))+'">'+(r.pnl==null?'—':m2(r.pnl)+(r.prov?'~':''))+'</td>':'')+'</tr>').join('')
+   +'</tbody></table></div></details>';
+}
+function keyLine(e){
+  if(e.stats) return e.stats.decided+' decided · YES '+pct(e.stats.yes_rate)+(e.dollars_ok&&e.stats.dollar_mkts?' · '+m2(e.stats.dollars):'');
+  if(e.groups&&e.groups.length) return e.groups.map(g=>esc(g.label)+' '+pct(g.stats.yes_rate)+' ('+g.stats.decided+')').join(' · ');
+  if(e.sizes) return e.sizes.map(s=>esc(s.label)+' '+m2(s.dollars)+' ('+s.legs+' legs)').join(' · ');
+  return '—';
+}
+function decided(e){
+  if(e.stats) return e.stats.decided;
+  if(e.groups&&e.groups.length) return Math.min.apply(null,e.groups.map(g=>g.stats.decided));
+  if(e.sizes) return e.sizes.reduce((a,s)=>a+s.legs,0);
+  return 0;
+}
+function render(d){
+  const h=d.health;
+  document.getElementById('health').innerHTML=
+    (h.alive?'':'<div class="warn"><b>Tracker is DOWN</b> — last heartbeat '+Math.round(h.heartbeat_age_s/60)+' min ago. Nothing below is updating.</div>')
+    +(h.scheduled_task?'':'<div class="warn"><b>Not reboot-proof.</b> The shadow tracker is not a scheduled task yet; a reboot or sleep stops all tracking until it is restarted.</div>')
+    +'<div class="stats">'
+    +'<div class="stat"><div class="l">tracker</div><div class="v '+(h.alive?'pos':'neg')+'">'+(h.alive?'LIVE':'DOWN')+'</div><div class="s">heartbeat '+h.heartbeat_age_s+' s ago</div></div>'
+    +'<div class="stat"><div class="l">tracking since</div><div class="v" style="font-size:14px">'+esc(h.since_mt)+'</div><div class="s">'+h.days+' days</div></div>'
+    +'<div class="stat"><div class="l">markets watched</div><div class="v">'+(h.subscribed||0).toLocaleString()+'</div><div class="s">websocket</div></div>'
+    +'<div class="stat"><div class="l">spikes logged</div><div class="v">'+h.bursts+'</div><div class="s">all series</div></div>'
+    +'<div class="stat"><div class="l">Wethr calls</div><div class="v">'+(h.wethr_calls||0).toLocaleString()+'</div><div class="s">this run · cap 5,000/day</div></div>'
+    +'</div>';
+  document.getElementById('rule').innerHTML='<b>How outcomes are scored.</b> '+esc(d.rule)+' Settled results replace provisional ones automatically.';
+  document.getElementById('glance').innerHTML='<thead><tr><th>#</th><th class="l">experiment</th><th class="hide-sm">status</th><th>progress</th><th class="l">live so far</th></tr></thead><tbody>'
+    +d.experiments.map(e=>'<tr><td>'+e.id+'</td><td class="l"><a href="#'+e.id+'" style="color:var(--ink)">'+esc(e.name)+'</a></td><td class="hide-sm">'+statusTag(e.status)
+      +'</td><td>'+decided(e)+'/'+e.target+'</td><td class="l">'+keyLine(e)+'</td></tr>').join('')+'</tbody>';
+  document.getElementById('exps').innerHTML=d.experiments.map(e=>{
+    let x='<div class="card" id="'+e.id+'"><h2>'+e.id+' · '+esc(e.name)+' '+statusTag(e.status)+'</h2>'
+      +'<div class="kv"><b>what</b><div>'+esc(e.what)+'</div><b>if confirmed</b><div>'+esc(e.change)+'</div>'
+      +'<b>backtest</b><div>'+esc(e.backtest)+'</div><b>measured as</b><div>'+esc(e.metric)+'</div></div>'
+      +progress(decided(e),e.target);
+    if(e.stats) x+=stats(e.stats,e.dollars_ok);
+    if(e.reference) x+='<p class="sub" style="margin:0">Reference — all bot-B filled markets since tracking began: '+e.reference.decided+' decided, YES '+pct(e.reference.yes_rate)+', '+m2(e.reference.dollars)+'.</p>';
+    if(e.extra&&e.extra.ceiling_skips!=null) x+='<p class="sub" style="margin:0">Markets the bot skipped at its ceiling since tracking began: '+e.extra.ceiling_skips+'.</p>';
+    if(e.groups) x+=groups(e.groups,e.dollars_ok);
+    if(e.sizes) x+='<div class="tw"><table><thead><tr><th>slice</th><th>legs</th><th>busts</th><th>contracts above line</th><th>their $</th></tr></thead><tbody>'
+      +e.sizes.map(s=>'<tr><td>'+esc(s.label)+'</td><td>'+s.legs+'</td><td>'+s.busts+'</td><td>'+s.contracts.toLocaleString()+'</td><td class="'+(s.dollars>=0?'pos':'neg')+'"><b>'+m2(s.dollars)+'</b></td></tr>').join('')
+      +'</tbody></table></div>'+(e.max_ct?'<p class="sub" style="margin:6px 0 0">Bot size today: '+e.max_ct+' contracts per rung (grows with capital).</p>':'');
+    x+=rows(e.rows,e.dollars_ok,e.id==='E4');
+    return x+'</div>';}).join('');
+  const ed=d.monitors.edge||[];
+  document.getElementById('edge').innerHTML='<thead><tr><th>month</th><th>leg</th><th>contracts</th><th>$</th><th>¢ per contract</th></tr></thead><tbody>'
+    +ed.map(r=>'<tr><td>'+r.month+'</td><td>'+r.leg+'</td><td>'+r.contracts.toLocaleString()+'</td><td class="'+(r.dollars>=0?'pos':'neg')+'">'+m2(r.dollars)
+      +'</td><td class="'+(r.c_per_ct>=0?'pos':'neg')+'"><b>'+(r.c_per_ct>=0?'+':'')+r.c_per_ct+'¢</b></td></tr>').join('')+'</tbody>';
+  const q=d.monitors.queue||[];
+  document.getElementById('queue').innerHTML='<thead><tr><th>rung</th><th>ladders</th><th>another seller at our price</th><th>their median size</th></tr></thead><tbody>'
+    +q.map(r=>'<tr><td>'+r.rung+'¢</td><td>'+r.ladders+'</td><td><b>'+r.shared_pct+'%</b></td><td>'+r.median_other+' ct</td></tr>').join('')+'</tbody>';
+  document.getElementById('foot').innerHTML='Generated '+esc(d.generated_mt)+' ('+esc(d.generated)+'). Source: shadow_tracker.py + bot B records; builder exp_publish.py. Candidate list: PROFITABLE_STRATEGIES_2026-09-28.md.';
+  document.getElementById('err').style.display='none';document.getElementById('body').style.display='block';
+}
+async function load(){
+  try{const r=await fetch('./data/experiment.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;render(await r.json());}
+  catch(e){document.getElementById('err').textContent='Experiment data not published yet — run exp_publish.py.';}
+}
+load();setInterval(load,300000);
+</script>

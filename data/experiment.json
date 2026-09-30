@@ -1,0 +1,873 @@
+{
+ "generated": "2026-09-30 04:35 UTC",
+ "generated_mt": "09-29 22:35 MT",
+ "generated_epoch": 1790742934.4317458,
+ "health": {
+  "heartbeat_age_s": 15,
+  "alive": true,
+  "since": "2026-09-29 05:50 UTC",
+  "since_mt": "09-28 23:50 MT",
+  "days": 0.9,
+  "last_trade_age_s": 2,
+  "subscribed": 1560,
+  "wethr_calls": 3457,
+  "bursts": 284,
+  "scheduled_task": false
+ },
+ "experiments": [
+  {
+   "id": "E1",
+   "name": "Extra order where the outcome looks settled",
+   "status": "candidate",
+   "what": "A second, separate order at the same price on markets where the nowcast puts YES under 20% (reliable hours) or the day's extreme is already locked (official 6-hour report, or weekend). Calm-clear-low nights are not logged live yet.",
+   "change": "Doubles size only where spikes rarely come true. Needs free cash; on its own it can crowd out later fills at $2,000.",
+   "backtest": "+$316 last 30 days, +$219 since Sep 11, placebo p 0.028; out-of-sample +$272 / +$303. Alone at $2k: about break-even (D131).",
+   "metric": "Extra $ = the base order's $ again on flagged markets (assumes the extra order fills like the base).",
+   "target": 30,
+   "stats": {
+    "n": 2,
+    "decided": 1,
+    "yes": 0,
+    "no": 1,
+    "pending": 1,
+    "yes_rate": 0.0,
+    "provisional": 1,
+    "dollars": 6.0,
+    "dollar_mkts": 1
+   },
+   "reference": {
+    "n": 5,
+    "decided": 4,
+    "yes": 0,
+    "no": 4,
+    "pending": 1,
+    "yes_rate": 0.0,
+    "provisional": 4,
+    "dollars": 12.0,
+    "dollar_mkts": 4
+   },
+   "rows": [
+    {
+     "t": "09-29 09:10",
+     "tk": "KXLOWTPHX-26SEP29-B64.5",
+     "px": 30,
+     "res": "no~",
+     "now": 4,
+     "legs": 16,
+     "ct": 16,
+     "pnl": 6.0,
+     "prov": true,
+     "fair": 12.5,
+     "onesided": 0,
+     "resting": 4,
+     "safe_fair": 1,
+     "settled": 0,
+     "r7": 1,
+     "r4": 1
+    },
+    {
+     "t": "09-29 19:34",
+     "tk": "KXLOWTSEA-26SEP29-B51.5",
+     "px": 31,
+     "res": "pending",
+     "now": 16,
+     "legs": 8,
+     "ct": 8,
+     "pnl": 0.0,
+     "prov": false,
+     "fair": 15.1,
+     "onesided": 0,
+     "resting": 0,
+     "safe_fair": 1,
+     "settled": 0,
+     "r7": 1,
+     "r4": 1
+    }
+   ],
+   "dollars_ok": true
+  },
+  {
+   "id": "E2",
+   "name": "E1 plus cancel the extra order on one-sided buying",
+   "status": "candidate \u2014 needs websocket in bot",
+   "what": "Same as E1, but the extra order is cancelled when the buying just before the spike is all one direction (someone who may know).",
+   "change": "Keeps the good extra fills and skips the dangerous ones. Biggest single gain in the combined model (+$278/month model at $2k).",
+   "backtest": "+$333 last 30 days, +$280 since Sep 11, 26.5\u00a2 per extra contract, placebo p < 0.001.",
+   "metric": "Extra $ = the base order's $ again on flagged, NOT one-sided markets.",
+   "target": 30,
+   "stats": {
+    "n": 2,
+    "decided": 1,
+    "yes": 0,
+    "no": 1,
+    "pending": 1,
+    "yes_rate": 0.0,
+    "provisional": 1,
+    "dollars": 6.0,
+    "dollar_mkts": 1
+   },
+   "reference": {
+    "n": 5,
+    "decided": 4,
+    "yes": 0,
+    "no": 4,
+    "pending": 1,
+    "yes_rate": 0.0,
+    "provisional": 4,
+    "dollars": 12.0,
+    "dollar_mkts": 4
+   },
+   "rows": [
+    {
+     "t": "09-29 09:10",
+     "tk": "KXLOWTPHX-26SEP29-B64.5",
+     "px": 30,
+     "res": "no~",
+     "now": 4,
+     "legs": 16,
+     "ct": 16,
+     "pnl": 6.0,
+     "prov": true,
+     "fair": 12.5,
+     "onesided": 0,
+     "resting": 4,
+     "safe_fair": 1,
+     "settled": 0,
+     "r7": 1,
+     "r4": 1
+    },
+    {
+     "t": "09-29 19:34",
+     "tk": "KXLOWTSEA-26SEP29-B51.5",
+     "px": 31,
+     "res": "pending",
+     "now": 16,
+     "legs": 8,
+     "ct": 8,
+     "pnl": 0.0,
+     "prov": false,
+     "fair": 15.1,
+     "onesided": 0,
+     "resting": 0,
+     "safe_fair": 1,
+     "settled": 0,
+     "r7": 1,
+     "r4": 1
+    }
+   ],
+   "dollars_ok": true
+  },
+  {
+   "id": "E3",
+   "name": "Pull the whole ladder on one-sided pre-spike buying (B1)",
+   "status": "shadow only",
+   "what": "Cancel every rung when the buying in the minute before the spike is \u226596% YES and above 15\u00a2.",
+   "change": "Avoids the informed sweeps; costs the winners it also cancels. Market-wide history shows no effect, so it stays unproven.",
+   "backtest": "+$155 to +$248 last 30 days out-of-sample on our fills, p 0.002; archive null.",
+   "metric": "$ saved = minus bot B's $ on flagged markets (positive = pulling would have helped).",
+   "target": 30,
+   "stats": {
+    "n": 0,
+    "decided": 0,
+    "yes": 0,
+    "no": 0,
+    "pending": 0,
+    "yes_rate": null,
+    "provisional": 0,
+    "dollars": 0,
+    "dollar_mkts": 0
+   },
+   "reference": {
+    "n": 5,
+    "decided": 4,
+    "yes": 0,
+    "no": 4,
+    "pending": 1,
+    "yes_rate": 0.0,
+    "provisional": 4,
+    "dollars": 12.0,
+    "dollar_mkts": 4
+   },
+   "rows": [],
+   "dollars_ok": true
+  },
+  {
+   "id": "E4",
+   "name": "Fresh-reading window (pull 5\u201315 / 10\u201348 min after a new high/low reading)",
+   "status": "pre-registered forward test",
+   "what": "Spikes that land 5\u201315 (or 10\u201348) minutes after a Wethr reading moved the day's extreme busted far more in the backtest \u2014 likely traders on 1-minute feeds acting before the public. Windows fixed in advance; live data decides.",
+   "change": "If the window's YES rate stays well above outside, it becomes a pull rule (same websocket cancel as E2).",
+   "backtest": "In-sample +$441 full / +$220 last 30 days; out-of-sample the best window moved (\u2212$35). Mostly one Miami trade lately.",
+   "metric": "YES rate of spikes in each window vs outside, on the tracker's burst population (any jump to \u226530\u00a2 after an hour \u226415\u00a2).",
+   "target": 30,
+   "groups": [
+    {
+     "label": "5\u201315 min",
+     "stats": {
+      "n": 1,
+      "decided": 1,
+      "yes": 1,
+      "no": 0,
+      "pending": 0,
+      "yes_rate": 100.0,
+      "provisional": 1,
+      "dollars": 0,
+      "dollar_mkts": 0
+     }
+    },
+    {
+     "label": "10\u201348 min",
+     "stats": {
+      "n": 4,
+      "decided": 3,
+      "yes": 1,
+      "no": 2,
+      "pending": 1,
+      "yes_rate": 33.3,
+      "provisional": 3,
+      "dollars": 4.5,
+      "dollar_mkts": 2
+     }
+    },
+    {
+     "label": "outside windows",
+     "stats": {
+      "n": 33,
+      "decided": 30,
+      "yes": 17,
+      "no": 13,
+      "pending": 3,
+      "yes_rate": 56.7,
+      "provisional": 30,
+      "dollars": 19.5,
+      "dollar_mkts": 10
+     }
+    }
+   ],
+   "rows": [
+    {
+     "t": "09-29 02:15",
+     "tk": "KXHIGHTSEA-26SEP29-B62.5",
+     "px": 48,
+     "res": "yes~",
+     "now": 100,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 11.1,
+     "onesided": 0,
+     "resting": 0,
+     "since": 13.700020690759024
+    },
+    {
+     "t": "09-29 02:32",
+     "tk": "KXHIGHTLV-26SEP29-T82",
+     "px": 67,
+     "res": "yes~",
+     "now": 100,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 50.0,
+     "onesided": 0,
+     "resting": 0,
+     "since": 30.016666666666666
+    },
+    {
+     "t": "09-29 04:09",
+     "tk": "KXLOWTDEN-26SEP29-B54.5",
+     "px": 36,
+     "res": "pending",
+     "now": 18,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 31.2,
+     "onesided": 0,
+     "resting": 0,
+     "since": 22.345541381835936
+    },
+    {
+     "t": "09-29 11:56",
+     "tk": "KXHIGHMIA-26SEP29-B89.5",
+     "px": 30,
+     "res": "no~",
+     "now": 0,
+     "legs": 8,
+     "ct": 8,
+     "pnl": 3.0,
+     "prov": true,
+     "fair": 21.5,
+     "onesided": 0,
+     "resting": 4,
+     "since": 29.084783418973288
+    },
+    {
+     "t": "09-29 14:12",
+     "tk": "KXHIGHAUS-26SEP29-B99.5",
+     "px": 34,
+     "res": "no~",
+     "now": 0,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
+     "fair": 78.2,
+     "onesided": 0,
+     "resting": 0,
+     "since": 18.316666666666666
+    }
+   ],
+   "dollars_ok": true
+  },
+  {
+   "id": "E5",
+   "name": "Raise the armed-market ceiling 150 \u2192 200",
+   "status": "candidate \u2014 config change",
+   "what": "On busy days the bot hits its 150-market limit and skips arming new ones. This counts spikes on markets it skipped for that reason.",
+   "change": "One number in the bot config. Settled-NO spikes here are wins a higher ceiling could have caught.",
+   "backtest": "+$16/day (CI +$1 to +$35), +$142 since Sep 11. 250+ fails.",
+   "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
+   "target": 20,
+   "stats": {
+    "n": 9,
+    "decided": 9,
+    "yes": 1,
+    "no": 8,
+    "pending": 0,
+    "yes_rate": 11.1,
+    "provisional": 9,
+    "dollars": 9.0,
+    "dollar_mkts": 6
+   },
+   "extra": {
+    "ceiling_skips": 155
+   },
+   "rows": [
+    {
+     "t": "09-29 02:57",
+     "tk": "KXLOWTOKC-26SEP29-B70.5",
+     "px": 50,
+     "res": "no~",
+     "now": 0,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
+     "fair": 27.3,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 03:02",
+     "tk": "KXLOWTMIA-26SEP29-B74.5",
+     "px": 43,
+     "res": "no~",
+     "now": 1,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 8.8,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 03:07",
+     "tk": "KXHIGHTMIN-26SEP29-B69.5",
+     "px": 41,
+     "res": "no~",
+     "now": 1,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 4.7,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 03:17",
+     "tk": "KXLOWTLV-26SEP29-B65.5",
+     "px": 49,
+     "res": "no~",
+     "now": 0,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
+     "fair": 31.2,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 04:24",
+     "tk": "KXLOWTPHX-26SEP29-B68.5",
+     "px": 42,
+     "res": "no~",
+     "now": 0,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
+     "fair": 30.4,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 05:34",
+     "tk": "KXHIGHTSEA-26SEP29-B60.5",
+     "px": 31,
+     "res": "no~",
+     "now": 0,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
+     "fair": 1.2,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 08:04",
+     "tk": "KXLOWTCHI-26SEP29-B52.5",
+     "px": 48,
+     "res": "yes~",
+     "now": 100,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 47.2,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 14:12",
+     "tk": "KXHIGHAUS-26SEP29-B99.5",
+     "px": 34,
+     "res": "no~",
+     "now": 0,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
+     "fair": 78.2,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 18:06",
+     "tk": "KXLOWTMIA-26SEP29-B70.5",
+     "px": 30,
+     "res": "no~",
+     "now": 2,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
+     "fair": 60.0,
+     "onesided": 0,
+     "resting": 0
+    }
+   ],
+   "dollars_ok": false
+  },
+  {
+   "id": "E6",
+   "name": "Hourly temperature markets (Miami + NYC / Chicago / LA)",
+   "status": "forward-tracked; decide Oct 19 \u2013 Nov 9",
+   "what": "Same fade on the Synoptic-settled hourly markets. They settle on a regional index, so nobody can read the answer live.",
+   "change": "Adds a new series family to the bot, with arming tuned for 60-minute markets. Miami first.",
+   "backtest": "Miami +$24.60/day (CI +$7.24 to +$40.81), 71 markets, 5 busts, p < 0.001; \u2248 +$375\u2013450/month model.",
+   "metric": "YES rate of spikes to 30\u201360\u00a2 after a quiet hour, by series (tracker definition, not the exact backtest arming rule).",
+   "target": 40,
+   "groups": [
+    {
+     "label": "KXTEMPCHIHS",
+     "stats": {
+      "n": 3,
+      "decided": 3,
+      "yes": 1,
+      "no": 2,
+      "pending": 0,
+      "yes_rate": 33.3,
+      "provisional": 0,
+      "dollars": 0,
+      "dollar_mkts": 0
+     }
+    },
+    {
+     "label": "KXTEMPLAXHS",
+     "stats": {
+      "n": 2,
+      "decided": 2,
+      "yes": 0,
+      "no": 2,
+      "pending": 0,
+      "yes_rate": 0.0,
+      "provisional": 0,
+      "dollars": 0,
+      "dollar_mkts": 0
+     }
+    },
+    {
+     "label": "KXTEMPNYCHS",
+     "stats": {
+      "n": 1,
+      "decided": 1,
+      "yes": 0,
+      "no": 1,
+      "pending": 0,
+      "yes_rate": 0.0,
+      "provisional": 0,
+      "dollars": 0,
+      "dollar_mkts": 0
+     }
+    }
+   ],
+   "rows": [
+    {
+     "t": "09-29 02:33",
+     "tk": "KXTEMPCHIHS-26SEP2905-T53.99",
+     "px": 37,
+     "res": "no",
+     "now": null,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 05:42",
+     "tk": "KXTEMPCHIHS-26SEP2908-T52.99",
+     "px": 30,
+     "res": "no",
+     "now": null,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 19:00",
+     "tk": "KXTEMPCHIHS-26SEP2922-T65.99",
+     "px": 55,
+     "res": "yes",
+     "now": null,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 03:52",
+     "tk": "KXTEMPNYCHS-26SEP2906-T60.99",
+     "px": 35,
+     "res": "no",
+     "now": null,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 11:06",
+     "tk": "KXTEMPLAXHS-26SEP2914-T77.99",
+     "px": 42,
+     "res": "no",
+     "now": null,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "09-29 16:55",
+     "tk": "KXTEMPLAXHS-26SEP2919-T82.99",
+     "px": 35,
+     "res": "no",
+     "now": null,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    }
+   ],
+   "dollars_ok": false
+  },
+  {
+   "id": "E7",
+   "name": "A 25\u00a2 rung (alternative form of extra size)",
+   "status": "candidate \u2014 pick E1/E2 or this, not both",
+   "what": "Spikes on markets where our ladder was resting that peaked at 25\u201329\u00a2: a 25\u00a2 rung would have filled, the 30\u00a2 rung did not.",
+   "change": "Extra contracts at a lower price. Same money as E1/E2 in a different shape.",
+   "backtest": "Out-of-sample +$340 last 30 days (+$355 since Sep 11).",
+   "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
+   "target": 20,
+   "stats": {
+    "n": 8,
+    "decided": 8,
+    "yes": 0,
+    "no": 8,
+    "pending": 0,
+    "yes_rate": 0.0,
+    "provisional": 8,
+    "dollars": 0,
+    "dollar_mkts": 0
+   },
+   "rows": [
+    {
+     "t": "09-29 01:44",
+     "tk": "KXHIGHDEN-26SEP29-B67.5",
+     "px": 29,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 12:50",
+     "tk": "KXHIGHDEN-26SEP30-B59.5",
+     "px": 28,
+     "res": "no~",
+     "now": 6,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 01:47",
+     "tk": "KXHIGHTPHX-26SEP29-T84",
+     "px": 27,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 18:25",
+     "tk": "KXLOWTAUS-26SEP30-B71.5",
+     "px": 27,
+     "res": "no~",
+     "now": 7,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 03:34",
+     "tk": "KXLOWTDAL-26SEP29-B74.5",
+     "px": 28,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 03:32",
+     "tk": "KXLOWTMIN-26SEP29-T62",
+     "px": 25,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 01:36",
+     "tk": "KXLOWTNYC-26SEP29-B56.5",
+     "px": 29,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-29 01:55",
+     "tk": "KXLOWTSATX-26SEP29-B73.5",
+     "px": 29,
+     "res": "no~",
+     "now": 2,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    }
+   ],
+   "dollars_ok": false
+  },
+  {
+   "id": "E8",
+   "name": "6\u00a2 tail entry instead of 8\u00a2",
+   "status": "candidate \u2014 quality, not $/day",
+   "what": "Splits bot B's filled markets by how quiet the tail was in the 2 hours before the spike.",
+   "change": "Arming only after a \u22646\u00a2 tail gives fewer, cleaner trades.",
+   "backtest": "+4 to +6\u00a2 per contract, busts 9\u201312%; \u2248 $0/day.",
+   "metric": "Bust rate and $ of bot fills, \u22646\u00a2 tail vs 7\u20138\u00a2 tail.",
+   "target": 30,
+   "groups": [
+    {
+     "label": "tail 7\u20138\u00a2",
+     "stats": {
+      "n": 4,
+      "decided": 3,
+      "yes": 0,
+      "no": 3,
+      "pending": 1,
+      "yes_rate": 0.0,
+      "provisional": 3,
+      "dollars": 10.5,
+      "dollar_mkts": 3
+     }
+    },
+    {
+     "label": "tail \u22646\u00a2 (2 h)",
+     "stats": {
+      "n": 1,
+      "decided": 1,
+      "yes": 0,
+      "no": 1,
+      "pending": 0,
+      "yes_rate": 0.0,
+      "provisional": 1,
+      "dollars": 1.5,
+      "dollar_mkts": 1
+     }
+    }
+   ],
+   "rows": [],
+   "dollars_ok": true
+  },
+  {
+   "id": "E9",
+   "name": "Size caution: contracts above ~100 (lows) / ~198 (highs) per rung",
+   "status": "monitor \u2192 sizing decision",
+   "what": "Market-wide, extra contracts beyond these sizes lose (lows) or barely pay (highs). This tracks what OUR contracts above the line earn.",
+   "change": "If negative, cap lows per-rung size at 100 while highs keep growing (config).",
+   "backtest": "Market-wide: lows marginal \u00a2/ct \u221216 at 100\u2192150; highs +4 at 198\u2192250 (CI spans 0). Model: capping lows \u2248 \u2212$50\u2013100/month avg, much better bad months.",
+   "metric": "Realised $ of the contracts above the line, since the 09-19 size raise.",
+   "target": 30,
+   "sizes": [
+    {
+     "label": "lows above 100/rung",
+     "legs": 12,
+     "busts": 4,
+     "contracts": 1280,
+     "dollars": 36.0
+    },
+    {
+     "label": "highs above 198/rung",
+     "legs": 0,
+     "busts": 0,
+     "contracts": 0,
+     "dollars": 0.0
+    }
+   ],
+   "max_ct": 219,
+   "rows": [],
+   "dollars_ok": false
+  }
+ ],
+ "monitors": {
+  "edge": [
+   {
+    "month": "2026-09",
+    "leg": "highs",
+    "dollars": 541.4,
+    "contracts": 2044,
+    "c_per_ct": 26.5
+   },
+   {
+    "month": "2026-09",
+    "leg": "lows",
+    "dollars": 229.9,
+    "contracts": 3324,
+    "c_per_ct": 6.9
+   }
+  ],
+  "queue": [
+   {
+    "rung": 30,
+    "ladders": 285,
+    "shared_pct": 76.8,
+    "median_other": 23.0
+   },
+   {
+    "rung": 35,
+    "ladders": 285,
+    "shared_pct": 51.6,
+    "median_other": 20.0
+   },
+   {
+    "rung": 40,
+    "ladders": 285,
+    "shared_pct": 6.7,
+    "median_other": 30.0
+   },
+   {
+    "rung": 45,
+    "ladders": 285,
+    "shared_pct": 54.4,
+    "median_other": 25.0
+   }
+  ]
+ },
+ "rule": "Pending markets are scored PROVISIONALLY from the live price: mid \u2265 90\u00a2 \u2192 YES~, \u2264 10\u00a2 \u2192 NO~. '~' marks provisional."
+}
