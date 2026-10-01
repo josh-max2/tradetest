@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-01 14:53 UTC",
- "generated_mt": "10-01 08:53 MT",
- "generated_epoch": 1790866418.3332617,
+ "generated": "2026-10-01 15:13 UTC",
+ "generated_mt": "10-01 09:13 MT",
+ "generated_epoch": 1790867611.4053862,
  "health": {
-  "heartbeat_age_s": 12,
+  "heartbeat_age_s": 5,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 2.4,
-  "last_trade_age_s": 0,
-  "subscribed": 760,
-  "wethr_calls": 1525,
-  "bursts": 765,
+  "last_trade_age_s": 1,
+  "subscribed": 800,
+  "wethr_calls": 1610,
+  "bursts": 771,
   "scheduled_task": true
  },
  "experiments": [
@@ -291,10 +291,10 @@
      "stats": {
       "n": 59,
       "decided": 59,
-      "yes": 25,
-      "no": 34,
+      "yes": 24,
+      "no": 35,
       "pending": 0,
-      "yes_rate": 42.4,
+      "yes_rate": 40.7,
       "provisional": 15,
       "dollars": 20.5,
       "dollar_mkts": 15
@@ -844,10 +844,10 @@
      "stats": {
       "n": 2,
       "decided": 2,
-      "yes": 1,
-      "no": 1,
+      "yes": 2,
+      "no": 0,
       "pending": 0,
-      "yes_rate": 50.0,
+      "yes_rate": 100.0,
       "provisional": 1,
       "dollars": 0,
       "dollar_mkts": 0
@@ -1027,8 +1027,8 @@
      "t": "10-01 08:00",
      "tk": "KXTEMPMIAH-26OCT0111-T76.99",
      "px": 46,
-     "res": "no~",
-     "now": 2,
+     "res": "yes~",
+     "now": 50,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1039,7 +1039,7 @@
     }
    ],
    "headline": {
-    "est": -108.05,
+    "est": -174.89,
     "how": "spikes valued with the calibrated fill model on their real trades, 4 rungs at 50 ct (the tested size)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -1479,7 +1479,7 @@
    "E6",
    "E9"
   ],
-  "live_total": 395.44,
+  "live_total": 328.6,
   "live_per_month": null,
   "days": 2.4,
   "base_live": 21.7,
@@ -1511,27 +1511,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 516,
-    "shared_pct": 18.0,
-    "median_other": 11.0
+    "ladders": 556,
+    "shared_pct": 19.1,
+    "median_other": 8.0
    },
    {
     "rung": 35,
-    "ladders": 516,
-    "shared_pct": 9.5,
+    "ladders": 556,
+    "shared_pct": 8.5,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 516,
-    "shared_pct": 7.0,
-    "median_other": 30.0
+    "ladders": 556,
+    "shared_pct": 6.5,
+    "median_other": 35.0
    },
    {
     "rung": 45,
-    "ladders": 516,
-    "shared_pct": 9.5,
-    "median_other": 19.0
+    "ladders": 556,
+    "shared_pct": 9.4,
+    "median_other": 15.0
    }
   ]
  },
@@ -1542,8 +1542,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 204,
-    "markets": 50,
+    "orders": 208,
+    "markets": 51,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1558,8 +1558,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 108,
-    "markets": 26,
+    "orders": 112,
+    "markets": 27,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1574,8 +1574,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 108,
-    "markets": 26,
+    "orders": 112,
+    "markets": 27,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1606,8 +1606,8 @@
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 109,
-    "markets": 26,
+    "orders": 113,
+    "markets": 27,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1622,8 +1622,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 55,
-    "markets": 41,
+    "orders": 58,
+    "markets": 43,
     "late_line": 1,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1648,7 +1648,7 @@
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 38,
+    "ladders": 40,
     "settled": -0.0,
     "provisional": -0.0
    },
@@ -1668,7 +1668,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 56,
+   "orders_compared": 63,
    "real_filled": 0,
    "agree_pct": 100.0,
    "contract_ratio": null,
@@ -1740,12 +1740,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 0.0,
-    "E6": 22.72,
+    "E6": -44.12,
     "E7": 6.0,
     "E8": 0,
     "E9": -0.0
    },
-   "compat": 24.22
+   "compat": -42.62
   }
  ]
 }
