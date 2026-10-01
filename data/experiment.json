@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-01 18:08 UTC",
- "generated_mt": "10-01 12:08 MT",
- "generated_epoch": 1790878103.3106952,
+ "generated": "2026-10-01 18:25 UTC",
+ "generated_mt": "10-01 12:25 MT",
+ "generated_epoch": 1790879109.519783,
  "health": {
-  "heartbeat_age_s": 26,
+  "heartbeat_age_s": 12,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 2.5,
   "last_trade_age_s": 0,
   "subscribed": 1150,
-  "wethr_calls": 2065,
-  "bursts": 813,
+  "wethr_calls": 2135,
+  "bursts": 815,
   "scheduled_task": true
  },
  "experiments": [
@@ -427,34 +427,20 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 27,
-    "decided": 27,
+    "n": 28,
+    "decided": 28,
     "yes": 3,
-    "no": 24,
+    "no": 25,
     "pending": 0,
-    "yes_rate": 11.1,
-    "provisional": 2,
+    "yes_rate": 10.7,
+    "provisional": 3,
     "dollars": 19.0,
     "dollar_mkts": 17
    },
    "extra": {
-    "ceiling_skips": 325
+    "ceiling_skips": 331
    },
    "rows": [
-    {
-     "t": "09-29 03:07",
-     "tk": "KXHIGHTMIN-26SEP29-B69.5",
-     "px": 41,
-     "res": "no",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": 4.7,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "09-29 03:17",
      "tk": "KXLOWTLV-26SEP29-B65.5",
@@ -778,6 +764,20 @@
      "resting": 0
     },
     {
+     "t": "09-30 19:36",
+     "tk": "KXLOWTPHX-26OCT01-B68.5",
+     "px": 30,
+     "res": "no~",
+     "now": 1,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
      "t": "09-30 21:36",
      "tk": "KXHIGHTDAL-26OCT01-T81",
      "px": 49,
@@ -793,8 +793,8 @@
     }
    ],
    "headline": {
-    "est": 627.58,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 226); if every crossed rung had filled in full: +$4,351",
+    "est": 679.08,
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 226); if every crossed rung had filled in full: +$4,501",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -1311,7 +1311,7 @@
      "tk": "KXLOWTMIA-26OCT01-B72.5",
      "px": 27,
      "res": "no~",
-     "now": 16,
+     "now": 6,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1325,7 +1325,7 @@
      "tk": "KXLOWTMIN-26OCT01-B48.5",
      "px": 28,
      "res": "no~",
-     "now": 22,
+     "now": 24,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1549,7 +1549,7 @@
    "E6",
    "E9"
   ],
-  "live_total": 601.03,
+  "live_total": 652.53,
   "live_per_month": null,
   "days": 2.5,
   "base_live": 17.7,
@@ -1581,26 +1581,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 780,
-    "shared_pct": 23.5,
-    "median_other": 10.0
+    "ladders": 821,
+    "shared_pct": 24.5,
+    "median_other": 6.0
    },
    {
     "rung": 35,
-    "ladders": 780,
-    "shared_pct": 6.4,
+    "ladders": 821,
+    "shared_pct": 8.5,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 780,
-    "shared_pct": 5.4,
-    "median_other": 19.0
+    "ladders": 821,
+    "shared_pct": 6.8,
+    "median_other": 12.0
    },
    {
     "rung": 45,
-    "ladders": 780,
-    "shared_pct": 10.4,
+    "ladders": 821,
+    "shared_pct": 10.1,
     "median_other": 15.0
    }
   ]
@@ -1612,8 +1612,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 264,
-    "markets": 64,
+    "orders": 276,
+    "markets": 67,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1676,8 +1676,8 @@
    },
    {
     "world": "HOURLY",
-    "orders": 128,
-    "markets": 32,
+    "orders": 140,
+    "markets": 35,
     "late_line": 0,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1692,8 +1692,8 @@
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 248,
-    "markets": 61,
+    "orders": 252,
+    "markets": 62,
     "late_line": 75,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1708,8 +1708,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 144,
-    "markets": 123,
+    "orders": 145,
+    "markets": 124,
     "late_line": 41,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1727,14 +1727,14 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 63,
+    "ladders": 64,
     "settled": 0.0,
     "provisional": 0.0
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 121,
+    "ladders": 122,
     "settled": -0.0,
     "provisional": -0.0
    },
@@ -1808,13 +1808,13 @@
     "E2": 0,
     "E3": 0,
     "E4": -10.2,
-    "E5": 141.12,
+    "E5": 192.61,
     "E6": -73.66,
     "E7": 20.6,
     "E8": -5.2,
     "E9": -0.0
    },
-   "compat": 67.46
+   "compat": 118.95
   },
   {
    "day": "2026-10-01",
