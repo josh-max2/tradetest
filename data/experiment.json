@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-01 10:43 UTC",
- "generated_mt": "10-01 04:43 MT",
- "generated_epoch": 1790851409.4194202,
+ "generated": "2026-10-01 11:03 UTC",
+ "generated_mt": "10-01 05:03 MT",
+ "generated_epoch": 1790852604.2354305,
  "health": {
-  "heartbeat_age_s": 4,
+  "heartbeat_age_s": 28,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 2.2,
-  "last_trade_age_s": 2,
-  "subscribed": 600,
-  "wethr_calls": 825,
-  "bursts": 720,
+  "last_trade_age_s": 1,
+  "subscribed": 630,
+  "wethr_calls": 870,
+  "bursts": 725,
   "scheduled_task": true
  },
  "experiments": [
@@ -88,7 +88,7 @@
      "tk": "KXLOWTHOU-26OCT01-B76.5",
      "px": 30,
      "res": "no~",
-     "now": 14,
+     "now": 16,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -184,7 +184,7 @@
      "tk": "KXLOWTHOU-26OCT01-B76.5",
      "px": 30,
      "res": "no~",
-     "now": 14,
+     "now": 16,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -289,13 +289,13 @@
     {
      "label": "outside windows",
      "stats": {
-      "n": 56,
-      "decided": 56,
+      "n": 57,
+      "decided": 57,
       "yes": 29,
-      "no": 27,
+      "no": 28,
       "pending": 0,
-      "yes_rate": 51.8,
-      "provisional": 22,
+      "yes_rate": 50.9,
+      "provisional": 23,
       "dollars": 16.5,
       "dollar_mkts": 15
      }
@@ -1028,13 +1028,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 19,
-    "decided": 19,
+    "n": 20,
+    "decided": 20,
     "yes": 10,
-    "no": 9,
+    "no": 10,
     "pending": 0,
-    "yes_rate": 52.6,
-    "provisional": 13,
+    "yes_rate": 50.0,
+    "provisional": 14,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -1171,6 +1171,20 @@
      "px": 27,
      "res": "yes~",
      "now": 50,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "09-30 12:16",
+     "tk": "KXLOWTCHI-26OCT01-T64",
+     "px": 26,
+     "res": "no~",
+     "now": 2,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1454,27 +1468,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 333,
-    "shared_pct": 24.0,
-    "median_other": 6.0
+    "ladders": 368,
+    "shared_pct": 18.5,
+    "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 333,
-    "shared_pct": 16.2,
-    "median_other": 25.0
+    "ladders": 368,
+    "shared_pct": 10.6,
+    "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 333,
-    "shared_pct": 8.1,
+    "ladders": 368,
+    "shared_pct": 8.2,
     "median_other": 25.0
    },
    {
     "rung": 45,
-    "ladders": 333,
-    "shared_pct": 14.1,
-    "median_other": 20.0
+    "ladders": 368,
+    "shared_pct": 12.5,
+    "median_other": 22.0
    }
   ]
  },
@@ -1485,8 +1499,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 63,
-    "markets": 16,
+    "orders": 82,
+    "markets": 21,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1501,8 +1515,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 19,
-    "markets": 5,
+    "orders": 38,
+    "markets": 10,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1517,8 +1531,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 19,
-    "markets": 5,
+    "orders": 38,
+    "markets": 10,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1549,8 +1563,8 @@
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 27,
-    "markets": 7,
+    "orders": 46,
+    "markets": 12,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1565,8 +1579,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 17,
-    "markets": 15,
+    "orders": 23,
+    "markets": 20,
     "late_line": 1,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1591,7 +1605,7 @@
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 16,
+    "ladders": 18,
     "settled": -0.0,
     "provisional": -0.0
    },
@@ -1611,7 +1625,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 16,
+   "orders_compared": 24,
    "real_filled": 0,
    "agree_pct": 100.0,
    "contract_ratio": null,
