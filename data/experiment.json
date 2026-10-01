@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-01 18:42 UTC",
- "generated_mt": "10-01 12:42 MT",
- "generated_epoch": 1790880152.3691697,
+ "generated": "2026-10-01 19:00 UTC",
+ "generated_mt": "10-01 13:00 MT",
+ "generated_epoch": 1790881207.365341,
  "health": {
-  "heartbeat_age_s": 5,
+  "heartbeat_age_s": 10,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 2.5,
-  "last_trade_age_s": 1,
+  "last_trade_age_s": 0,
   "subscribed": 1150,
-  "wethr_calls": 2167,
-  "bursts": 816,
+  "wethr_calls": 2210,
+  "bursts": 819,
   "scheduled_task": true
  },
  "experiments": [
@@ -291,10 +291,10 @@
      "stats": {
       "n": 61,
       "decided": 61,
-      "yes": 27,
-      "no": 34,
+      "yes": 26,
+      "no": 35,
       "pending": 0,
-      "yes_rate": 44.3,
+      "yes_rate": 42.6,
       "provisional": 17,
       "dollars": 19.5,
       "dollar_mkts": 17
@@ -397,7 +397,7 @@
      "tk": "KXLOWTAUS-26OCT01-B71.5",
      "px": 31,
      "res": "no~",
-     "now": 39,
+     "now": 38,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -427,34 +427,20 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 28,
-    "decided": 28,
+    "n": 29,
+    "decided": 29,
     "yes": 3,
-    "no": 25,
+    "no": 26,
     "pending": 0,
-    "yes_rate": 10.7,
-    "provisional": 3,
+    "yes_rate": 10.3,
+    "provisional": 4,
     "dollars": 19.0,
     "dollar_mkts": 17
    },
    "extra": {
-    "ceiling_skips": 331
+    "ceiling_skips": 337
    },
    "rows": [
-    {
-     "t": "09-29 03:17",
-     "tk": "KXLOWTLV-26SEP29-B65.5",
-     "px": 49,
-     "res": "no",
-     "now": null,
-     "legs": 4,
-     "ct": 4,
-     "pnl": 1.5,
-     "prov": true,
-     "fair": 31.2,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "09-29 04:24",
      "tk": "KXLOWTPHX-26SEP29-B68.5",
@@ -790,11 +776,25 @@
      "fair": null,
      "onesided": 0,
      "resting": 0
+    },
+    {
+     "t": "10-01 03:00",
+     "tk": "KXHIGHAUS-26OCT01-T87",
+     "px": 32,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 3.7,
+     "onesided": 0,
+     "resting": 0
     }
    ],
    "headline": {
-    "est": 679.08,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 226); if every crossed rung had filled in full: +$4,501",
+    "est": 982.82,
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 226); if every crossed rung had filled in full: +$4,840",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -1311,7 +1311,7 @@
      "tk": "KXLOWTMIA-26OCT01-B72.5",
      "px": 27,
      "res": "no~",
-     "now": 4,
+     "now": 3,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1325,7 +1325,7 @@
      "tk": "KXLOWTMIN-26OCT01-B48.5",
      "px": 28,
      "res": "no~",
-     "now": 20,
+     "now": 22,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1409,7 +1409,7 @@
      "tk": "KXLOWTSATX-26OCT01-B69.5",
      "px": 29,
      "res": "no~",
-     "now": 25,
+     "now": 22,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1549,7 +1549,7 @@
    "E6",
    "E9"
   ],
-  "live_total": 652.53,
+  "live_total": 956.27,
   "live_per_month": null,
   "days": 2.5,
   "base_live": 17.7,
@@ -1582,25 +1582,25 @@
    {
     "rung": 30,
     "ladders": 821,
-    "shared_pct": 23.5,
-    "median_other": 7.07
+    "shared_pct": 23.0,
+    "median_other": 9.0
    },
    {
     "rung": 35,
     "ladders": 821,
-    "shared_pct": 8.2,
+    "shared_pct": 8.5,
     "median_other": 16.0
    },
    {
     "rung": 40,
     "ladders": 821,
-    "shared_pct": 7.2,
-    "median_other": 11.0
+    "shared_pct": 6.6,
+    "median_other": 10.0
    },
    {
     "rung": 45,
     "ladders": 821,
-    "shared_pct": 10.4,
+    "shared_pct": 10.0,
     "median_other": 15.0
    }
   ]
@@ -1825,13 +1825,13 @@
     "E2": -2.5,
     "E3": 0,
     "E4": 0,
-    "E5": 0.0,
+    "E5": 303.75,
     "E6": 97.72,
     "E7": 72.16,
     "E8": 0,
     "E9": -0.0
    },
-   "compat": 95.22
+   "compat": 398.97
   }
  ]
 }
