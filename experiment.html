@@ -76,6 +76,9 @@ shows so far. Refreshes about every 15 minutes.</p>
 <div class="note" id="rule"></div>
 <div class="sec">At a glance</div>
 <div class="card"><div class="tw"><table id="glance"></table></div></div>
+<div class="sec">By day</div>
+<div class="card"><p class="sub" style="margin:0 0 8px">What each experiment would have added on each day (Mountain time), using the same rules as the cards. Each spiking market counts once, on the day it first spiked. "Bot" is what bot B actually made on fills that day.</p>
+<div class="tw"><table id="byday"></table></div></div>
 <div id="exps"></div>
 <div class="sec">Monitors</div>
 <div class="card"><h2>Our edge by month (4-rung fills, since Sep 11)</h2>
@@ -193,6 +196,12 @@ function render(d){
       +'</tbody></table></div>'+(e.max_ct?'<p class="sub" style="margin:6px 0 0">Bot size today: '+e.max_ct+' contracts per rung (grows with capital).</p>':'');
     x+=rows(e.rows,e.dollars_ok,e.id==='E4');
     return x+'</div>';}).join('');
+  const bd=d.by_day||[], ids=d.experiments.map(e=>e.id);
+  document.getElementById('byday').innerHTML='<thead><tr><th>day</th><th>bot actual</th>'+ids.map(i=>'<th>'+i+'</th>').join('')+'<th>all changes*</th></tr></thead><tbody>'
+    +bd.slice().reverse().map(r=>'<tr><td>'+r.day+'</td><td class="'+(r.bot>=0?'pos':'neg')+'">'+m2(r.bot)+' <span class="mut">('+r.bot_mkts+')</span></td>'
+      +ids.map(i=>{const v=r.est[i];return '<td class="'+(v>0?'pos':(v<0?'neg':'mut'))+'">'+(v?m0(v):'0')+'</td>';}).join('')
+      +'<td class="'+(r.compat>=0?'pos':'neg')+'"><b>'+m2(r.compat)+'</b></td></tr>').join('')+'</tbody>'
+    +'<tfoot><tr><td colspan="'+(ids.length+3)+'" class="l mut" style="font-family:inherit;font-size:11px;white-space:normal">* all changes = E2 + E5 + E6 + E9 (the set that can run together). Tracking began 09-28 23:50 MT, so that day is partial.</td></tr></tfoot>';
   const ed=d.monitors.edge||[];
   document.getElementById('edge').innerHTML='<thead><tr><th>month</th><th>leg</th><th>contracts</th><th>$</th><th>¢ per contract</th></tr></thead><tbody>'
     +ed.map(r=>'<tr><td>'+r.month+'</td><td>'+r.leg+'</td><td>'+r.contracts.toLocaleString()+'</td><td class="'+(r.dollars>=0?'pos':'neg')+'">'+m2(r.dollars)
