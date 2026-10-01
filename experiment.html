@@ -67,18 +67,18 @@ footer{color:var(--muted);font-size:11.5px;border-top:1px solid var(--grid);padd
 </div>
 <h1>Experiment</h1>
 <p class="sub">Every candidate strategy being ghost-tracked live, scored on real markets as they happen. Nothing here places
-orders. Each card says what the idea is, what it would change in the bot, what the backtest expected, and what live data
-shows so far. Refreshes about every 15 minutes.</p>
+orders. Results come only from the forward paper market-maker ledger, under the written rules (TRACKING_RULES.md v1,
+approved 2026-10-01): virtual orders placed live, queued behind the real book, filled only by real buyers, settled by Kalshi.
+Nothing is re-valued after the fact. Dollars stay hidden until the replica check passes. Refreshes about every 15 minutes.</p>
 <div id="err">Loading…</div>
 <div id="body" style="display:none">
 <div id="overall"></div>
 <div id="health"></div>
 <div class="note" id="rule"></div>
+<div class="sec">Tracked ledger (rules v1)</div>
+<div id="ledger"></div>
 <div class="sec">At a glance</div>
 <div class="card"><div class="tw"><table id="glance"></table></div></div>
-<div class="sec">By day</div>
-<div class="card"><p class="sub" style="margin:0 0 8px">What each experiment would have added on each day (Mountain time), using the same rules as the cards. Each spiking market counts once, on the day it first spiked. "Bot" is what bot B actually made on fills that day.</p>
-<div class="tw"><table id="byday"></table></div></div>
 <div id="exps"></div>
 <div class="sec">Monitors</div>
 <div class="card"><h2>Our edge by month (4-rung fills, since Sep 11)</h2>
@@ -150,23 +150,48 @@ function decided(e){
 function expTxt(h){ if(h.exp_lo==null) return '<span class="mut">no $ forecast</span>';
   return h.exp_lo===h.exp_hi? m0(h.exp_lo)+'/mo' : m0(h.exp_lo)+' to '+m0(h.exp_hi)+'/mo'; }
 const m0=v=>v==null?'—':(v<0?'−$':'+$')+Math.abs(Math.round(v)).toLocaleString();
-function headline(e,dec){ const h=e.headline;
-  return '<div class="hl"><div><div class="lab">would have added so far</div><div class="big '+(h.est>=0?'pos':'neg')+'">'+m2(h.est)+'</div><div class="how">'+esc(h.how)+'</div></div>'
+const MAP={E1:['w','EXTRA_R7',1],E2:['w','EXTRA_R4',1],E3:['t','PULL_B1',1],E4:['t','PULL_WIN',1],E5:['w','CEIL250',1],E6:['w','HOURLY',1],E7:['w','RUNG25',1],E8:['t','TAIL6',1],E9:['w','LOWS_UNCAP',-1]};
+let LG=null;
+function lg(e){ const m=MAP[e.id]; if(!LG||!m) return null;
+  const x=(m[0]==='w'?LG.worlds:LG.tags).find(r=>(r.world||r.tag)===m[1]);
+  const n=x?(m[0]==='w'?x.settled_markets:x.ladders):0;
+  return {name:m[1], settled:x?m[2]*x.settled:0, prov:x?m[2]*x.provisional:0, n:n, proven:!!(x&&x.proven)}; }
+function passed(){ return !!(LG&&LG.replica&&LG.replica.passed); }
+function money(v){ return passed()? m2(v) : '<span class="mut" style="font-size:13px">held</span>'; }
+function headline(e,dec){ const h=e.headline, t=lg(e);
+  return '<div class="hl"><div><div class="lab">tracked · settled</div><div class="big '+(t&&t.settled<0?'neg':'pos')+'">'+(t?money(t.settled):'—')+'</div>'
+     +'<div class="how">ledger: '+(t?esc(t.name):'—')+(t?' · provisional '+money(t.prov):'')+(e.id==='E9'?' · + = the cap saved money':'')+'</div></div>'
    +'<div><div class="lab">expected</div><div class="big amb">'+expTxt(h)+'</div><div class="how">'+esc(h.exp_note)+'</div></div>'
-   +'<div><div class="lab">test progress</div><div class="big">'+dec+'/'+e.target+'</div><div class="how">decided markets for a first read</div></div></div>'; }
-function overall(d){ const o=d.overall; if(!o) return '';
+   +'<div><div class="lab">ledger progress</div><div class="big">'+(t?t.n:0)+'/30</div><div class="how">settled markets toward a first read'+(t&&t.proven?' · <b class="pos">PROVEN</b>':'')+'</div></div></div>'; }
+function ledgerHtml(L){
+  if(L.error) return '<div class="warn"><b>Ledger error:</b> '+esc(L.error)+'</div>';
+  const R=L.replica||{};
+  return '<div class="card"><p class="sub" style="margin:0 0 8px">Engine '+esc(L.engine)+' · '+esc(L.rules)+' · first virtual order '+esc(L.started||'—')
+    +' · orders ended by tracker restarts: '+(L.restart_ended_orders||0)+'. Settled = Kalshi result. Provisional = current price (50¢ or more = heading YES). Crowd-outs = real ladders this world&#39;s cash would have blocked; their real P&amp;L is removed.</p>'
+    +'<div class="tw"><table><thead><tr><th>world</th><th>orders</th><th>mkts</th><th class="hide-sm">line late</th><th>filled ct</th><th>settled mkts</th><th>settled $</th><th class="hide-sm">provisional $</th><th class="hide-sm">crowd-outs</th><th>90% range</th></tr></thead><tbody>'
+    +(L.worlds||[]).map(w=>'<tr><td>'+esc(w.world)+(w.proven?' <span class="tag pos">proven</span>':'')+'</td><td>'+w.orders+'</td><td>'+w.markets+'</td><td class="hide-sm">'+w.late_line+'</td><td>'+w.filled_ct
+      +'</td><td>'+w.settled_markets+'</td><td>'+money(w.settled)+'</td><td class="hide-sm">'+money(w.provisional)+'</td><td class="hide-sm">'+w.crowd_outs+'</td><td>'+(w.ci90&&passed()?m2(w.ci90[0])+' … '+m2(w.ci90[1]):'—')+'</td></tr>').join('')
+    +'</tbody></table></div>'
+    +'<div class="tw" style="margin-top:10px"><table><thead><tr><th class="l">tag (judged on bot B&#39;s real fills)</th><th>ladders</th><th>settled $</th><th class="hide-sm">provisional $</th></tr></thead><tbody>'
+    +(L.tags||[]).map(t=>'<tr><td class="l" style="white-space:normal">'+esc(t.tag)+' — '+esc(t.what)+'</td><td>'+t.ladders+'</td><td>'+money(t.settled)+'</td><td class="hide-sm">'+money(t.provisional)+'</td></tr>').join('')
+    +'</tbody></table></div></div>';
+}
+function overall(d){ const o=d.overall, L=d.ledger||{}, R=L.replica||{}, A=(L.worlds||[]).find(w=>w.world==='ALL');
+  if(!o) return '';
   return '<div class="hero">'
-   +'<div class="stat"><div class="l">all changes · would have added so far</div><div class="v '+(o.live_total>=0?'pos':'neg')+'">'+m2(o.live_total)+'</div>'
-     +'<div class="s">'+o.days+(o.days==1?' day':' days')+' of tracking · '+o.compat.join(' + ')+' (no double counting)</div></div>'
-   +'<div class="stat"><div class="l">live pace per month</div><div class="v">'+(o.live_per_month==null?'<span class="mut" style="font-size:15px">after 7 days</span>':m0(o.live_per_month))+'</div>'
-     +'<div class="s">too noisy to project before a week</div></div>'
+   +'<div class="stat"><div class="l">all changes together · tracked</div><div class="v">'+(A?money(A.settled):'—')+'</div>'
+     +'<div class="s">ledger world ALL (extra order with cancel + hourly, shared cash) · '+(A?A.settled_markets:0)+' settled markets</div></div>'
+   +'<div class="stat"><div class="l">replica check</div><div class="v '+(R.passed?'pos':'amb')+'">'+(R.passed?'PASSED':(R.real_filled||0)+'/'+(R.need||30))+'</div>'
+     +'<div class="s">'+(R.passed?'engine matches real fills — dollars shown':'real filled orders compared; dollars held until it passes')+(R.agree_pct!=null?' · agree '+R.agree_pct+'% · contracts ×'+R.contract_ratio:'')+'</div></div>'
    +'<div class="stat"><div class="l">expected added per month</div><div class="v amb">'+m0(o.real_add_lo)+'–'+m0(o.real_add_hi).replace('+','')+'</div>'
      +'<div class="s">realistic; model says '+m0(o.model_add_lo)+'–'+m0(o.model_add_hi).replace('+','')+' (D131, at $2,000)</div></div>'
    +'<div class="stat"><div class="l">month without → with</div><div class="v" style="font-size:17px;white-space:normal">~$'+o.real_base.toLocaleString()+' → $'+o.real_with_lo.toLocaleString()+'–'+o.real_with_hi.toLocaleString()+'</div>'
      +'<div class="s">realistic, scaled to what the bot actually made</div></div>'
    +'</div>'; }
 function render(d){
+  LG=d.ledger||null;
   document.getElementById('overall').innerHTML=overall(d);
+  document.getElementById('ledger').innerHTML=ledgerHtml(d.ledger||{});
   const h=d.health;
   document.getElementById('health').innerHTML=
     (h.alive?'':'<div class="warn"><b>Tracker is DOWN</b> — last heartbeat '+Math.round(h.heartbeat_age_s/60)+' min ago. Nothing below is updating.</div>')
@@ -179,14 +204,14 @@ function render(d){
     +'<div class="stat"><div class="l">Wethr calls</div><div class="v">'+(h.wethr_calls||0).toLocaleString()+'</div><div class="s">this run · cap 5,000/day</div></div>'
     +'</div>';
   document.getElementById('rule').innerHTML='<b>How outcomes are scored.</b> '+esc(d.rule)+' Settled results replace provisional ones automatically.';
-  document.getElementById('glance').innerHTML='<thead><tr><th>#</th><th class="l">experiment</th><th>progress</th><th>added so far</th><th class="hide-sm">expected</th><th class="l">live so far</th></tr></thead><tbody>'
+  document.getElementById('glance').innerHTML='<thead><tr><th>#</th><th class="l">experiment</th><th>ledger</th><th>tracked</th><th class="hide-sm">expected</th><th class="l">live so far</th></tr></thead><tbody>'
     +d.experiments.map(e=>'<tr><td>'+e.id+'</td><td class="l"><a href="#'+e.id+'" style="color:var(--ink)">'+esc(e.name)+'</a><br>'+statusTag(e.status)
-      +'</td><td>'+decided(e)+'/'+e.target+'</td><td class="'+(e.headline.est>=0?'pos':'neg')+'"><b>'+m2(e.headline.est)+'</b></td><td class="hide-sm amb">'+expTxt(e.headline)+'</td><td class="l">'+keyLine(e)+'</td></tr>').join('')+'</tbody>';
+      +'</td><td>'+((lg(e)||{}).n||0)+'/30</td><td><b>'+(lg(e)?money(lg(e).settled):'—')+'</b></td><td class="hide-sm amb">'+expTxt(e.headline)+'</td><td class="l">'+keyLine(e)+'</td></tr>').join('')+'</tbody>';
   document.getElementById('exps').innerHTML=d.experiments.map(e=>{
     let x='<div class="card" id="'+e.id+'"><h2>'+e.id+' · '+esc(e.name)+' '+statusTag(e.status)+'</h2>'
       +'<div class="kv"><b>what</b><div>'+esc(e.what)+'</div><b>if confirmed</b><div>'+esc(e.change)+'</div>'
       +'<b>backtest</b><div>'+esc(e.backtest)+'</div><b>measured as</b><div>'+esc(e.metric)+'</div></div>'
-      +headline(e,decided(e))+progress(decided(e),e.target);
+      +headline(e,decided(e))+progress((lg(e)||{}).n||0,30);
     if(e.stats) x+=stats(e.stats,e.dollars_ok);
     if(e.reference) x+='<p class="sub" style="margin:0">Reference — all bot-B filled markets since tracking began: '+e.reference.decided+' decided, YES '+pct(e.reference.yes_rate)+', '+m2(e.reference.dollars)+'.</p>';
     if(e.extra&&e.extra.ceiling_skips!=null) x+='<p class="sub" style="margin:0">Markets the bot skipped at its ceiling since tracking began: '+e.extra.ceiling_skips+'.</p>';
@@ -196,12 +221,6 @@ function render(d){
       +'</tbody></table></div>'+(e.max_ct?'<p class="sub" style="margin:6px 0 0">Bot size today: '+e.max_ct+' contracts per rung (grows with capital).</p>':'');
     x+=rows(e.rows,e.dollars_ok,e.id==='E4');
     return x+'</div>';}).join('');
-  const bd=d.by_day||[], ids=d.experiments.map(e=>e.id);
-  document.getElementById('byday').innerHTML='<thead><tr><th>day</th><th>bot actual</th>'+ids.map(i=>'<th>'+i+'</th>').join('')+'<th>all changes*</th></tr></thead><tbody>'
-    +bd.slice().reverse().map(r=>'<tr><td>'+r.day+'</td><td class="'+(r.bot>=0?'pos':'neg')+'">'+m2(r.bot)+' <span class="mut">('+r.bot_mkts+')</span></td>'
-      +ids.map(i=>{const v=r.est[i];return '<td class="'+(v>0?'pos':(v<0?'neg':'mut'))+'">'+(v?m0(v):'0')+'</td>';}).join('')
-      +'<td class="'+(r.compat>=0?'pos':'neg')+'"><b>'+m2(r.compat)+'</b></td></tr>').join('')+'</tbody>'
-    +'<tfoot><tr><td colspan="'+(ids.length+3)+'" class="l mut" style="font-family:inherit;font-size:11px;white-space:normal">* all changes = E2 + E5 + E6 + E9 (the set that can run together). Tracking began 09-28 23:50 MT, so that day is partial.</td></tr></tfoot>';
   const ed=d.monitors.edge||[];
   document.getElementById('edge').innerHTML='<thead><tr><th>month</th><th>leg</th><th>contracts</th><th>$</th><th>¢ per contract</th></tr></thead><tbody>'
     +ed.map(r=>'<tr><td>'+r.month+'</td><td>'+r.leg+'</td><td>'+r.contracts.toLocaleString()+'</td><td class="'+(r.dollars>=0?'pos':'neg')+'">'+m2(r.dollars)
