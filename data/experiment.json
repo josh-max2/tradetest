@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-01 09:03 UTC",
- "generated_mt": "10-01 03:03 MT",
- "generated_epoch": 1790845403.8591619,
+ "generated": "2026-10-01 09:23 UTC",
+ "generated_mt": "10-01 03:23 MT",
+ "generated_epoch": 1790846597.9922452,
  "health": {
-  "heartbeat_age_s": 28,
+  "heartbeat_age_s": 22,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 2.1,
-  "last_trade_age_s": 3,
+  "last_trade_age_s": 14,
   "subscribed": 560,
-  "wethr_calls": 535,
-  "bursts": 694,
+  "wethr_calls": 620,
+  "bursts": 706,
   "scheduled_task": true
  },
  "experiments": [
@@ -253,13 +253,13 @@
     {
      "label": "outside windows",
      "stats": {
-      "n": 53,
-      "decided": 53,
-      "yes": 28,
-      "no": 25,
+      "n": 55,
+      "decided": 55,
+      "yes": 29,
+      "no": 26,
       "pending": 0,
-      "yes_rate": 52.8,
-      "provisional": 19,
+      "yes_rate": 52.7,
+      "provisional": 21,
       "dollars": 15.0,
       "dollar_mkts": 14
      }
@@ -1090,9 +1090,9 @@
     {
      "t": "09-30 19:20",
      "tk": "KXHIGHTSATX-26OCT01-B87.5",
-     "px": 25,
+     "px": 28,
      "res": "no~",
-     "now": 24,
+     "now": 26,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1271,7 +1271,7 @@
     }
    ],
    "headline": {
-    "est": -34.12,
+    "est": -10.11,
     "how": "near-misses valued with the calibrated fill model: a 25\u00a2 rung at our size (lows 100, highs 219)",
     "exp_lo": null,
     "exp_hi": null,
@@ -1404,27 +1404,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 233,
-    "shared_pct": 17.6,
-    "median_other": 10.0
+    "ladders": 285,
+    "shared_pct": 26.0,
+    "median_other": 9.0
    },
    {
     "rung": 35,
-    "ladders": 233,
-    "shared_pct": 10.3,
-    "median_other": 12.0
+    "ladders": 285,
+    "shared_pct": 16.8,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 233,
-    "shared_pct": 8.6,
-    "median_other": 52.77
+    "ladders": 285,
+    "shared_pct": 8.4,
+    "median_other": 30.0
    },
    {
     "rung": 45,
-    "ladders": 233,
-    "shared_pct": 13.3,
-    "median_other": 15.0
+    "ladders": 285,
+    "shared_pct": 13.0,
+    "median_other": 18.0
    }
   ]
  },
@@ -1435,8 +1435,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 24,
-    "markets": 6,
+    "orders": 43,
+    "markets": 11,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1451,55 +1451,7 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 12,
-    "markets": 3,
-    "late_line": 4,
-    "filled_ct": 0.0,
-    "filled_markets": 0,
-    "settled_markets": 0,
-    "provisional_markets": 0,
-    "settled": 0.0,
-    "provisional": 0.0,
-    "crowd_outs": 0,
-    "crowd_real_settled": 0.0,
-    "ci90": null,
-    "proven": false
-   },
-   {
-    "world": "EXTRA_R7",
-    "orders": 12,
-    "markets": 3,
-    "late_line": 4,
-    "filled_ct": 0.0,
-    "filled_markets": 0,
-    "settled_markets": 0,
-    "provisional_markets": 0,
-    "settled": 0.0,
-    "provisional": 0.0,
-    "crowd_outs": 0,
-    "crowd_real_settled": 0.0,
-    "ci90": null,
-    "proven": false
-   },
-   {
-    "world": "HOURLY",
-    "orders": 12,
-    "markets": 3,
-    "late_line": 0,
-    "filled_ct": 0.0,
-    "filled_markets": 0,
-    "settled_markets": 0,
-    "provisional_markets": 0,
-    "settled": 0.0,
-    "provisional": 0.0,
-    "crowd_outs": 0,
-    "crowd_real_settled": 0.0,
-    "ci90": null,
-    "proven": false
-   },
-   {
-    "world": "LOWS_UNCAP",
-    "orders": 16,
+    "orders": 15,
     "markets": 4,
     "late_line": 4,
     "filled_ct": 0.0,
@@ -1514,9 +1466,57 @@
     "proven": false
    },
    {
+    "world": "EXTRA_R7",
+    "orders": 15,
+    "markets": 4,
+    "late_line": 4,
+    "filled_ct": 0.0,
+    "filled_markets": 0,
+    "settled_markets": 0,
+    "provisional_markets": 0,
+    "settled": 0.0,
+    "provisional": 0.0,
+    "crowd_outs": 0,
+    "crowd_real_settled": 0.0,
+    "ci90": null,
+    "proven": false
+   },
+   {
+    "world": "HOURLY",
+    "orders": 28,
+    "markets": 7,
+    "late_line": 0,
+    "filled_ct": 0.0,
+    "filled_markets": 0,
+    "settled_markets": 0,
+    "provisional_markets": 0,
+    "settled": 0.0,
+    "provisional": 0.0,
+    "crowd_outs": 0,
+    "crowd_real_settled": 0.0,
+    "ci90": null,
+    "proven": false
+   },
+   {
+    "world": "LOWS_UNCAP",
+    "orders": 23,
+    "markets": 6,
+    "late_line": 4,
+    "filled_ct": 0.0,
+    "filled_markets": 0,
+    "settled_markets": 0,
+    "provisional_markets": 0,
+    "settled": 0.0,
+    "provisional": 0.0,
+    "crowd_outs": 0,
+    "crowd_real_settled": 0.0,
+    "ci90": null,
+    "proven": false
+   },
+   {
     "world": "RUNG25",
-    "orders": 12,
-    "markets": 11,
+    "orders": 14,
+    "markets": 13,
     "late_line": 1,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1541,7 +1541,7 @@
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 11,
+    "ladders": 13,
     "settled": -0.0,
     "provisional": -0.0
    },
@@ -1561,7 +1561,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 8,
+   "orders_compared": 16,
    "real_filled": 0,
    "agree_pct": 100.0,
    "contract_ratio": null,
@@ -1634,7 +1634,7 @@
     "E4": 0,
     "E5": 0.0,
     "E6": 0.0,
-    "E7": 13.0,
+    "E7": 37.01,
     "E8": 0,
     "E9": -0.0
    },
