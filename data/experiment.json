@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-02 15:50 UTC",
- "generated_mt": "10-02 09:50 MT",
- "generated_epoch": 1790956243.2956493,
+ "generated": "2026-10-02 16:10 UTC",
+ "generated_mt": "10-02 10:10 MT",
+ "generated_epoch": 1790957425.3752954,
  "health": {
-  "heartbeat_age_s": 12,
+  "heartbeat_age_s": 24,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 3.4,
-  "last_trade_age_s": 1,
-  "subscribed": 770,
-  "wethr_calls": 5735,
-  "bursts": 1110,
+  "last_trade_age_s": 0,
+  "subscribed": 1002,
+  "wethr_calls": 5805,
+  "bursts": 1116,
   "scheduled_task": true
  },
  "experiments": [
@@ -332,8 +332,8 @@
       "pending": 0,
       "yes_rate": 41.7,
       "provisional": 8,
-      "dollars": 31.5,
-      "dollar_mkts": 24
+      "dollars": 33.0,
+      "dollar_mkts": 25
      }
     }
    ],
@@ -833,7 +833,7 @@
      "tk": "KXLOWTHOU-26OCT02-B74.5",
      "px": 30,
      "res": "no~",
-     "now": 12,
+     "now": 13,
      "legs": 8,
      "ct": 8,
      "pnl": 3.0,
@@ -1376,7 +1376,7 @@
      "tk": "KXLOWTDC-26OCT02-B62.5",
      "px": 29,
      "res": "no~",
-     "now": 6,
+     "now": 4,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1730,26 +1730,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 463,
-    "shared_pct": 29.2,
+    "ladders": 540,
+    "shared_pct": 27.4,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 463,
-    "shared_pct": 8.9,
-    "median_other": 18.0
+    "ladders": 540,
+    "shared_pct": 8.0,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 463,
-    "shared_pct": 7.1,
+    "ladders": 540,
+    "shared_pct": 5.9,
     "median_other": 20.0
    },
    {
     "rung": 45,
-    "ladders": 463,
-    "shared_pct": 10.6,
+    "ladders": 540,
+    "shared_pct": 8.9,
     "median_other": 15.0
    }
   ]
@@ -1761,18 +1761,21 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 715,
-    "markets": 172,
+    "orders": 719,
+    "markets": 173,
     "late_line": 4,
     "filled_ct": 46.7,
     "filled_markets": 5,
-    "settled_markets": 3,
-    "provisional_markets": 2,
-    "settled": 3.99,
-    "provisional": -23.36,
+    "settled_markets": 5,
+    "provisional_markets": 0,
+    "settled": 14.0,
+    "provisional": 0.0,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
-    "ci90": null,
+    "ci90": [
+     4.75,
+     23.26
+    ],
     "proven": false
    },
    {
@@ -1782,10 +1785,10 @@
     "late_line": 68,
     "filled_ct": 357.4,
     "filled_markets": 3,
-    "settled_markets": 0,
-    "provisional_markets": 3,
-    "settled": 0.0,
-    "provisional": -133.53,
+    "settled_markets": 1,
+    "provisional_markets": 2,
+    "settled": -168.42,
+    "provisional": 34.9,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
     "ci90": null,
@@ -1793,8 +1796,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 303,
-    "markets": 69,
+    "orders": 307,
+    "markets": 70,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1809,8 +1812,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 303,
-    "markets": 69,
+    "orders": 307,
+    "markets": 70,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1830,20 +1833,23 @@
     "late_line": 0,
     "filled_ct": 46.7,
     "filled_markets": 5,
-    "settled_markets": 3,
-    "provisional_markets": 2,
-    "settled": 3.99,
-    "provisional": -23.36,
+    "settled_markets": 5,
+    "provisional_markets": 0,
+    "settled": 14.0,
+    "provisional": 0.0,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
-    "ci90": null,
+    "ci90": [
+     4.75,
+     23.26
+    ],
     "proven": false
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 655,
-    "markets": 122,
-    "late_line": 79,
+    "orders": 727,
+    "markets": 139,
+    "late_line": 143,
     "filled_ct": 72.2,
     "filled_markets": 1,
     "settled_markets": 0,
@@ -1857,9 +1863,9 @@
    },
    {
     "world": "RUNG25",
-    "orders": 336,
-    "markets": 219,
-    "late_line": 42,
+    "orders": 391,
+    "markets": 270,
+    "late_line": 82,
     "filled_ct": 121.8,
     "filled_markets": 3,
     "settled_markets": 0,
@@ -1876,14 +1882,14 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 143,
+    "ladders": 192,
     "settled": 0.0,
     "provisional": 0.0
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 264,
+    "ladders": 318,
     "settled": -0.0,
     "provisional": -25.15
    },
@@ -1903,7 +1909,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 737,
+   "orders_compared": 749,
    "real_filled": 3,
    "agree_pct": 100.0,
    "contract_ratio": 1.025,
