@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-02 08:53 UTC",
- "generated_mt": "10-02 02:53 MT",
- "generated_epoch": 1790931223.3882995,
+ "generated": "2026-10-02 09:11 UTC",
+ "generated_mt": "10-02 03:11 MT",
+ "generated_epoch": 1790932306.56335,
  "health": {
-  "heartbeat_age_s": 13,
+  "heartbeat_age_s": 17,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 3.1,
-  "last_trade_age_s": 19,
-  "subscribed": 520,
-  "wethr_calls": 4555,
-  "bursts": 1035,
+  "last_trade_age_s": 5,
+  "subscribed": 560,
+  "wethr_calls": 4640,
+  "bursts": 1044,
   "scheduled_task": true
  },
  "experiments": [
@@ -325,13 +325,13 @@
     {
      "label": "outside windows",
      "stats": {
-      "n": 66,
-      "decided": 66,
-      "yes": 43,
-      "no": 23,
+      "n": 67,
+      "decided": 67,
+      "yes": 42,
+      "no": 25,
       "pending": 0,
-      "yes_rate": 65.2,
-      "provisional": 22,
+      "yes_rate": 62.7,
+      "provisional": 23,
       "dollars": -1.0,
       "dollar_mkts": 22
      }
@@ -1206,31 +1206,17 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 35,
-    "decided": 35,
+    "n": 36,
+    "decided": 36,
     "yes": 16,
-    "no": 19,
+    "no": 20,
     "pending": 0,
-    "yes_rate": 45.7,
-    "provisional": 19,
+    "yes_rate": 44.4,
+    "provisional": 20,
     "dollars": 0,
     "dollar_mkts": 0
    },
    "rows": [
-    {
-     "t": "09-30 12:39",
-     "tk": "KXHIGHTLV-26OCT01-B91.5",
-     "px": 25,
-     "res": "yes~",
-     "now": 50,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": null,
-     "onesided": 0,
-     "resting": 4
-    },
     {
      "t": "09-29 13:19",
      "tk": "KXHIGHTLV-26SEP30-B90.5",
@@ -1390,7 +1376,7 @@
      "tk": "KXLOWTDC-26OCT02-B62.5",
      "px": 29,
      "res": "no~",
-     "now": 15,
+     "now": 22,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1419,6 +1405,20 @@
      "px": 27,
      "res": "no",
      "now": null,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "10-01 13:39",
+     "tk": "KXLOWTLAX-26OCT02-B64.5",
+     "px": 28,
+     "res": "no~",
+     "now": 26,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1569,7 +1569,7 @@
     }
    ],
    "headline": {
-    "est": -18.41,
+    "est": -14.04,
     "how": "near-misses valued with the calibrated fill model: a 25\u00a2 rung at our size (lows 100, highs 226)",
     "exp_lo": null,
     "exp_hi": null,
@@ -1716,26 +1716,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 178,
-    "shared_pct": 47.2,
+    "ladders": 189,
+    "shared_pct": 46.0,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 178,
-    "shared_pct": 19.7,
-    "median_other": 54.0
+    "ladders": 189,
+    "shared_pct": 10.6,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 178,
-    "shared_pct": 7.9,
-    "median_other": 18.0
+    "ladders": 189,
+    "shared_pct": 6.9,
+    "median_other": 20.0
    },
    {
     "rung": 45,
-    "ladders": 178,
-    "shared_pct": 15.7,
+    "ladders": 189,
+    "shared_pct": 15.3,
     "median_other": 15.0
    }
   ]
@@ -1827,8 +1827,8 @@
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 545,
-    "markets": 107,
+    "orders": 553,
+    "markets": 109,
     "late_line": 79,
     "filled_ct": 72.2,
     "filled_markets": 1,
@@ -1843,8 +1843,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 276,
-    "markets": 200,
+    "orders": 278,
+    "markets": 202,
     "late_line": 42,
     "filled_ct": 121.8,
     "filled_markets": 3,
@@ -1889,7 +1889,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 604,
+   "orders_compared": 612,
    "real_filled": 3,
    "agree_pct": 100.0,
    "contract_ratio": 1.025,
@@ -1979,7 +1979,7 @@
     "E4": 0,
     "E5": 0.0,
     "E6": 0.0,
-    "E7": 0.0,
+    "E7": 4.37,
     "E8": 0,
     "E9": -0.0
    },
