@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-02 18:50 UTC",
- "generated_mt": "10-02 12:50 MT",
- "generated_epoch": 1790967027.9703772,
+ "generated": "2026-10-02 19:05 UTC",
+ "generated_mt": "10-02 13:05 MT",
+ "generated_epoch": 1790967955.5040286,
  "health": {
-  "heartbeat_age_s": 10,
+  "heartbeat_age_s": 7,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
-  "days": 3.5,
-  "last_trade_age_s": 0,
+  "days": 3.6,
+  "last_trade_age_s": 1,
   "subscribed": 760,
-  "wethr_calls": 110,
-  "bursts": 1152,
+  "wethr_calls": 140,
+  "bursts": 1154,
   "scheduled_task": true
  },
  "experiments": [
@@ -536,11 +536,11 @@
     "pending": 0,
     "yes_rate": 6.4,
     "provisional": 7,
-    "dollars": 37.0,
-    "dollar_mkts": 27
+    "dollars": 38.5,
+    "dollar_mkts": 28
    },
    "extra": {
-    "ceiling_skips": 414
+    "ceiling_skips": 419
    },
    "rows": [
     {
@@ -843,10 +843,10 @@
      "px": 30,
      "res": "no~",
      "now": 2,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1271,13 +1271,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 41,
-    "decided": 41,
+    "n": 40,
+    "decided": 40,
     "yes": 0,
-    "no": 41,
+    "no": 40,
     "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 9,
+    "provisional": 8,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -1751,7 +1751,7 @@
   ],
   "live_total": 1532.43,
   "live_per_month": null,
-  "days": 3.5,
+  "days": 3.6,
   "base_live": 25.2,
   "model_add_lo": 800,
   "model_add_hi": 1300,
@@ -1781,26 +1781,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 345,
-    "shared_pct": 54.8,
+    "ladders": 346,
+    "shared_pct": 50.3,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 345,
-    "shared_pct": 17.4,
-    "median_other": 18.0
+    "ladders": 346,
+    "shared_pct": 15.6,
+    "median_other": 12.0
    },
    {
     "rung": 40,
-    "ladders": 345,
-    "shared_pct": 13.6,
+    "ladders": 346,
+    "shared_pct": 12.7,
     "median_other": 10.0
    },
    {
     "rung": 45,
-    "ladders": 345,
-    "shared_pct": 23.8,
+    "ladders": 346,
+    "shared_pct": 22.3,
     "median_other": 15.0
    }
   ]
@@ -1812,8 +1812,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 763,
-    "markets": 184,
+    "orders": 767,
+    "markets": 185,
     "late_line": 4,
     "filled_ct": 46.7,
     "filled_markets": 5,
@@ -1831,8 +1831,8 @@
    },
    {
     "world": "CEIL250",
-    "orders": 284,
-    "markets": 71,
+    "orders": 304,
+    "markets": 76,
     "late_line": 88,
     "filled_ct": 357.4,
     "filled_markets": 3,
@@ -1847,8 +1847,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 307,
-    "markets": 70,
+    "orders": 311,
+    "markets": 71,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1863,8 +1863,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 307,
-    "markets": 70,
+    "orders": 311,
+    "markets": 71,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1914,8 +1914,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 411,
-    "markets": 288,
+    "orders": 413,
+    "markets": 290,
     "late_line": 82,
     "filled_ct": 121.8,
     "filled_markets": 3,
@@ -1933,14 +1933,14 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 212,
+    "ladders": 214,
     "settled": 0.0,
     "provisional": 0.0
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 332,
+    "ladders": 333,
     "settled": -0.0,
     "provisional": -25.15
    },
@@ -1960,7 +1960,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 781,
+   "orders_compared": 789,
    "real_filled": 3,
    "agree_pct": 100.0,
    "contract_ratio": 1.025,
@@ -2050,7 +2050,7 @@
     "E4": -4.5,
     "E5": 6.28,
     "E6": 17.48,
-    "E7": 63.09,
+    "E7": 53.22,
     "E8": -3.0,
     "E9": -0.0
    },
