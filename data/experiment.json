@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-02 12:35 UTC",
- "generated_mt": "10-02 06:35 MT",
- "generated_epoch": 1790944544.6941664,
+ "generated": "2026-10-02 12:55 UTC",
+ "generated_mt": "10-02 06:55 MT",
+ "generated_epoch": 1790945745.951962,
  "health": {
-  "heartbeat_age_s": 14,
+  "heartbeat_age_s": 15,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 3.3,
   "last_trade_age_s": 1,
   "subscribed": 650,
-  "wethr_calls": 5195,
-  "bursts": 1082,
+  "wethr_calls": 5240,
+  "bursts": 1083,
   "scheduled_task": true
  },
  "experiments": [
@@ -325,13 +325,13 @@
     {
      "label": "outside windows",
      "stats": {
-      "n": 68,
-      "decided": 68,
+      "n": 69,
+      "decided": 69,
       "yes": 30,
-      "no": 38,
+      "no": 39,
       "pending": 0,
-      "yes_rate": 44.1,
-      "provisional": 7,
+      "yes_rate": 43.5,
+      "provisional": 8,
       "dollars": 23.0,
       "dollar_mkts": 22
      }
@@ -1206,31 +1206,17 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 37,
-    "decided": 37,
+    "n": 38,
+    "decided": 38,
     "yes": 5,
-    "no": 32,
+    "no": 33,
     "pending": 0,
-    "yes_rate": 13.5,
-    "provisional": 10,
+    "yes_rate": 13.2,
+    "provisional": 11,
     "dollars": 0,
     "dollar_mkts": 0
    },
    "rows": [
-    {
-     "t": "09-30 13:19",
-     "tk": "KXHIGHTMIN-26OCT01-B69.5",
-     "px": 26,
-     "res": "no",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": null,
-     "onesided": 0,
-     "resting": 4
-    },
     {
      "t": "09-30 12:09",
      "tk": "KXHIGHTPHX-26OCT01-B91.5",
@@ -1376,7 +1362,7 @@
      "tk": "KXLOWTHOU-26OCT02-B74.5",
      "px": 27,
      "res": "no~",
-     "now": 14,
+     "now": 16,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1430,6 +1416,20 @@
     {
      "t": "10-01 14:30",
      "tk": "KXLOWTLAX-26OCT02-T71",
+     "px": 28,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "10-01 21:20",
+     "tk": "KXLOWTLV-26OCT02-B73.5",
      "px": 28,
      "res": "no~",
      "now": 0,
@@ -1569,7 +1569,7 @@
     }
    ],
    "headline": {
-    "est": 44.57,
+    "est": 48.32,
     "how": "near-misses valued with the calibrated fill model: a 25\u00a2 rung at our size (lows 100, highs 226)",
     "exp_lo": null,
     "exp_hi": null,
@@ -1716,26 +1716,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 329,
-    "shared_pct": 33.1,
+    "ladders": 331,
+    "shared_pct": 33.2,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 329,
-    "shared_pct": 10.3,
+    "ladders": 331,
+    "shared_pct": 10.6,
     "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 329,
+    "ladders": 331,
     "shared_pct": 7.9,
     "median_other": 20.0
    },
    {
     "rung": 45,
-    "ladders": 329,
-    "shared_pct": 12.2,
+    "ladders": 331,
+    "shared_pct": 13.3,
     "median_other": 15.0
    }
   ]
@@ -1747,8 +1747,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 651,
-    "markets": 157,
+    "orders": 659,
+    "markets": 159,
     "late_line": 4,
     "filled_ct": 46.7,
     "filled_markets": 5,
@@ -1779,8 +1779,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 267,
-    "markets": 61,
+    "orders": 275,
+    "markets": 63,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1795,8 +1795,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 267,
-    "markets": 61,
+    "orders": 275,
+    "markets": 63,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1827,8 +1827,8 @@
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 616,
-    "markets": 114,
+    "orders": 624,
+    "markets": 115,
     "late_line": 79,
     "filled_ct": 72.2,
     "filled_markets": 1,
@@ -1843,8 +1843,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 308,
-    "markets": 209,
+    "orders": 312,
+    "markets": 210,
     "late_line": 42,
     "filled_ct": 121.8,
     "filled_markets": 3,
@@ -1869,7 +1869,7 @@
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 240,
+    "ladders": 244,
     "settled": -0.0,
     "provisional": -25.15
    },
@@ -1889,7 +1889,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 682,
+   "orders_compared": 686,
    "real_filled": 3,
    "agree_pct": 100.0,
    "contract_ratio": 1.025,
