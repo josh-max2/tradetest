@@ -75,6 +75,8 @@ Nothing is re-valued after the fact. Dollars stay hidden until the replica check
 <div id="overall"></div>
 <div id="health"></div>
 <div class="note" id="rule"></div>
+<div class="sec">Hourly bot</div>
+<div id="hourlybot"></div>
 <div class="sec">Tracked ledger (rules v1)</div>
 <div id="ledger"></div>
 <div class="sec">At a glance</div>
@@ -188,7 +190,27 @@ function overall(d){ const o=d.overall, L=d.ledger||{}, R=L.replica||{}, A=(L.wo
    +'<div class="stat"><div class="l">month without → with</div><div class="v" style="font-size:17px;white-space:normal">~$'+o.real_base.toLocaleString()+' → $'+o.real_with_lo.toLocaleString()+'–'+o.real_with_hi.toLocaleString()+'</div>'
      +'<div class="s">realistic, scaled to what the bot actually made</div></div>'
    +'</div>'; }
+function hourlyHtml(H){
+  if(!H) return '<div class="card"><p class="sub" style="margin:0">Hourly bot not started yet.</p></div>';
+  if(H.error) return '<div class="warn"><b>Hourly bot read error:</b> '+esc(H.error)+'</div>';
+  const alive=H.hb_age_s!=null&&H.hb_age_s<180;
+  return (H.stopped?'<div class="warn"><b>Hourly bot is PAUSED</b> (STOP file present). Resting orders were cancelled. A person must clear it.</div>':'')
+   +'<div class="stats">'
+   +'<div class="stat"><div class="l">mode</div><div class="v '+(H.mode==='LIVE'?'amb':'mut')+'">'+H.mode+'</div><div class="s">'+(alive?'heartbeat '+H.hb_age_s+' s ago':'<span class="neg">no heartbeat</span>')+'</div></div>'
+   +'<div class="stat"><div class="l">spec</div><div class="v" style="font-size:14px">'+esc(H.series)+' · '+(H.size||'—')+' ct</div><div class="s">fingerprint '+esc(H.fingerprint||'—')+'</div></div>'
+   +'<div class="stat"><div class="l">today</div><div class="v">'+(H.decided_today?H.decided_today[1]+'/'+H.decided_today[0]:'—')+'</div><div class="s">armed / decided</div></div>'
+   +'<div class="stat"><div class="l">resting · fills today</div><div class="v">'+H.resting+' · '+(H.filled_today?H.filled_today[0]:0)+'</div><div class="s">'+(H.filled_today?H.filled_today[1]+' ct filled':'')+'</div></div>'
+   +'<div class="stat"><div class="l">P&amp;L today · total</div><div class="v '+(H.pnl_total>=0?'pos':'neg')+'">'+m2(H.pnl_today)+'</div><div class="s">total '+m2(H.pnl_total)+' · settled only</div></div>'
+   +'<div class="stat"><div class="l">at risk · pool</div><div class="v">$'+Math.round(H.exposure)+' / $'+(H.pool||0)+'</div><div class="s">daily stop '+(H.daily_stop?'$'+H.daily_stop:'off')+'</div></div>'
+   +'</div>'
+   +'<p class="sub" style="margin:0 0 8px">Skips/errors today: '+Object.entries(H.skips||{}).filter(e=>e[1]).map(e=>e[0]+' '+e[1]).join(' · ')+(Object.values(H.skips||{}).some(v=>v)?'':'none')+'</p>'
+   +'<details><summary>Latest arms and fills</summary><div class="tw"><table><thead><tr><th>time MT</th><th class="l">market</th><th class="l">event</th></tr></thead><tbody>'
+   +(H.fills||[]).map(f=>'<tr><td>'+esc(f.t)+'</td><td class="l">'+esc(f.tk)+'</td><td class="l" style="white-space:normal">'+esc(JSON.stringify(f.d)).slice(0,140)+'</td></tr>').join('')
+   +(H.arms||[]).map(a=>'<tr><td>'+esc(a.t)+'</td><td class="l">'+esc(a.tk)+'</td><td class="l">ARM · prints '+a.d.n_prints+' · max '+a.d.max_print+'¢ · placed '+a.d.placed+' × '+(a.d.size||'')+' ct · '+a.d.mode+'</td></tr>').join('')
+   +'</tbody></table></div></details>';
+}
 function render(d){
+  document.getElementById('hourlybot').innerHTML='<div class="card">'+hourlyHtml(d.hourly)+'</div>';
   LG=d.ledger||null;
   document.getElementById('overall').innerHTML=overall(d);
   document.getElementById('ledger').innerHTML=ledgerHtml(d.ledger||{});
