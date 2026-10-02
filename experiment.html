@@ -201,6 +201,7 @@ function hourlyHtml(H){
    +'<div class="stat"><div class="l">today</div><div class="v">'+(H.decided_today?H.decided_today[1]+'/'+H.decided_today[0]:'—')+'</div><div class="s">armed / decided</div></div>'
    +'<div class="stat"><div class="l">resting · fills today</div><div class="v">'+H.resting+' · '+(H.filled_today?H.filled_today[0]:0)+'</div><div class="s">'+(H.filled_today?H.filled_today[1]+' ct filled':'')+'</div></div>'
    +'<div class="stat"><div class="l">P&amp;L today · total</div><div class="v '+(H.pnl_total>=0?'pos':'neg')+'">'+m2(H.pnl_today)+'</div><div class="s">total '+m2(H.pnl_total)+' · settled only</div></div>'
+   +'<div class="stat"><div class="l">websocket</div><div class="v '+(H.ws?(H.ws.healthy?'pos':'neg'):'mut')+'">'+(H.ws?(H.ws.healthy?'OK':'DOWN'):'—')+'</div><div class="s">'+(H.ws?H.ws.subscribed+' markets · '+H.ws.disconnects+' reconnects':'not started')+(H.decision_sources?' · decisions '+Object.entries(H.decision_sources).map(e=>e[0]+' '+e[1]).join(', '):'')+'</div></div>'
    +'<div class="stat"><div class="l">at risk · pool</div><div class="v">$'+Math.round(H.exposure)+' / $'+(H.pool||0)+'</div><div class="s">daily stop '+(H.daily_stop?'$'+H.daily_stop:'off')+'</div></div>'
    +'</div>'
    +'<p class="sub" style="margin:0 0 8px">Skips/errors today: '+Object.entries(H.skips||{}).filter(e=>e[1]).map(e=>e[0]+' '+e[1]).join(' · ')+(Object.values(H.skips||{}).some(v=>v)?'':'none')+'</p>'
