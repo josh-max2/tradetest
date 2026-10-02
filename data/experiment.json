@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-02 22:01 UTC",
- "generated_mt": "10-02 16:01 MT",
- "generated_epoch": 1790978464.8092487,
+ "generated": "2026-10-02 22:25 UTC",
+ "generated_mt": "10-02 16:25 MT",
+ "generated_epoch": 1790979948.7476642,
  "health": {
-  "heartbeat_age_s": 6,
+  "heartbeat_age_s": 20,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 3.7,
   "last_trade_age_s": 0,
-  "subscribed": 760,
-  "wethr_calls": 360,
-  "bursts": 1193,
+  "subscribed": 800,
+  "wethr_calls": 445,
+  "bursts": 1204,
   "scheduled_task": true
  },
  "experiments": [
@@ -1831,26 +1831,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 366,
-    "shared_pct": 51.9,
-    "median_other": 19.0
+    "ladders": 413,
+    "shared_pct": 49.6,
+    "median_other": 16.710000000000008
    },
    {
     "rung": 35,
-    "ladders": 366,
-    "shared_pct": 23.2,
-    "median_other": 19.0
+    "ladders": 413,
+    "shared_pct": 15.5,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 366,
-    "shared_pct": 11.7,
-    "median_other": 18.0
+    "ladders": 413,
+    "shared_pct": 11.6,
+    "median_other": 14.52
    },
    {
     "rung": 45,
-    "ladders": 366,
-    "shared_pct": 21.3,
+    "ladders": 413,
+    "shared_pct": 18.9,
     "median_other": 15.0
    }
   ]
@@ -1862,8 +1862,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 885,
-    "markets": 215,
+    "orders": 896,
+    "markets": 218,
     "late_line": 4,
     "filled_ct": 472.7,
     "filled_markets": 7,
@@ -1897,8 +1897,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 369,
-    "markets": 86,
+    "orders": 372,
+    "markets": 87,
     "late_line": 4,
     "filled_ct": 226.0,
     "filled_markets": 1,
@@ -1913,8 +1913,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 369,
-    "markets": 86,
+    "orders": 372,
+    "markets": 87,
     "late_line": 4,
     "filled_ct": 226.0,
     "filled_markets": 1,
@@ -1929,8 +1929,8 @@
    },
    {
     "world": "HOURLY",
-    "orders": 516,
-    "markets": 129,
+    "orders": 524,
+    "markets": 131,
     "late_line": 0,
     "filled_ct": 246.7,
     "filled_markets": 6,
@@ -1948,8 +1948,8 @@
    },
    {
     "world": "HOURLY_LOOSE",
-    "orders": 64,
-    "markets": 16,
+    "orders": 80,
+    "markets": 20,
     "late_line": 0,
     "filled_ct": 400.0,
     "filled_markets": 1,
@@ -1980,8 +1980,8 @@
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 891,
-    "markets": 177,
+    "orders": 899,
+    "markets": 178,
     "late_line": 143,
     "filled_ct": 72.2,
     "filled_markets": 1,
@@ -1996,8 +1996,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 479,
-    "markets": 340,
+    "orders": 484,
+    "markets": 341,
     "late_line": 82,
     "filled_ct": 435.8,
     "filled_markets": 4,
@@ -2015,14 +2015,14 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 280,
+    "ladders": 285,
     "settled": 0.0,
     "provisional": 135.6
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 378,
+    "ladders": 383,
     "settled": -0.0,
     "provisional": -160.75
    },
@@ -2042,7 +2042,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 1224,
+   "orders_compared": 1232,
    "real_filled": 4,
    "agree_pct": 100.0,
    "contract_ratio": 1.006,
@@ -2055,7 +2055,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 3,
+  "hb_age_s": -1,
   "fingerprint": "6d59db3abfd4",
   "size": 10,
   "series": "all four",
@@ -2107,11 +2107,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 0,
-   "subscribed": 40,
+   "subscribed": 80,
    "stats": {
     "ws_subscribed": 2,
-    "ws_ok": 1,
-    "ws_trade": 663
+    "ws_ok": 3,
+    "ws_trade": 1418
    }
   },
   "decision_sources": {
@@ -2199,7 +2199,7 @@
     "E4": -6.0,
     "E5": 6.28,
     "E6": -107.52,
-    "E7": 45.72,
+    "E7": 46.72,
     "E8": -82.5,
     "E9": -0.0
    },
