@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-02 22:25 UTC",
- "generated_mt": "10-02 16:25 MT",
- "generated_epoch": 1790979948.7476642,
+ "generated": "2026-10-02 22:45 UTC",
+ "generated_mt": "10-02 16:45 MT",
+ "generated_epoch": 1790981147.5168242,
  "health": {
-  "heartbeat_age_s": 20,
+  "heartbeat_age_s": 19,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 3.7,
-  "last_trade_age_s": 0,
+  "last_trade_age_s": 2,
   "subscribed": 800,
-  "wethr_calls": 445,
-  "bursts": 1204,
+  "wethr_calls": 490,
+  "bursts": 1207,
   "scheduled_task": true
  },
  "experiments": [
@@ -1832,25 +1832,25 @@
    {
     "rung": 30,
     "ladders": 413,
-    "shared_pct": 49.6,
-    "median_other": 16.710000000000008
+    "shared_pct": 49.9,
+    "median_other": 17.0
    },
    {
     "rung": 35,
     "ladders": 413,
-    "shared_pct": 15.5,
-    "median_other": 20.0
+    "shared_pct": 15.7,
+    "median_other": 16.0
    },
    {
     "rung": 40,
     "ladders": 413,
-    "shared_pct": 11.6,
-    "median_other": 14.52
+    "shared_pct": 11.9,
+    "median_other": 16.00000000000003
    },
    {
     "rung": 45,
     "ladders": 413,
-    "shared_pct": 18.9,
+    "shared_pct": 19.6,
     "median_other": 15.0
    }
   ]
@@ -1964,8 +1964,8 @@
    },
    {
     "world": "HOURLY_M30",
-    "orders": 60,
-    "markets": 15,
+    "orders": 68,
+    "markets": 17,
     "late_line": 0,
     "filled_ct": 200.0,
     "filled_markets": 1,
@@ -1973,6 +1973,22 @@
     "provisional_markets": 1,
     "settled": 0.0,
     "provisional": -125.0,
+    "crowd_outs": 0,
+    "crowd_real_settled": 0.0,
+    "ci90": null,
+    "proven": false
+   },
+   {
+    "world": "HOURLY_REPLICA",
+    "orders": 8,
+    "markets": 2,
+    "late_line": 0,
+    "filled_ct": 0.0,
+    "filled_markets": 0,
+    "settled_markets": 0,
+    "provisional_markets": 0,
+    "settled": 0.0,
+    "provisional": 0.0,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
     "ci90": null,
@@ -1996,7 +2012,7 @@
    },
    {
     "world": "RUNG25",
-    "orders": 484,
+    "orders": 485,
     "markets": 341,
     "late_line": 82,
     "filled_ct": 435.8,
@@ -2015,14 +2031,14 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 285,
+    "ladders": 286,
     "settled": 0.0,
     "provisional": 135.6
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 383,
+    "ladders": 384,
     "settled": -0.0,
     "provisional": -160.75
    },
@@ -2042,7 +2058,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 1232,
+   "orders_compared": 1236,
    "real_filled": 4,
    "agree_pct": 100.0,
    "contract_ratio": 1.006,
@@ -2055,24 +2071,29 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -1,
+  "hb_age_s": 3,
   "fingerprint": "6d59db3abfd4",
   "size": 10,
   "series": "all four",
   "pool": 100,
   "daily_stop": 100,
   "decided_today": [
-   50,
-   1
+   90,
+   3
   ],
   "orders": [
    [
     "DRYRUN",
     "EXPIRED",
     4
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    8
    ]
   ],
-  "resting": 0,
+  "resting": 8,
   "filled_today": [
    0,
    0
@@ -2092,6 +2113,32 @@
   },
   "arms": [
    {
+    "t": "10-02 16:30",
+    "tk": "KXTEMPLAXHS-26OCT0219-T92.99",
+    "d": {
+     "arm_moment": 1790980200.0,
+     "n_prints": 5,
+     "max_print": 8.0,
+     "source": "ws",
+     "placed": 4,
+     "size": 10,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-02 16:30",
+    "tk": "KXTEMPNYCHS-26OCT0219-T76.99",
+    "d": {
+     "arm_moment": 1790980200.0,
+     "n_prints": 1,
+     "max_print": 1.0,
+     "source": "ws",
+     "placed": 4,
+     "size": 10,
+     "mode": "LIVE"
+    }
+   },
+   {
     "t": "10-02 14:30",
     "tk": "KXTEMPMIAH-26OCT0217-T88.99",
     "d": {
@@ -2107,17 +2154,27 @@
   "ws": {
    "healthy": true,
    "disconnects": 0,
-   "subscribed": 80,
+   "subscribed": 40,
    "stats": {
     "ws_subscribed": 2,
-    "ws_ok": 3,
-    "ws_trade": 1418
+    "ws_ok": 2,
+    "ws_trade": 81
    }
   },
   "decision_sources": {
-   "rest": 50
+   "rest": 50,
+   "ws": 40
   },
-  "fills": []
+  "fills": [
+   {
+    "t": "10-02 16:30",
+    "tk": "KXTEMPNYCHS-26OCT0219-T76.99",
+    "d": {
+     "L": 30,
+     "state": "resting"
+    }
+   }
+  ]
  },
  "by_day": [
   {
