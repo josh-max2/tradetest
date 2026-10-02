@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-02 19:25 UTC",
- "generated_mt": "10-02 13:25 MT",
- "generated_epoch": 1790969127.3260603,
+ "generated": "2026-10-02 19:43 UTC",
+ "generated_mt": "10-02 13:43 MT",
+ "generated_epoch": 1790970195.2120247,
  "health": {
-  "heartbeat_age_s": 9,
+  "heartbeat_age_s": 27,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 3.6,
-  "last_trade_age_s": 0,
+  "last_trade_age_s": 2,
   "subscribed": 760,
-  "wethr_calls": 185,
-  "bursts": 1159,
+  "wethr_calls": 255,
+  "bursts": 1160,
   "scheduled_task": true
  },
  "experiments": [
@@ -536,11 +536,11 @@
     "pending": 0,
     "yes_rate": 6.2,
     "provisional": 8,
-    "dollars": 38.5,
-    "dollar_mkts": 28
+    "dollars": 40.0,
+    "dollar_mkts": 29
    },
    "extra": {
-    "ceiling_skips": 422
+    "ceiling_skips": 427
    },
    "rows": [
     {
@@ -787,10 +787,10 @@
      "px": 49,
      "res": "no~",
      "now": 0,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 4,
+     "ct": 4,
+     "pnl": 1.5,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1427,7 +1427,7 @@
      "tk": "KXLOWTDC-26OCT02-B62.5",
      "px": 29,
      "res": "no~",
-     "now": 3,
+     "now": 4,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1781,26 +1781,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 348,
-    "shared_pct": 54.0,
+    "ladders": 349,
+    "shared_pct": 55.0,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 348,
-    "shared_pct": 21.3,
-    "median_other": 17.0
+    "ladders": 349,
+    "shared_pct": 19.8,
+    "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 348,
-    "shared_pct": 12.9,
-    "median_other": 13.45
+    "ladders": 349,
+    "shared_pct": 14.0,
+    "median_other": 10.0
    },
    {
     "rung": 45,
-    "ladders": 348,
-    "shared_pct": 21.8,
+    "ladders": 349,
+    "shared_pct": 22.1,
     "median_other": 15.0
    }
   ]
@@ -1812,8 +1812,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 787,
-    "markets": 190,
+    "orders": 791,
+    "markets": 191,
     "late_line": 4,
     "filled_ct": 46.7,
     "filled_markets": 5,
@@ -1831,8 +1831,8 @@
    },
    {
     "world": "CEIL250",
-    "orders": 316,
-    "markets": 79,
+    "orders": 336,
+    "markets": 84,
     "late_line": 88,
     "filled_ct": 357.4,
     "filled_markets": 3,
@@ -1847,8 +1847,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 311,
-    "markets": 71,
+    "orders": 315,
+    "markets": 72,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1863,8 +1863,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 311,
-    "markets": 71,
+    "orders": 315,
+    "markets": 72,
     "late_line": 4,
     "filled_ct": 0.0,
     "filled_markets": 0,
@@ -1913,9 +1913,25 @@
     "proven": false
    },
    {
+    "world": "HOURLY_M30",
+    "orders": 20,
+    "markets": 5,
+    "late_line": 0,
+    "filled_ct": 0.0,
+    "filled_markets": 0,
+    "settled_markets": 0,
+    "provisional_markets": 0,
+    "settled": 0.0,
+    "provisional": 0.0,
+    "crowd_outs": 0,
+    "crowd_real_settled": 0.0,
+    "ci90": null,
+    "proven": false
+   },
+   {
     "world": "LOWS_UNCAP",
-    "orders": 749,
-    "markets": 145,
+    "orders": 753,
+    "markets": 146,
     "late_line": 143,
     "filled_ct": 72.2,
     "filled_markets": 1,
@@ -1930,8 +1946,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 414,
-    "markets": 290,
+    "orders": 415,
+    "markets": 291,
     "late_line": 82,
     "filled_ct": 121.8,
     "filled_markets": 3,
@@ -1949,14 +1965,14 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 215,
+    "ladders": 216,
     "settled": 0.0,
     "provisional": 0.0
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 334,
+    "ladders": 335,
     "settled": -0.0,
     "provisional": -25.15
    },
@@ -1976,7 +1992,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 793,
+   "orders_compared": 797,
    "real_filled": 3,
    "agree_pct": 100.0,
    "contract_ratio": 1.025,
