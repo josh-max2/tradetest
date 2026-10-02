@@ -150,7 +150,7 @@ function decided(e){
 function expTxt(h){ if(h.exp_lo==null) return '<span class="mut">no $ forecast</span>';
   return h.exp_lo===h.exp_hi? m0(h.exp_lo)+'/mo' : m0(h.exp_lo)+' to '+m0(h.exp_hi)+'/mo'; }
 const m0=v=>v==null?'—':(v<0?'−$':'+$')+Math.abs(Math.round(v)).toLocaleString();
-const MAP={E1:['w','EXTRA_R7',1],E2:['w','EXTRA_R4',1],E3:['t','PULL_B1',1],E4:['t','PULL_WIN',1],E5:['w','CEIL250',1],E6:['w','HOURLY',1],E7:['w','RUNG25',1],E8:['t','TAIL6',1],E9:['w','LOWS_UNCAP',-1]};
+const MAP={E1:['w','EXTRA_R7',1],E2:['w','EXTRA_R4',1],E3:['t','PULL_B1',1],E4:['t','PULL_WIN',1],E5:['w','CEIL250',1],E6:['w','HOURLY_M30',1],E7:['w','RUNG25',1],E8:['t','TAIL6',1],E9:['w','LOWS_UNCAP',-1]};
 let LG=null;
 function lg(e){ const m=MAP[e.id]; if(!LG||!m) return null;
   const x=(m[0]==='w'?LG.worlds:LG.tags).find(r=>(r.world||r.tag)===m[1]);
