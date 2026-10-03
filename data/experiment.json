@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-03 03:00 UTC",
- "generated_mt": "10-02 21:00 MT",
- "generated_epoch": 1790996453.7158532,
+ "generated": "2026-10-03 03:20 UTC",
+ "generated_mt": "10-02 21:20 MT",
+ "generated_epoch": 1790997649.2924805,
  "health": {
-  "heartbeat_age_s": 24,
+  "heartbeat_age_s": 20,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 3.9,
-  "last_trade_age_s": 2,
-  "subscribed": 600,
-  "wethr_calls": 1190,
-  "bursts": 1272,
+  "last_trade_age_s": 9,
+  "subscribed": 520,
+  "wethr_calls": 1275,
+  "bursts": 1277,
   "scheduled_task": true
  },
  "experiments": [
@@ -1831,26 +1831,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 458,
-    "shared_pct": 44.3,
+    "ladders": 499,
+    "shared_pct": 42.1,
     "median_other": 19.0
    },
    {
     "rung": 35,
-    "ladders": 458,
-    "shared_pct": 14.8,
-    "median_other": 22.0
+    "ladders": 499,
+    "shared_pct": 12.2,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 458,
-    "shared_pct": 8.3,
-    "median_other": 19.0
+    "ladders": 499,
+    "shared_pct": 7.8,
+    "median_other": 18.0
    },
    {
     "rung": 45,
-    "ladders": 458,
-    "shared_pct": 19.7,
+    "ladders": 499,
+    "shared_pct": 16.0,
     "median_other": 15.0
    }
   ]
@@ -1862,8 +1862,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 924,
-    "markets": 225,
+    "orders": 936,
+    "markets": 228,
     "late_line": 4,
     "filled_ct": 472.7,
     "filled_markets": 7,
@@ -1929,8 +1929,8 @@
    },
    {
     "world": "HOURLY",
-    "orders": 552,
-    "markets": 138,
+    "orders": 564,
+    "markets": 141,
     "late_line": 0,
     "filled_ct": 246.7,
     "filled_markets": 6,
@@ -2012,7 +2012,7 @@
    },
    {
     "world": "RUNG25",
-    "orders": 517,
+    "orders": 518,
     "markets": 355,
     "late_line": 82,
     "filled_ct": 435.8,
@@ -2038,7 +2038,7 @@
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 413,
+    "ladders": 414,
     "settled": -0.0,
     "provisional": -160.75
    },
@@ -2058,7 +2058,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 1532,
+   "orders_compared": 1540,
    "real_filled": 4,
    "agree_pct": 100.0,
    "contract_ratio": 1.006,
@@ -2071,7 +2071,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 0,
+  "hb_age_s": 3,
   "fingerprint": "6d59db3abfd4",
   "size": 10,
   "series": "all four",
@@ -2246,10 +2246,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 0,
-   "subscribed": 40,
+   "subscribed": 80,
    "stats": {
     "ws_subscribed": 2,
-    "ws_trade": 167
+    "ws_trade": 411,
+    "ws_ok": 1
    }
   },
   "decision_sources": {
