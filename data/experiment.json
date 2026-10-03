@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-03 09:03 UTC",
- "generated_mt": "10-03 03:03 MT",
- "generated_epoch": 1791018225.8989542,
+ "generated": "2026-10-03 09:22 UTC",
+ "generated_mt": "10-03 03:22 MT",
+ "generated_epoch": 1791019342.079202,
  "health": {
-  "heartbeat_age_s": 29,
+  "heartbeat_age_s": 5,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 4.1,
-  "last_trade_age_s": 12,
+  "last_trade_age_s": 1,
   "subscribed": 600,
-  "wethr_calls": 375,
-  "bursts": 1345,
+  "wethr_calls": 460,
+  "bursts": 1353,
   "scheduled_task": true
  },
  "experiments": [
@@ -397,13 +397,13 @@
     {
      "label": "outside windows",
      "stats": {
-      "n": 74,
-      "decided": 74,
-      "yes": 38,
-      "no": 36,
+      "n": 76,
+      "decided": 76,
+      "yes": 39,
+      "no": 37,
       "pending": 0,
-      "yes_rate": 51.4,
-      "provisional": 10,
+      "yes_rate": 51.3,
+      "provisional": 12,
       "dollars": -160.5,
       "dollar_mkts": 26
      }
@@ -550,7 +550,7 @@
      "tk": "KXLOWTHOU-26OCT03-B75.5",
      "px": 61,
      "res": "yes~",
-     "now": 69,
+     "now": 68,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1364,13 +1364,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 42,
-    "decided": 42,
+    "n": 41,
+    "decided": 41,
     "yes": 7,
-    "no": 35,
+    "no": 34,
     "pending": 0,
-    "yes_rate": 16.7,
-    "provisional": 10,
+    "yes_rate": 17.1,
+    "provisional": 9,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -1874,26 +1874,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 269,
-    "shared_pct": 21.2,
-    "median_other": 14.0
+    "ladders": 310,
+    "shared_pct": 19.7,
+    "median_other": 13.0
    },
    {
     "rung": 35,
-    "ladders": 269,
-    "shared_pct": 15.6,
-    "median_other": 25.0
+    "ladders": 310,
+    "shared_pct": 12.3,
+    "median_other": 16.0
    },
    {
     "rung": 40,
-    "ladders": 269,
-    "shared_pct": 10.8,
+    "ladders": 310,
+    "shared_pct": 7.4,
     "median_other": 11.0
    },
    {
     "rung": 45,
-    "ladders": 269,
-    "shared_pct": 16.7,
+    "ladders": 310,
+    "shared_pct": 12.6,
     "median_other": 15.0
    }
   ]
@@ -1905,8 +1905,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 1060,
-    "markets": 259,
+    "orders": 1076,
+    "markets": 263,
     "late_line": 4,
     "filled_ct": 472.7,
     "filled_markets": 7,
@@ -1940,8 +1940,8 @@
    },
    {
     "world": "EXTRA_R4",
-    "orders": 412,
-    "markets": 97,
+    "orders": 416,
+    "markets": 98,
     "late_line": 4,
     "filled_ct": 226.0,
     "filled_markets": 1,
@@ -1956,8 +1956,8 @@
    },
    {
     "world": "EXTRA_R7",
-    "orders": 412,
-    "markets": 97,
+    "orders": 416,
+    "markets": 98,
     "late_line": 4,
     "filled_ct": 226.0,
     "filled_markets": 1,
@@ -1972,8 +1972,8 @@
    },
    {
     "world": "HOURLY",
-    "orders": 648,
-    "markets": 162,
+    "orders": 660,
+    "markets": 165,
     "late_line": 0,
     "filled_ct": 246.7,
     "filled_markets": 6,
@@ -2055,7 +2055,7 @@
    },
    {
     "world": "RUNG25",
-    "orders": 542,
+    "orders": 543,
     "markets": 364,
     "late_line": 82,
     "filled_ct": 435.8,
@@ -2081,7 +2081,7 @@
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 433,
+    "ladders": 434,
     "settled": -0.0,
     "provisional": 365.25
    },
@@ -2101,7 +2101,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 1600,
+   "orders_compared": 1604,
    "real_filled": 4,
    "agree_pct": 100.0,
    "contract_ratio": 1.006,
@@ -2114,7 +2114,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 5,
+  "hb_age_s": 2,
   "fingerprint": "6d59db3abfd4",
   "size": 10,
   "series": "all four",
@@ -2299,11 +2299,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 0,
-   "subscribed": 280,
+   "subscribed": 320,
    "stats": {
     "ws_subscribed": 2,
-    "ws_trade": 5769,
-    "ws_ok": 9,
+    "ws_trade": 6019,
+    "ws_ok": 10,
     "ws_fill": 4
    }
   },
@@ -2477,7 +2477,7 @@
     "E4": 0,
     "E5": 0.0,
     "E6": -96.0,
-    "E7": 16.01,
+    "E7": 6.63,
     "E8": 0,
     "E9": -0.0
    },
