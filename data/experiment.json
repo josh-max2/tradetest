@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-06 01:09 UTC",
- "generated_mt": "10-05 19:09 MT",
- "generated_epoch": 1791248974.431472,
+ "generated": "2026-10-06 01:29 UTC",
+ "generated_mt": "10-05 19:29 MT",
+ "generated_epoch": 1791250151.4531643,
  "health": {
-  "heartbeat_age_s": 0,
+  "heartbeat_age_s": 7,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 6.8,
-  "last_trade_age_s": -1,
+  "last_trade_age_s": 7,
   "subscribed": 554,
-  "wethr_calls": 11171,
-  "bursts": 2261,
+  "wethr_calls": 11216,
+  "bursts": 2271,
   "scheduled_task": true
  },
  "experiments": [
@@ -650,12 +650,12 @@
      "label": "outside windows",
      "stats": {
       "n": 109,
-      "decided": 109,
-      "yes": 47,
+      "decided": 108,
+      "yes": 46,
       "no": 62,
-      "pending": 0,
-      "yes_rate": 43.1,
-      "provisional": 11,
+      "pending": 1,
+      "yes_rate": 42.6,
+      "provisional": 10,
       "dollars": 133.65,
       "dollar_mkts": 39
      }
@@ -1179,7 +1179,7 @@
      "tk": "KXLOWTLAX-26OCT05-B74.5",
      "px": 47,
      "res": "no~",
-     "now": 5,
+     "now": 6,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -1221,7 +1221,7 @@
      "tk": "KXLOWTOKC-26OCT05-B56.5",
      "px": 31,
      "res": "no~",
-     "now": 2,
+     "now": 1,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -2258,26 +2258,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 436,
-    "shared_pct": 51.6,
+    "ladders": 478,
+    "shared_pct": 51.5,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 436,
-    "shared_pct": 12.2,
-    "median_other": 14.0
+    "ladders": 478,
+    "shared_pct": 11.9,
+    "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 436,
-    "shared_pct": 8.3,
-    "median_other": 18.0
+    "ladders": 478,
+    "shared_pct": 8.4,
+    "median_other": 21.0
    },
    {
     "rung": 45,
-    "ladders": 436,
-    "shared_pct": 17.2,
+    "ladders": 478,
+    "shared_pct": 16.5,
     "median_other": 15.0
    }
   ]
@@ -2289,8 +2289,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 3813,
-    "markets": 865,
+    "orders": 3825,
+    "markets": 868,
     "late_line": 339,
     "filled_ct": 1471.3,
     "filled_markets": 19,
@@ -2365,8 +2365,8 @@
    },
    {
     "world": "HOURLY",
-    "orders": 1544,
-    "markets": 386,
+    "orders": 1556,
+    "markets": 389,
     "late_line": 0,
     "filled_ct": 796.3,
     "filled_markets": 15,
@@ -2384,8 +2384,8 @@
    },
    {
     "world": "HOURLY_LOOSE",
-    "orders": 1324,
-    "markets": 331,
+    "orders": 1340,
+    "markets": 335,
     "late_line": 0,
     "filled_ct": 1322.4,
     "filled_markets": 13,
@@ -2509,7 +2509,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 4161,
+   "orders_compared": 4177,
    "real_filled": 10,
    "agree_pct": 100.0,
    "contract_ratio": 1.002,
@@ -2522,7 +2522,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 1,
+  "hb_age_s": -4,
   "fingerprint": "a4f0d98105a9",
   "size": 10,
   "series": "all four",
@@ -2559,9 +2559,9 @@
    8,
    73.16
   ],
-  "pnl_today": 10.764000000000001,
-  "pnl_total": 17.338,
-  "exposure": 25.0,
+  "pnl_today": 25.764,
+  "pnl_total": 32.338,
+  "exposure": 0,
   "skips": {
    "POOL_SKIP": 0,
    "BALANCE_SKIP": 0,
@@ -2751,7 +2751,7 @@
    "stats": {
     "ws_subscribed": 6,
     "ws_ok": 85,
-    "ws_trade": 50078,
+    "ws_trade": 50400,
     "ws_fill": 170
    }
   },
@@ -2759,6 +2759,13 @@
    "ws": 700
   },
   "fills": [
+   {
+    "t": "10-05 19:15",
+    "tk": "KXTEMPLAXHS-26OCT0521-T87.99",
+    "d": {
+     "result": "no"
+    }
+   },
    {
     "t": "10-05 18:37",
     "tk": "KXTEMPLAXHS-26OCT0521-T87.99",
@@ -2868,13 +2875,6 @@
      "fee": 0.0,
      "ex_ts": 1791239541.602,
      "src": "ws"
-    }
-   },
-   {
-    "t": "10-05 13:14",
-    "tk": "KXTEMPNYCHS-26OCT0515-T69.99",
-    "d": {
-     "result": "no"
     }
    }
   ]
@@ -3004,17 +3004,17 @@
    "bot": 133.25,
    "bot_mkts": 1,
    "est": {
-    "E1": -3.5,
-    "E2": -3.5,
+    "E1": -2.0,
+    "E2": -2.0,
     "E3": 0,
     "E4": -3.0,
     "E5": 21.67,
     "E6": 91.66,
     "E7": 59.15,
-    "E8": 5.0,
+    "E8": 3.5,
     "E9": -0.0
    },
-   "compat": 109.83
+   "compat": 111.33
   }
  ]
 }
