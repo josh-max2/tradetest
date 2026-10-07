@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-07 17:56 UTC",
- "generated_mt": "10-07 11:56 MT",
- "generated_epoch": 1791395796.3742783,
+ "generated": "2026-10-07 18:18 UTC",
+ "generated_mt": "10-07 12:18 MT",
+ "generated_epoch": 1791397111.7544632,
  "health": {
-  "heartbeat_age_s": 23,
+  "heartbeat_age_s": 18,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 8.5,
   "last_trade_age_s": -1,
-  "subscribed": 1114,
-  "wethr_calls": 18006,
-  "bursts": 2837,
+  "subscribed": 760,
+  "wethr_calls": 18091,
+  "bursts": 2846,
   "scheduled_task": true
  },
  "experiments": [
@@ -1029,7 +1029,7 @@
     "dollar_mkts": 74
    },
    "extra": {
-    "ceiling_skips": 869
+    "ceiling_skips": 875
    },
    "rows": [
     {
@@ -1830,13 +1830,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 78,
-    "decided": 78,
+    "n": 77,
+    "decided": 77,
     "yes": 0,
-    "no": 78,
+    "no": 77,
     "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 12,
+    "provisional": 11,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -2354,26 +2354,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 904,
-    "shared_pct": 23.9,
+    "ladders": 528,
+    "shared_pct": 40.3,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 904,
-    "shared_pct": 8.2,
-    "median_other": 15.0
+    "ladders": 528,
+    "shared_pct": 9.8,
+    "median_other": 11.0
    },
    {
     "rung": 40,
-    "ladders": 904,
-    "shared_pct": 4.9,
+    "ladders": 528,
+    "shared_pct": 6.1,
     "median_other": 10.0
    },
    {
     "rung": 45,
-    "ladders": 904,
-    "shared_pct": 10.1,
+    "ladders": 528,
+    "shared_pct": 15.0,
     "median_other": 15.0
    }
   ]
@@ -2385,8 +2385,8 @@
   "worlds": [
    {
     "world": "ALL",
-    "orders": 4778,
-    "markets": 1084,
+    "orders": 4798,
+    "markets": 1089,
     "late_line": 339,
     "filled_ct": 1871.3,
     "filled_markets": 21,
@@ -2407,12 +2407,12 @@
     "orders": 1092,
     "markets": 264,
     "late_line": 348,
-    "filled_ct": 2270.2,
-    "filled_markets": 10,
+    "filled_ct": 2389.9,
+    "filled_markets": 11,
     "settled_markets": 4,
-    "provisional_markets": 6,
+    "provisional_markets": 7,
     "settled": 162.28,
-    "provisional": -703.5,
+    "provisional": -667.6,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
     "ci90": [
@@ -2461,8 +2461,8 @@
    },
    {
     "world": "HOURLY",
-    "orders": 2116,
-    "markets": 529,
+    "orders": 2136,
+    "markets": 534,
     "late_line": 0,
     "filled_ct": 1196.3,
     "filled_markets": 17,
@@ -2537,8 +2537,8 @@
    },
    {
     "world": "LOWS_UNCAP",
-    "orders": 3157,
-    "markets": 596,
+    "orders": 3161,
+    "markets": 597,
     "late_line": 552,
     "filled_ct": 77.2,
     "filled_markets": 2,
@@ -2556,8 +2556,8 @@
    },
    {
     "world": "RUNG25",
-    "orders": 1598,
-    "markets": 1124,
+    "orders": 1599,
+    "markets": 1125,
     "late_line": 312,
     "filled_ct": 1539.5,
     "filled_markets": 20,
@@ -2578,14 +2578,14 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 903,
+    "ladders": 904,
     "settled": 281.65,
     "provisional": 61.85
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 1199,
+    "ladders": 1200,
     "settled": -252.1,
     "provisional": -61.85
    },
@@ -2605,7 +2605,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 5283,
+   "orders_compared": 5287,
    "real_filled": 17,
    "agree_pct": 100.0,
    "contract_ratio": 1.001,
@@ -2642,20 +2642,15 @@
    [
     "LIVE",
     "EXPIRED",
-    639
+    655
    ],
    [
     "LIVE",
     "FILLED",
     53
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    0,
    0
@@ -2848,11 +2843,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 87,
-   "subscribed": 2311,
+   "subscribed": 2351,
    "stats": {
     "ws_subscribed": 10,
-    "ws_ok": 175,
-    "ws_trade": 95228,
+    "ws_ok": 176,
+    "ws_trade": 96332,
     "ws_fill": 199
    }
   },
@@ -3133,7 +3128,7 @@
     "E4": -1.5,
     "E5": 19.55,
     "E6": -250.0,
-    "E7": 19.92,
+    "E7": 2.0,
     "E8": 2.5,
     "E9": -0.0
    },
