@@ -200,11 +200,11 @@ function heatBg(roi){
 
 // per-strategy helpers [2026-07-12]: sd = strat_days[iso] = {mir/rung/t12:{pnl,basis,n}};
 // base comes from rec itself (pnl + collat). ROI = pnl / capital that strategy risked.
-const SLBL={base:'base',mir:'mirror',rung:'rung v2',rungslow:'rung slow',t12:'t12'};
+const SLBL={base:'base',mir:'mirror',rung:'rung v2',rungslow:'rung slow',t12:'t12',hourly:'hourly temp',nfl:'NFL TD'};
 const BASE_LAST='2026-07-21';   // [2026-07-24] base retired; last settlement Jul 21. Days after = pure sidecar.
 function stratList(rec, sd){
   const out=[]; let side=0;
-  for(const k of ['mir','rung','rungslow','t12']){
+  for(const k of ['mir','rung','rungslow','t12','hourly','nfl']){
     const s=(sd||{})[k];
     if(s && s.n>0){ out.push([k, s.pnl, s.basis>0?100*s.pnl/s.basis:null]); side+=s.pnl; }
   }
@@ -220,7 +220,7 @@ function stratList(rec, sd){
 function chipStrip(list){
   if(!list.length) return '';
   return `<div class="chips">`+list.map(([k,p])=>
-    `<span class="chip ${p>0?'pos':(p<0?'neg':'')}">${k==='base'?'B':k==='mir'?'M':k==='rung'?'R':k==='rungslow'?'S':'T'}</span>`).join('')+`</div>`;
+    `<span class="chip ${p>0?'pos':(p<0?'neg':'')}">${k==='base'?'B':k==='mir'?'M':k==='rung'?'R':k==='rungslow'?'S':k==='hourly'?'H':k==='nfl'?'N':'T'}</span>`).join('')+`</div>`;
 }
 function stratTip(list){
   return list.map(([k,p,roi])=>`${SLBL[k]} ${signMoney(p)}${roi==null?'':` (${pct1(roi)} on risked)`}`).join('\n');
