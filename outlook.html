@@ -73,9 +73,20 @@ footer{color:var(--muted);font-size:11.5px;border-top:1px solid var(--grid);padd
  <a href="./experiment.html">Experiment</a>
 </div>
 <h1>Outlook</h1>
-<p class="sub">What the next week, month and year look like on our own measured fills — and who is
-on the other side of those trades. The second half matters because this strategy sells insurance:
-we need people <em>buying</em> panic, not other desks fading it alongside us.</p>
+<p class="sub">One number to plan with: what the temperature books actually made over the last 30 days, and what the same
+trades would have made with the account fully funded at <b>$2,000</b>. Plan the next 30 days on these — the past repeated, not a model.</p>
+<div id="f30">
+<h2>Last 30 days</h2>
+<p class="h2sub" id="f30sub">Loading…</p>
+<div class="stats" id="f30stats"></div>
+<div class="card"><div class="tw"><svg id="f30chart" style="width:100%;height:180px"></svg></div>
+<div class="legend" style="font-size:11px;color:var(--muted);margin-top:6px">
+<span><span style="display:inline-block;width:10px;height:10px;background:var(--s1);margin-right:4px;vertical-align:-1px"></span>actual (weather + hourly)</span>
+&nbsp;&nbsp;<span><span style="display:inline-block;width:10px;height:10px;border:1.5px solid var(--good);margin-right:4px;vertical-align:-1px"></span>at $2,000 funding</span></div></div>
+<div class="note" id="f30note"></div>
+</div>
+<details id="oldmodel" style="margin-top:22px"><summary style="cursor:pointer;color:var(--muted);font-size:12.5px">
+Older model projections and market analysis (not a forecast — the projection compounds size past what the market absorbs)</summary>
 <div id="err">Loading…</div>
 <div id="body" style="display:none">
 <div id="stale"></div>
@@ -130,6 +141,7 @@ prices against the share of that volume that came from an insurance <em>buyer</e
 
 <footer id="foot"></footer>
 </div></div>
+</details>
 <script>
 const money=v=>(v==null?'—':(v<0?'−$':'$')+Math.abs(v).toLocaleString(undefined,{maximumFractionDigits:0}));
 const money2=v=>(v==null?'—':(v<0?'−$':'+$')+Math.abs(v).toFixed(2));
@@ -462,5 +474,38 @@ async function load(){
     document.getElementById('err').textContent='Outlook data not published yet — run ev_outlook.py.';
   }
 }
+function f30render(d){
+  const W=d.weather, H=d.hourly, T=d.total;
+  const m=v=>(v<0?'−$':'+$')+Math.abs(Math.round(v)).toLocaleString();
+  document.getElementById('f30sub').innerHTML='Settled results from <b>'+d.window_start+'</b> to <b>'+d.window_end+'</b>, by the day the trade filled '
+    +'(same as the Calendar). Daily weather bot: '+W.trading_days+' trading days. Hourly bot: live since '+(H.since||'—')+'.';
+  const card=(l,v,sub,cls)=>'<div class="stat"><div class="l">'+l+'</div><div class="v '+cls+'">'+v+'</div><div class="s">'+sub+'</div></div>';
+  document.getElementById('f30stats').innerHTML=
+     card('Actual · last 30 days', m(T.actual), 'weather '+m(W.actual)+' · hourly '+m(H.actual), T.actual>=0?'pos':'neg')
+    +card('At $2,000 funding', m(T.full), 'same trades re-sized · weather '+m(W.full)+' + hourly as run', T.full>=0?'pos':'neg')
+    +card('Per day (actual)', m(T.actual/30), 'calendar day · '+m(T.full/30)+' at $2,000', 'amb')
+    +card('Weather range (90%)', m(W.actual_ci[0])+' … '+m(W.actual_ci[1]), 'day-to-day luck · at $2,000: '+m(W.full_ci[0])+' … '+m(W.full_ci[1]), '');
+  const top=(W.top_days||[]).map(x=>x.date.slice(5)+' '+m(x.actual)).join(', ');
+  document.getElementById('f30note').innerHTML='<b>How the $2,000 column is built:</b> every ladder the daily bot actually placed is re-sized to the $2,000 rules '
+    +'(highs 200 contracts per price, lows 100, no more than $200 filled in one market) and re-filled from Kalshi&rsquo;s public trade record. '
+    +'Checked against reality first: at the sizes actually used, this method reproduces the bot&rsquo;s real fills to within '+Math.round(Math.abs(W.validation_ratio-1)*100)+'%. '
+    +'Ladders the bot skipped are not added back. The hourly bot runs on its own $100 pool, so it counts as it actually ran. '
+    +'NFL (disabled) is excluded. <b>Concentration:</b> four days carry much of the month — '+top+'. '
+    +(W.pending_legs?W.pending_legs+' price levels are still waiting on settlement and are not counted yet.':'');
+  const svg=document.getElementById('f30chart'), days=d.days||[], w=svg.clientWidth||600, h=180, pad=24;
+  const vals=days.flatMap(x=>[x.weather+x.hourly, x.weather_full+x.hourly]); const mx=Math.max(1,...vals.map(Math.abs));
+  const bw=(w-pad*2)/Math.max(1,days.length), y0=h/2, sc=(h/2-14)/mx;
+  let g='<line x1="'+pad+'" x2="'+(w-pad)+'" y1="'+y0+'" y2="'+y0+'" stroke="var(--grid)"/>';
+  days.forEach((x,i)=>{ const a=x.weather+x.hourly, f=x.weather_full+x.hourly, X=pad+i*bw;
+    g+='<rect x="'+(X+bw*0.15)+'" width="'+(bw*0.42)+'" y="'+(a>=0?y0-a*sc:y0)+'" height="'+Math.abs(a*sc)+'" fill="var(--s1)"><title>'+x.date+' actual '+m(a)+'</title></rect>';
+    g+='<rect x="'+(X+bw*0.57)+'" width="'+(bw*0.28)+'" y="'+(f>=0?y0-f*sc:y0)+'" height="'+Math.abs(f*sc)+'" fill="none" stroke="var(--good)" stroke-width="1.2"><title>'+x.date+' at $2,000 '+m(f)+'</title></rect>';
+    if(i%5===0) g+='<text x="'+(X+bw/2)+'" y="'+(h-2)+'" font-size="9" fill="var(--muted)" text-anchor="middle">'+x.date.slice(5)+'</text>'; });
+  svg.innerHTML=g;
+}
+async function f30load(){
+  try{ const r=await fetch('./data/forecast30.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok) throw 0; f30render(await r.json()); }
+  catch(e){ document.getElementById('f30sub').textContent='Last-30-days data not published yet.'; }
+}
+f30load(); setInterval(f30load, 300000);
 load(); setInterval(load, 300000);
 </script>
