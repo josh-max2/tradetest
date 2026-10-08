@@ -1,15 +1,15 @@
 {
- "generated": "2026-10-08 02:49",
+ "generated": "2026-10-08 08:50",
  "basis": {
-  "days": 41,
+  "days": 42,
   "first": "2026-08-04",
-  "last": "2026-10-07",
+  "last": "2026-10-08",
   "basis_min_ct": 40,
-  "days_all": 59,
-  "edge_c_per_ct": 15.0,
-  "contracts": 13637,
-  "sleeve": 2487.49,
-  "max_ct": 249,
+  "days_all": 60,
+  "edge_c_per_ct": 15.24,
+  "contracts": 13828,
+  "sleeve": 2481.14,
+  "max_ct": 248,
   "cap_k": 10.0,
   "obs_max_ct": 249.0,
   "capture_bands": {
@@ -22,48 +22,48 @@
     "days": 15
    },
    "110-400": {
-    "capture": 2.18,
-    "days": 16
+    "capture": 2.079,
+    "days": 17
    }
   },
   "worst_day_per_ct": -1.946,
-  "top_band_days": 16,
-  "plateau_ct_per_day": 523.7,
-  "plateau_days": 9,
+  "top_band_days": 17,
+  "plateau_ct_per_day": 490.4,
+  "plateau_days": 10,
   "plateau_cut": 199.2,
-  "conc_top5": 55.3,
-  "pos_day_pct": 82.9
+  "conc_top5": 53.7,
+  "pos_day_pct": 83.3
  },
  "projection": {
   "week": {
    "days": 7,
-   "p5": -58.16,
-   "median": 799.01,
-   "p95": 1454.88,
-   "end_sleeve": 3286.5,
-   "end_ct": 329,
-   "centre_lo": 509.64,
-   "centre_hi": 1192.41
+   "p5": -21.34,
+   "median": 783.12,
+   "p95": 1373.36,
+   "end_sleeve": 3264.26,
+   "end_ct": 326,
+   "centre_lo": 469.43,
+   "centre_hi": 1157.77
   },
   "month": {
    "days": 30,
-   "p5": 1384.09,
-   "median": 4003.3,
-   "p95": 5892.14,
-   "end_sleeve": 6490.79,
-   "end_ct": 649,
-   "centre_lo": 2413.79,
-   "centre_hi": 5558.53
+   "p5": 1275.91,
+   "median": 3886.47,
+   "p95": 5437.75,
+   "end_sleeve": 6367.61,
+   "end_ct": 637,
+   "centre_lo": 2225.9,
+   "centre_hi": 4900.71
   },
   "year": {
    "days": 365,
-   "p5": 32605.07,
-   "median": 50200.35,
-   "p95": 66853.25,
-   "end_sleeve": 52687.84,
-   "end_ct": 5269,
-   "centre_lo": 33812.95,
-   "centre_hi": 66113.37
+   "p5": 31764.05,
+   "median": 47802.63,
+   "p95": 62167.89,
+   "end_sleeve": 50283.77,
+   "end_ct": 5028,
+   "centre_lo": 33737.1,
+   "centre_hi": 61358.62
   }
  },
  "counterparty": [
@@ -258,7 +258,7 @@
    "block_ct": 0,
    "small_share": 44.7,
    "low_vol": false,
-   "our_pnl": 413.12,
+   "our_pnl": 474.97,
    "pnl_days": 3,
    "pnl_full": false
   }
@@ -293,29 +293,29 @@
  },
  "realized": {
   "d7": {
-   "pnl": 259.1,
+   "pnl": 317.95,
    "traded_days": 6,
    "span_days": 7,
-   "ct": 2013,
-   "per_day": 37.01,
-   "per_week": 259.1,
-   "mean_ct": 220.5,
-   "exp_week_at_size": 549.78,
-   "pct_of_size_matched": 47.1
+   "ct": 2194,
+   "per_day": 45.42,
+   "per_week": 317.95,
+   "mean_ct": 224.3,
+   "exp_week_at_size": 523.1,
+   "pct_of_size_matched": 60.8
   },
   "era": {
-   "pnl": 1085.15,
-   "traded_days": 22,
-   "span_days": 26,
-   "ct": 7565,
-   "per_day": 41.74,
-   "per_week": 292.16,
-   "mean_ct": 158.5,
-   "exp_week_at_size": 362.84,
-   "pct_of_size_matched": 80.5
+   "pnl": 1147.0,
+   "traded_days": 23,
+   "span_days": 27,
+   "ct": 7756,
+   "per_day": 42.48,
+   "per_week": 297.37,
+   "mean_ct": 162.4,
+   "exp_week_at_size": 360.09,
+   "pct_of_size_matched": 82.6
   },
   "era_start": "2026-09-11",
-  "model_start_ct": 249
+  "model_start_ct": 248
  },
  "capacity": {
   "months": [
@@ -429,36 +429,36 @@
   "share_ev_corr": -0.01
  },
  "scenarios": {
-  "k_linear": 2.1031,
+  "k_linear": 1.9695,
   "avail_annual": 30214.3,
-  "now_kappa": 0.0243,
+  "now_kappa": 0.0227,
   "bust_mult": 0.9683,
   "by_kappa": [
    {
-    "kappa": 0.0243,
-    "ceiling_ct_day": 732.8,
+    "kappa": 0.0227,
+    "ceiling_ct_day": 686.3,
     "binds_at_ct": 348.4,
     "is_today": true,
     "week": {
-     "median": 799.01,
-     "lo": 509.64,
-     "hi": 1192.41,
-     "pred_lo": -58.16,
-     "pred_hi": 1454.88
+     "median": 783.12,
+     "lo": 469.43,
+     "hi": 1157.77,
+     "pred_lo": -21.34,
+     "pred_hi": 1373.36
     },
     "month": {
-     "median": 4003.3,
-     "lo": 2413.79,
-     "hi": 5558.53,
-     "pred_lo": 1384.09,
-     "pred_hi": 5892.14
+     "median": 3886.47,
+     "lo": 2225.9,
+     "hi": 4900.71,
+     "pred_lo": 1275.91,
+     "pred_hi": 5437.75
     },
     "year": {
-     "median": 50200.35,
-     "lo": 33812.95,
-     "hi": 66113.37,
-     "pred_lo": 32605.07,
-     "pred_hi": 66853.25
+     "median": 47802.63,
+     "lo": 33737.1,
+     "hi": 61358.62,
+     "pred_lo": 31764.05,
+     "pred_hi": 62167.89
     }
    }
   ]
