@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-08 21:22 UTC",
- "generated_mt": "10-08 15:22 MT",
- "generated_epoch": 1791494535.0344868,
+ "generated": "2026-10-08 21:41 UTC",
+ "generated_mt": "10-08 15:41 MT",
+ "generated_epoch": 1791495673.3277097,
  "health": {
-  "heartbeat_age_s": 26,
+  "heartbeat_age_s": 24,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
-  "days": 9.6,
-  "last_trade_age_s": -6,
+  "days": 9.7,
+  "last_trade_age_s": -1,
   "subscribed": 794,
-  "wethr_calls": 22650,
-  "bursts": 3192,
+  "wethr_calls": 22695,
+  "bursts": 3197,
   "scheduled_task": true
  },
  "experiments": [
@@ -687,10 +687,10 @@
      "stats": {
       "n": 135,
       "decided": 135,
-      "yes": 64,
-      "no": 71,
+      "yes": 63,
+      "no": 72,
       "pending": 0,
-      "yes_rate": 47.4,
+      "yes_rate": 46.7,
       "provisional": 14,
       "dollars": 55.85,
       "dollar_mkts": 49
@@ -1263,7 +1263,7 @@
      "tk": "KXHIGHTSEA-26OCT08-B70.5",
      "px": 32,
      "res": "no~",
-     "now": 0,
+     "now": 1,
      "legs": 4,
      "ct": 4,
      "pnl": 1.5,
@@ -1403,7 +1403,7 @@
      "tk": "KXLOWTDEN-26OCT08-T57",
      "px": 85,
      "res": "yes~",
-     "now": 78,
+     "now": 81,
      "legs": 4,
      "ct": 4,
      "pnl": -2.5,
@@ -2339,8 +2339,8 @@
    "E9"
   ],
   "live_total": 2793.79,
-  "live_per_month": 8847.0,
-  "days": 9.6,
+  "live_per_month": 8756.0,
+  "days": 9.7,
   "base_live": 113.75,
   "model_add_lo": 800,
   "model_add_hi": 1300,
@@ -2384,27 +2384,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 662,
-    "shared_pct": 36.9,
+    "ladders": 667,
+    "shared_pct": 36.7,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 662,
-    "shared_pct": 8.6,
-    "median_other": 15.0
+    "ladders": 667,
+    "shared_pct": 9.9,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 662,
-    "shared_pct": 5.3,
-    "median_other": 14.66
+    "ladders": 667,
+    "shared_pct": 6.0,
+    "median_other": 16.96
    },
    {
     "rung": 45,
-    "ladders": 662,
-    "shared_pct": 9.1,
-    "median_other": 16.0
+    "ladders": 667,
+    "shared_pct": 9.6,
+    "median_other": 15.0
    }
   ]
  },
@@ -2510,8 +2510,8 @@
    },
    {
     "world": "HOURLY_LOOSE",
-    "orders": 2660,
-    "markets": 665,
+    "orders": 2680,
+    "markets": 670,
     "late_line": 0,
     "filled_ct": 2233.6,
     "filled_markets": 17,
@@ -2529,8 +2529,8 @@
    },
    {
     "world": "HOURLY_M30",
-    "orders": 2328,
-    "markets": 582,
+    "orders": 2344,
+    "markets": 586,
     "late_line": 0,
     "filled_ct": 778.9,
     "filled_markets": 10,
@@ -2548,15 +2548,15 @@
    },
    {
     "world": "HOURLY_REPLICA",
-    "orders": 2095,
-    "markets": 535,
+    "orders": 2110,
+    "markets": 539,
     "late_line": 0,
-    "filled_ct": 614.1,
-    "filled_markets": 21,
+    "filled_ct": 634.1,
+    "filled_markets": 22,
     "settled_markets": 21,
-    "provisional_markets": 0,
+    "provisional_markets": 1,
     "settled": 58.1,
-    "provisional": 0.0,
+    "provisional": 6.5,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
     "ci90": [
@@ -2648,15 +2648,15 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -15,
+  "hb_age_s": -1,
   "fingerprint": "a4f0d98105a9",
   "size": 10,
   "series": "all four",
   "pool": 100,
   "daily_stop": 150,
   "decided_today": [
-   520,
-   51
+   560,
+   55
   ],
   "orders": [
    [
@@ -2677,17 +2677,22 @@
    [
     "LIVE",
     "FILLED",
-    65
+    67
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    14
    ]
   ],
-  "resting": 0,
+  "resting": 14,
   "filled_today": [
-   4,
-   40
+   6,
+   60
   ],
   "pnl_today": 15.0,
   "pnl_total": 62.149499999999996,
-  "exposure": 0,
+  "exposure": 13.5,
   "skips": {
    "POOL_SKIP": 0,
    "BALANCE_SKIP": 0,
@@ -2699,6 +2704,74 @@
    "LOOP_ERROR": 0
   },
   "arms": [
+   {
+    "t": "10-08 15:30",
+    "tk": "KXTEMPCHIHS-26OCT0818-T71.99",
+    "d": {
+     "arm_moment": 1791495000.0,
+     "n_prints": 12,
+     "max_print": 7.000000000000001,
+     "source": "ws",
+     "implied": 70,
+     "K": 72,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-08 15:30",
+    "tk": "KXTEMPNYCHS-26OCT0818-T72.99",
+    "d": {
+     "arm_moment": 1791495000.0,
+     "n_prints": 7,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 70,
+     "K": 73,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-08 15:30",
+    "tk": "KXTEMPMIAH-26OCT0818-T86.99",
+    "d": {
+     "arm_moment": 1791495000.0,
+     "n_prints": 124,
+     "max_print": 30.0,
+     "source": "ws",
+     "implied": 86,
+     "K": 87,
+     "dist": 1,
+     "threshold": 30,
+     "placed": 4,
+     "size": 10,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-08 15:30",
+    "tk": "KXTEMPMIAH-26OCT0818-T88.99",
+    "d": {
+     "arm_moment": 1791495000.0,
+     "n_prints": 4,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 86,
+     "K": 89,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
    {
     "t": "10-08 14:30",
     "tk": "KXTEMPLAXHS-26OCT0817-T85.99",
@@ -2800,74 +2873,6 @@
      "size": 10,
      "mode": "LIVE"
     }
-   },
-   {
-    "t": "10-08 13:30",
-    "tk": "KXTEMPMIAH-26OCT0816-T89.99",
-    "d": {
-     "arm_moment": 1791487800.0,
-     "n_prints": 22,
-     "max_print": 5.0,
-     "source": "ws",
-     "implied": 88,
-     "K": 90,
-     "dist": 2,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-08 13:30",
-    "tk": "KXTEMPMIAH-26OCT0816-T90.99",
-    "d": {
-     "arm_moment": 1791487800.0,
-     "n_prints": 1,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 88,
-     "K": 91,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-08 12:30",
-    "tk": "KXTEMPMIAH-26OCT0815-T90.99",
-    "d": {
-     "arm_moment": 1791484200.0,
-     "n_prints": 7,
-     "max_print": 4.0,
-     "source": "ws",
-     "implied": 88,
-     "K": 91,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-08 12:30",
-    "tk": "KXTEMPMIAH-26OCT0815-T91.99",
-    "d": {
-     "arm_moment": 1791484200.0,
-     "n_prints": 4,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 88,
-     "K": 92,
-     "dist": 4,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
    }
   ],
   "ws": {
@@ -2877,14 +2882,53 @@
    "stats": {
     "ws_subscribed": 13,
     "ws_ok": 243,
-    "ws_trade": 133325,
-    "ws_fill": 211
+    "ws_trade": 133737,
+    "ws_fill": 213
    }
   },
   "decision_sources": {
-   "ws": 520
+   "ws": 560
   },
   "fills": [
+   {
+    "t": "10-08 15:39",
+    "tk": "KXTEMPMIAH-26OCT0818-T86.99",
+    "d": {
+     "cid": "c2d20b12-2aa0-578d-a6df-4983056c5bbf",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 35.0,
+     "fee": 0.0,
+     "ex_ts": 1791495585.449,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-08 15:39",
+    "tk": "KXTEMPMIAH-26OCT0818-T86.99",
+    "d": {
+     "cid": "c17cefb6-8c58-56c9-90c2-ce32983e7e66",
+     "count": 9.21,
+     "filled": 10,
+     "yes_c": 30.0,
+     "fee": 0.0,
+     "ex_ts": 1791495566.018,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-08 15:32",
+    "tk": "KXTEMPMIAH-26OCT0818-T86.99",
+    "d": {
+     "cid": "c17cefb6-8c58-56c9-90c2-ce32983e7e66",
+     "count": 0.79,
+     "filled": 0.79,
+     "yes_c": 30.0,
+     "fee": 0.0,
+     "ex_ts": 1791495145.99,
+     "src": "ws"
+    }
+   },
    {
     "t": "10-08 13:11",
     "tk": "KXTEMPNYCHS-26OCT0815-T74.99",
@@ -2961,45 +3005,6 @@
      "yes_c": 45.0,
      "fee": 0.0,
      "ex_ts": 1791431999.021,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-07 22:00",
-    "tk": "KXTEMPLAXHS-26OCT0800-T75.99",
-    "d": {
-     "cid": "64ae517b-2a76-50ec-a0c9-698b0e172784",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 40.0,
-     "fee": 0.0,
-     "ex_ts": 1791431999.021,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-07 22:00",
-    "tk": "KXTEMPLAXHS-26OCT0800-T75.99",
-    "d": {
-     "cid": "36169e49-2fdf-50a4-9bc4-05ab6219afb0",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 35.0,
-     "fee": 0.0,
-     "ex_ts": 1791431999.021,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-07 21:54",
-    "tk": "KXTEMPLAXHS-26OCT0800-T75.99",
-    "d": {
-     "cid": "ebef2b38-5e76-5855-a009-bbbeced622c1",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 30.0,
-     "fee": 0.0,
-     "ex_ts": 1791431667.554,
      "src": "ws"
     }
    }
