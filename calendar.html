@@ -60,6 +60,8 @@ h1{font-size:21px;font-weight:650;margin:0}
 .cell.empty{border:0;background:transparent;min-height:0}
 .cell.blank .dnum{opacity:.45}
 .cell.today{border:2px solid var(--s1)}
+.cell.open{border:2px dashed var(--s1)}
+.cell.today.open{border:2px solid var(--s1);box-shadow:inset 0 0 0 2px var(--s1)}
 .dnum{font-size:11px;font-weight:600;color:var(--ink2);font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;align-items:center}
 .live{color:var(--goodtext);font-size:8.5px;font-weight:800;letter-spacing:.03em}
 .pnl{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:auto;line-height:1.02;white-space:nowrap}
@@ -226,19 +228,20 @@ function stratTip(list){
 
 function cell(iso, dd, rec, todayISO, today, sd){
   const items = stratList(rec, sd);
-  if(!rec && items.length===0) return `<div class="cell blank"><span class="dnum">${dd}</span></div>`;
+  if(!rec && items.length===0) return `<div class="cell blank ${iso===todayISO?'today':''}" ${iso===todayISO?'title="'+esc(iso)+' — today, nothing filled yet"':''}><span class="dnum">${dd}</span></div>`;
   if(!rec){                        // sidecar-only day (base had no book): still show it
     const p=items.reduce((a,x)=>a+x[1],0);
     return `<div class="cell" title="${esc(iso+'\n'+stratTip(items))}">
       <span class="dnum">${dd}</span>
       <div class="pnl ${p>=0?'pos':'neg'}">${cellMoney(p)}</div>${chipStrip(items)}</div>`;
   }
-  const isToday = iso===todayISO;
+  const isToday = iso===todayISO;                       // the real calendar date (local)
+  const isOpen = iso===((today||{}).date||null);         // the day whose entries are still settling
   // today / fully-open day -> expected value, not realized
   if(rec.n===0 && rec.pending>0){
     // [calendar fix] show THIS day's own expected value, not the whole open book's
     const ex = rec.exp_pnl!=null ? rec.exp_pnl : (today||{}).exp_pnl;
-    return `<div class="cell ${isToday?'today':''}" title="${esc(iso)} — in progress\n${rec.pending} open positions\n${money(rec.open_prem)} premium at stake if all win\nexpected (this day only): ${signMoney(ex)}">
+    return `<div class="cell ${isToday?'today':''} ${isOpen?'open':''}" title="${esc(iso)} — in progress\n${rec.pending} open positions\n${money(rec.open_prem)} premium at stake if all win\nexpected (this day only): ${signMoney(ex)}">
       <span class="dnum">${dd}<span class="live">${NARROW()?'●':'● OPEN'}</span></span>
       <div class="pnl neutral">${cellMoney(ex)}</div>
       <div class="roi">${NARROW()?'':'exp · '}${rec.pending} open</div></div>`;
@@ -254,7 +257,7 @@ function cell(iso, dd, rec, todayISO, today, sd){
     +`\n—\nday ${pct1(rec.port_pct)} of portfolio · to date ${pct1(rec.cum_pct)}`
     +`\n${rec.wins}W/${rec.losses}L · ${rec.contracts} ct · ${money(rec.collat)} at risk`;
   const _p=(window._PCTS&&window._PCTS.length>=5)?Math.round(100*window._PCTS.filter(v=>v<dayTot).length/window._PCTS.length):null;
-  return `<div class="cell ${isToday?'today':''}" style="background:${heatBg(rec.roi)}" title="${esc(tip)}">
+  return `<div class="cell ${isToday?'today':''} ${isOpen?'open':''}" style="background:${heatBg(rec.roi)}" title="${esc(tip)}">
     <span class="dnum">${dd}</span>${_p==null?'':`<span class="pct-tag">P${_p}</span>`}
     <div class="pnl ${cls}">${cellMoney(dayTot)}</div>
     <div class="roi ${dcls}">${pct1(rec.port_pct)}<span class="sub"> day</span></div>
@@ -368,7 +371,9 @@ function render(d){
     : '';
   const days = daily.days || [];
   const today = daily.today || {};
-  const todayISO = today.date || null;
+  // [2026-10-08] "today" is the real local date; daily.today.date is the newest day with an OPEN book (shown dashed)
+  const _now = new Date();
+  const todayISO = _now.getFullYear()+'-'+String(_now.getMonth()+1).padStart(2,'0')+'-'+String(_now.getDate()).padStart(2,'0');
   const sd = d.strat_days || {};          // [2026-07-12] sidecar day series
 
   // status dot
@@ -434,7 +439,8 @@ function render(d){
   document.getElementById('legend').innerHTML =
     `<span><span class="sw" style="background:${heatBg(6)}"></span>green day (profit)</span>`
     + `<span><span class="sw" style="background:${heatBg(-6)}"></span>red day (loss)</span>`
-    + `<span><span class="sw" style="border:2px solid var(--s1)"></span>today · expected, still open</span>`;
+    + `<span><span class="sw" style="border:2px solid var(--s1)"></span>today</span>`
+    + `<span><span class="sw" style="border:2px dashed var(--s1)"></span>entries still settling (open book)</span>`;
   const startBal = (d.account && d.account.start) || 0;
   const deposits = (daily.invested!=null && startBal) ? daily.invested - startBal : null;
   document.getElementById('footer').innerHTML =
