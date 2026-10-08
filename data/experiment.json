@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-08 08:39 UTC",
- "generated_mt": "10-08 02:39 MT",
- "generated_epoch": 1791448774.9546397,
+ "generated": "2026-10-08 08:58 UTC",
+ "generated_mt": "10-08 02:58 MT",
+ "generated_epoch": 1791449908.7556777,
  "health": {
-  "heartbeat_age_s": 19,
+  "heartbeat_age_s": 12,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 9.1,
-  "last_trade_age_s": 5968,
+  "last_trade_age_s": 7101,
   "subscribed": 520,
-  "wethr_calls": 20495,
+  "wethr_calls": 20540,
   "bursts": 3020,
   "scheduled_task": true
  },
@@ -1845,31 +1845,17 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 81,
-    "decided": 81,
+    "n": 82,
+    "decided": 82,
     "yes": 10,
-    "no": 71,
+    "no": 72,
     "pending": 0,
-    "yes_rate": 12.3,
-    "provisional": 15,
+    "yes_rate": 12.2,
+    "provisional": 16,
     "dollars": 0,
     "dollar_mkts": 0
    },
    "rows": [
-    {
-     "t": "09-30 10:45",
-     "tk": "KXLOWTMIN-26OCT01-B54.5",
-     "px": 26,
-     "res": "no",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": null,
-     "onesided": 0,
-     "resting": 4
-    },
     {
      "t": "10-06 10:21",
      "tk": "KXLOWTMIN-26OCT07-B49.5",
@@ -2016,6 +2002,20 @@
      "px": 27,
      "res": "yes~",
      "now": 50,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 4
+    },
+    {
+     "t": "10-07 22:50",
+     "tk": "KXLOWTOKC-26OCT08-B64.5",
+     "px": 25,
+     "res": "no~",
+     "now": 0,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2208,7 +2208,7 @@
     }
    ],
    "headline": {
-    "est": 29.27,
+    "est": 28.75,
     "how": "near-misses valued with the calibrated fill model: a 25\u00a2 rung at our size (lows 100, highs 249)",
     "exp_lo": null,
     "exp_hi": null,
@@ -2620,7 +2620,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 6090,
+   "orders_compared": 6094,
    "real_filled": 17,
    "agree_pct": 100.0,
    "contract_ratio": 1.001,
@@ -2633,7 +2633,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 1,
+  "hb_age_s": -6,
   "fingerprint": "a4f0d98105a9",
   "size": 10,
   "series": "all four",
