@@ -59,6 +59,10 @@ h1{font-size:21px;font-weight:650;margin:0}
  display:flex;flex-direction:column;gap:1px;position:relative;overflow:hidden}
 .cell.empty{border:0;background:transparent;min-height:0}
 .cell.blank .dnum{opacity:.45}
+.seg{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin:0 0 16px}
+.seg button{padding:6px 14px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:600 12.5px system-ui;cursor:pointer}
+.seg button:hover{color:var(--ink2)} .seg button.on{color:var(--ink);background:color-mix(in srgb,var(--s1) 13%,transparent)}
+.seg .lbl{align-self:center;padding:0 6px 0 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700}
 .cell.today{border:2px solid var(--s1)}
 .cell.open{border:2px dashed var(--s1)}
 .cell.today.open{border:2px solid var(--s1);box-shadow:inset 0 0 0 2px var(--s1)}
@@ -143,6 +147,11 @@ day we bought in, not the next morning it settles. Today is still open, so it sh
 <span id="scope" class="sub"></span></p>
 <div id="err">Couldn't load data yet — the bot's first publish may still be pending. This page retries automatically.</div>
 
+<div class="seg" id="viewseg" role="group" aria-label="Which books to show">
+ <span class="lbl">Books</span>
+ <button type="button" data-view="all">All</button>
+ <button type="button" data-view="temp">Temperature only</button>
+</div>
 <div class="stats" id="stats"></div>
 <div id="trend"></div>
 <div id="cal"></div>
@@ -360,7 +369,52 @@ function monthCard(y, m, dayMap, todayISO, today, sdMap){
 
 const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-function render(d){
+// [2026-10-08] book toggle: "temp" = daily + hourly temperature books only (everything except NFL).
+// The feed carries a per-book breakdown on every day (daily.days[i].books), so the subset is recomputed here, not re-published.
+const EXCLUDE = {all: [], temp: ['nfl']};
+function getView(){ try{ return localStorage.getItem('cal_view')==='temp' ? 'temp' : 'all'; }catch(e){ return 'all'; } }
+function applyView(src){
+  const view = getView(); const drop = EXCLUDE[view];
+  if(!drop.length) return src;
+  const d = JSON.parse(JSON.stringify(src));            // never mutate the loaded data
+  const daily = d.daily || {}; const inv = daily.invested || null;
+  const days = []; let cum = 0;
+  for(const x of (daily.days||[])){
+    const b = x.books || {};
+    for(const k of drop){
+      const s = b[k]; if(!s) continue;
+      x.pnl = x.pnl==null ? null : x.pnl - s.pnl; x.collat -= s.collat; x.n -= s.n; x.contracts -= s.ct;
+      x.wins -= s.w; x.losses -= s.l; x.pending -= s.open; x.open_prem -= s.open_prem; delete b[k];
+    }
+    if(x.n<=0 && x.pending<=0) continue;                 // the day had only excluded books
+    const settled = x.n>0;
+    x.pnl = settled ? +x.pnl.toFixed(2) : null;
+    x.roi = (settled && x.collat>0) ? +(100*x.pnl/x.collat).toFixed(2) : null;
+    x.port_pct = (settled && inv) ? +(100*x.pnl/inv).toFixed(2) : null;
+    if(settled) cum += x.pnl;
+    x.cum_pct = (settled && inv) ? +(100*cum/inv).toFixed(2) : null;
+    x.status = settled ? (x.pending>0 ? 'partial' : 'settled') : 'open';
+    days.push(x);
+  }
+  const sd = days.filter(x=>x.n>0);
+  const best = sd.length ? sd.reduce((a,x)=>x.pnl>a.pnl?x:a) : null, worst = sd.length ? sd.reduce((a,x)=>x.pnl<a.pnl?x:a) : null;
+  Object.assign(daily, {days, cum_realized:+cum.toFixed(2), cum_pct: inv? +(100*cum/inv).toFixed(2):null, settled_days: sd.length,
+    green_days: sd.filter(x=>x.pnl>0).length, red_days: sd.filter(x=>x.pnl<0).length,
+    avg_roi: sd.length ? +(sd.reduce((a,x)=>a+(x.roi||0),0)/sd.length).toFixed(2) : null,
+    best: best?{date:best.date,pnl:best.pnl,roi:best.roi}:null, worst: worst?{date:worst.date,pnl:worst.pnl,roi:worst.roi}:null});
+  for(const iso in (d.strat_days||{})){ for(const k of drop) delete d.strat_days[iso][k]; if(!Object.keys(d.strat_days[iso]).length) delete d.strat_days[iso]; }
+  return d;
+}
+document.querySelectorAll('#viewseg button').forEach(b=>b.addEventListener('click',()=>{
+  try{ localStorage.setItem('cal_view', b.dataset.view); }catch(e){}
+  if(window._DATA) render(window._DATA);
+}));
+
+function render(src){
+  window._DATA = src;
+  const d = applyView(src);
+  const view = getView();
+  document.querySelectorAll('#viewseg button').forEach(b=>b.classList.toggle('on', b.dataset.view===view));
   const daily = d.daily || {};
   const _cs = daily.chart_start;
   const _sc = document.getElementById('scope');
@@ -397,17 +451,23 @@ function render(d){
     {l:'Open book (expected)', v:signMoney(today.exp_pnl), s:`${today.n||0} open across all days · ${money(today.premium)} at stake`, cls:'accent', vcls:'neutral'},
   ];
   // [2026-08-17] one live strategy card + retired strategies merged into a single net line
-  let rp=0,rb=0,rn=0, xp=0,xn=0;
+  let rp=0,rb=0,rn=0, hp=0,hb=0,hn=0, np=0,nb=0,nn=0, xp=0,xn=0;
   for(const iso in sd){
     for(const k in sd[iso]){
       const s=sd[iso][k];
       if(k==='rung'){rp+=s.pnl;rb+=s.basis;rn++;}
+      else if(k==='hourly'){hp+=s.pnl;hb+=s.basis;hn++;}
+      else if(k==='nfl'){np+=s.pnl;nb+=s.basis;nn++;}
       else{xp+=s.pnl;xn++;}
     }
   }
   stats.push({l:'Rung v2 · cumulative', v:signMoney(rn?rp:null),
     s:rn?`${pct1(rb>0?100*rp/rb:null)} on ${money(rb)} risked · ${rn} day${rn===1?'':'s'}`:'no settled days yet',
     cls:rn?(rp>=0?'good':'bad'):'', vcls:rn?(rp>=0?'pos':'neg'):''});
+  if(hn) stats.push({l:'Hourly temp · cumulative', v:signMoney(hp),
+    s:`${pct1(hb>0?100*hp/hb:null)} on ${money(hb)} risked · ${hn} day${hn===1?'':'s'}`, cls:hp>=0?'good':'bad', vcls:hp>=0?'pos':'neg'});
+  if(nn) stats.push({l:'NFL TD · net', v:signMoney(np),
+    s:`${pct1(nb>0?100*np/nb:null)} on ${money(nb)} risked · ${nn} day${nn===1?'':'s'} · bot disabled 10-07`, cls:np>=0?'good':'bad', vcls:np>=0?'pos':'neg'});
   if(xn) stats.push({l:'Retired strategies · net', v:signMoney(xp),
     s:`${xn} strategy-days across the retired sleeves`, cls:xp>=0?'good':'bad', vcls:xp>=0?'pos':'neg'});
   document.getElementById('stats').innerHTML = stats.map(c=>
