@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Rung V2 — Desk Terminal</title>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#0d1117;--panel:#151b23;--line:#232b36;--line2:#1b222c;--ink:#d7dde5;--ink2:#8b95a3;
+ --hi:#f2f5f8;--amber:#e8b33e;--green:#43c07a;--red:#e2606b;--blue:#5b9bd9}
+body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.5 ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+ -webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1060px;margin:0 auto;padding:0 0 70px}
+
+/* status bar */
+.bar{position:sticky;top:0;z-index:5;display:flex;gap:16px;align-items:center;background:var(--panel);
+ border-bottom:1px solid var(--line);padding:9px 18px;font-size:11.5px;color:var(--ink2);
+ overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.bar::-webkit-scrollbar{display:none}
+.bar span{flex:0 0 auto}
+.bar .live{color:var(--amber);font-weight:700}
+.bar .g{color:var(--green)} .bar .r{color:var(--red)}
+.bar .clockright{margin-left:auto}
+
+/* nav */
+.nav{display:flex;gap:2px;padding:10px 18px 0;font-size:11.5px}
+.nav a{padding:5px 12px;border:1px solid var(--line);border-bottom:0;border-radius:7px 7px 0 0;color:var(--ink2)}
+.nav a.on{color:var(--hi);background:var(--panel)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.5fr 1fr;border:1px solid var(--line);background:var(--panel);
+ border-radius:0 10px 10px 10px;overflow:hidden;margin:0 18px}
+.hl{padding:20px 24px;border-right:1px solid var(--line)}
+.klbl{font-size:10.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.eq{font-size:42px;font-weight:700;color:var(--hi);letter-spacing:-.01em;margin:2px 0 0;font-variant-numeric:tabular-nums}
+.attr{font-size:11.5px;color:var(--ink2);margin:6px 0 12px;line-height:1.8}
+.attr b{color:var(--ink);font-weight:700}
+.attr .up{color:var(--green)} .attr .dn{color:var(--red)} .attr .pend{color:var(--amber)}
+#growth{display:block;width:100%;height:120px}
+.hr{padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.clock{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 13px}
+.clock .k{font-size:10px;color:var(--ink2);letter-spacing:.12em;text-transform:uppercase}
+.clock .v{font-size:16px;font-weight:700;color:var(--amber);font-variant-numeric:tabular-nums}
+.inst{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line2);padding-bottom:8px;font-size:11.5px}
+.inst .k{color:var(--ink2)} .inst .v{font-weight:700}
+.inst .v.g{color:var(--green)} .inst .v.a{color:var(--amber)}
+
+/* percentile board */
+h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin:26px 18px 8px}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 18px}
+.bt{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px 9px}
+.bt .k{font-size:10px;color:var(--ink2);letter-spacing:.08em;text-transform:uppercase}
+.bt .v{font-size:19px;font-weight:700;color:var(--hi);margin:2px 0 1px;font-variant-numeric:tabular-nums}
+.bt .v small{font-size:11px;color:var(--ink2);font-weight:400}
+.bt .meter{height:4px;background:var(--line2);border-radius:99px;margin:6px 0 4px;overflow:hidden}
+.bt .meter i{display:block;height:100%;border-radius:99px;background:var(--blue)}
+.bt.hot .meter i{background:var(--green)} .bt.cold .meter i{background:var(--red)}
+.bt .p{font-size:10.5px;color:var(--ink2)}
+.bt .p b{color:var(--ink)}
+
+/* liquidation */
+.liq{margin:14px 18px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px 10px}
+.liq .hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 14px}
+.liq .big{font-size:29px;font-weight:700;color:var(--hi);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.liq .big small{font-size:13px;font-weight:600;margin-left:9px}
+.liq .lbl{font-size:10.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.liq .split{font-size:11px;color:var(--ink2);margin-top:2px}
+.liq .split b{color:var(--ink)}
+.trends{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:11px 0 8px}
+.trend{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:6px 9px}
+.trend .k{font-size:9.5px;letter-spacing:.1em;color:var(--ink2);text-transform:uppercase}
+.trend .v{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px}
+.trend .v.up{color:var(--green)} .trend .v.dn{color:var(--red)} .trend .v.flat{color:var(--ink2)}
+#liqchart{display:block;width:100%;height:150px}
+.liq .legend{display:flex;gap:14px;font-size:10.5px;color:var(--ink2);margin-top:4px}
+.liq .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* order flow */
+.flow{margin:10px 18px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 18px 10px}
+.flow .hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 14px;margin-bottom:8px}
+.flow .lbl{font-size:10.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.flow .tot{font-size:11.5px;color:var(--ink2)}
+.flow .tot b{color:var(--ink);font-weight:700}
+#flowchart{display:block;width:100%;height:132px}
+.mkts{margin-top:9px;border-top:1px solid var(--line2);padding-top:8px}
+.mkts .r{display:grid;grid-template-columns:1fr 62px 78px 72px;gap:8px;font-size:11px;padding:3px 0;color:var(--ink2)}
+.mkts .r.h{color:var(--ink2);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line2);padding-bottom:5px;margin-bottom:2px}
+.mkts .r b{color:var(--hi);font-weight:600}
+.mkts .r .n{text-align:right;font-variant-numeric:tabular-nums}
+.mkts .r .f{text-align:right;font-variant-numeric:tabular-nums;color:var(--amber);font-weight:700}
+
+/* rain sleeve — its OWN section, never blended with rung v2 */
+.rain{margin:10px 18px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 18px 12px}
+.rain .hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin-bottom:9px}
+.rain .lbl{font-size:10.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.rain .chip{font-size:9px;font-weight:700;letter-spacing:.08em;padding:1px 8px;border-radius:99px;border:1px solid var(--green);color:var(--green);text-transform:uppercase}
+.rain .chip.dry{color:var(--blue);border-color:var(--blue)}
+.rain .chip.stop{color:var(--red);border-color:var(--red)}
+.rain .big{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.rk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.rk .b{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:8px 10px}
+.rk .b .k{font-size:9.5px;letter-spacing:.08em;color:var(--ink2);text-transform:uppercase}
+.rk .b .v{font-size:18px;font-weight:700;color:var(--hi);margin-top:2px;font-variant-numeric:tabular-nums}
+.rk .b .s{font-size:10px;color:var(--ink2)}
+.rmk{font-size:11px}
+.rmk .r{display:grid;grid-template-columns:1fr 58px 1fr 68px;gap:8px;padding:4px 0;border-bottom:1px solid var(--line2);align-items:center}
+.rmk .r.h{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);border-bottom:1px solid var(--line)}
+.rmk .r:last-child{border-bottom:0}
+.rmk b{color:var(--hi);font-weight:600}
+.rmk .lad{font-family:ui-monospace,Consolas,monospace}
+.rmk .lad i{font-style:normal;color:var(--ink2)}
+.rmk .lad i.f{color:var(--amber);font-weight:700}
+.rmk .amt{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.rain .cfg{font-size:10px;color:var(--ink2);margin-top:8px;border-top:1px solid var(--line2);padding-top:7px}
+
+/* tests in flight */
+.tests{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 18px}
+.tc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 13px}
+.tc .hd{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.tc .nm{font-size:12px;font-weight:700;color:var(--hi)}
+.tc .chip{font-size:9px;font-weight:700;letter-spacing:.08em;padding:1px 7px;border-radius:99px;border:1px solid var(--line);text-transform:uppercase}
+.tc .chip.live{color:var(--green);border-color:var(--green)}
+.tc .chip.paper{color:var(--blue);border-color:var(--blue)}
+.tc .chip.logging{color:var(--amber);border-color:var(--amber)}
+.tc .chip.frozen,.tc .chip.queued{color:var(--ink2)}
+.tc .st{font-size:11px;color:var(--ink2);margin-top:4px;line-height:1.5}
+.tc .prog{height:4px;background:var(--line2);border-radius:99px;margin-top:7px;overflow:hidden}
+.tc .prog i{display:block;height:100%;background:var(--blue);border-radius:99px}
+.tc .rd{font-size:10px;color:var(--ink2);margin-top:5px}
+.tc .rd b{color:var(--amber);font-weight:700}
+
+/* feed */
+.feed{margin:0 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 0;font-size:11.5px}
+.feed .row{display:grid;grid-template-columns:52px 96px 1fr;gap:10px;padding:5px 14px;border-bottom:1px solid var(--line2)}
+.feed .row:last-child{border-bottom:0}
+.feed .t{color:var(--ink2)}
+.feed .k{font-weight:700}
+.feed .k.LIVE_FILL,.feed .k.FILL_ON_CANCEL{color:var(--green)}
+.feed .k.SPIKE_FILL{color:var(--amber)}
+.feed .k.ARM,.feed .k.REARM{color:var(--ink2);font-weight:400}
+.feed .k.CAPITAL_ADJUST,.feed .k.PARTIAL_CANCEL{color:var(--blue)}
+.feed .d{color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.feed .d b{color:var(--ink);font-weight:600}
+.note{margin:8px 18px 0;font-size:10.5px;color:var(--ink2)}
+#err{display:none;margin:14px 18px;border:1px solid var(--red);border-radius:8px;padding:10px 14px;color:var(--red);font-size:12px}
+
+@media(max-width:760px){
+ .hero{grid-template-columns:1fr;margin:0 10px;border-radius:0 8px 8px 8px}
+ .hl{border-right:0;border-bottom:1px solid var(--line);padding:16px}
+ .eq{font-size:31px}
+ .hr{padding:13px 14px}
+ .board{grid-template-columns:1fr 1fr;margin:0 10px}
+ .tests{grid-template-columns:1fr;margin:0 10px}
+ .rain{margin:10px 10px 0;padding:12px 14px 10px}
+ .rk{grid-template-columns:1fr 1fr;gap:6px}
+ .liq .big small{display:block;margin-left:0;margin-top:3px}
+ .rmk .r{grid-template-columns:1fr 44px 1fr 58px;gap:5px;font-size:10px}
+ .liq{margin:12px 10px 0;padding:12px 14px 9px}
+ .liq .big{font-size:24px}
+ .trends{grid-template-columns:repeat(4,1fr);gap:4px}
+ .trend{padding:5px 6px}
+ .trend .v{font-size:12.5px}
+ .trend .k{font-size:8.5px;letter-spacing:.06em}
+ #liqchart{height:120px}
+ .flow{margin:10px 10px 0;padding:12px 14px 9px}
+ #flowchart{height:112px}
+ .mkts .r{grid-template-columns:1fr 44px 60px 56px;gap:5px;font-size:10px}
+ h2{margin:22px 10px 8px}
+ .feed{margin:0 10px}
+ .note{margin:8px 10px 0}
+ .nav{padding:10px 10px 0}
+ #growth{height:90px}
+}
+@media(max-width:390px){.eq{font-size:27px}.board{grid-template-columns:1fr 1fr}}
+</style></head>
+<body>
+<div class="bar" id="bar"><span class="live">● LIVE</span><span id="b-hb">HB —</span><span id="b-rest">REST —</span><span id="b-arm">ARM —</span><span id="b-ct">MAX —</span><span>RUNG-V2</span><span class="clockright" id="b-now">—</span></div>
+<div class="wrap">
+ <div class="nav">
+ <a class="on" href="./live.html">Live</a>
+ <a href="./index.html">Calendar</a>
+ <a href="./outlook.html">Outlook</a>
+ <a href="./experiment.html">Experiment</a>
+</div>
+ <div id="err">No data yet — retrying automatically.</div>
+
+ <div class="hero">
+  <div class="hl">
+   <div class="klbl">Account equity · all strategies <span id="inv" style="text-transform:none;letter-spacing:0"></span></div>
+   <div class="eq" id="eq">—</div>
+   <div class="attr" id="attr">—</div>
+   <svg id="growth" preserveAspectRatio="none"></svg>
+  </div>
+  <div class="hr">
+   <div class="clock"><div class="k">Next settlement window</div><div class="v" id="clock">—</div></div>
+   <div class="inst"><span class="k">calibration edge</span><span class="v g" id="i-cal">—</span></div>
+   <div class="inst"><span class="k">burst share p50 / p90</span><span class="v" id="i-share">—</span></div>
+   <div class="inst"><span class="k">moat · foreign size at our levels</span><span class="v g" id="i-moat">—</span></div>
+   <div class="inst"><span class="k">supply trend yoy</span><span class="v g" id="i-supply">—</span></div>
+   <div class="inst"><span class="k">P(green day)</span><span class="v" id="i-green">—</span></div>
+  </div>
+ </div>
+
+ <div class="liq">
+  <div class="hd">
+   <div><div class="lbl">Liquidation value · whole account (rung v2 + rain)</div>
+    <div class="big" id="liq-now">—<small id="liq-today"></small></div>
+    <div class="split" id="liq-split">—</div></div>
+   <div class="legend"><span><i style="background:#2f5d8a"></i>cash</span><span><i style="background:#e8b33e"></i>open positions</span></div>
+  </div>
+  <div class="trends" id="liq-trends"></div>
+  <svg id="liqchart" preserveAspectRatio="none"></svg>
+  <div class="legend" id="liq-span"></div>
+ </div>
+
+ <div class="flow">
+  <div class="hd"><div class="lbl">Rung v2 order flow · same 48h window</div><div class="tot" id="flow-tot">—</div></div>
+  <svg id="flowchart" preserveAspectRatio="none"></svg>
+  <div class="mkts" id="flow-mkts"></div>
+ </div>
+
+ <h2>Rung v2 · today vs every recorded day <span style="text-transform:none;letter-spacing:0;font-weight:400">· temperature sleeve only</span></h2>
+ <div class="board" id="board"></div>
+ <div class="note" id="boardnote"></div>
+
+ <h2>Rain sleeve <span style="text-transform:none;letter-spacing:0;font-weight:400">&middot; separate strategy, separate book, separate P&amp;L</span></h2>
+ <div class="rain" id="rain"></div>
+
+ <h2>Tests in flight <span style="text-transform:none;letter-spacing:0;font-weight:400">· every experiment, its progress, its read date</span></h2>
+ <div class="tests" id="tests"></div>
+
+ <h2>Feed</h2>
+ <div class="feed" id="feed"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=v=>v==null?'—':(v<0?'-$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const sm=v=>v==null?'—':(v>=0?'+':'')+money(v);
+function shortTk(t){const m=/^KX(HIGHT?|LOWT?)([A-Z]+)-\w+-(.+)$/.exec(t||'');return m?`${m[2]} ${m[1].indexOf('HIGH')===0?'hi':'lo'} ${m[3]}`:(t||'').replace(/^KX/,'');}
+function ordinal(n){return n+(n%10===1&&n%100!==11?'st':n%10===2&&n%100!==12?'nd':n%10===3&&n%100!==13?'rd':'th');}
+
+const BOARD_DEFS=[
+ ['pnl','Day P&L',v=>sm(v)],
+ ['supply','Burst supply',v=>v==null?'—':v+' <small>bursts</small>'],
+ ['volume','Fill volume',v=>v==null?'—':v+' <small>ct</small>'],
+ ['premium','Premium at stake',v=>money(v)],
+ ['capture','Capture',v=>v==null?'—':v.toFixed(0)+'<small>%</small>'],
+ ['complete','Fill completeness',v=>v==null?'—':v.toFixed(0)+'<small>%</small>'],
+ ['depth','Panic depth ≥45¢',v=>v==null?'—':v.toFixed(0)+'<small>%</small>'],
+];
+
+function settleClock(ridingCt){
+ // TWC window ~12:00-13:00 MT daily
+ const now=new Date();
+ const mt=new Date(now.toLocaleString('en-US',{timeZone:'America/Denver'}));
+ const start=new Date(mt); start.setHours(12,0,0,0);
+ const end=new Date(mt); end.setHours(13,0,0,0);
+ let txt;
+ if(mt<start){const m=Math.round((start-mt)/60000);txt=`in ${Math.floor(m/60)}h ${String(m%60).padStart(2,'0')}m`;}
+ else if(mt<=end){txt='OPEN NOW';}
+ else{txt='done · next ~12:00 MT';}
+ return `${txt} · ${ridingCt??'—'} ct riding`;
+}
+
+async function load(){
+ try{
+  const [pr,rr,lr,ra]=await Promise.all([
+    fetch('./data/paper.json?t='+Date.now(),{cache:'no-store'}),
+    fetch('./data/rungv2b.json?t='+Date.now(),{cache:'no-store'}),
+    fetch('./data/liquidation.json?t='+Date.now(),{cache:'no-store'}),
+    fetch('./data/rain.json?t='+Date.now(),{cache:'no-store'})]);
+  if(!pr.ok) throw new Error(pr.status);
+  const P=await pr.json(), R=rr.ok?await rr.json():{}, L=lr.ok?await lr.json():{series:[]};
+  const RN=ra.ok?await ra.json():null;
+  render(P,R,L,RN); $('err').style.display='none';
+ }catch(e){ console.error(e); $('err').style.display='block'; }
+}
+
+function render(P,R,L,RN){
+ const T=P.terminal||{}, S=T.status||{}, O=P.rungv2_open||{};
+ // status bar
+ $('b-hb').textContent='HB '+(S.hb_age_s==null?'—':S.hb_age_s+'s');
+ $('b-hb').className=S.hb_age_s!=null&&S.hb_age_s<120?'g':'r';
+ $('b-rest').textContent='REST '+(S.resting??'—');
+ $('b-arm').textContent='ARM '+(S.armed??'—');
+ $('b-ct').textContent='MAX '+(R.max_ct??'—')+' · SLV $'+Math.round(R.sleeve||0);
+ $('b-now').textContent=new Date().toLocaleString([],{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+ // hero money
+ const a=P.account||{};
+ const equity=a.account_total!=null?a.account_total:(a.balance!=null?a.balance+(a.portfolio_value||0):null);
+ $('eq').textContent=money(equity);
+ const inv=P.daily&&P.daily.invested; if(inv) $('inv').textContent='· invested '+money(inv);
+ const rungReal=R.live&&R.live.realized, retired=(T.retired_realized||0)+((P.summary||{}).realized||0);
+ const realizedAll=(rungReal||0)+retired;
+ const todayPnl=(T.board&&T.board.pnl)?T.board.pnl.v:O.today_ev_usd;
+ $('attr').innerHTML=
+   `today <b class="${(todayPnl||0)>=0?'up':'dn'}">${sm(todayPnl)}</b>`
+  +((O.prior_ev_usd&&Math.abs(O.prior_ev_usd)>=0.5)?` · pending prior-day <b class="pend">${sm(O.prior_ev_usd)}</b> <span>(books to its own day)</span>`:'')
+  +` · realized all-time <b>${sm(realizedAll)}</b> <span>(rung ${sm(rungReal)} · retired ${sm(retired)})</span>`;
+ // growth: combined realized by day (daily.days fold + strat_days)
+ const comb={};
+ ((P.daily||{}).days||[]).filter(x=>x.n>0&&x.pnl!=null).forEach(x=>{comb[x.date]=(comb[x.date]||0)+x.pnl;});
+ const sd=P.strat_days||{};
+ for(const d in sd) for(const k in sd[d]) comb[d]=(comb[d]||0)+sd[d][k].pnl;
+ const days=Object.keys(comb).sort(); let c=0; const pts=days.map(d=>{c+=comb[d];return c;});
+ drawGrowth(pts);
+ // clock + instruments
+ $('clock').textContent=settleClock(S.riding_ct);
+ const I=T.instruments||{};
+ $('i-cal').textContent=I.calibration_edge_c!=null?('+'+I.calibration_edge_c+'¢/ct'):'—';
+ $('i-share').textContent=(I.burst_share_p50_pct!=null)?I.burst_share_p50_pct+'% / '+I.burst_share_p90_pct+'%':'—';
+ $('i-moat').textContent=I.moat_foreign_ct!=null?('~'+I.moat_foreign_ct):'—';
+ $('i-supply').textContent=I.supply_trend_yoy_pct!=null?('+'+I.supply_trend_yoy_pct+'%'):'—';
+ const g=R.green||{}; $('i-green').textContent=g.p!=null?Math.round(g.p)+'%':'—';
+ $('i-green').className='v '+(g.p>=50?'g':'a');
+ // board
+ const B=T.board||{}; let h='';
+ BOARD_DEFS.forEach(([key,label,fmt])=>{
+  const m=B[key]||{}; const p=m.pct;
+  const cls=p==null?'':(p>=60?'hot':(p<25?'cold':''));
+  h+=`<div class="bt ${cls}"><div class="k">${label}</div><div class="v">${fmt(m.v)}</div>`
+    +`<div class="meter"><i style="width:${p==null?0:p}%"></i></div>`
+    +`<div class="p">${p==null?'no reading yet':`<b>${ordinal(p)}</b> %ile of ${m.n} days`}</div></div>`;
+ });
+ $('board').innerHTML=h;
+ $('boardnote').textContent='Percentiles rank today against every recorded live day; early-day readings are naturally low and fill in as the day runs.';
+ // liquidation value + trends + stacked chart
+ const LQ=P.liq||{};
+ const POT=LQ.potential;
+ $('liq-now').innerHTML=money(LQ.now)
+   +(LQ.today_delta!=null?`<small class="${LQ.today_delta>=0?'up':'dn'}" style="color:${LQ.today_delta>=0?'var(--green)':'var(--red)'}">${sm(LQ.today_delta)} today</small>`:'')
+   +((POT&&POT.upside_usd!=null&&LQ.today_delta!=null)?`<small style="color:#2fbf9f" title="today's total if every open filled position at ≥20% win odds settles our way (remaining upside at current marks${POT.excl_n?`; excludes ${POT.excl_n} position(s) under 20% odds, $${POT.excl_risk_usd} at risk`:''})"> ↑ potential ${sm(LQ.today_delta+POT.upside_usd)} total</small>`:'');
+ $('liq-split').innerHTML=`<b>${money(LQ.balance)}</b> cash + <b>${money(LQ.positions)}</b> open positions at Kalshi marks`;
+ const TR=[['1h',LQ.d1h],['6h',LQ.d6h],['12h',LQ.d12h],['24h',LQ.d24h]];
+ $('liq-trends').innerHTML=TR.map(([k,v])=>
+   `<div class="trend"><div class="k">${k}</div><div class="v ${v==null?'flat':(v>0?'up':(v<0?'dn':'flat'))}">${v==null?'—':sm(v)}</div></div>`).join('');
+ drawLiq((L&&L.series)||[]);
+ drawFlow(P.flow||{}, (L&&L.series)||[]);
+ renderRain(RN);
+ // tests in flight
+ $('tests').innerHTML=((P.tests)||[]).map(t=>
+   `<div class="tc"><div class="hd"><span class="nm">${t.name}</span><span class="chip ${t.status}">${t.status}</span></div>`
+  +`<div class="st">${t.stat||'—'}</div>`
+  +(t.prog!=null?`<div class="prog"><i style="width:${t.prog}%"></i></div><div class="rd">${t.prog_label||''} · reads <b>${t.read}</b></div>`
+                :`<div class="rd">reads <b>${t.read}</b></div>`)
+  +`</div>`).join('')||'<div class="tc"><div class="st">no tests registered</div></div>';
+ // feed
+ $('feed').innerHTML=((T.feed)||[]).map(f=>{
+  const t=(f.ts||'').slice(11,16);
+  let d='';
+  try{const j=JSON.parse(f.d||'{}');
+    if(f.k==='LIVE_FILL')d=`<b>${shortTk(f.tk)}</b> ×${j.ct??''} @${j.L??''}`;
+    else if(f.k==='SPIKE_FILL')d=`<b>${shortTk(f.tk)}</b> peak ${j.peak??'?'}¢ rise ${j.rise_min??'?'}m`;
+    else if(f.k==='CAPITAL_ADJUST')d=`sleeve/day roll`;
+    else d=`<b>${shortTk(f.tk)}</b>`;
+  }catch(e){d=`<b>${shortTk(f.tk)}</b>`;}
+  return `<div class="row"><span class="t">${t}</span><span class="k ${f.k}">${f.k.replace('LIVE_','').replace('_',' ')}</span><span class="d">${d}</span></div>`;
+ }).join('')||'<div class="row"><span class="t">—</span><span class="k"></span><span class="d">quiet</span></div>';
+}
+
+function drawLiq(ser){
+ const svg=$('liqchart');
+ if(!ser||ser.length<2){svg.innerHTML='';$('liq-span').textContent='building series — first points collected';return;}
+ const W=760,H=150;
+ const MT=4, MB=H-16;          // value curve band
+ const SB_T=H-14, SB_H=10;     // composition strip
+ const t0=ser[0][0], t1=ser[ser.length-1][0], span=Math.max(t1-t0,1);
+ const tot=ser.map(p=>p[1]);
+ let lo=Math.min(...tot), hi=Math.max(...tot);
+ const pad=(hi-lo)*0.14||10; lo-=pad; hi+=pad;
+ const X=t=>((t-t0)/span)*W, Y=v=>MB-((v-lo)/(hi-lo))*(MB-MT-8);
+ const line=ser.map(p=>`${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' L');
+ // midnight markers
+ let grid='';
+ for(let i=1;i<ser.length;i++){
+   const a=new Date(ser[i-1][0]*1000).getDate(), b=new Date(ser[i][0]*1000).getDate();
+   if(a!==b){const x=X(ser[i][0]).toFixed(1);
+     grid+=`<line x1="${x}" y1="${MT}" x2="${x}" y2="${MB}" stroke="#2a3441" stroke-dasharray="3,3"/>`
+        +`<text x="${+x+4}" y="${MT+10}" fill="#8b95a3" font-size="9">${new Date(ser[i][0]*1000).toLocaleDateString([],{month:'short',day:'numeric'})}</text>`;}
+ }
+ // composition strip: share of value sitting in open positions (amber) vs cash (blue)
+ let strip='';
+ for(let i=1;i<ser.length;i++){
+   const x0=X(ser[i-1][0]), x1=X(ser[i][0]), w=Math.max(x1-x0,0.6);
+   const t=ser[i][1]||1, posFrac=Math.max(0,Math.min(1,(t-ser[i][2])/t));
+   strip+=`<rect x="${x0.toFixed(1)}" y="${SB_T}" width="${w.toFixed(1)}" height="${SB_H}" fill="#2f5d8a"/>`
+        +`<rect x="${x0.toFixed(1)}" y="${SB_T}" width="${w.toFixed(1)}" height="${(SB_H*posFrac).toFixed(1)}" fill="#e8b33e"/>`;
+ }
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ svg.innerHTML=grid
+  +`<path d="M${line} L${X(t1).toFixed(1)},${MB} L${X(t0).toFixed(1)},${MB} Z" fill="#e8b33e" fill-opacity=".10"/>`
+  +`<path d="M${line}" fill="none" stroke="#e8b33e" stroke-width="2" stroke-linejoin="round"/>`
+  +strip
+  +`<text x="4" y="${MT+9}" fill="#8b95a3" font-size="10">${money(hi)}</text>`
+  +`<text x="4" y="${MB-3}" fill="#8b95a3" font-size="10">${money(lo)}</text>`;
+ const hrs=((t1-t0)/3600).toFixed(0);
+ $('liq-span').textContent=`${ser.length} marks over ${hrs}h · strip below = share held in open positions vs cash · moves with marks, jumps at settlement`;
+}
+
+function renderRain(R){
+ const el=$('rain'); if(!el) return;
+ if(!R){ el.innerHTML='<div class="rmk">rain feed not published yet</div>'; return; }
+ const chip = R.stopped ? '<span class="chip stop">stopped</span>'
+            : (R.mode==='LIVE' ? '<span class="chip">live</span>' : '<span class="chip dry">dryrun</span>');
+ const ev = R.ev_c_per_ct==null ? '\u2014' : (R.ev_c_per_ct>=0?'+':'')+R.ev_c_per_ct+'\u00a2';
+ const days = R.daily||[];
+ const perDay = days.length ? (days.reduce(function(a,d){return a+d.pnl;},0)/days.length) : null;
+ const barC = (R.ev_bar&&R.ev_bar.c)!=null?R.ev_bar.c:5;
+ const barN = (R.ev_bar&&R.ev_bar.n)!=null?R.ev_bar.n:20;
+ const rows = (R.markets||[]).map(function(m){
+   const lad = (m.rungs||[]).map(function(r){
+     return '<i class="'+(r.filled>0?'f':'')+'">'+(r.filled>0?r.filled:'\u00b7')+'</i>'; }).join(' ');
+   const res = m.result==='yes' ? ' <span style="color:var(--red)">RAIN</span>'
+             : m.result==='no' ? ' <span style="color:var(--green)">dry</span>' : '';
+   const col = m.pnl>0?'var(--green)':(m.pnl<0?'var(--red)':'var(--ink2)');
+   return '<div class="r"><span><b>'+m.city+'</b> '+m.ticker.split('-')[1].slice(5)+res+'</span>'
+        + '<span>'+m.region+'</span><span class="lad">'+lad+'</span>'
+        + '<span class="amt" style="color:'+col+'">'+(m.pnl?sm(m.pnl):'\u2014')+'</span></div>';
+ }).join('');
+ el.innerHTML =
+   '<div class="hd"><div><div class="lbl">Rain sleeve \u2014 realized (this strategy only)</div>'
+  +'<div class="big" style="color:'+((R.realized_usd||0)>=0?'var(--green)':'var(--red)')+'">'+sm(R.realized_usd)+'</div></div>'+chip+'</div>'
+  +'<div class="rk">'
+  +'<div class="b"><div class="k">At risk now</div><div class="v">'+money(R.collateral_at_risk)+'</div><div class="s">'+R.open_markets+'/'+R.cap_markets+' markets \u00b7 '+R.resting+' resting</div></div>'
+  +'<div class="b"><div class="k">Settled</div><div class="v">'+R.settled_markets+'</div><div class="s">'+R.busts+' rained</div></div>'
+  +'<div class="b"><div class="k">EV / contract</div><div class="v" style="color:'+(R.ev_c_per_ct==null?'var(--hi)':(R.ev_c_per_ct>=barC?'var(--green)':'var(--red)'))+'">'+ev+'</div><div class="s">kill bar +'+barC+'\u00a2 at '+barN+'</div></div>'
+  +'<div class="b"><div class="k">Per day</div><div class="v" style="color:'+(perDay==null?'var(--hi)':(perDay>=0?'var(--green)':'var(--red)'))+'">'+(perDay==null?'\u2014':sm(perDay))+'</div><div class="s">'+days.length+' settled day'+(days.length===1?'':'s')+'</div></div>'
+  +'</div>'
+  +'<div class="rmk"><div class="r h"><span>market</span><span>region</span><span>ladder 45/55/65/75</span><span style="text-align:right">P&amp;L</span></div>'
+  + rows + '</div>'
+  +'<div class="cfg">ladder '+JSON.stringify(R.ladder_size||{})+' \u00b7 arm window '+(R.window_h?R.window_h[0]:'')+'\u2013'+(R.window_h?R.window_h[1]:'')+'h to close \u00b7 late-cut '+R.late_cut_h+'h \u00b7 city cooldown '+R.cooldown_h+'h after a bust \u00b7 max '+R.cap_markets+' markets / 2 per region</div>';
+}
+
+function drawFlow(F, liqSer){
+ const svg=$('flowchart'), B=F.buckets||[];
+ $('flow-tot').innerHTML = B.length
+   ? `<b>${(F.tot_orders||0).toLocaleString()}</b> orders · <b>${(F.tot_placed_ct||0).toLocaleString()}</b> ct placed · <b>${(F.tot_filled_ct||0).toLocaleString()}</b> ct filled · <b>${F.n_markets||0}</b> markets`
+   : 'no order flow in window';
+ if(!B.length){svg.innerHTML='';$('flow-mkts').innerHTML='';return;}
+ // share the liquidation chart's exact x-window so the two line up
+ const nowS=Math.floor(Date.now()/1000);
+ const t0=(liqSer&&liqSer.length)?liqSer[0][0]:nowS-(F.hours||48)*3600;
+ const t1=(liqSer&&liqSer.length)?liqSer[liqSer.length-1][0]:nowS;
+ const span=Math.max(t1-t0,1);
+ const W=760,H=132, P1T=14,P1B=64, P2T=76,P2B=118;   // two panels, shared x, separate scales
+ const X=t=>((t-t0)/span)*W;
+ const ep=k=>Date.parse(k+':00:00Z')/1000;
+ const bw=Math.max(W/Math.max((span/3600),1)-1.2, 2);
+ const maxO=Math.max(...B.map(b=>b[1]),1), maxF=Math.max(...B.map(b=>b[3]),1);
+ let bars='';
+ B.forEach(b=>{
+   const x=X(ep(b[0])); if(x<-bw||x>W) return;
+   const ho=(b[1]/maxO)*(P1B-P1T-11), hf=(b[3]/maxF)*(P2B-P2T-11);   // 11px reserved for the panel label
+   if(b[1]>0) bars+=`<rect x="${x.toFixed(1)}" y="${(P1B-ho).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(ho,1).toFixed(1)}" fill="#5b9bd9" fill-opacity=".8"/>`;
+   if(b[3]>0) bars+=`<rect x="${x.toFixed(1)}" y="${(P2B-hf).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(hf,1.5).toFixed(1)}" fill="#e8b33e"/>`;
+ });
+ let grid='';
+ B.forEach((b,i)=>{ if(!i) return;
+   const d0=new Date(ep(B[i-1][0])*1000).getDate(), d1=new Date(ep(b[0])*1000).getDate();
+   if(d0!==d1){const x=X(ep(b[0])).toFixed(1);
+     grid+=`<line x1="${x}" y1="8" x2="${x}" y2="${P2B}" stroke="#2a3441" stroke-dasharray="3,3"/>`
+        +`<text x="${+x+4}" y="12" fill="#8b95a3" font-size="9">${new Date(ep(b[0])*1000).toLocaleDateString([],{month:'short',day:'numeric'})}</text>`;}
+ });
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ svg.innerHTML=grid+bars
+  +`<line x1="0" y1="${P1B}" x2="${W}" y2="${P1B}" stroke="#232b36"/>`
+  +`<line x1="0" y1="${P2B}" x2="${W}" y2="${P2B}" stroke="#232b36"/>`
+  +`<text x="4" y="${P1T+8}" fill="#5b9bd9" font-size="9.5">ORDERS PLACED / HR · peak ${maxO}</text>`
+  +`<text x="4" y="${P2T+8}" fill="#e8b33e" font-size="9.5">CONTRACTS FILLED / HR · peak ${maxF}</text>`;
+ const rows=(F.markets||[]).map(m=>
+   `<div class="r"><span><b>${shortTk(m[0])}</b></span><span class="n">${m[1]}</span><span class="n">${(m[2]||0).toLocaleString()}</span><span class="f">${m[3]?m[3].toLocaleString():'—'}</span></div>`).join('');
+ $('flow-mkts').innerHTML=`<div class="r h"><span>Most active markets · 48h</span><span class="n">orders</span><span class="n">ct placed</span><span class="n">filled</span></div>`+rows;
+}
+
+function drawGrowth(pts){
+ const svg=$('growth'); if(!pts.length){svg.innerHTML='';return;}
+ const W=560,H=120,n=pts.length;
+ const mn=Math.min(0,...pts),mx=Math.max(...pts)||1;
+ const X=i=>n<2?0:(i/(n-1))*W, Y=v=>H-6-((v-mn)/(mx-mn))*(H-14);
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ svg.innerHTML=`<line x1="0" y1="${Y(0)}" x2="${W}" y2="${Y(0)}" stroke="#232b36"/>`
+  +`<path d="M${pts.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' L')}" fill="none" stroke="#e8b33e" stroke-width="2" stroke-linejoin="round"/>`
+  +`<text x="${W-4}" y="${Y(pts[n-1])-6}" text-anchor="end" fill="#8b95a3" font-size="11">${sm(pts[n-1])}</text>`;
+}
+
+load(); setInterval(load, 60000);
+</script>
+</body></html>

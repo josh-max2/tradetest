@@ -6,7 +6,7 @@ when real buyer volume clears the queue ahead of them, to measure whether the
 edge is actually executable before any real money is deployed.
 
 - **Dashboard:** https://josh-max2.github.io/tradetest/
-- `index.html` — the dashboard (fetches `data/paper.json`, auto-refreshes every 60s).
+- `index.html` — the **Daily Calendar** (the landing page since 2026-10-10; fetches `data/paper.json`). `live.html` — the live desk terminal (was `index.html`; auto-refreshes every 60s). `calendar.html` — redirect stub to `index.html` for old bookmarks.
 - `data/paper.json` — exported from a local SQLite DB by `publish_dashboard.py`,
   committed here every few minutes.
 
