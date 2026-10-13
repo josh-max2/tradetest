@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-13 22:46 UTC",
- "generated_mt": "10-13 16:46 MT",
- "generated_epoch": 1791931571.8946595,
+ "generated": "2026-10-13 23:04 UTC",
+ "generated_mt": "10-13 17:04 MT",
+ "generated_epoch": 1791932657.0687406,
  "health": {
-  "heartbeat_age_s": 15,
+  "heartbeat_age_s": 20,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 14.7,
   "last_trade_age_s": -2,
   "subscribed": 880,
-  "wethr_calls": 9751,
-  "bursts": 4824,
+  "wethr_calls": 9781,
+  "bursts": 4833,
   "scheduled_task": true
  },
  "experiments": [
@@ -1102,10 +1102,10 @@
      "stats": {
       "n": 201,
       "decided": 201,
-      "yes": 86,
-      "no": 115,
+      "yes": 85,
+      "no": 116,
       "pending": 0,
-      "yes_rate": 42.8,
+      "yes_rate": 42.3,
       "provisional": 14,
       "dollars": -31.25,
       "dollar_mkts": 78
@@ -1723,7 +1723,7 @@
      "tk": "KXLOWTMIA-26OCT13-B75.5",
      "px": 46,
      "res": "no~",
-     "now": 7,
+     "now": 12,
      "legs": 5,
      "ct": 5,
      "pnl": 1.75,
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTCHI-26OCT13-B70.5",
      "px": 31,
      "res": "no~",
-     "now": 6,
+     "now": 4,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 553,
-    "shared_pct": 48.5,
+    "ladders": 554,
+    "shared_pct": 45.3,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 553,
-    "shared_pct": 14.1,
-    "median_other": 15.0
+    "ladders": 554,
+    "shared_pct": 14.4,
+    "median_other": 10.0
    },
    {
     "rung": 40,
-    "ladders": 553,
-    "shared_pct": 11.6,
-    "median_other": 15.0
+    "ladders": 554,
+    "shared_pct": 10.5,
+    "median_other": 10.0
    },
    {
     "rung": 45,
-    "ladders": 553,
-    "shared_pct": 11.2,
+    "ladders": 554,
+    "shared_pct": 8.7,
     "median_other": 15.0
    }
   ]
@@ -2877,8 +2877,8 @@
     "engine": "pm2",
     "world": "ALL",
     "since": "10-11 04:34",
-    "orders": 2811,
-    "markets": 537,
+    "orders": 2821,
+    "markets": 539,
     "late_line": 128,
     "filled_ct": 968.0,
     "below_pct": 59.7,
@@ -2942,8 +2942,8 @@
     "engine": "pm2",
     "world": "EXTRA_R4",
     "since": "10-11 04:34",
-    "orders": 1683,
-    "markets": 255,
+    "orders": 1693,
+    "markets": 257,
     "late_line": 138,
     "filled_ct": 568.0,
     "below_pct": 49.3,
@@ -2976,8 +2976,8 @@
     "engine": "pm2",
     "world": "EXTRA_R7",
     "since": "10-11 04:34",
-    "orders": 1683,
-    "markets": 255,
+    "orders": 1693,
+    "markets": 257,
     "late_line": 154,
     "filled_ct": 568.0,
     "below_pct": 49.3,
@@ -3267,8 +3267,8 @@
     "engine": "pm2",
     "world": "LADDER25",
     "since": "10-11 04:34",
-    "orders": 3450,
-    "markets": 498,
+    "orders": 3460,
+    "markets": 500,
     "late_line": 485,
     "filled_ct": 1108.5,
     "below_pct": 56.8,
@@ -3731,7 +3731,7 @@
    {
     "tag": "CEIL200",
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 1845,
+    "ladders": 1847,
     "settled": 648.45,
     "provisional": 1.25
    },
@@ -3758,7 +3758,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 11852,
+   "orders_compared": 11922,
    "real_filled": 40,
    "agree_pct": 100.0,
    "contract_ratio": 0.937,
@@ -3771,7 +3771,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -1,
+  "hb_age_s": -4,
   "fingerprint": "461bd293269c",
   "size": 10,
   "series": "all four",
@@ -3790,7 +3790,7 @@
    [
     "LIVE",
     "CANCELED",
-    2626
+    2650
    ],
    [
     "LIVE",
@@ -3801,14 +3801,9 @@
     "LIVE",
     "FILLED",
     124
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    24
    ]
   ],
-  "resting": 24,
+  "resting": 0,
   "filled_today": [
    1,
    25
@@ -4001,11 +3996,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 10,
-   "subscribed": 1473,
+   "subscribed": 1513,
    "stats": {
     "ws_subscribed": 16,
-    "ws_ok": 138,
-    "ws_trade": 83558,
+    "ws_ok": 140,
+    "ws_trade": 84157,
     "ws_fill": 69
    }
   },
