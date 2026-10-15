@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-15 01:22 UTC",
- "generated_mt": "10-14 19:22 MT",
- "generated_epoch": 1792027337.8520956,
+ "generated": "2026-10-15 01:40 UTC",
+ "generated_mt": "10-14 19:40 MT",
+ "generated_epoch": 1792028424.829416,
  "health": {
-  "heartbeat_age_s": 47148,
-  "alive": false,
+  "heartbeat_age_s": 19,
+  "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 15.8,
-  "last_trade_age_s": 47131,
-  "subscribed": 520,
-  "wethr_calls": 11996,
-  "bursts": 5016,
+  "last_trade_age_s": 3,
+  "subscribed": 280,
+  "wethr_calls": 110,
+  "bursts": 5017,
   "scheduled_task": true
  },
  "experiments": [
@@ -1478,7 +1478,7 @@
      "tk": "KXLOWTSATX-26OCT14-B75.5",
      "px": 35,
      "res": "no~",
-     "now": 9,
+     "now": 10,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2844,27 +2844,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 337,
-    "shared_pct": 32.6,
-    "median_other": 19.0
+    "ladders": 227,
+    "shared_pct": 71.4,
+    "median_other": 18.0
    },
    {
     "rung": 35,
-    "ladders": 337,
-    "shared_pct": 12.2,
-    "median_other": 23.0
+    "ladders": 227,
+    "shared_pct": 17.2,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 337,
-    "shared_pct": 8.6,
-    "median_other": 32.3
+    "ladders": 227,
+    "shared_pct": 7.5,
+    "median_other": 23.0
    },
    {
     "rung": 45,
-    "ladders": 337,
-    "shared_pct": 6.8,
-    "median_other": 20.0
+    "ladders": 227,
+    "shared_pct": 14.1,
+    "median_other": 25.0
    }
   ]
  },
@@ -3112,8 +3112,8 @@
     "engine": "pm2",
     "world": "HOURLY_M30",
     "since": "10-11 05:30",
-    "orders": 1476,
-    "markets": 369,
+    "orders": 1496,
+    "markets": 374,
     "late_line": 0,
     "filled_ct": 664.1,
     "below_pct": 84.0,
@@ -3146,8 +3146,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA",
     "since": "10-11 04:30",
-    "orders": 1696,
-    "markets": 427,
+    "orders": 1723,
+    "markets": 434,
     "late_line": 35,
     "filled_ct": 649.4,
     "below_pct": 0.0,
@@ -3183,8 +3183,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_100",
     "since": "10-11 05:38",
-    "orders": 1661,
-    "markets": 422,
+    "orders": 1688,
+    "markets": 429,
     "late_line": 16,
     "filled_ct": 2874.8,
     "below_pct": 82.1,
@@ -3220,8 +3220,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_MIA50",
     "since": "10-11 05:38",
-    "orders": 594,
-    "markets": 151,
+    "orders": 606,
+    "markets": 154,
     "late_line": 8,
     "filled_ct": 114.0,
     "below_pct": 23.7,
@@ -3254,8 +3254,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_NYC50",
     "since": "10-11 05:38",
-    "orders": 453,
-    "markets": 116,
+    "orders": 456,
+    "markets": 117,
     "late_line": 8,
     "filled_ct": 561.4,
     "below_pct": 54.9,
@@ -3761,7 +3761,7 @@
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
     "ladders": 2359,
     "settled": -46.15,
-    "provisional": -18.7
+    "provisional": -19.95
    },
    {
     "tag": "PULL_B1",
@@ -3787,20 +3787,20 @@
    "need": 30
   },
   "started": "09-30 23:57 MT",
-  "restart_ended_orders": 5606
+  "restart_ended_orders": 7322
  },
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -17,
+  "hb_age_s": -76,
   "fingerprint": "461bd293269c",
   "size": 10,
   "series": "all four",
   "pool": 400,
   "daily_stop": 275,
   "decided_today": [
-   280,
-   39
+   320,
+   46
   ],
   "orders": [
    [
@@ -3822,9 +3822,14 @@
     "LIVE",
     "FILLED",
     131
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    28
    ]
   ],
-  "resting": 0,
+  "resting": 28,
   "filled_today": [
    3,
    60
@@ -3843,6 +3848,125 @@
    "LOOP_ERROR": 0
   },
   "arms": [
+   {
+    "t": "10-14 19:30",
+    "tk": "KXTEMPLAXHS-26OCT1422-T73.99",
+    "d": {
+     "arm_moment": 1792027800.0,
+     "n_prints": 27,
+     "max_print": 9.0,
+     "source": "ws",
+     "implied": 72,
+     "K": 74,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-14 19:30",
+    "tk": "KXTEMPCHIHS-26OCT1422-T60.99",
+    "d": {
+     "arm_moment": 1792027800.0,
+     "n_prints": 12,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 59,
+     "K": 61,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-14 19:30",
+    "tk": "KXTEMPCHIHS-26OCT1422-T61.99",
+    "d": {
+     "arm_moment": 1792027800.0,
+     "n_prints": 5,
+     "max_print": 3.0,
+     "source": "ws",
+     "implied": 59,
+     "K": 62,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-14 19:30",
+    "tk": "KXTEMPNYCHS-26OCT1422-T71.99",
+    "d": {
+     "arm_moment": 1792027800.0,
+     "n_prints": 16,
+     "max_print": 4.0,
+     "source": "ws",
+     "implied": 70,
+     "K": 72,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 25,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-14 19:30",
+    "tk": "KXTEMPMIAH-26OCT1422-T82.99",
+    "d": {
+     "arm_moment": 1792027800.0,
+     "n_prints": 77,
+     "max_print": 19.0,
+     "source": "ws",
+     "implied": 82,
+     "K": 83,
+     "dist": 1,
+     "threshold": 30,
+     "placed": 4,
+     "size": 25,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-14 19:30",
+    "tk": "KXTEMPMIAH-26OCT1422-T83.99",
+    "d": {
+     "arm_moment": 1792027800.0,
+     "n_prints": 9,
+     "max_print": 3.0,
+     "source": "ws",
+     "implied": 82,
+     "K": 84,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 25,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-14 19:30",
+    "tk": "KXTEMPMIAH-26OCT1422-T84.99",
+    "d": {
+     "arm_moment": 1792027800.0,
+     "n_prints": 3,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 82,
+     "K": 85,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 25,
+     "mode": "LIVE"
+    }
+   },
    {
     "t": "10-14 05:30",
     "tk": "KXTEMPLAXHS-26OCT1408-T59.99",
@@ -3893,136 +4017,20 @@
      "size": 20,
      "mode": "LIVE"
     }
-   },
-   {
-    "t": "10-14 05:30",
-    "tk": "KXTEMPNYCHS-26OCT1408-T66.99",
-    "d": {
-     "arm_moment": 1791977400.0,
-     "n_prints": 10,
-     "max_print": 3.0,
-     "source": "ws",
-     "implied": 64,
-     "K": 67,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 25,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-14 05:30",
-    "tk": "KXTEMPMIAH-26OCT1408-T80.99",
-    "d": {
-     "arm_moment": 1791977400.0,
-     "n_prints": 8,
-     "max_print": 2.0,
-     "source": "ws",
-     "implied": 78,
-     "K": 81,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 25,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-14 04:30",
-    "tk": "KXTEMPCHIHS-26OCT1407-T64.99",
-    "d": {
-     "arm_moment": 1791973800.0,
-     "n_prints": 5,
-     "max_print": 3.0,
-     "source": "ws",
-     "implied": 62,
-     "K": 65,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-14 04:30",
-    "tk": "KXTEMPCHIHS-26OCT1407-T65.99",
-    "d": {
-     "arm_moment": 1791973800.0,
-     "n_prints": 1,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 62,
-     "K": 66,
-     "dist": 4,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-14 04:30",
-    "tk": "KXTEMPCHIHS-26OCT1407-T66.99",
-    "d": {
-     "arm_moment": 1791973800.0,
-     "n_prints": 1,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 62,
-     "K": 67,
-     "dist": 5,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-14 04:30",
-    "tk": "KXTEMPNYCHS-26OCT1407-T65.99",
-    "d": {
-     "arm_moment": 1791973800.0,
-     "n_prints": 5,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 63,
-     "K": 66,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 25,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-14 04:30",
-    "tk": "KXTEMPNYCHS-26OCT1407-T66.99",
-    "d": {
-     "arm_moment": 1791973800.0,
-     "n_prints": 5,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 63,
-     "K": 67,
-     "dist": 4,
-     "threshold": 10,
-     "placed": 4,
-     "size": 25,
-     "mode": "LIVE"
-    }
    }
   ],
   "ws": {
-   "healthy": false,
+   "healthy": true,
    "disconnects": 0,
-   "subscribed": 0,
-   "stats": {}
+   "subscribed": 40,
+   "stats": {
+    "ws_subscribed": 2,
+    "ws_trade": 187
+   }
   },
   "decision_sources": {
    "rest": 40,
-   "ws": 240
+   "ws": 280
   },
   "fills": [
    {
@@ -4414,7 +4422,7 @@
   },
   {
    "day": "2026-10-14",
-   "bot": -587.55,
+   "bot": -586.3,
    "bot_mkts": 4,
    "est": {
     "E1": 0,
