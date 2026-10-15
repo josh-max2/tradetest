@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-15 06:02 UTC",
- "generated_mt": "10-15 00:02 MT",
- "generated_epoch": 1792044131.7674084,
+ "generated": "2026-10-15 06:20 UTC",
+ "generated_mt": "10-15 00:20 MT",
+ "generated_epoch": 1792045205.887637,
  "health": {
-  "heartbeat_age_s": 5,
+  "heartbeat_age_s": 22,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 16.0,
-  "last_trade_age_s": 0,
+  "last_trade_age_s": 4,
   "subscribed": 720,
-  "wethr_calls": 825,
-  "bursts": 5062,
+  "wethr_calls": 870,
+  "bursts": 5072,
   "scheduled_task": true
  },
  "experiments": [
@@ -1072,13 +1072,13 @@
     {
      "label": "5\u201315 min",
      "stats": {
-      "n": 17,
-      "decided": 17,
-      "yes": 8,
+      "n": 18,
+      "decided": 18,
+      "yes": 9,
       "no": 9,
       "pending": 0,
-      "yes_rate": 47.1,
-      "provisional": 3,
+      "yes_rate": 50.0,
+      "provisional": 4,
       "dollars": 14.7,
       "dollar_mkts": 4
      }
@@ -1086,13 +1086,13 @@
     {
      "label": "10\u201348 min",
      "stats": {
-      "n": 34,
-      "decided": 34,
-      "yes": 14,
+      "n": 35,
+      "decided": 35,
+      "yes": 15,
       "no": 20,
       "pending": 0,
-      "yes_rate": 41.2,
-      "provisional": 3,
+      "yes_rate": 42.9,
+      "provisional": 4,
       "dollars": 32.25,
       "dollar_mkts": 16
      }
@@ -1100,34 +1100,19 @@
     {
      "label": "outside windows",
      "stats": {
-      "n": 215,
-      "decided": 215,
-      "yes": 99,
-      "no": 116,
+      "n": 216,
+      "decided": 216,
+      "yes": 98,
+      "no": 118,
       "pending": 0,
-      "yes_rate": 46.0,
-      "provisional": 14,
+      "yes_rate": 45.4,
+      "provisional": 15,
       "dollars": -31.25,
       "dollar_mkts": 78
      }
     }
    ],
    "rows": [
-    {
-     "t": "10-04 00:18",
-     "tk": "KXLOWTATL-26OCT04-B70.5",
-     "px": 46,
-     "res": "yes",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": 33.6,
-     "onesided": 0,
-     "resting": 0,
-     "since": 15.85
-    },
     {
      "t": "10-05 01:31",
      "tk": "KXLOWTDEN-26OCT05-T50",
@@ -1487,6 +1472,21 @@
      "onesided": 0,
      "resting": 0,
      "since": 21.2
+    },
+    {
+     "t": "10-15 00:19",
+     "tk": "KXLOWTSATX-26OCT15-T72",
+     "px": 70,
+     "res": "yes~",
+     "now": 62,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 59.3,
+     "onesided": 0,
+     "resting": 0,
+     "since": 17.166666666666668
     }
    ],
    "headline": {
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 544,
-    "shared_pct": 39.3,
-    "median_other": 20.0
+    "ladders": 585,
+    "shared_pct": 27.5,
+    "median_other": 19.0
    },
    {
     "rung": 35,
-    "ladders": 544,
-    "shared_pct": 28.3,
+    "ladders": 585,
+    "shared_pct": 14.9,
     "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 544,
-    "shared_pct": 7.0,
-    "median_other": 18.0
+    "ladders": 585,
+    "shared_pct": 5.5,
+    "median_other": 15.0
    },
    {
     "rung": 45,
-    "ladders": 544,
-    "shared_pct": 27.6,
+    "ladders": 585,
+    "shared_pct": 14.7,
     "median_other": 25.0
    }
   ]
@@ -2877,8 +2877,8 @@
     "engine": "pm2",
     "world": "ALL",
     "since": "10-11 04:34",
-    "orders": 3261,
-    "markets": 642,
+    "orders": 3277,
+    "markets": 646,
     "late_line": 128,
     "filled_ct": 1453.1,
     "below_pct": 63.3,
@@ -3013,8 +3013,8 @@
     "engine": "pm2",
     "world": "HOURLY",
     "since": "10-11 05:15",
-    "orders": 1504,
-    "markets": 376,
+    "orders": 1520,
+    "markets": 380,
     "late_line": 0,
     "filled_ct": 885.2,
     "below_pct": 72.2,
@@ -3792,7 +3792,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 3,
+  "hb_age_s": 0,
   "fingerprint": "461bd293269c",
   "size": 10,
   "series": "all four",
@@ -4017,11 +4017,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 0,
-   "subscribed": 200,
+   "subscribed": 240,
    "stats": {
     "ws_subscribed": 2,
-    "ws_trade": 5972,
-    "ws_ok": 8
+    "ws_trade": 6408,
+    "ws_ok": 10
    }
   },
   "decision_sources": {},
