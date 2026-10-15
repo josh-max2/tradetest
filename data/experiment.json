@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-15 21:42 UTC",
- "generated_mt": "10-15 15:42 MT",
- "generated_epoch": 1792100542.6852329,
+ "generated": "2026-10-15 21:59 UTC",
+ "generated_mt": "10-15 15:59 MT",
+ "generated_epoch": 1792101554.4821591,
  "health": {
-  "heartbeat_age_s": 5,
+  "heartbeat_age_s": 27,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 16.7,
-  "last_trade_age_s": 2,
+  "last_trade_age_s": 1,
   "subscribed": 1170,
-  "wethr_calls": 3490,
-  "bursts": 5285,
+  "wethr_calls": 3520,
+  "bursts": 5288,
   "scheduled_task": true
  },
  "experiments": [
@@ -1519,7 +1519,7 @@
     "dollar_mkts": 140
    },
    "extra": {
-    "ceiling_skips": 1520
+    "ceiling_skips": 1522
    },
    "rows": [
     {
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 790,
-    "shared_pct": 31.9,
+    "ladders": 791,
+    "shared_pct": 29.7,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 790,
-    "shared_pct": 11.3,
+    "ladders": 791,
+    "shared_pct": 10.5,
     "median_other": 10.0
    },
    {
     "rung": 40,
-    "ladders": 790,
-    "shared_pct": 7.3,
-    "median_other": 10.0
+    "ladders": 791,
+    "shared_pct": 7.7,
+    "median_other": 16.0
    },
    {
     "rung": 45,
-    "ladders": 790,
-    "shared_pct": 8.0,
+    "ladders": 791,
+    "shared_pct": 7.8,
     "median_other": 15.0
    }
   ]
@@ -2914,8 +2914,8 @@
     "engine": "pm2",
     "world": "CEIL250",
     "since": "10-11 10:09",
-    "orders": 876,
-    "markets": 179,
+    "orders": 884,
+    "markets": 181,
     "late_line": 113,
     "filled_ct": 255.0,
     "below_pct": 0.0,
@@ -3149,13 +3149,13 @@
     "orders": 2167,
     "markets": 548,
     "late_line": 35,
-    "filled_ct": 719.4,
+    "filled_ct": 749.4,
     "below_pct": 0.0,
-    "filled_markets": 14,
+    "filled_markets": 15,
     "settled_markets": 14,
-    "provisional_markets": 0,
+    "provisional_markets": 1,
     "settled": -164.78,
-    "provisional": 0.0,
+    "provisional": 10.5,
     "displaced": 0.0,
     "diff_vs_replica": null,
     "crowd_outs": 0,
@@ -3186,13 +3186,13 @@
     "orders": 2132,
     "markets": 543,
     "late_line": 16,
-    "filled_ct": 3504.7,
-    "below_pct": 83.1,
-    "filled_markets": 14,
+    "filled_ct": 3873.6,
+    "below_pct": 84.5,
+    "filled_markets": 15,
     "settled_markets": 14,
-    "provisional_markets": 0,
+    "provisional_markets": 1,
     "settled": -679.55,
-    "provisional": 0.0,
+    "provisional": 135.98,
     "displaced": 0.0,
     "diff_vs_replica": -679.55,
     "crowd_outs": 0,
@@ -3792,7 +3792,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -6,
+  "hb_age_s": -7,
   "fingerprint": "461bd293269c",
   "size": 10,
   "series": "all four",
@@ -3821,22 +3821,22 @@
    [
     "LIVE",
     "FILLED",
-    139
+    143
    ],
    [
     "LIVE",
     "RESTING",
-    24
+    20
    ]
   ],
-  "resting": 24,
+  "resting": 20,
   "filled_today": [
-   8,
-   80
+   12,
+   120
   ],
   "pnl_today": -10.0,
   "pnl_total": -65.4265,
-  "exposure": 0,
+  "exposure": 25.0,
   "skips": {
    "POOL_SKIP": 0,
    "BALANCE_SKIP": 0,
@@ -4025,15 +4025,106 @@
    "subscribed": 553,
    "stats": {
     "ws_subscribed": 10,
-    "ws_trade": 23151,
+    "ws_trade": 23542,
     "ws_ok": 38,
-    "ws_fill": 8
+    "ws_fill": 15
    }
   },
   "decision_sources": {
    "ws": 560
   },
   "fills": [
+   {
+    "t": "10-15 15:49",
+    "tk": "KXTEMPLAXHS-26OCT1518-T87.99",
+    "d": {
+     "cid": "8be463aa-b199-5733-aea8-57947d13cabe",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 45.0,
+     "fee": 0.0,
+     "ex_ts": 1792100968.308,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-15 15:49",
+    "tk": "KXTEMPLAXHS-26OCT1518-T87.99",
+    "d": {
+     "cid": "6101f46a-a16a-5a83-bb1a-b9280f3fd756",
+     "count": 3.9,
+     "filled": 10,
+     "yes_c": 40.0,
+     "fee": 0.0,
+     "ex_ts": 1792100950.752,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-15 15:48",
+    "tk": "KXTEMPLAXHS-26OCT1518-T87.99",
+    "d": {
+     "cid": "6101f46a-a16a-5a83-bb1a-b9280f3fd756",
+     "count": 4.79,
+     "filled": 6.1,
+     "yes_c": 40.0,
+     "fee": 0.0,
+     "ex_ts": 1792100912.611,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-15 15:48",
+    "tk": "KXTEMPLAXHS-26OCT1518-T87.99",
+    "d": {
+     "cid": "6101f46a-a16a-5a83-bb1a-b9280f3fd756",
+     "count": 1.31,
+     "filled": 1.31,
+     "yes_c": 40.0,
+     "fee": 0.0,
+     "ex_ts": 1792100901.461,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-15 15:46",
+    "tk": "KXTEMPLAXHS-26OCT1518-T87.99",
+    "d": {
+     "cid": "9c52d0a4-06fa-59b5-9828-121d1eb33422",
+     "count": 7.27,
+     "filled": 10,
+     "yes_c": 35.0,
+     "fee": 0.0,
+     "ex_ts": 1792100813.919,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-15 15:45",
+    "tk": "KXTEMPLAXHS-26OCT1518-T87.99",
+    "d": {
+     "cid": "9c52d0a4-06fa-59b5-9828-121d1eb33422",
+     "count": 2.73,
+     "filled": 2.73,
+     "yes_c": 35.0,
+     "fee": 0.0,
+     "ex_ts": 1792100737.145,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-15 15:45",
+    "tk": "KXTEMPLAXHS-26OCT1518-T87.99",
+    "d": {
+     "cid": "6eb52d2f-6ef6-5288-ba39-57b0734b1ff1",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 30.0,
+     "fee": 0.0,
+     "ex_ts": 1792100734.475,
+     "src": "ws"
+    }
+   },
    {
     "t": "10-15 13:11",
     "tk": "KXTEMPLAXHS-26OCT1515-T86.99",
@@ -4064,91 +4155,6 @@
      "yes_c": 40.0,
      "fee": 0.0,
      "ex_ts": 1792089924.919,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-15 12:45",
-    "tk": "KXTEMPLAXHS-26OCT1515-T86.99",
-    "d": {
-     "cid": "98f23b9c-f570-5050-a3d2-87fe083b807e",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 35.0,
-     "fee": 0.0,
-     "ex_ts": 1792089919.803,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-15 12:42",
-    "tk": "KXTEMPLAXHS-26OCT1515-T86.99",
-    "d": {
-     "cid": "519b5851-4dc3-5041-9108-4bc71673c815",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 30.0,
-     "fee": 0.0,
-     "ex_ts": 1792089728.19,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-15 06:13",
-    "tk": "KXTEMPLAXHS-26OCT1508-T61.99",
-    "d": {
-     "result": "no"
-    }
-   },
-   {
-    "t": "10-15 05:55",
-    "tk": "KXTEMPLAXHS-26OCT1508-T61.99",
-    "d": {
-     "cid": "c8e3328e-705d-5f5e-ab0b-c860e5076451",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 45.0,
-     "fee": 0.0,
-     "ex_ts": 1792065321.65,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-15 05:55",
-    "tk": "KXTEMPLAXHS-26OCT1508-T61.99",
-    "d": {
-     "cid": "30ce732f-300b-5bfb-9dac-231063472677",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 40.0,
-     "fee": 0.0,
-     "ex_ts": 1792065321.65,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-15 05:55",
-    "tk": "KXTEMPLAXHS-26OCT1508-T61.99",
-    "d": {
-     "cid": "495e74b1-7fae-569b-8221-5a6d62a30217",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 35.0,
-     "fee": 0.0,
-     "ex_ts": 1792065321.65,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-15 05:47",
-    "tk": "KXTEMPLAXHS-26OCT1508-T61.99",
-    "d": {
-     "cid": "e2749ae7-9c7b-56a9-85d0-daecda8468fe",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 30.0,
-     "fee": 0.0,
-     "ex_ts": 1792064836.383,
      "src": "ws"
     }
    }
@@ -4454,12 +4460,12 @@
     "E3": 0,
     "E4": -15.75,
     "E5": 104.24,
-    "E6": 124.65,
+    "E6": 105.02,
     "E7": 73.86,
     "E8": -2.0,
     "E9": -0.0
    },
-   "compat": 228.89
+   "compat": 209.26
   }
  ]
 }
