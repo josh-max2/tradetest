@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-15 04:47 UTC",
- "generated_mt": "10-14 22:47 MT",
- "generated_epoch": 1792039651.0796866,
+ "generated": "2026-10-15 05:05 UTC",
+ "generated_mt": "10-14 23:05 MT",
+ "generated_epoch": 1792040700.9941027,
  "health": {
   "heartbeat_age_s": 25,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 16.0,
-  "last_trade_age_s": 2,
+  "last_trade_age_s": 32,
   "subscribed": 640,
-  "wethr_calls": 635,
-  "bursts": 5051,
+  "wethr_calls": 665,
+  "bursts": 5052,
   "scheduled_task": true
  },
  "experiments": [
@@ -1088,10 +1088,10 @@
      "stats": {
       "n": 34,
       "decided": 34,
-      "yes": 11,
-      "no": 23,
+      "yes": 13,
+      "no": 21,
       "pending": 0,
-      "yes_rate": 32.4,
+      "yes_rate": 38.2,
       "provisional": 3,
       "dollars": 32.25,
       "dollar_mkts": 16
@@ -1102,10 +1102,10 @@
      "stats": {
       "n": 214,
       "decided": 214,
-      "yes": 89,
-      "no": 125,
+      "yes": 91,
+      "no": 123,
       "pending": 0,
-      "yes_rate": 41.6,
+      "yes_rate": 42.5,
       "provisional": 13,
       "dollars": -31.25,
       "dollar_mkts": 78
@@ -1447,8 +1447,8 @@
      "t": "10-14 00:05",
      "tk": "KXLOWTMIA-26OCT14-B75.5",
      "px": 30,
-     "res": "no~",
-     "now": 1,
+     "res": "yes~",
+     "now": 50,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1462,8 +1462,8 @@
      "t": "10-14 02:53",
      "tk": "KXLOWTATL-26OCT14-B59.5",
      "px": 40,
-     "res": "no~",
-     "now": 1,
+     "res": "yes~",
+     "now": 50,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1478,7 +1478,7 @@
      "tk": "KXLOWTSATX-26OCT14-B75.5",
      "px": 35,
      "res": "no~",
-     "now": 12,
+     "now": 14,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2322,10 +2322,10 @@
    "stats": {
     "n": 131,
     "decided": 131,
-    "yes": 0,
-    "no": 131,
+    "yes": 2,
+    "no": 129,
     "pending": 0,
-    "yes_rate": 0.0,
+    "yes_rate": 1.5,
     "provisional": 3,
     "dollars": 0,
     "dollar_mkts": 0
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 497,
-    "shared_pct": 53.5,
+    "ladders": 499,
+    "shared_pct": 52.1,
     "median_other": 29.0
    },
    {
     "rung": 35,
-    "ladders": 497,
-    "shared_pct": 40.6,
+    "ladders": 499,
+    "shared_pct": 40.5,
     "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 497,
-    "shared_pct": 8.5,
-    "median_other": 16.0
+    "ladders": 499,
+    "shared_pct": 8.6,
+    "median_other": 12.0
    },
    {
     "rung": 45,
-    "ladders": 497,
-    "shared_pct": 38.4,
+    "ladders": 499,
+    "shared_pct": 38.9,
     "median_other": 25.0
    }
   ]
@@ -3288,8 +3288,8 @@
     "engine": "pm2",
     "world": "LADDER25",
     "since": "10-11 04:34",
-    "orders": 4317,
-    "markets": 633,
+    "orders": 4322,
+    "markets": 634,
     "late_line": 997,
     "filled_ct": 1108.5,
     "below_pct": 56.8,
@@ -3754,14 +3754,14 @@
     "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
     "ladders": 1847,
     "settled": 649.7,
-    "provisional": -587.55
+    "provisional": -651.55
    },
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
     "ladders": 2470,
     "settled": -46.15,
-    "provisional": -19.95
+    "provisional": 49.05
    },
    {
     "tag": "PULL_B1",
@@ -3779,7 +3779,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 12962,
+   "orders_compared": 12972,
    "real_filled": 49,
    "agree_pct": 99.9,
    "contract_ratio": 0.723,
@@ -3792,7 +3792,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 0,
+  "hb_age_s": -6,
   "fingerprint": "461bd293269c",
   "size": 10,
   "series": "all four",
@@ -3811,7 +3811,7 @@
    [
     "LIVE",
     "CANCELED",
-    2954
+    2978
    ],
    [
     "LIVE",
@@ -3822,14 +3822,9 @@
     "LIVE",
     "FILLED",
     131
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    24
    ]
   ],
-  "resting": 24,
+  "resting": 0,
   "filled_today": [
    3,
    60
@@ -4022,11 +4017,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 0,
-   "subscribed": 160,
+   "subscribed": 190,
    "stats": {
     "ws_subscribed": 2,
-    "ws_trade": 4284,
-    "ws_ok": 5
+    "ws_trade": 4748,
+    "ws_ok": 7
    }
   },
   "decision_sources": {
@@ -4423,7 +4418,7 @@
   },
   {
    "day": "2026-10-14",
-   "bot": -586.3,
+   "bot": -655.3,
    "bot_mkts": 4,
    "est": {
     "E1": 0,
