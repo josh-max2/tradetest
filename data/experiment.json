@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-16 14:45 UTC",
- "generated_mt": "10-16 08:45 MT",
- "generated_epoch": 1792161955.135274,
+ "generated": "2026-10-16 14:50 UTC",
+ "generated_mt": "10-16 08:50 MT",
+ "generated_epoch": 1792162226.7632072,
  "health": {
-  "heartbeat_age_s": 4,
+  "heartbeat_age_s": 6,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 17.4,
-  "last_trade_age_s": -2,
+  "last_trade_age_s": 0,
   "subscribed": 680,
-  "wethr_calls": 6345,
-  "bursts": 5511,
+  "wethr_calls": 6354,
+  "bursts": 5512,
   "scheduled_task": true
  },
  "experiments": [
@@ -1478,7 +1478,7 @@
      "tk": "KXLOWTOKC-26OCT16-B41.5",
      "px": 30,
      "res": "no~",
-     "now": 12,
+     "now": 14,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTAUS-26OCT16-B51.5",
      "px": 30,
      "res": "no~",
-     "now": 12,
+     "now": 14,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1943,7 +1943,7 @@
       "no": 21,
       "pending": 0,
       "yes_rate": 38.2,
-      "provisional": 1,
+      "provisional": 0,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -3161,13 +3161,13 @@
     "orders": 2594,
     "markets": 657,
     "late_line": 35,
-    "filled_ct": 1034.3,
+    "filled_ct": 1054.3,
     "below_pct": 0.0,
-    "filled_markets": 20,
+    "filled_markets": 21,
     "settled_markets": 20,
-    "provisional_markets": 0,
+    "provisional_markets": 1,
     "settled": -188.28,
-    "provisional": 0.0,
+    "provisional": 6.5,
     "displaced": 0.0,
     "diff_vs_replica": null,
     "crowd_outs": 0,
@@ -3198,13 +3198,13 @@
     "orders": 2559,
     "markets": 652,
     "late_line": 16,
-    "filled_ct": 5146.8,
-    "below_pct": 83.9,
-    "filled_markets": 20,
+    "filled_ct": 5346.8,
+    "below_pct": 82.5,
+    "filled_markets": 21,
     "settled_markets": 20,
-    "provisional_markets": 0,
+    "provisional_markets": 1,
     "settled": -628.97,
-    "provisional": 0.0,
+    "provisional": 65.0,
     "displaced": 0.0,
     "diff_vs_replica": -628.97,
     "crowd_outs": 0,
@@ -3804,7 +3804,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -14,
+  "hb_age_s": -12,
   "fingerprint": "461bd293269c",
   "size": 10,
   "series": "all four",
@@ -3833,22 +3833,22 @@
    [
     "LIVE",
     "FILLED",
-    163
+    165
    ],
    [
     "LIVE",
     "RESTING",
-    28
+    26
    ]
   ],
-  "resting": 28,
+  "resting": 26,
   "filled_today": [
-   4,
-   100
+   6,
+   120
   ],
   "pnl_today": 37.5,
   "pnl_total": -70.4265,
-  "exposure": 0,
+  "exposure": 13.5,
   "skips": {
    "POOL_SKIP": 0,
    "BALANCE_SKIP": 0,
@@ -4037,15 +4037,41 @@
    "subscribed": 891,
    "stats": {
     "ws_subscribed": 12,
-    "ws_trade": 47475,
+    "ws_trade": 47659,
     "ws_ok": 77,
-    "ws_fill": 42
+    "ws_fill": 43
    }
   },
   "decision_sources": {
    "ws": 360
   },
   "fills": [
+   {
+    "t": "10-16 08:48",
+    "tk": "KXTEMPLAXHS-26OCT1611-T74.99",
+    "d": {
+     "cid": "c90e47d5-41c2-5aeb-b67b-44ea247b2cce",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 35.0,
+     "fee": 0.0,
+     "ex_ts": 1792162109.713,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-16 08:48",
+    "tk": "KXTEMPLAXHS-26OCT1611-T74.99",
+    "d": {
+     "cid": "698c2fbc-516e-5654-9c16-9c1db7103e6d",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 30.0,
+     "fee": 0.0,
+     "ex_ts": 1792162090.015,
+     "src": "ws"
+    }
+   },
    {
     "t": "10-16 02:15",
     "tk": "KXTEMPMIAH-26OCT1604-T81.99",
@@ -4143,26 +4169,6 @@
      "ex_ts": 1792137029.765,
      "src": "ws"
     }
-   },
-   {
-    "t": "10-16 01:46",
-    "tk": "KXTEMPMIAH-26OCT1604-T81.99",
-    "d": {
-     "cid": "4dac9d50-9bc5-5ffb-b396-ba6597101f6a",
-     "count": 25.0,
-     "filled": 25,
-     "yes_c": 30.0,
-     "fee": 0.0,
-     "ex_ts": 1792136804.331,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-15 23:12",
-    "tk": "KXTEMPNYCHS-26OCT1601-T57.99",
-    "d": {
-     "result": "yes"
-    }
    }
   ]
  },
@@ -4244,13 +4250,13 @@
     "E2": 84.0,
     "E3": 0,
     "E4": -6.0,
-    "E5": 531.61,
+    "E5": 530.83,
     "E6": -107.52,
     "E7": 51.07,
-    "E8": -82.5,
+    "E8": -79.5,
     "E9": -0.0
    },
-   "compat": 508.09
+   "compat": 507.31
   },
   {
    "day": "2026-10-03",
