@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-18 08:38 UTC",
- "generated_mt": "10-18 02:38 MT",
- "generated_epoch": 1792312691.3396564,
+ "generated": "2026-10-18 08:58 UTC",
+ "generated_mt": "10-18 02:58 MT",
+ "generated_epoch": 1792313918.6121595,
  "health": {
-  "heartbeat_age_s": 27,
+  "heartbeat_age_s": 24,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 19.1,
-  "last_trade_age_s": 5,
+  "last_trade_age_s": -1,
   "subscribed": 520,
-  "wethr_calls": 4620,
-  "bursts": 6216,
+  "wethr_calls": 4665,
+  "bursts": 6218,
   "scheduled_task": true
  },
  "experiments": [
@@ -1086,13 +1086,13 @@
     {
      "label": "10\u201348 min",
      "stats": {
-      "n": 45,
-      "decided": 45,
+      "n": 46,
+      "decided": 46,
       "yes": 13,
-      "no": 32,
+      "no": 33,
       "pending": 0,
-      "yes_rate": 28.9,
-      "provisional": 1,
+      "yes_rate": 28.3,
+      "provisional": 2,
       "dollars": 48.0,
       "dollar_mkts": 22
      }
@@ -1113,21 +1113,6 @@
     }
    ],
    "rows": [
-    {
-     "t": "10-09 05:39",
-     "tk": "KXLOWTHOU-26OCT09-B65.5",
-     "px": 48,
-     "res": "yes",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": 67.9,
-     "onesided": 0,
-     "resting": 0,
-     "since": 32.78333333333333
-    },
     {
      "t": "10-09 23:47",
      "tk": "KXLOWTAUS-26OCT09-T59",
@@ -1487,6 +1472,21 @@
      "onesided": 0,
      "resting": 0,
      "since": 22.9
+    },
+    {
+     "t": "10-18 02:57",
+     "tk": "KXLOWTATL-26OCT18-T47",
+     "px": 53,
+     "res": "no~",
+     "now": 41,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": 24.1,
+     "onesided": 0,
+     "resting": 0,
+     "since": 25.433333333333334
     }
    ],
    "headline": {
@@ -2844,27 +2844,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 188,
-    "shared_pct": 62.2,
+    "ladders": 189,
+    "shared_pct": 51.9,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 188,
-    "shared_pct": 12.8,
-    "median_other": 28.0
+    "ladders": 189,
+    "shared_pct": 15.9,
+    "median_other": 20.0
    },
    {
     "rung": 40,
-    "ladders": 188,
-    "shared_pct": 11.2,
-    "median_other": 10.0
+    "ladders": 189,
+    "shared_pct": 12.7,
+    "median_other": 15.0
    },
    {
     "rung": 45,
-    "ladders": 188,
-    "shared_pct": 12.2,
-    "median_other": 15.0
+    "ladders": 189,
+    "shared_pct": 12.7,
+    "median_other": 20.0
    }
   ]
  },
@@ -2877,8 +2877,8 @@
     "engine": "pm2",
     "world": "ALL",
     "since": "10-11 04:34",
-    "orders": 6606,
-    "markets": 1315,
+    "orders": 6616,
+    "markets": 1317,
     "late_line": 236,
     "filled_ct": 3007.6,
     "below_pct": 55.0,
@@ -2945,8 +2945,8 @@
     "engine": "pm2",
     "world": "EXTRA_R4",
     "since": "10-11 04:34",
-    "orders": 3574,
-    "markets": 557,
+    "orders": 3584,
+    "markets": 559,
     "late_line": 246,
     "filled_ct": 1493.0,
     "below_pct": 31.0,
@@ -2979,8 +2979,8 @@
     "engine": "pm2",
     "world": "EXTRA_R7",
     "since": "10-11 04:34",
-    "orders": 3574,
-    "markets": 557,
+    "orders": 3584,
+    "markets": 559,
     "late_line": 266,
     "filled_ct": 1493.0,
     "below_pct": 31.0,
@@ -3315,7 +3315,7 @@
     "provisional": 509.7,
     "displaced": 0.0,
     "diff_vs_replica": 177.61,
-    "crowd_outs": 34,
+    "crowd_outs": 36,
     "crowd_real_settled": 0.0,
     "ci90": [
      129.21,
@@ -3340,8 +3340,8 @@
     "engine": "pm2",
     "world": "LOWS_UNCAP",
     "since": "10-11 04:42",
-    "orders": 3159,
-    "markets": 559,
+    "orders": 3167,
+    "markets": 561,
     "late_line": 402,
     "filled_ct": 285.0,
     "below_pct": 100.0,
@@ -3810,7 +3810,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": 0,
+  "hb_age_s": -10,
   "fingerprint": "2039cd1d7e39",
   "size": 10,
   "series": "all four",
@@ -4043,7 +4043,7 @@
    "subscribed": 738,
    "stats": {
     "ws_subscribed": 10,
-    "ws_trade": 35716,
+    "ws_trade": 36162,
     "ws_ok": 54,
     "ws_fill": 18
    }
