@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-19 17:47 UTC",
- "generated_mt": "10-19 11:47 MT",
- "generated_epoch": 1792432052.4120731,
+ "generated": "2026-10-19 18:07 UTC",
+ "generated_mt": "10-19 12:07 MT",
+ "generated_epoch": 1792433273.341163,
  "health": {
-  "heartbeat_age_s": 8,
+  "heartbeat_age_s": -1,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 20.5,
-  "last_trade_age_s": -6,
-  "subscribed": 730,
-  "wethr_calls": 10211,
-  "bursts": 6667,
+  "last_trade_age_s": -3,
+  "subscribed": 788,
+  "wethr_calls": 10251,
+  "bursts": 6683,
   "scheduled_task": true
  },
  "experiments": [
@@ -1519,7 +1519,7 @@
     "dollar_mkts": 159
    },
    "extra": {
-    "ceiling_skips": 1791
+    "ceiling_skips": 1800
    },
    "rows": [
     {
@@ -1835,7 +1835,7 @@
      "tk": "KXHIGHTPHX-26OCT19-B86.5",
      "px": 37,
      "res": "no~",
-     "now": 6,
+     "now": 4,
      "legs": 5,
      "ct": 5,
      "pnl": 1.75,
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTPHX-26OCT19-B64.5",
      "px": 40,
      "res": "no~",
-     "now": 3,
+     "now": 2,
      "legs": 5,
      "ct": 5,
      "pnl": 1.75,
@@ -1895,13 +1895,13 @@
     {
      "label": "KXTEMPCHIHS",
      "stats": {
-      "n": 55,
-      "decided": 55,
+      "n": 56,
+      "decided": 56,
       "yes": 21,
-      "no": 34,
+      "no": 35,
       "pending": 0,
-      "yes_rate": 38.2,
-      "provisional": 0,
+      "yes_rate": 37.5,
+      "provisional": 1,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -1911,10 +1911,10 @@
      "stats": {
       "n": 44,
       "decided": 44,
-      "yes": 18,
-      "no": 26,
+      "yes": 19,
+      "no": 25,
       "pending": 0,
-      "yes_rate": 40.9,
+      "yes_rate": 43.2,
       "provisional": 1,
       "dollars": 0,
       "dollar_mkts": 0
@@ -2302,7 +2302,7 @@
     }
    ],
    "headline": {
-    "est": -3617.51,
+    "est": -3758.86,
     "how": "spikes valued with the calibrated fill model on their real trades, 4 rungs at 50 ct (the tested size)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -2320,13 +2320,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 176,
-    "decided": 176,
+    "n": 175,
+    "decided": 175,
     "yes": 0,
-    "no": 176,
+    "no": 175,
     "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 10,
+    "provisional": 9,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -2518,7 +2518,7 @@
      "tk": "KXLOWTSATX-26OCT19-B51.5",
      "px": 28,
      "res": "no~",
-     "now": 3,
+     "now": 2,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2798,8 +2798,8 @@
    "E6",
    "E9"
   ],
-  "live_total": 3206.8,
-  "live_per_month": 4755.0,
+  "live_total": 3065.45,
+  "live_per_month": 4546.0,
   "days": 20.5,
   "base_live": 604.0,
   "model_add_lo": 800,
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 412,
-    "shared_pct": 55.1,
+    "ladders": 457,
+    "shared_pct": 51.0,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 412,
-    "shared_pct": 14.3,
-    "median_other": 13.0
-   },
-   {
-    "rung": 40,
-    "ladders": 412,
-    "shared_pct": 10.7,
+    "ladders": 457,
+    "shared_pct": 10.9,
     "median_other": 11.0
    },
    {
+    "rung": 40,
+    "ladders": 457,
+    "shared_pct": 8.3,
+    "median_other": 10.0
+   },
+   {
     "rung": 45,
-    "ladders": 412,
-    "shared_pct": 12.1,
+    "ladders": 457,
+    "shared_pct": 9.6,
     "median_other": 15.0
    }
   ]
@@ -3822,7 +3822,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -20,
+  "hb_age_s": -12,
   "fingerprint": "2039cd1d7e39",
   "size": 10,
   "series": "all four",
@@ -3846,20 +3846,15 @@
    [
     "LIVE",
     "EXPIRED",
-    2591
+    2611
    ],
    [
     "LIVE",
     "FILLED",
     191
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    20
    ]
   ],
-  "resting": 20,
+  "resting": 0,
   "filled_today": [
    4,
    40
@@ -4052,11 +4047,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 6,
-   "subscribed": 1548,
+   "subscribed": 1588,
    "stats": {
     "ws_subscribed": 14,
-    "ws_trade": 80655,
-    "ws_ok": 141,
+    "ws_trade": 81577,
+    "ws_ok": 142,
     "ws_fill": 34
    }
   },
@@ -4552,12 +4547,12 @@
     "E3": 0,
     "E4": -3.5,
     "E5": 0.0,
-    "E6": 135.24,
-    "E7": 13.0,
+    "E6": -3.65,
+    "E7": 0.0,
     "E8": 9.75,
     "E9": -0.0
    },
-   "compat": 135.24
+   "compat": -3.65
   }
  ]
 }
