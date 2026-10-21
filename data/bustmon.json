@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-21T12:00:01.085671+00:00",
- "asof": "2026-10-20",
+ "generated": "2026-10-21T18:00:01.094115+00:00",
+ "asof": "2026-10-21",
  "window_days": 30,
  "warn": 22.0,
  "kill": 25.0,
@@ -11,13 +11,13 @@
   "45": 38.9
  },
  "overall": {
-  "events": 50,
+  "events": 47,
   "days": 23,
   "busts": 6,
-  "rate": 12.0,
-  "ct": 9994.0,
-  "pnl_c": 43155.0,
-  "c_per_ct": 4.3180908545127075,
+  "rate": 12.76595744680851,
+  "ct": 9789.0,
+  "pnl_c": 36980.0,
+  "c_per_ct": 3.777709674124017,
   "status": "OK",
   "flags": [
    "N=23 independent days (<30) \u2014 estimate is noisy"
@@ -25,44 +25,44 @@
  },
  "by_series": {
   "KXHIGH": {
-   "events": 28,
-   "days": 16,
+   "events": 26,
+   "days": 15,
    "busts": 2,
-   "rate": 7.142857142857143,
-   "ct": 5758.0,
-   "pnl_c": 64315.0,
-   "c_per_ct": 11.169676971170546,
+   "rate": 7.6923076923076925,
+   "ct": 5618.0,
+   "pnl_c": 60115.0,
+   "c_per_ct": 10.700427198291207,
    "status": "OK",
    "flags": [
-    "N=16 independent days (<30) \u2014 estimate is noisy"
+    "N=15 independent days (<30) \u2014 estimate is noisy"
    ]
   },
   "KXLOWT": {
-   "events": 22,
+   "events": 21,
    "days": 16,
    "busts": 4,
-   "rate": 18.181818181818183,
-   "ct": 4236.0,
-   "pnl_c": -21160.0,
-   "c_per_ct": -4.995278564683664,
+   "rate": 19.047619047619047,
+   "ct": 4171.0,
+   "pnl_c": -23135.0,
+   "c_per_ct": -5.546631503236634,
    "status": "KILL",
    "flags": [
     "N=16 independent days (<30) \u2014 estimate is noisy",
-    "PnL backstop: -5.00c/ct < 2.0c floor"
+    "PnL backstop: -5.55c/ct < 2.0c floor"
    ]
   }
  },
  "by_rung": {
   "30": {
-   "events": 40,
-   "days": 21,
+   "events": 36,
+   "days": 20,
    "busts": 6,
-   "rate": 15.0,
-   "ct": 4731.0,
-   "pnl_c": 44830.0,
-   "c_per_ct": 9.47579792855633,
+   "rate": 16.666666666666668,
+   "ct": 4521.0,
+   "pnl_c": 38530.0,
+   "c_per_ct": 8.522450785224509,
    "adj_breakeven": 27.7,
-   "margin_pp": 12.7,
+   "margin_pp": 11.0,
    "status": "OK"
   },
   "35": {
@@ -103,7 +103,7 @@
   }
  },
  "alarms": [
-  "KXLOWT KILL at 18.2%",
+  "KXLOWT KILL at 19.0%",
   "rung 35c UNDERWATER (margin -0.3pp)",
   "rung 40c UNDERWATER (margin -2.5pp)",
   "rung 45c UNDERWATER (margin -5.5pp)"
