@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-22 05:05 UTC",
- "generated_mt": "10-21 23:05 MT",
- "generated_epoch": 1792645542.969386,
+ "generated": "2026-10-22 05:26 UTC",
+ "generated_mt": "10-21 23:26 MT",
+ "generated_epoch": 1792646765.7199204,
  "health": {
-  "heartbeat_age_s": 4,
+  "heartbeat_age_s": 26,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 23.0,
-  "last_trade_age_s": 42,
+  "last_trade_age_s": -3,
   "subscribed": 520,
-  "wethr_calls": 20188,
-  "bursts": 7485,
+  "wethr_calls": 20233,
+  "bursts": 7489,
   "scheduled_task": true
  },
  "experiments": [
@@ -1100,13 +1100,13 @@
     {
      "label": "outside windows",
      "stats": {
-      "n": 335,
-      "decided": 335,
+      "n": 336,
+      "decided": 336,
       "yes": 140,
-      "no": 195,
+      "no": 196,
       "pending": 0,
-      "yes_rate": 41.8,
-      "provisional": 9,
+      "yes_rate": 41.7,
+      "provisional": 10,
       "dollars": -257.25,
       "dollar_mkts": 119
      }
@@ -2844,27 +2844,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 546,
-    "shared_pct": 33.9,
+    "ladders": 508,
+    "shared_pct": 39.8,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 546,
-    "shared_pct": 8.1,
+    "ladders": 508,
+    "shared_pct": 10.0,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 546,
-    "shared_pct": 5.1,
-    "median_other": 11.0
+    "ladders": 508,
+    "shared_pct": 6.9,
+    "median_other": 8.0
    },
    {
     "rung": 45,
-    "ladders": 546,
-    "shared_pct": 7.7,
-    "median_other": 23.39
+    "ladders": 508,
+    "shared_pct": 10.6,
+    "median_other": 20.0
    }
   ]
  },
@@ -2877,8 +2877,8 @@
     "engine": "pm2",
     "world": "ALL",
     "since": "10-11 04:34",
-    "orders": 10214,
-    "markets": 2057,
+    "orders": 10230,
+    "markets": 2061,
     "late_line": 352,
     "filled_ct": 4189.8,
     "below_pct": 53.8,
@@ -2914,7 +2914,7 @@
     "engine": "pm2",
     "world": "CEIL250",
     "since": "10-11 10:09",
-    "orders": 2120,
+    "orders": 2124,
     "markets": 407,
     "late_line": 345,
     "filled_ct": 459.9,
@@ -3022,8 +3022,8 @@
     "engine": "pm2",
     "world": "HOURLY",
     "since": "10-11 05:15",
-    "orders": 4780,
-    "markets": 1195,
+    "orders": 4796,
+    "markets": 1199,
     "late_line": 0,
     "filled_ct": 1881.8,
     "below_pct": 79.3,
@@ -3059,8 +3059,8 @@
     "engine": "pm2",
     "world": "HOURLY_LOOSE",
     "since": "10-11 05:25",
-    "orders": 5752,
-    "markets": 1438,
+    "orders": 5768,
+    "markets": 1442,
     "late_line": 0,
     "filled_ct": 2984.4,
     "below_pct": 86.8,
@@ -3096,8 +3096,8 @@
     "engine": "pm2",
     "world": "HOURLY_LOOSE_P",
     "since": "10-11 05:25",
-    "orders": 3504,
-    "markets": 876,
+    "orders": 3516,
+    "markets": 879,
     "late_line": 0,
     "filled_ct": 1404.5,
     "below_pct": 88.6,
@@ -3318,8 +3318,8 @@
     "engine": "pm2",
     "world": "LADDER25",
     "since": "10-11 04:34",
-    "orders": 10803,
-    "markets": 1624,
+    "orders": 10818,
+    "markets": 1625,
     "late_line": 1936,
     "filled_ct": 3411.5,
     "below_pct": 44.3,
@@ -3355,7 +3355,7 @@
     "engine": "pm2",
     "world": "LOWS_UNCAP",
     "since": "10-11 04:42",
-    "orders": 4979,
+    "orders": 4982,
     "markets": 921,
     "late_line": 558,
     "filled_ct": 1241.0,
@@ -3389,8 +3389,8 @@
     "engine": "pm2",
     "world": "RUNG25",
     "since": "10-11 04:34",
-    "orders": 226,
-    "markets": 208,
+    "orders": 227,
+    "markets": 209,
     "late_line": 17,
     "filled_ct": 50.9,
     "below_pct": 90.2,
@@ -3795,7 +3795,7 @@
    {
     "tag": "TAIL6",
     "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 3661,
+    "ladders": 3665,
     "settled": 52.8,
     "provisional": 2.5
    },
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 20744,
+   "orders_compared": 20764,
    "real_filled": 75,
    "agree_pct": 99.9,
    "contract_ratio": 0.807,
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -10,
+  "hb_age_s": -6,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -4057,7 +4057,7 @@
    "stats": {
     "ws_subscribed": 6,
     "ws_ok": 87,
-    "ws_trade": 68836,
+    "ws_trade": 69386,
     "ws_fill": 12
    }
   },
