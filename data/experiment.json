@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-24 12:49 UTC",
- "generated_mt": "10-24 06:49 MT",
- "generated_epoch": 1792846182.6871486,
+ "generated": "2026-10-24 12:59 UTC",
+ "generated_mt": "10-24 06:59 MT",
+ "generated_epoch": 1792846797.7273393,
  "health": {
-  "heartbeat_age_s": -5,
+  "heartbeat_age_s": 10,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 25.3,
-  "last_trade_age_s": -13,
+  "last_trade_age_s": -10,
   "subscribed": 520,
-  "wethr_calls": 7285,
+  "wethr_calls": 7300,
   "bursts": 8158,
   "scheduled_task": true
  },
@@ -484,7 +484,7 @@
      "tk": "KXLOWTNOLA-26OCT24-T56",
      "px": 30,
      "res": "no~",
-     "now": 6,
+     "now": 4,
      "legs": 10,
      "ct": 10,
      "pnl": 3.5,
@@ -976,7 +976,7 @@
      "tk": "KXLOWTNOLA-26OCT24-T56",
      "px": 30,
      "res": "no~",
-     "now": 6,
+     "now": 4,
      "legs": 10,
      "ct": 10,
      "pnl": 3.5,
@@ -1448,7 +1448,7 @@
      "tk": "KXLOWTDAL-26OCT24-B56.5",
      "px": 43,
      "res": "no~",
-     "now": 10,
+     "now": 9,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1478,7 +1478,7 @@
      "tk": "KXLOWTDEN-26OCT24-B40.5",
      "px": 30,
      "res": "no~",
-     "now": 37,
+     "now": 28,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTNOLA-26OCT24-T56",
      "px": 30,
      "res": "no~",
-     "now": 6,
+     "now": 4,
      "legs": 10,
      "ct": 10,
      "pnl": 3.5,
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 217,
-    "shared_pct": 57.1,
+    "ladders": 219,
+    "shared_pct": 58.9,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 217,
-    "shared_pct": 14.7,
+    "ladders": 219,
+    "shared_pct": 15.5,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 217,
-    "shared_pct": 9.7,
+    "ladders": 219,
+    "shared_pct": 9.6,
     "median_other": 15.0
    },
    {
     "rung": 45,
-    "ladders": 217,
-    "shared_pct": 12.4,
+    "ladders": 219,
+    "shared_pct": 13.2,
     "median_other": 19.0
    }
   ]
@@ -3745,90 +3745,18 @@
      "B4_halves": false
     },
     "proven": false
-   },
-   {
-    "engine": "pm1",
-    "world": "RUNG25",
-    "since": "09-30 23:57",
-    "orders": 2425,
-    "markets": 1737,
-    "late_line": 457,
-    "filled_ct": 2396.7,
-    "below_pct": 92.8,
-    "filled_markets": 34,
-    "settled_markets": 34,
-    "provisional_markets": 0,
-    "settled": 80.16,
-    "provisional": 0.0,
-    "displaced": 0.0,
-    "diff_vs_replica": null,
-    "crowd_outs": 0,
-    "crowd_real_settled": 0.0,
-    "ci90": [
-     -321.99,
-     425.2
-    ],
-    "p_le0": 0.363,
-    "top2_share": 1.75,
-    "halves": [
-     59.39,
-     20.77
-    ],
-    "bust_pct": 8.8,
-    "bounds": {
-     "B1_sample": false,
-     "B2_sig": false,
-     "B3_conc": false,
-     "B4_halves": true
-    },
-    "proven": false
    }
   ],
-  "tags": [
-   {
-    "tag": "CEIL200",
-    "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 2786,
-    "settled": -54.25,
-    "provisional": 0.0
-   },
-   {
-    "tag": "TAIL6",
-    "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 3767,
-    "settled": 349.05,
-    "provisional": -0.0
-   },
-   {
-    "tag": "PULL_B1",
-    "what": "pull the real ladder 2 s after the signal; $ = real fills avoided (+ = pulling helps)",
-    "ladders": 1,
-    "settled": 0.0,
-    "provisional": 0.0
-   },
-   {
-    "tag": "PULL_WIN",
-    "what": "pull the real ladder 2 s after the signal; $ = real fills avoided (+ = pulling helps)",
-    "ladders": 0,
-    "settled": 0.0,
-    "provisional": 0.0
-   }
-  ],
-  "replica": {
-   "orders_compared": 23224,
-   "real_filled": 90,
-   "agree_pct": 99.9,
-   "contract_ratio": 0.77,
-   "passed": false,
-   "need": 30
-  },
+  "tags": [],
+  "replica": null,
   "started": "09-30 23:57 MT",
-  "restart_ended_orders": 11873
+  "restart_ended_orders": 11873,
+  "error": "database is locked"
  },
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -28,
+  "hb_age_s": -46,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3847,7 +3775,7 @@
    [
     "LIVE",
     "CANCELED",
-    5613
+    5617
    ],
    [
     "LIVE",
@@ -3858,14 +3786,9 @@
     "LIVE",
     "FILLED",
     223
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    4
    ]
   ],
-  "resting": 4,
+  "resting": 0,
   "filled_today": [
    0,
    0
@@ -4061,7 +3984,7 @@
    "subscribed": 1047,
    "stats": {
     "ws_subscribed": 12,
-    "ws_trade": 69782,
+    "ws_trade": 70195,
     "ws_ok": 90,
     "ws_fill": 42
    }
@@ -4404,13 +4327,13 @@
     "E2": 157.05,
     "E3": 0,
     "E4": -4.75,
-    "E5": 586.95,
+    "E5": 551.85,
     "E6": -507.72,
     "E7": 48.64,
     "E8": -85.2,
     "E9": -0.0
    },
-   "compat": 236.28
+   "compat": 201.18
   },
   {
    "day": "2026-10-11",
@@ -4421,13 +4344,13 @@
     "E2": -124.0,
     "E3": 2.5,
     "E4": -1.75,
-    "E5": -177.92,
+    "E5": -186.02,
     "E6": -341.44,
     "E7": 52.24,
     "E8": -31.15,
     "E9": -0.0
    },
-   "compat": -643.36
+   "compat": -651.46
   },
   {
    "day": "2026-10-12",
@@ -4438,13 +4361,13 @@
     "E2": 0,
     "E3": 0,
     "E4": 0,
-    "E5": 1035.43,
+    "E5": 969.73,
     "E6": -170.46,
     "E7": 17.5,
     "E8": -15.75,
     "E9": -0.0
    },
-   "compat": 864.97
+   "compat": 799.27
   },
   {
    "day": "2026-10-13",
@@ -4491,7 +4414,7 @@
     "E4": -15.75,
     "E5": 314.4,
     "E6": -235.92,
-    "E7": 118.42,
+    "E7": 113.92,
     "E8": -2.0,
     "E9": -0.0
    },
@@ -4574,13 +4497,13 @@
     "E2": 0.25,
     "E3": 0,
     "E4": -5.25,
-    "E5": 383.24,
+    "E5": 376.04,
     "E6": 35.01,
     "E7": 62.49,
     "E8": 3.25,
     "E9": -0.0
    },
-   "compat": 418.5
+   "compat": 411.3
   },
   {
    "day": "2026-10-21",
@@ -4638,17 +4561,17 @@
    "bot": 0.0,
    "bot_mkts": 0,
    "est": {
-    "E1": 1.75,
-    "E2": 1.75,
+    "E1": 5.25,
+    "E2": 5.25,
     "E3": 0,
-    "E4": -1.75,
+    "E4": -3.5,
     "E5": 3.0,
     "E6": -5.39,
     "E7": 2.0,
-    "E8": -1.75,
+    "E8": -5.25,
     "E9": -0.0
    },
-   "compat": -0.64
+   "compat": 2.86
   }
  ]
 }
