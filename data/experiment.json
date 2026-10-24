@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-24 00:18 UTC",
- "generated_mt": "10-23 18:18 MT",
- "generated_epoch": 1792801082.5460846,
+ "generated": "2026-10-24 00:49 UTC",
+ "generated_mt": "10-23 18:49 MT",
+ "generated_epoch": 1792802992.4222283,
  "health": {
-  "heartbeat_age_s": -1,
+  "heartbeat_age_s": 19,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 24.8,
-  "last_trade_age_s": -9,
+  "last_trade_age_s": -10,
   "subscribed": 794,
-  "wethr_calls": 5145,
-  "bursts": 8007,
+  "wethr_calls": 5260,
+  "bursts": 8008,
   "scheduled_task": true
  },
  "experiments": [
@@ -1793,7 +1793,7 @@
      "tk": "KXLOWTMIA-26OCT23-B69.5",
      "px": 34,
      "res": "no~",
-     "now": 18,
+     "now": 12,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1835,7 +1835,7 @@
      "tk": "KXLOWTLV-26OCT23-B53.5",
      "px": 40,
      "res": "no~",
-     "now": 2,
+     "now": 0,
      "legs": 5,
      "ct": 5,
      "pnl": 1.75,
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTDEN-26OCT23-T58",
      "px": 46,
      "res": "no~",
-     "now": 2,
+     "now": 4,
      "legs": 15,
      "ct": 23,
      "pnl": 7.25,
@@ -2320,23 +2320,23 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 206,
-    "decided": 206,
+    "n": 207,
+    "decided": 207,
     "yes": 0,
-    "no": 206,
+    "no": 207,
     "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 6,
+    "provisional": 7,
     "dollars": 0,
     "dollar_mkts": 0
    },
    "rows": [
     {
-     "t": "10-21 12:05",
-     "tk": "KXLOWTPHIL-26OCT22-B43.5",
-     "px": 25,
-     "res": "no",
-     "now": null,
+     "t": "10-23 06:38",
+     "tk": "KXLOWTPHIL-26OCT23-B38.5",
+     "px": 26,
+     "res": "no~",
+     "now": 0,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2683,7 +2683,7 @@
     }
    ],
    "headline": {
-    "est": 41.72,
+    "est": 45.88,
     "how": "near-misses valued with the calibrated fill model: a 25\u00a2 rung at our size (lows 100, highs 201)",
     "exp_lo": null,
     "exp_hi": null,
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 418,
-    "shared_pct": 49.0,
+    "ladders": 421,
+    "shared_pct": 46.8,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 418,
-    "shared_pct": 11.0,
+    "ladders": 421,
+    "shared_pct": 12.4,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 418,
-    "shared_pct": 8.6,
-    "median_other": 15.0
+    "ladders": 421,
+    "shared_pct": 9.5,
+    "median_other": 19.0
    },
    {
     "rung": 45,
-    "ladders": 418,
-    "shared_pct": 11.0,
+    "ladders": 421,
+    "shared_pct": 11.6,
     "median_other": 15.0
    }
   ]
@@ -3170,8 +3170,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA",
     "since": "10-11 04:30",
-    "orders": 5570,
-    "markets": 1411,
+    "orders": 5586,
+    "markets": 1415,
     "late_line": 71,
     "filled_ct": 1538.2,
     "below_pct": 0.0,
@@ -3244,8 +3244,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_MIA50",
     "since": "10-11 05:38",
-    "orders": 2795,
-    "markets": 709,
+    "orders": 2803,
+    "markets": 711,
     "late_line": 36,
     "filled_ct": 997.9,
     "below_pct": 54.2,
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 23006,
+   "orders_compared": 23021,
    "real_filled": 88,
    "agree_pct": 99.9,
    "contract_ratio": 0.767,
@@ -3835,8 +3835,8 @@
   "pool": 100,
   "daily_stop": 150,
   "decided_today": [
-   720,
-   67
+   760,
+   71
   ],
   "orders": [
    [
@@ -3858,9 +3858,14 @@
     "LIVE",
     "FILLED",
     212
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    16
    ]
   ],
-  "resting": 0,
+  "resting": 16,
   "filled_today": [
    6,
    60
@@ -3879,6 +3884,74 @@
    "LOOP_ERROR": 0
   },
   "arms": [
+   {
+    "t": "10-23 18:30",
+    "tk": "KXTEMPNYCHS-26OCT2321-T49.99",
+    "d": {
+     "arm_moment": 1792801800.0,
+     "n_prints": 1,
+     "max_print": 3.0,
+     "source": "ws",
+     "implied": 47,
+     "K": 50,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-23 18:30",
+    "tk": "KXTEMPNYCHS-26OCT2321-T48.99",
+    "d": {
+     "arm_moment": 1792801800.0,
+     "n_prints": 50,
+     "max_print": 9.0,
+     "source": "ws",
+     "implied": 47,
+     "K": 49,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-23 18:30",
+    "tk": "KXTEMPMIAH-26OCT2321-T76.99",
+    "d": {
+     "arm_moment": 1792801800.0,
+     "n_prints": 9,
+     "max_print": 3.0,
+     "source": "ws",
+     "implied": 75,
+     "K": 77,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-23 18:30",
+    "tk": "KXTEMPMIAH-26OCT2321-T75.99",
+    "d": {
+     "arm_moment": 1792801800.0,
+     "n_prints": 70,
+     "max_print": 8.0,
+     "source": "ws",
+     "implied": 75,
+     "K": 76,
+     "dist": 1,
+     "threshold": 30,
+     "placed": 4,
+     "size": 10,
+     "mode": "LIVE"
+    }
+   },
    {
     "t": "10-23 17:30",
     "tk": "KXTEMPNYCHS-26OCT2320-T50.99",
@@ -3980,74 +4053,6 @@
      "size": 20,
      "mode": "LIVE"
     }
-   },
-   {
-    "t": "10-23 16:30",
-    "tk": "KXTEMPMIAH-26OCT2319-T77.99",
-    "d": {
-     "arm_moment": 1792794600.0,
-     "n_prints": 3,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 75,
-     "K": 78,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-23 16:30",
-    "tk": "KXTEMPMIAH-26OCT2319-T76.99",
-    "d": {
-     "arm_moment": 1792794600.0,
-     "n_prints": 35,
-     "max_print": 10.0,
-     "source": "ws",
-     "implied": 75,
-     "K": 77,
-     "dist": 2,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-23 15:30",
-    "tk": "KXTEMPMIAH-26OCT2318-T80.99",
-    "d": {
-     "arm_moment": 1792791000.0,
-     "n_prints": 1,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 77,
-     "K": 81,
-     "dist": 4,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-23 15:30",
-    "tk": "KXTEMPMIAH-26OCT2318-T79.99",
-    "d": {
-     "arm_moment": 1792791000.0,
-     "n_prints": 6,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 77,
-     "K": 80,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
    }
   ],
   "ws": {
@@ -4056,13 +4061,13 @@
    "subscribed": 925,
    "stats": {
     "ws_subscribed": 8,
-    "ws_trade": 48460,
+    "ws_trade": 49421,
     "ws_ok": 52,
     "ws_fill": 27
    }
   },
   "decision_sources": {
-   "ws": 720
+   "ws": 760
   },
   "fills": [
    {
@@ -4619,7 +4624,7 @@
     "E1": -168.9,
     "E2": -168.9,
     "E3": 0,
-    "E4": 0,
+    "E4": -1.75,
     "E5": 2.18,
     "E6": -324.52,
     "E7": 63.05,
