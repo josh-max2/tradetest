@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-24 19:21 UTC",
- "generated_mt": "10-24 13:21 MT",
- "generated_epoch": 1792869681.214975,
+ "generated": "2026-10-24 19:26 UTC",
+ "generated_mt": "10-24 13:26 MT",
+ "generated_epoch": 1792869982.4325218,
  "health": {
-  "heartbeat_age_s": 2,
+  "heartbeat_age_s": 4,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 25.6,
-  "last_trade_age_s": -10,
+  "last_trade_age_s": -13,
   "subscribed": 754,
   "wethr_calls": 8365,
   "bursts": 8220,
@@ -484,7 +484,7 @@
      "tk": "KXLOWTNOLA-26OCT24-T56",
      "px": 30,
      "res": "no~",
-     "now": 4,
+     "now": 2,
      "legs": 20,
      "ct": 20,
      "pnl": 7.0,
@@ -976,7 +976,7 @@
      "tk": "KXLOWTNOLA-26OCT24-T56",
      "px": 30,
      "res": "no~",
-     "now": 4,
+     "now": 2,
      "legs": 20,
      "ct": 20,
      "pnl": 7.0,
@@ -1508,34 +1508,20 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 278,
-    "decided": 278,
+    "n": 279,
+    "decided": 279,
     "yes": 14,
-    "no": 264,
+    "no": 265,
     "pending": 0,
     "yes_rate": 5.0,
-    "provisional": 4,
+    "provisional": 5,
     "dollars": 231.2,
     "dollar_mkts": 187
    },
    "extra": {
-    "ceiling_skips": 2232
+    "ceiling_skips": 2234
    },
    "rows": [
-    {
-     "t": "10-20 11:54",
-     "tk": "KXLOWTDEN-26OCT20-B40.5",
-     "px": 30,
-     "res": "no",
-     "now": null,
-     "legs": 10,
-     "ct": 10,
-     "pnl": 3.5,
-     "prov": true,
-     "fair": 12.5,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "10-20 16:15",
      "tk": "KXHIGHTPHX-26OCT21-B88.5",
@@ -1821,11 +1807,25 @@
      "tk": "KXHIGHNY-26OCT24-B59.5",
      "px": 31,
      "res": "no~",
-     "now": 10,
+     "now": 11,
      "legs": 5,
      "ct": 423,
      "pnl": 137.3,
      "prov": true,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "10-23 17:19",
+     "tk": "KXHIGHCHI-26OCT24-B72.5",
+     "px": 36,
+     "res": "no~",
+     "now": 6,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTNOLA-26OCT24-T56",
      "px": 30,
      "res": "no~",
-     "now": 4,
+     "now": 2,
      "legs": 20,
      "ct": 20,
      "pnl": 7.0,
@@ -1874,8 +1874,8 @@
     }
    ],
    "headline": {
-    "est": 7101.47,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 183); if every crossed rung had filled in full: +$40,052",
+    "est": 7117.88,
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 183); if every crossed rung had filled in full: +$40,171",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -2798,8 +2798,8 @@
    "E6",
    "E9"
   ],
-  "live_total": 3147.16,
-  "live_per_month": 3737.0,
+  "live_total": 3163.57,
+  "live_per_month": 3757.0,
   "days": 25.6,
   "base_live": 235.15,
   "model_add_lo": 800,
@@ -2844,27 +2844,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 365,
-    "shared_pct": 63.8,
+    "ladders": 368,
+    "shared_pct": 63.3,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 365,
-    "shared_pct": 14.5,
-    "median_other": 15.0
+    "ladders": 368,
+    "shared_pct": 14.9,
+    "median_other": 10.0
    },
    {
     "rung": 40,
-    "ladders": 365,
+    "ladders": 368,
     "shared_pct": 8.2,
-    "median_other": 13.0
+    "median_other": 14.0
    },
    {
     "rung": 45,
-    "ladders": 365,
-    "shared_pct": 11.5,
-    "median_other": 19.0
+    "ladders": 368,
+    "shared_pct": 10.9,
+    "median_other": 18.87
    }
   ]
  },
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -22,
+  "hb_age_s": -35,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
