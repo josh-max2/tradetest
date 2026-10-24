@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-24 18:08 UTC",
- "generated_mt": "10-24 12:08 MT",
- "generated_epoch": 1792865280.0803776,
+ "generated": "2026-10-24 18:12 UTC",
+ "generated_mt": "10-24 12:12 MT",
+ "generated_epoch": 1792865571.6786582,
  "health": {
-  "heartbeat_age_s": 12,
+  "heartbeat_age_s": 3,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 25.5,
-  "last_trade_age_s": -10,
+  "last_trade_age_s": 0,
   "subscribed": 748,
-  "wethr_calls": 8160,
+  "wethr_calls": 8175,
   "bursts": 8205,
   "scheduled_task": true
  },
@@ -1101,12 +1101,12 @@
      "label": "outside windows",
      "stats": {
       "n": 382,
-      "decided": 381,
-      "yes": 160,
-      "no": 221,
-      "pending": 1,
-      "yes_rate": 42.0,
-      "provisional": 13,
+      "decided": 382,
+      "yes": 162,
+      "no": 220,
+      "pending": 0,
+      "yes_rate": 42.4,
+      "provisional": 14,
       "dollars": -387.15,
       "dollar_mkts": 137
      }
@@ -1508,34 +1508,20 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 275,
-    "decided": 275,
+    "n": 276,
+    "decided": 276,
     "yes": 14,
-    "no": 261,
+    "no": 262,
     "pending": 0,
     "yes_rate": 5.1,
-    "provisional": 1,
+    "provisional": 2,
     "dollars": 92.15,
     "dollar_mkts": 185
    },
    "extra": {
-    "ceiling_skips": 2224
+    "ceiling_skips": 2225
    },
    "rows": [
-    {
-     "t": "10-20 07:24",
-     "tk": "KXLOWTNOLA-26OCT20-B58.5",
-     "px": 30,
-     "res": "no",
-     "now": null,
-     "legs": 5,
-     "ct": 5,
-     "pnl": 1.75,
-     "prov": true,
-     "fair": 2.2,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "10-20 10:19",
      "tk": "KXHIGHTOKC-26OCT21-B78.5",
@@ -1859,6 +1845,20 @@
      "resting": 0
     },
     {
+     "t": "10-23 22:22",
+     "tk": "KXLOWTPHX-26OCT24-B60.5",
+     "px": 36,
+     "res": "no~",
+     "now": 2,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
      "t": "10-24 05:56",
      "tk": "KXLOWTNOLA-26OCT24-T56",
      "px": 30,
@@ -1874,8 +1874,8 @@
     }
    ],
    "headline": {
-    "est": 6865.89,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 183); if every crossed rung had filled in full: +$39,562",
+    "est": 6872.94,
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 183); if every crossed rung had filled in full: +$39,712",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -2798,8 +2798,8 @@
    "E6",
    "E9"
   ],
-  "live_total": 2911.58,
-  "live_per_month": 3471.0,
+  "live_total": 2918.63,
+  "live_per_month": 3479.0,
   "days": 25.5,
   "base_live": 235.15,
   "model_add_lo": 800,
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 354,
-    "shared_pct": 63.3,
+    "ladders": 358,
+    "shared_pct": 63.1,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 354,
-    "shared_pct": 14.4,
+    "ladders": 358,
+    "shared_pct": 14.8,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 354,
-    "shared_pct": 8.2,
+    "ladders": 358,
+    "shared_pct": 8.7,
     "median_other": 15.0
    },
    {
     "rung": 45,
-    "ladders": 354,
-    "shared_pct": 10.2,
+    "ladders": 358,
+    "shared_pct": 9.2,
     "median_other": 19.0
    }
   ]
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 23301,
+   "orders_compared": 23306,
    "real_filled": 95,
    "agree_pct": 99.9,
    "contract_ratio": 0.782,
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -26,
+  "hb_age_s": -38,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
