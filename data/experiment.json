@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-25 07:24 UTC",
- "generated_mt": "10-25 01:24 MT",
- "generated_epoch": 1792913096.4115486,
+ "generated": "2026-10-25 07:57 UTC",
+ "generated_mt": "10-25 01:57 MT",
+ "generated_epoch": 1792915056.2498684,
  "health": {
-  "heartbeat_age_s": 5,
+  "heartbeat_age_s": 15,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 26.1,
-  "last_trade_age_s": -6,
+  "last_trade_age_s": -10,
   "subscribed": 560,
-  "wethr_calls": 10390,
-  "bursts": 8363,
+  "wethr_calls": 10505,
+  "bursts": 8366,
   "scheduled_task": true
  },
  "experiments": [
@@ -1478,7 +1478,7 @@
      "tk": "KXLOWTOKC-26OCT25-B54.5",
      "px": 39,
      "res": "yes~",
-     "now": 64,
+     "now": 66,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1821,7 +1821,7 @@
      "tk": "KXLOWTSEA-26OCT24-B38.5",
      "px": 45,
      "res": "no~",
-     "now": 1,
+     "now": 0,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2844,27 +2844,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 333,
-    "shared_pct": 45.0,
-    "median_other": 16.0
-   },
-   {
-    "rung": 35,
-    "ladders": 333,
-    "shared_pct": 17.1,
+    "ladders": 335,
+    "shared_pct": 45.7,
     "median_other": 15.0
    },
    {
+    "rung": 35,
+    "ladders": 335,
+    "shared_pct": 18.8,
+    "median_other": 16.0
+   },
+   {
     "rung": 40,
-    "ladders": 333,
-    "shared_pct": 6.6,
+    "ladders": 335,
+    "shared_pct": 7.8,
     "median_other": 16.0
    },
    {
     "rung": 45,
-    "ladders": 333,
-    "shared_pct": 15.9,
-    "median_other": 19.0
+    "ladders": 335,
+    "shared_pct": 17.3,
+    "median_other": 20.0
    }
   ]
  },
@@ -3170,8 +3170,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA",
     "since": "10-11 04:30",
-    "orders": 5954,
-    "markets": 1507,
+    "orders": 5970,
+    "markets": 1511,
     "late_line": 87,
     "filled_ct": 1648.2,
     "below_pct": 0.0,
@@ -3244,8 +3244,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_MIA50",
     "since": "10-11 05:38",
-    "orders": 3139,
-    "markets": 795,
+    "orders": 3155,
+    "markets": 799,
     "late_line": 48,
     "filled_ct": 1405.8,
     "below_pct": 60.8,
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 24379,
+   "orders_compared": 24389,
    "real_filled": 95,
    "agree_pct": 99.9,
    "contract_ratio": 0.782,
@@ -3828,15 +3828,15 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -32,
+  "hb_age_s": -26,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
   "pool": 100,
   "daily_stop": 150,
   "decided_today": [
-   40,
-   4
+   80,
+   8
   ],
   "orders": [
    [
@@ -3858,9 +3858,14 @@
     "LIVE",
     "FILLED",
     223
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    16
    ]
   ],
-  "resting": 0,
+  "resting": 16,
   "filled_today": [
    0,
    0
@@ -3879,6 +3884,74 @@
    "LOOP_ERROR": 0
   },
   "arms": [
+   {
+    "t": "10-25 01:30",
+    "tk": "KXTEMPMIAH-26OCT2504-T74.99",
+    "d": {
+     "arm_moment": 1792913400.0,
+     "n_prints": 1,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 71,
+     "K": 75,
+     "dist": 4,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-25 01:30",
+    "tk": "KXTEMPMIAH-26OCT2504-T73.99",
+    "d": {
+     "arm_moment": 1792913400.0,
+     "n_prints": 2,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 71,
+     "K": 74,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-25 01:30",
+    "tk": "KXTEMPMIAH-26OCT2504-T72.99",
+    "d": {
+     "arm_moment": 1792913400.0,
+     "n_prints": 18,
+     "max_print": 3.0,
+     "source": "ws",
+     "implied": 71,
+     "K": 73,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-25 01:30",
+    "tk": "KXTEMPMIAH-26OCT2504-T71.99",
+    "d": {
+     "arm_moment": 1792913400.0,
+     "n_prints": 88,
+     "max_print": 13.0,
+     "source": "ws",
+     "implied": 71,
+     "K": 72,
+     "dist": 1,
+     "threshold": 30,
+     "placed": 4,
+     "size": 10,
+     "mode": "LIVE"
+    }
+   },
    {
     "t": "10-25 00:30",
     "tk": "KXTEMPMIAH-26OCT2503-T74.99",
@@ -3980,74 +4053,6 @@
      "size": 20,
      "mode": "LIVE"
     }
-   },
-   {
-    "t": "10-24 23:30",
-    "tk": "KXTEMPMIAH-26OCT2502-T72.99",
-    "d": {
-     "arm_moment": 1792906200.0,
-     "n_prints": 2,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 71,
-     "K": 73,
-     "dist": 2,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-24 23:30",
-    "tk": "KXTEMPMIAH-26OCT2502-T71.99",
-    "d": {
-     "arm_moment": 1792906200.0,
-     "n_prints": 95,
-     "max_print": 10.0,
-     "source": "ws",
-     "implied": 71,
-     "K": 72,
-     "dist": 1,
-     "threshold": 30,
-     "placed": 4,
-     "size": 10,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-24 22:30",
-    "tk": "KXTEMPMIAH-26OCT2501-T75.99",
-    "d": {
-     "arm_moment": 1792902600.0,
-     "n_prints": 1,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 71,
-     "K": 76,
-     "dist": 5,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-24 22:30",
-    "tk": "KXTEMPMIAH-26OCT2501-T74.99",
-    "d": {
-     "arm_moment": 1792902600.0,
-     "n_prints": 2,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 71,
-     "K": 75,
-     "dist": 4,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
    }
   ],
   "ws": {
@@ -4056,13 +4061,13 @@
    "subscribed": 1739,
    "stats": {
     "ws_subscribed": 16,
-    "ws_trade": 95323,
+    "ws_trade": 96138,
     "ws_ok": 140,
     "ws_fill": 48
    }
   },
   "decision_sources": {
-   "ws": 40
+   "ws": 80
   },
   "fills": [
    {
@@ -4636,10 +4641,10 @@
     "E1": -13.0,
     "E2": -13.0,
     "E3": 0,
-    "E4": 4.75,
+    "E4": 9.75,
     "E5": -11.05,
     "E6": -5.39,
-    "E7": -62.32,
+    "E7": -116.05,
     "E8": 13.0,
     "E9": -0.0
    },
