@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-25 20:47 UTC",
- "generated_mt": "10-25 14:47 MT",
- "generated_epoch": 1792961272.7306352,
+ "generated": "2026-10-25 21:10 UTC",
+ "generated_mt": "10-25 15:10 MT",
+ "generated_epoch": 1792962652.8038366,
  "health": {
   "heartbeat_age_s": -3,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 26.6,
-  "last_trade_age_s": -10,
-  "subscribed": 1160,
-  "wethr_calls": 12660,
-  "bursts": 8524,
+  "last_trade_age_s": -9,
+  "subscribed": 1200,
+  "wethr_calls": 12705,
+  "bursts": 8536,
   "scheduled_task": true
  },
  "experiments": [
@@ -1107,8 +1107,8 @@
       "pending": 0,
       "yes_rate": 43.2,
       "provisional": 12,
-      "dollars": -383.65,
-      "dollar_mkts": 138
+      "dollars": -381.9,
+      "dollar_mkts": 139
      }
     }
    ],
@@ -1515,11 +1515,11 @@
     "pending": 0,
     "yes_rate": 5.5,
     "provisional": 8,
-    "dollars": -184.8,
-    "dollar_mkts": 190
+    "dollars": -177.8,
+    "dollar_mkts": 194
    },
    "extra": {
-    "ceiling_skips": 2339
+    "ceiling_skips": 2342
    },
    "rows": [
     {
@@ -1794,10 +1794,10 @@
      "px": 37,
      "res": "no~",
      "now": 0,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1822,10 +1822,10 @@
      "px": 32,
      "res": "no~",
      "now": 2,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1836,10 +1836,10 @@
      "px": 32,
      "res": "no~",
      "now": 2,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1864,10 +1864,10 @@
      "px": 30,
      "res": "no~",
      "now": 2,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": 3.8,
      "onesided": 0,
      "resting": 0
@@ -1909,13 +1909,13 @@
     {
      "label": "KXTEMPLAXHS",
      "stats": {
-      "n": 53,
-      "decided": 53,
-      "yes": 25,
+      "n": 54,
+      "decided": 54,
+      "yes": 26,
       "no": 28,
       "pending": 0,
-      "yes_rate": 47.2,
-      "provisional": 0,
+      "yes_rate": 48.1,
+      "provisional": 1,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -1923,13 +1923,13 @@
     {
      "label": "KXTEMPMIAH",
      "stats": {
-      "n": 35,
-      "decided": 35,
+      "n": 36,
+      "decided": 36,
       "yes": 13,
-      "no": 22,
+      "no": 23,
       "pending": 0,
-      "yes_rate": 37.1,
-      "provisional": 0,
+      "yes_rate": 36.1,
+      "provisional": 1,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -1950,20 +1950,6 @@
     }
    ],
    "rows": [
-    {
-     "t": "10-06 07:21",
-     "tk": "KXTEMPMIAH-26OCT0610-T85.99",
-     "px": 30,
-     "res": "no",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": null,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "10-07 09:02",
      "tk": "KXTEMPMIAH-26OCT0712-T87.99",
@@ -2299,10 +2285,24 @@
      "fair": null,
      "onesided": 0,
      "resting": 0
+    },
+    {
+     "t": "10-25 15:06",
+     "tk": "KXTEMPMIAH-26OCT2518-T76.99",
+     "px": 56,
+     "res": "no~",
+     "now": 46,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
     }
    ],
    "headline": {
-    "est": -3894.93,
+    "est": -4015.05,
     "how": "spikes valued with the calibrated fill model on their real trades, 4 rungs at 50 ct (the tested size)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -2320,13 +2320,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 221,
-    "decided": 221,
+    "n": 222,
+    "decided": 222,
     "yes": 1,
-    "no": 220,
+    "no": 221,
     "pending": 0,
     "yes_rate": 0.5,
-    "provisional": 9,
+    "provisional": 10,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -2798,8 +2798,8 @@
    "E6",
    "E9"
   ],
-  "live_total": 2291.35,
-  "live_per_month": 2619.0,
+  "live_total": 2171.23,
+  "live_per_month": 2481.0,
   "days": 26.6,
   "base_live": 235.15,
   "model_add_lo": 800,
@@ -2845,26 +2845,26 @@
    {
     "rung": 30,
     "ladders": 844,
-    "shared_pct": 31.4,
+    "shared_pct": 29.6,
     "median_other": 15.0
    },
    {
     "rung": 35,
     "ladders": 844,
-    "shared_pct": 7.6,
+    "shared_pct": 6.8,
     "median_other": 15.0
    },
    {
     "rung": 40,
     "ladders": 844,
-    "shared_pct": 4.9,
-    "median_other": 15.000000000000002
+    "shared_pct": 4.3,
+    "median_other": 14.0
    },
    {
     "rung": 45,
     "ladders": 844,
-    "shared_pct": 6.4,
-    "median_other": 19.0
+    "shared_pct": 5.8,
+    "median_other": 15.0
    }
   ]
  },
@@ -3176,25 +3176,25 @@
     "filled_ct": 1688.2,
     "below_pct": 0.0,
     "filled_markets": 41,
-    "settled_markets": 40,
-    "provisional_markets": 1,
-    "settled": -261.35,
-    "provisional": -25.0,
+    "settled_markets": 41,
+    "provisional_markets": 0,
+    "settled": -246.35,
+    "provisional": 0.0,
     "displaced": 0.0,
     "diff_vs_replica": null,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
     "ci90": [
-     -437.66,
-     -83.76
+     -442.54,
+     -65.49
     ],
-    "p_le0": 0.997,
+    "p_le0": 0.989,
     "top2_share": null,
     "halves": [
      -207.63,
-     -53.72
+     -38.72
     ],
-    "bust_pct": 45.0,
+    "bust_pct": 43.9,
     "bounds": {
      "B1_sample": false,
      "B2_sig": false,
@@ -3250,30 +3250,30 @@
     "filled_ct": 1558.4,
     "below_pct": 60.2,
     "filled_markets": 14,
-    "settled_markets": 13,
-    "provisional_markets": 1,
-    "settled": 2.01,
-    "provisional": -98.91,
+    "settled_markets": 14,
+    "provisional_markets": 0,
+    "settled": 40.66,
+    "provisional": 0.0,
     "displaced": 0.0,
-    "diff_vs_replica": 2.01,
+    "diff_vs_replica": 40.66,
     "crowd_outs": 0,
     "crowd_real_settled": 0.0,
     "ci90": [
-     -210.6,
-     201.97
+     -185.95,
+     276.2
     ],
-    "p_le0": 0.462,
-    "top2_share": 38.9,
+    "p_le0": 0.321,
+    "top2_share": 2.4,
     "halves": [
-     26.61,
-     -23.08
+     28.52,
+     28.67
     ],
-    "bust_pct": 30.8,
+    "bust_pct": 28.6,
     "bounds": {
      "B1_sample": false,
      "B2_sig": false,
      "B3_conc": false,
-     "B4_halves": false
+     "B4_halves": true
     },
     "proven": false
    },
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 24650,
+   "orders_compared": 24898,
    "real_filled": 96,
    "agree_pct": 99.9,
    "contract_ratio": 0.782,
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -20,
+  "hb_age_s": -22,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3847,7 +3847,7 @@
    [
     "LIVE",
     "CANCELED",
-    5829
+    5845
    ],
    [
     "LIVE",
@@ -3858,14 +3858,9 @@
     "LIVE",
     "FILLED",
     227
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    4,
    40
@@ -4058,11 +4053,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 21,
-   "subscribed": 1956,
+   "subscribed": 1996,
    "stats": {
     "ws_subscribed": 20,
-    "ws_trade": 119298,
-    "ws_ok": 192,
+    "ws_trade": 120214,
+    "ws_ok": 194,
     "ws_fill": 55
    }
   },
@@ -4661,12 +4656,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 0.0,
-    "E6": 129.33,
-    "E7": 27.84,
+    "E6": 79.33,
+    "E7": 32.52,
     "E8": 0,
     "E9": -0.0
    },
-   "compat": 129.33
+   "compat": 79.33
   }
  ]
 }
