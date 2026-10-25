@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-25 06:54 UTC",
- "generated_mt": "10-25 00:54 MT",
- "generated_epoch": 1792911240.4183342,
+ "generated": "2026-10-25 07:18 UTC",
+ "generated_mt": "10-25 01:18 MT",
+ "generated_epoch": 1792912693.6729093,
  "health": {
-  "heartbeat_age_s": 9,
+  "heartbeat_age_s": 23,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
-  "days": 26.0,
+  "days": 26.1,
   "last_trade_age_s": -6,
-  "subscribed": 1040,
-  "wethr_calls": 10315,
-  "bursts": 8355,
+  "subscribed": 560,
+  "wethr_calls": 10375,
+  "bursts": 8363,
   "scheduled_task": true
  },
  "experiments": [
@@ -1088,10 +1088,10 @@
      "stats": {
       "n": 70,
       "decided": 70,
-      "yes": 26,
-      "no": 44,
+      "yes": 27,
+      "no": 43,
       "pending": 0,
-      "yes_rate": 37.1,
+      "yes_rate": 38.6,
       "provisional": 7,
       "dollars": -19.45,
       "dollar_mkts": 35
@@ -1462,8 +1462,8 @@
      "t": "10-24 05:02",
      "tk": "KXLOWTDEN-26OCT24-B40.5",
      "px": 30,
-     "res": "no~",
-     "now": 0,
+     "res": "yes~",
+     "now": 50,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1478,7 +1478,7 @@
      "tk": "KXLOWTOKC-26OCT25-B54.5",
      "px": 39,
      "res": "yes~",
-     "now": 52,
+     "now": 56,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1510,12 +1510,12 @@
    "stats": {
     "n": 282,
     "decided": 282,
-    "yes": 19,
-    "no": 263,
+    "yes": 20,
+    "no": 262,
     "pending": 0,
-    "yes_rate": 6.7,
+    "yes_rate": 7.1,
     "provisional": 8,
-    "dollars": -219.8,
+    "dollars": -224.8,
     "dollar_mkts": 190
    },
    "extra": {
@@ -1834,11 +1834,11 @@
      "t": "10-23 22:22",
      "tk": "KXLOWTPHX-26OCT24-B60.5",
      "px": 36,
-     "res": "no~",
-     "now": 0,
+     "res": "yes~",
+     "now": 50,
      "legs": 5,
      "ct": 5,
-     "pnl": 1.75,
+     "pnl": -3.25,
      "prov": true,
      "fair": null,
      "onesided": 0,
@@ -1874,8 +1874,8 @@
     }
    ],
    "headline": {
-    "est": 6320.56,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 183); if every crossed rung had filled in full: +$38,615",
+    "est": 6299.56,
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 183); if every crossed rung had filled in full: +$38,215",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -2798,9 +2798,9 @@
    "E6",
    "E9"
   ],
-  "live_total": 2346.25,
-  "live_per_month": 2743.0,
-  "days": 26.0,
+  "live_total": 2325.25,
+  "live_per_month": 2708.0,
+  "days": 26.1,
   "base_live": 110.15,
   "model_add_lo": 800,
   "model_add_hi": 1300,
@@ -2844,27 +2844,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 685,
-    "shared_pct": 25.4,
-    "median_other": 18.0
+    "ladders": 333,
+    "shared_pct": 45.0,
+    "median_other": 16.0
    },
    {
     "rung": 35,
-    "ladders": 685,
-    "shared_pct": 12.0,
-    "median_other": 20.0
+    "ladders": 333,
+    "shared_pct": 17.1,
+    "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 685,
-    "shared_pct": 3.2,
-    "median_other": 17.0
+    "ladders": 333,
+    "shared_pct": 6.6,
+    "median_other": 16.0
    },
    {
     "rung": 45,
-    "ladders": 685,
-    "shared_pct": 11.1,
-    "median_other": 25.0
+    "ladders": 333,
+    "shared_pct": 15.9,
+    "median_other": 19.0
    }
   ]
  },
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 24354,
+   "orders_compared": 24374,
    "real_filled": 95,
    "agree_pct": 99.9,
    "contract_ratio": 0.782,
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -13,
+  "hb_age_s": -26,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3852,20 +3852,15 @@
    [
     "LIVE",
     "EXPIRED",
-    3160
+    3176
    ],
    [
     "LIVE",
     "FILLED",
     223
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    0,
    0
@@ -4058,11 +4053,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 19,
-   "subscribed": 1699,
+   "subscribed": 1739,
    "stats": {
     "ws_subscribed": 16,
-    "ws_trade": 94225,
-    "ws_ok": 139,
+    "ws_trade": 95107,
+    "ws_ok": 140,
     "ws_fill": 48
    }
   },
