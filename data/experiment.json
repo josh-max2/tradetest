@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-25 15:26 UTC",
- "generated_mt": "10-25 09:26 MT",
- "generated_epoch": 1792941995.1258936,
+ "generated": "2026-10-25 15:50 UTC",
+ "generated_mt": "10-25 09:50 MT",
+ "generated_epoch": 1792943431.5396516,
  "health": {
-  "heartbeat_age_s": 11,
+  "heartbeat_age_s": 7,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 26.4,
-  "last_trade_age_s": -5,
+  "last_trade_age_s": -9,
   "subscribed": 720,
-  "wethr_calls": 11745,
+  "wethr_calls": 11830,
   "bursts": 8450,
   "scheduled_task": true
  },
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 481,
-    "shared_pct": 31.0,
-    "median_other": 19.0
+    "ladders": 482,
+    "shared_pct": 30.9,
+    "median_other": 16.0
    },
    {
     "rung": 35,
-    "ladders": 481,
-    "shared_pct": 7.9,
+    "ladders": 482,
+    "shared_pct": 8.5,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 481,
-    "shared_pct": 5.4,
+    "ladders": 482,
+    "shared_pct": 6.0,
     "median_other": 16.0
    },
    {
     "rung": 45,
-    "ladders": 481,
-    "shared_pct": 5.4,
+    "ladders": 482,
+    "shared_pct": 5.2,
     "median_other": 15.0
    }
   ]
@@ -3170,8 +3170,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA",
     "since": "10-11 04:30",
-    "orders": 6057,
-    "markets": 1533,
+    "orders": 6065,
+    "markets": 1535,
     "late_line": 87,
     "filled_ct": 1648.2,
     "below_pct": 0.0,
@@ -3244,8 +3244,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_MIA50",
     "since": "10-11 05:38",
-    "orders": 3195,
-    "markets": 809,
+    "orders": 3203,
+    "markets": 811,
     "late_line": 48,
     "filled_ct": 1405.8,
     "below_pct": 60.8,
@@ -3828,15 +3828,15 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -25,
+  "hb_age_s": -12,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
   "pool": 100,
   "daily_stop": 150,
   "decided_today": [
-   360,
-   30
+   400,
+   32
   ],
   "orders": [
    [
@@ -3858,9 +3858,14 @@
     "LIVE",
     "FILLED",
     223
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    8
    ]
   ],
-  "resting": 0,
+  "resting": 8,
   "filled_today": [
    0,
    0
@@ -3879,6 +3884,40 @@
    "LOOP_ERROR": 0
   },
   "arms": [
+   {
+    "t": "10-25 09:30",
+    "tk": "KXTEMPMIAH-26OCT2512-T81.99",
+    "d": {
+     "arm_moment": 1792942200.0,
+     "n_prints": 1,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 79,
+     "K": 82,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-25 09:30",
+    "tk": "KXTEMPMIAH-26OCT2512-T80.99",
+    "d": {
+     "arm_moment": 1792942200.0,
+     "n_prints": 40,
+     "max_print": 6.0,
+     "source": "ws",
+     "implied": 79,
+     "K": 81,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
    {
     "t": "10-25 08:30",
     "tk": "KXTEMPLAXHS-26OCT2511-T64.99",
@@ -4014,40 +4053,6 @@
      "size": 20,
      "mode": "LIVE"
     }
-   },
-   {
-    "t": "10-25 05:30",
-    "tk": "KXTEMPNYCHS-26OCT2508-T40.99",
-    "d": {
-     "arm_moment": 1792927800.0,
-     "n_prints": 31,
-     "max_print": 10.0,
-     "source": "ws",
-     "implied": 39,
-     "K": 41,
-     "dist": 2,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-25 05:30",
-    "tk": "KXTEMPMIAH-26OCT2508-T73.99",
-    "d": {
-     "arm_moment": 1792927800.0,
-     "n_prints": 13,
-     "max_print": 2.0,
-     "source": "ws",
-     "implied": 71,
-     "K": 74,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
    }
   ],
   "ws": {
@@ -4056,14 +4061,14 @@
    "subscribed": 1756,
    "stats": {
     "ws_subscribed": 20,
-    "ws_trade": 107353,
+    "ws_trade": 107995,
     "ws_ok": 184,
     "ws_fill": 48
    }
   },
   "decision_sources": {
    "rest": 27,
-   "ws": 333
+   "ws": 373
   },
   "fills": [
    {
