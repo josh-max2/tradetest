@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-25 20:43 UTC",
- "generated_mt": "10-25 14:43 MT",
- "generated_epoch": 1792960988.3129413,
+ "generated": "2026-10-25 20:47 UTC",
+ "generated_mt": "10-25 14:47 MT",
+ "generated_epoch": 1792961272.7306352,
  "health": {
-  "heartbeat_age_s": 13,
+  "heartbeat_age_s": -3,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 26.6,
-  "last_trade_age_s": -9,
+  "last_trade_age_s": -10,
   "subscribed": 1160,
-  "wethr_calls": 12645,
+  "wethr_calls": 12660,
   "bursts": 8524,
   "scheduled_task": true
  },
@@ -1508,34 +1508,20 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 288,
-    "decided": 288,
+    "n": 289,
+    "decided": 289,
     "yes": 16,
-    "no": 272,
+    "no": 273,
     "pending": 0,
-    "yes_rate": 5.6,
-    "provisional": 7,
+    "yes_rate": 5.5,
+    "provisional": 8,
     "dollars": -184.8,
     "dollar_mkts": 190
    },
    "extra": {
-    "ceiling_skips": 2338
+    "ceiling_skips": 2339
    },
    "rows": [
-    {
-     "t": "10-22 03:15",
-     "tk": "KXHIGHTLV-26OCT22-B75.5",
-     "px": 57,
-     "res": "no",
-     "now": null,
-     "legs": 5,
-     "ct": 5,
-     "pnl": 1.75,
-     "prov": true,
-     "fair": 3.5,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "10-22 06:51",
      "tk": "KXLOWTSEA-26OCT22-B42.5",
@@ -1803,6 +1789,20 @@
      "resting": 0
     },
     {
+     "t": "10-24 17:39",
+     "tk": "KXHIGHLAX-26OCT25-B76.5",
+     "px": 37,
+     "res": "no~",
+     "now": 0,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
      "t": "10-24 19:22",
      "tk": "KXLOWTLAX-26OCT25-B58.5",
      "px": 35,
@@ -1874,8 +1874,8 @@
     }
    ],
    "headline": {
-    "est": 6114.53,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 158); if every crossed rung had filled in full: +$36,508",
+    "est": 6116.33,
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 158); if every crossed rung had filled in full: +$36,610",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -2798,8 +2798,8 @@
    "E6",
    "E9"
   ],
-  "live_total": 2289.55,
-  "live_per_month": 2617.0,
+  "live_total": 2291.35,
+  "live_per_month": 2619.0,
   "days": 26.6,
   "base_live": 235.15,
   "model_add_lo": 800,
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -46,
+  "hb_age_s": -20,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
