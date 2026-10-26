@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-26 22:23 UTC",
- "generated_mt": "10-26 16:23 MT",
- "generated_epoch": 1793053428.0932913,
+ "generated": "2026-10-26 22:53 UTC",
+ "generated_mt": "10-26 16:53 MT",
+ "generated_epoch": 1793055233.094878,
  "health": {
-  "heartbeat_age_s": 17,
+  "heartbeat_age_s": 22,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 27.7,
-  "last_trade_age_s": -10,
+  "last_trade_age_s": -7,
   "subscribed": 800,
-  "wethr_calls": 16944,
-  "bursts": 8942,
+  "wethr_calls": 17044,
+  "bursts": 8946,
   "scheduled_task": true
  },
  "experiments": [
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTMIN-26OCT26-B40.5",
      "px": 32,
      "res": "no~",
-     "now": 18,
+     "now": 13,
      "legs": 15,
      "ct": 15,
      "pnl": 5.25,
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 518,
-    "shared_pct": 51.2,
+    "ladders": 523,
+    "shared_pct": 51.6,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 518,
-    "shared_pct": 10.4,
-    "median_other": 15.0
+    "ladders": 523,
+    "shared_pct": 12.0,
+    "median_other": 16.0
    },
    {
     "rung": 40,
-    "ladders": 518,
-    "shared_pct": 6.2,
-    "median_other": 12.0
+    "ladders": 523,
+    "shared_pct": 6.5,
+    "median_other": 15.0
    },
    {
     "rung": 45,
-    "ladders": 518,
-    "shared_pct": 9.7,
+    "ladders": 523,
+    "shared_pct": 11.9,
     "median_other": 19.0
    }
   ]
@@ -3170,8 +3170,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA",
     "since": "10-11 04:30",
-    "orders": 6514,
-    "markets": 1649,
+    "orders": 6530,
+    "markets": 1653,
     "late_line": 87,
     "filled_ct": 1729.2,
     "below_pct": 0.0,
@@ -3244,8 +3244,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_MIA50",
     "since": "10-11 05:38",
-    "orders": 3471,
-    "markets": 879,
+    "orders": 3475,
+    "markets": 880,
     "late_line": 48,
     "filled_ct": 1909.4,
     "below_pct": 59.4,
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 26365,
+   "orders_compared": 26370,
    "real_filled": 98,
    "agree_pct": 99.9,
    "contract_ratio": 0.782,
@@ -3828,15 +3828,15 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -28,
+  "hb_age_s": -22,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
   "pool": 100,
   "daily_stop": 150,
   "decided_today": [
-   630,
-   58
+   670,
+   62
   ],
   "orders": [
    [
@@ -3858,9 +3858,14 @@
     "LIVE",
     "FILLED",
     235
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    16
    ]
   ],
-  "resting": 0,
+  "resting": 16,
   "filled_today": [
    8,
    110.95
@@ -3879,6 +3884,74 @@
    "LOOP_ERROR": 0
   },
   "arms": [
+   {
+    "t": "10-26 16:30",
+    "tk": "KXTEMPNYCHS-26OCT2619-T66.99",
+    "d": {
+     "arm_moment": 1793053800.0,
+     "n_prints": 3,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 61,
+     "K": 67,
+     "dist": 6,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-26 16:30",
+    "tk": "KXTEMPNYCHS-26OCT2619-T63.99",
+    "d": {
+     "arm_moment": 1793053800.0,
+     "n_prints": 35,
+     "max_print": 7.000000000000001,
+     "source": "ws",
+     "implied": 61,
+     "K": 64,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-26 16:30",
+    "tk": "KXTEMPNYCHS-26OCT2619-T62.99",
+    "d": {
+     "arm_moment": 1793053800.0,
+     "n_prints": 36,
+     "max_print": 6.0,
+     "source": "ws",
+     "implied": 61,
+     "K": 63,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-26 16:30",
+    "tk": "KXTEMPMIAH-26OCT2619-T81.99",
+    "d": {
+     "arm_moment": 1793053800.0,
+     "n_prints": 4,
+     "max_print": 9.0,
+     "source": "ws",
+     "implied": 79,
+     "K": 82,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
    {
     "t": "10-26 15:30",
     "tk": "KXTEMPCHIHS-26OCT2618-T61.99",
@@ -3980,74 +4053,6 @@
      "size": 20,
      "mode": "LIVE"
     }
-   },
-   {
-    "t": "10-26 14:30",
-    "tk": "KXTEMPNYCHS-26OCT2617-T70.99",
-    "d": {
-     "arm_moment": 1793046600.0,
-     "n_prints": 6,
-     "max_print": 3.0,
-     "source": "ws",
-     "implied": 69,
-     "K": 71,
-     "dist": 2,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-26 14:30",
-    "tk": "KXTEMPMIAH-26OCT2617-T81.99",
-    "d": {
-     "arm_moment": 1793046600.0,
-     "n_prints": 129,
-     "max_print": 21.0,
-     "source": "ws",
-     "implied": 81,
-     "K": 82,
-     "dist": 1,
-     "threshold": 30,
-     "placed": 4,
-     "size": 10,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-26 13:30",
-    "tk": "KXTEMPCHIHS-26OCT2616-T62.99",
-    "d": {
-     "arm_moment": 1793043000.0,
-     "n_prints": 1,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 60,
-     "K": 63,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-26 13:30",
-    "tk": "KXTEMPCHIHS-26OCT2616-T61.99",
-    "d": {
-     "arm_moment": 1793043000.0,
-     "n_prints": 16,
-     "max_print": 2.0,
-     "source": "ws",
-     "implied": 60,
-     "K": 62,
-     "dist": 2,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
    }
   ],
   "ws": {
@@ -4056,14 +4061,14 @@
    "subscribed": 2590,
    "stats": {
     "ws_subscribed": 24,
-    "ws_trade": 167109,
+    "ws_trade": 168272,
     "ws_ok": 260,
     "ws_fill": 66
    }
   },
   "decision_sources": {
    "rest": 37,
-   "ws": 593
+   "ws": 633
   },
   "fills": [
    {
@@ -4667,12 +4672,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 75.94,
-    "E6": -1114.99,
+    "E6": -991.0,
     "E7": 21.19,
     "E8": -5.25,
     "E9": -0.0
    },
-   "compat": -1039.05
+   "compat": -915.06
   }
  ]
 }
