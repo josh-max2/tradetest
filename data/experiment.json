@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-27 00:31 UTC",
- "generated_mt": "10-26 18:31 MT",
- "generated_epoch": 1793061104.644488,
+ "generated": "2026-10-27 01:03 UTC",
+ "generated_mt": "10-26 19:03 MT",
+ "generated_epoch": 1793063013.0878646,
  "health": {
-  "heartbeat_age_s": 13,
+  "heartbeat_age_s": -4,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 27.8,
-  "last_trade_age_s": 7,
-  "subscribed": 880,
-  "wethr_calls": 17294,
-  "bursts": 8978,
+  "last_trade_age_s": -6,
+  "subscribed": 520,
+  "wethr_calls": null,
+  "bursts": 8984,
   "scheduled_task": true
  },
  "experiments": [
@@ -1101,12 +1101,12 @@
      "label": "outside windows",
      "stats": {
       "n": 406,
-      "decided": 406,
-      "yes": 176,
+      "decided": 405,
+      "yes": 175,
       "no": 230,
-      "pending": 0,
-      "yes_rate": 43.3,
-      "provisional": 10,
+      "pending": 1,
+      "yes_rate": 43.2,
+      "provisional": 9,
       "dollars": -374.9,
       "dollar_mkts": 141
      }
@@ -1779,7 +1779,7 @@
      "tk": "KXLOWTATL-26OCT26-B51.5",
      "px": 46,
      "res": "no~",
-     "now": 3,
+     "now": 2,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -1863,7 +1863,7 @@
      "tk": "KXLOWTMIN-26OCT26-B40.5",
      "px": 32,
      "res": "no~",
-     "now": 20,
+     "now": 14,
      "legs": 15,
      "ct": 15,
      "pnl": 5.25,
@@ -1901,7 +1901,7 @@
       "no": 55,
       "pending": 0,
       "yes_rate": 39.6,
-      "provisional": 3,
+      "provisional": 2,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 607,
-    "shared_pct": 43.8,
+    "ladders": 608,
+    "shared_pct": 42.3,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 607,
+    "ladders": 608,
     "shared_pct": 9.4,
-    "median_other": 15.0
+    "median_other": 19.0
    },
    {
     "rung": 40,
-    "ladders": 607,
-    "shared_pct": 6.6,
-    "median_other": 12.0
+    "ladders": 608,
+    "shared_pct": 7.2,
+    "median_other": 10.0
    },
    {
     "rung": 45,
-    "ladders": 607,
-    "shared_pct": 8.7,
+    "ladders": 608,
+    "shared_pct": 9.2,
     "median_other": 19.0
    }
   ]
@@ -3170,9 +3170,9 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA",
     "since": "10-11 04:30",
-    "orders": 6562,
+    "orders": 6578,
     "markets": 1661,
-    "late_line": 87,
+    "late_line": 103,
     "filled_ct": 1729.2,
     "below_pct": 0.0,
     "filled_markets": 44,
@@ -3244,9 +3244,9 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_MIA50",
     "since": "10-11 05:38",
-    "orders": 3483,
+    "orders": 3487,
     "markets": 882,
-    "late_line": 48,
+    "late_line": 52,
     "filled_ct": 1909.4,
     "below_pct": 59.4,
     "filled_markets": 17,
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 26675,
+   "orders_compared": 26680,
    "real_filled": 98,
    "agree_pct": 99.9,
    "contract_ratio": 0.782,
@@ -3823,12 +3823,12 @@
    "need": 30
   },
   "started": "09-30 23:57 MT",
-  "restart_ended_orders": 11873
+  "restart_ended_orders": 12498
  },
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -20,
+  "hb_age_s": -11,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3852,20 +3852,15 @@
    [
     "LIVE",
     "EXPIRED",
-    3362
+    3378
    ],
    [
     "LIVE",
     "FILLED",
     235
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    8,
    110.95
@@ -4058,11 +4053,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 24,
-   "subscribed": 2670,
+   "subscribed": 2710,
    "stats": {
     "ws_subscribed": 24,
-    "ws_trade": 172231,
-    "ws_ok": 265,
+    "ws_trade": 173192,
+    "ws_ok": 266,
     "ws_fill": 66
    }
   },
@@ -4672,12 +4667,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 75.94,
-    "E6": -1490.99,
+    "E6": -1540.99,
     "E7": 21.19,
     "E8": -5.25,
     "E9": -0.0
    },
-   "compat": -1415.05
+   "compat": -1465.05
   }
  ]
 }
