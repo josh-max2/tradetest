@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-28 05:36 UTC",
- "generated_mt": "10-27 23:36 MT",
- "generated_epoch": 1793165792.8596041,
+ "generated": "2026-10-28 05:50 UTC",
+ "generated_mt": "10-27 23:50 MT",
+ "generated_epoch": 1793166600.8255746,
  "health": {
-  "heartbeat_age_s": -43,
+  "heartbeat_age_s": -15,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 29.0,
-  "last_trade_age_s": 3,
+  "last_trade_age_s": 94,
   "subscribed": 520,
   "wethr_calls": null,
-  "bursts": 9499,
+  "bursts": 9501,
   "scheduled_task": true
  },
  "experiments": [
@@ -2844,26 +2844,26 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 328,
-    "shared_pct": 60.7,
-    "median_other": 29.0
+    "ladders": 326,
+    "shared_pct": 58.9,
+    "median_other": 30.0
    },
    {
     "rung": 35,
-    "ladders": 328,
+    "ladders": 326,
     "shared_pct": 39.9,
     "median_other": 15.0
    },
    {
     "rung": 40,
-    "ladders": 328,
-    "shared_pct": 25.6,
-    "median_other": 10.0
+    "ladders": 326,
+    "shared_pct": 19.6,
+    "median_other": 15.0
    },
    {
     "rung": 45,
-    "ladders": 328,
-    "shared_pct": 37.8,
+    "ladders": 326,
+    "shared_pct": 38.3,
     "median_other": 20.0
    }
   ]
@@ -3247,13 +3247,13 @@
     "orders": 3670,
     "markets": 928,
     "late_line": 52,
-    "filled_ct": 1909.4,
-    "below_pct": 59.4,
-    "filled_markets": 17,
+    "filled_ct": 1911.9,
+    "below_pct": 59.5,
+    "filled_markets": 18,
     "settled_markets": 17,
-    "provisional_markets": 0,
+    "provisional_markets": 1,
     "settled": 150.66,
-    "provisional": 0.0,
+    "provisional": 0.77,
     "displaced": 0.0,
     "diff_vs_replica": 150.66,
     "crowd_outs": 0,
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -105,
+  "hb_age_s": -38,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3857,22 +3857,22 @@
    [
     "LIVE",
     "FILLED",
-    235
+    238
    ],
    [
     "LIVE",
     "RESTING",
-    16
+    13
    ]
   ],
-  "resting": 16,
+  "resting": 13,
   "filled_today": [
-   0,
-   0
+   3,
+   30
   ],
   "pnl_today": 0.0,
   "pnl_total": -96.23700000000001,
-  "exposure": 0,
+  "exposure": 19.5,
   "skips": {
    "POOL_SKIP": 0,
    "BALANCE_SKIP": 0,
@@ -4061,7 +4061,7 @@
    "subscribed": 3401,
    "stats": {
     "ws_subscribed": 26,
-    "ws_trade": 224487,
+    "ws_trade": 224712,
     "ws_ok": 335,
     "ws_fill": 72
    }
@@ -4071,6 +4071,45 @@
    "ws": 925
   },
   "fills": [
+   {
+    "t": "10-27 23:49",
+    "tk": "KXTEMPMIAH-26OCT2802-T77.99",
+    "d": {
+     "cid": "e9f7e2cb-8065-5e81-9a39-8e5010a9490b",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 40.0,
+     "fee": 0.0,
+     "ex_ts": 1793166569.061,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-27 23:49",
+    "tk": "KXTEMPMIAH-26OCT2802-T77.99",
+    "d": {
+     "cid": "9c9979e5-32e5-55f6-bb18-834ea7287388",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 35.0,
+     "fee": 0.0,
+     "ex_ts": 1793166569.061,
+     "src": "ws"
+    }
+   },
+   {
+    "t": "10-27 23:49",
+    "tk": "KXTEMPMIAH-26OCT2802-T77.99",
+    "d": {
+     "cid": "bd147b70-f195-5534-af63-5c6484a3611e",
+     "count": 10.0,
+     "filled": 10,
+     "yes_c": 30.0,
+     "fee": 0.0,
+     "ex_ts": 1793166568.908,
+     "src": "ws"
+    }
+   },
    {
     "t": "10-26 12:10",
     "tk": "KXTEMPMIAH-26OCT2614-T82.99",
@@ -4147,39 +4186,6 @@
      "yes_c": 35.0,
      "fee": 0.0,
      "ex_ts": 1793004704.728,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-26 02:48",
-    "tk": "KXTEMPMIAH-26OCT2605-T75.99",
-    "d": {
-     "cid": "90caa28d-3dad-590e-a6ba-ac33344de58d",
-     "count": 20.0,
-     "filled": 20,
-     "yes_c": 30.0,
-     "fee": 0.0,
-     "ex_ts": 1793004527.524,
-     "src": "ws"
-    }
-   },
-   {
-    "t": "10-26 02:12",
-    "tk": "KXTEMPMIAH-26OCT2604-T74.99",
-    "d": {
-     "result": "no"
-    }
-   },
-   {
-    "t": "10-26 01:50",
-    "tk": "KXTEMPMIAH-26OCT2604-T74.99",
-    "d": {
-     "cid": "b92c4fce-a0ef-52b3-bdf9-c3ed7d0efe89",
-     "count": 10.0,
-     "filled": 10,
-     "yes_c": 35.0,
-     "fee": 0.0,
-     "ex_ts": 1793001046.556,
      "src": "ws"
     }
    }
@@ -4671,13 +4677,13 @@
     "E2": 0,
     "E3": 0,
     "E4": 0,
-    "E5": 103.19,
+    "E5": 35.97,
     "E6": -1804.87,
     "E7": 21.19,
     "E8": -5.25,
     "E9": -0.0
    },
-   "compat": -1701.68
+   "compat": -1768.9
   },
   {
    "day": "2026-10-27",
@@ -4688,13 +4694,13 @@
     "E2": 0,
     "E3": 0,
     "E4": 0,
-    "E5": 217.77,
+    "E5": -384.23,
     "E6": -824.42,
-    "E7": -62.48,
-    "E8": -3.75,
+    "E7": -67.48,
+    "E8": 16.25,
     "E9": -0.0
    },
-   "compat": -606.65
+   "compat": -1208.65
   }
  ]
 }
