@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-29 20:48 UTC",
- "generated_mt": "10-29 14:48 MT",
- "generated_epoch": 1793306881.3373055,
+ "generated": "2026-10-29 20:58 UTC",
+ "generated_mt": "10-29 14:58 MT",
+ "generated_epoch": 1793307504.143941,
  "health": {
-  "heartbeat_age_s": -4,
+  "heartbeat_age_s": 19,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 30.6,
-  "last_trade_age_s": -12,
+  "last_trade_age_s": -9,
   "subscribed": 754,
   "wethr_calls": null,
-  "bursts": 10149,
+  "bursts": 10152,
   "scheduled_task": true
  },
  "experiments": [
@@ -1508,34 +1508,20 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 324,
-    "decided": 324,
+    "n": 325,
+    "decided": 325,
     "yes": 16,
-    "no": 308,
+    "no": 309,
     "pending": 0,
     "yes_rate": 4.9,
-    "provisional": 5,
+    "provisional": 6,
     "dollars": -132.05,
     "dollar_mkts": 217
    },
    "extra": {
-    "ceiling_skips": 2725
+    "ceiling_skips": 2726
    },
    "rows": [
-    {
-     "t": "10-26 02:03",
-     "tk": "KXLOWTAUS-26OCT26-B54.5",
-     "px": 32,
-     "res": "no",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": 16.7,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "10-26 05:40",
      "tk": "KXLOWTMIN-26OCT26-B44.5",
@@ -1871,11 +1857,25 @@
      "fair": null,
      "onesided": 0,
      "resting": 0
+    },
+    {
+     "t": "10-29 03:52",
+     "tk": "KXLOWTPHX-26OCT29-B61.5",
+     "px": 58,
+     "res": "no~",
+     "now": 2,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
     }
    ],
    "headline": {
     "est": 6538.75,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 131); if every crossed rung had filled in full: +$37,685",
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 131); if every crossed rung had filled in full: +$37,835",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -2845,19 +2845,19 @@
    {
     "rung": 30,
     "ladders": 479,
-    "shared_pct": 35.9,
+    "shared_pct": 34.9,
     "median_other": 15.0
    },
    {
     "rung": 35,
     "ladders": 479,
-    "shared_pct": 10.6,
-    "median_other": 15.0
+    "shared_pct": 12.3,
+    "median_other": 9.0
    },
    {
     "rung": 40,
     "ladders": 479,
-    "shared_pct": 17.7,
+    "shared_pct": 19.4,
     "median_other": 10.0
    },
    {
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -45,
+  "hb_age_s": -25,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -4061,7 +4061,7 @@
    "subscribed": 3944,
    "stats": {
     "ws_subscribed": 39,
-    "ws_trade": 276833,
+    "ws_trade": 277161,
     "ws_ok": 622,
     "ws_fill": 89
    }
@@ -4729,12 +4729,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 5.65,
-    "E6": -96.67,
-    "E7": 6.46,
+    "E6": -64.17,
+    "E7": 37.17,
     "E8": -18.65,
     "E9": -0.0
    },
-   "compat": -91.02
+   "compat": -58.52
   }
  ]
 }
