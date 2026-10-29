@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-29 14:49 UTC",
- "generated_mt": "10-29 08:49 MT",
- "generated_epoch": 1793285356.8067708,
+ "generated": "2026-10-29 15:15 UTC",
+ "generated_mt": "10-29 09:15 MT",
+ "generated_epoch": 1793286947.2187684,
  "health": {
   "heartbeat_age_s": 13,
   "alive": true,
@@ -9,9 +9,9 @@
   "since_mt": "09-28 23:50 MT",
   "days": 30.4,
   "last_trade_age_s": -6,
-  "subscribed": 560,
+  "subscribed": 600,
   "wethr_calls": null,
-  "bursts": 10037,
+  "bursts": 10049,
   "scheduled_task": true
  },
  "experiments": [
@@ -1895,12 +1895,12 @@
     {
      "label": "KXTEMPCHIHS",
      "stats": {
-      "n": 119,
-      "decided": 119,
+      "n": 120,
+      "decided": 120,
       "yes": 48,
-      "no": 71,
+      "no": 72,
       "pending": 0,
-      "yes_rate": 40.3,
+      "yes_rate": 40.0,
       "provisional": 1,
       "dollars": 0,
       "dollar_mkts": 0
@@ -1909,13 +1909,13 @@
     {
      "label": "KXTEMPLAXHS",
      "stats": {
-      "n": 93,
-      "decided": 93,
+      "n": 94,
+      "decided": 94,
       "yes": 49,
-      "no": 44,
+      "no": 45,
       "pending": 0,
-      "yes_rate": 52.7,
-      "provisional": 0,
+      "yes_rate": 52.1,
+      "provisional": 1,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -2302,7 +2302,7 @@
     }
    ],
    "headline": {
-    "est": -8644.42,
+    "est": -8766.17,
     "how": "spikes valued with the calibrated fill model on their real trades, 4 rungs at 50 ct (the tested size)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -2320,13 +2320,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 244,
-    "decided": 244,
+    "n": 243,
+    "decided": 243,
     "yes": 0,
-    "no": 244,
+    "no": 243,
     "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 5,
+    "provisional": 4,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -2798,8 +2798,8 @@
    "E6",
    "E9"
   ],
-  "live_total": -2070.47,
-  "live_per_month": -2070.0,
+  "live_total": -2192.22,
+  "live_per_month": -2192.0,
   "days": 30.4,
   "base_live": 145.3,
   "model_add_lo": 800,
@@ -2844,27 +2844,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 373,
-    "shared_pct": 31.4,
+    "ladders": 416,
+    "shared_pct": 28.6,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 373,
-    "shared_pct": 10.2,
-    "median_other": 15.0
-   },
-   {
-    "rung": 40,
-    "ladders": 373,
-    "shared_pct": 14.2,
+    "ladders": 416,
+    "shared_pct": 8.7,
     "median_other": 10.0
    },
    {
+    "rung": 40,
+    "ladders": 416,
+    "shared_pct": 13.0,
+    "median_other": 7.0
+   },
+   {
     "rung": 45,
-    "ladders": 373,
-    "shared_pct": 9.7,
-    "median_other": 19.0
+    "ladders": 416,
+    "shared_pct": 7.0,
+    "median_other": 16.0
    }
   ]
  },
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 29375,
+   "orders_compared": 29385,
    "real_filled": 104,
    "agree_pct": 99.9,
    "contract_ratio": 0.772,
@@ -3828,7 +3828,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -8,
+  "hb_age_s": -9,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3847,7 +3847,7 @@
    [
     "LIVE",
     "CANCELED",
-    6820
+    6836
    ],
    [
     "LIVE",
@@ -3858,14 +3858,9 @@
     "LIVE",
     "FILLED",
     246
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    0,
    0
@@ -4058,11 +4053,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 31,
-   "subscribed": 3770,
+   "subscribed": 3810,
    "stats": {
     "ws_subscribed": 37,
-    "ws_trade": 267593,
-    "ws_ok": 572,
+    "ws_trade": 268428,
+    "ws_ok": 574,
     "ws_fill": 87
    }
   },
@@ -4729,12 +4724,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 0.0,
-    "E6": 76.07,
-    "E7": 9.06,
+    "E6": -45.68,
+    "E7": 6.46,
     "E8": 0,
     "E9": -0.0
    },
-   "compat": 76.07
+   "compat": -45.68
   }
  ]
 }
