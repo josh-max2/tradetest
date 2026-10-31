@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-31 21:29 UTC",
- "generated_mt": "10-31 15:29 MT",
- "generated_epoch": 1793482141.0037098,
+ "generated": "2026-10-31 21:33 UTC",
+ "generated_mt": "10-31 15:33 MT",
+ "generated_epoch": 1793482392.7964814,
  "health": {
-  "heartbeat_age_s": 14,
+  "heartbeat_age_s": -4,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
@@ -2291,7 +2291,7 @@
      "tk": "KXTEMPMIAH-26OCT3118-T80.99",
      "px": 31,
      "res": "no~",
-     "now": 19,
+     "now": 10,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -3170,8 +3170,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA",
     "since": "10-11 04:30",
-    "orders": 8238,
-    "markets": 2081,
+    "orders": 8254,
+    "markets": 2085,
     "late_line": 103,
     "filled_ct": 1753.8,
     "below_pct": 0.0,
@@ -3244,8 +3244,8 @@
     "engine": "pm2",
     "world": "HOURLY_REPLICA_MIA50",
     "since": "10-11 05:38",
-    "orders": 4133,
-    "markets": 1046,
+    "orders": 4137,
+    "markets": 1047,
     "late_line": 52,
     "filled_ct": 2365.1,
     "below_pct": 54.2,
@@ -3815,7 +3815,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 32077,
+   "orders_compared": 32081,
    "real_filled": 118,
    "agree_pct": 99.9,
    "contract_ratio": 0.762,
@@ -3828,15 +3828,15 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -18,
+  "hb_age_s": -29,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
   "pool": 100,
   "daily_stop": 150,
   "decided_today": [
-   600,
-   58
+   640,
+   62
   ],
   "orders": [
    [
@@ -3858,9 +3858,14 @@
     "LIVE",
     "FILLED",
     247
+   ],
+   [
+    "LIVE",
+    "RESTING",
+    16
    ]
   ],
-  "resting": 0,
+  "resting": 16,
   "filled_today": [
    0,
    0
@@ -3879,6 +3884,74 @@
    "LOOP_ERROR": 0
   },
   "arms": [
+   {
+    "t": "10-31 15:30",
+    "tk": "KXTEMPCHIHS-26OCT3118-T61.99",
+    "d": {
+     "arm_moment": 1793482200.0,
+     "n_prints": 9,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 59,
+     "K": 62,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-31 15:30",
+    "tk": "KXTEMPNYCHS-26OCT3118-T58.99",
+    "d": {
+     "arm_moment": 1793482200.0,
+     "n_prints": 4,
+     "max_print": 1.0,
+     "source": "ws",
+     "implied": 55,
+     "K": 59,
+     "dist": 4,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-31 15:30",
+    "tk": "KXTEMPNYCHS-26OCT3118-T57.99",
+    "d": {
+     "arm_moment": 1793482200.0,
+     "n_prints": 23,
+     "max_print": 5.0,
+     "source": "ws",
+     "implied": 55,
+     "K": 58,
+     "dist": 3,
+     "threshold": 30,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
+   {
+    "t": "10-31 15:30",
+    "tk": "KXTEMPMIAH-26OCT3118-T81.99",
+    "d": {
+     "arm_moment": 1793482200.0,
+     "n_prints": 48,
+     "max_print": 7.000000000000001,
+     "source": "ws",
+     "implied": 80,
+     "K": 82,
+     "dist": 2,
+     "threshold": 10,
+     "placed": 4,
+     "size": 20,
+     "mode": "LIVE"
+    }
+   },
    {
     "t": "10-31 14:30",
     "tk": "KXTEMPLAXHS-26OCT3117-T73.99",
@@ -3980,74 +4053,6 @@
      "size": 20,
      "mode": "LIVE"
     }
-   },
-   {
-    "t": "10-31 13:30",
-    "tk": "KXTEMPMIAH-26OCT3116-T84.99",
-    "d": {
-     "arm_moment": 1793475000.0,
-     "n_prints": 6,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 83,
-     "K": 85,
-     "dist": 2,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-31 13:30",
-    "tk": "KXTEMPMIAH-26OCT3116-T83.99",
-    "d": {
-     "arm_moment": 1793475000.0,
-     "n_prints": 72,
-     "max_print": 21.0,
-     "source": "ws",
-     "implied": 83,
-     "K": 84,
-     "dist": 1,
-     "threshold": 30,
-     "placed": 4,
-     "size": 10,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-31 12:30",
-    "tk": "KXTEMPCHIHS-26OCT3115-T63.99",
-    "d": {
-     "arm_moment": 1793471400.0,
-     "n_prints": 10,
-     "max_print": 1.0,
-     "source": "ws",
-     "implied": 60,
-     "K": 64,
-     "dist": 4,
-     "threshold": 10,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
-   },
-   {
-    "t": "10-31 12:30",
-    "tk": "KXTEMPCHIHS-26OCT3115-T62.99",
-    "d": {
-     "arm_moment": 1793471400.0,
-     "n_prints": 4,
-     "max_print": 2.0,
-     "source": "ws",
-     "implied": 60,
-     "K": 63,
-     "dist": 3,
-     "threshold": 30,
-     "placed": 4,
-     "size": 20,
-     "mode": "LIVE"
-    }
    }
   ],
   "ws": {
@@ -4056,14 +4061,14 @@
    "subscribed": 5130,
    "stats": {
     "ws_subscribed": 46,
-    "ws_trade": 350021,
+    "ws_trade": 350132,
     "ws_ok": 850,
     "ws_fill": 130
    }
   },
   "decision_sources": {
    "rest": 115,
-   "ws": 485
+   "ws": 525
   },
   "fills": [
    {
@@ -4734,13 +4739,13 @@
     "E2": 0,
     "E3": 0,
     "E4": 0,
-    "E5": 666.45,
+    "E5": 691.53,
     "E6": -221.02,
     "E7": 150.2,
     "E8": 0,
     "E9": -0.0
    },
-   "compat": 445.43
+   "compat": 470.51
   },
   {
    "day": "2026-10-31",
