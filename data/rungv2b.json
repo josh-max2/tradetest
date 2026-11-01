@@ -1,26 +1,14 @@
 {
- "generated": "2026-11-01 14:59",
- "generated_epoch": 1793545140,
+ "generated": "2026-11-01 15:12",
+ "generated_epoch": 1793545925,
  "mode": "LIVE",
  "sleeve": 1333.05,
  "max_ct": 133,
- "open_ev_usd": -214.63,
- "open_n": 10,
+ "open_ev_usd": 0.0,
+ "open_n": 1,
  "green": {
-  "p": 0.0,
+  "p": 75.0,
   "series": [
-   [
-    1793430919,
-    98.0
-   ],
-   [
-    1793431172,
-    98.0
-   ],
-   [
-    1793431420,
-    98.0
-   ],
    [
     1793431671,
     98.0
@@ -1608,6 +1596,18 @@
    [
     1793545140,
     0.0
+   ],
+   [
+    1793545388,
+    0.0
+   ],
+   [
+    1793545638,
+    75.0
+   ],
+   [
+    1793545925,
+    75.0
    ]
   ]
  },
@@ -1639,14 +1639,14 @@
   "fills_today": 0
  },
  "live": {
-  "events_settled": 117,
-  "ev_per_event": 155.1,
-  "realized": 181.5,
-  "equity": 1333.05,
-  "rungs_settled": 225,
-  "rung_busts": 51,
-  "busted_ladders": 19,
-  "maxdd": 1126.35,
+  "events_settled": 120,
+  "ev_per_event": -29.6,
+  "realized": -35.55,
+  "equity": 1116.0,
+  "rungs_settled": 234,
+  "rung_busts": 56,
+  "busted_ladders": 20,
+  "maxdd": 1319.2,
   "curve": [
    [
     "2026-09-03T13:04",
@@ -2115,15 +2115,27 @@
    [
     "2026-11-01T12:05",
     1514.55
+   ],
+   [
+    "2026-11-01T15:06",
+    1526.0
+   ],
+   [
+    "2026-11-01T15:06",
+    1272.25
+   ],
+   [
+    "2026-11-01T15:06",
+    1297.5
    ]
   ],
   "fills_today": 1
  },
  "monitor": {
-  "armed": 141,
-  "warming": 1368,
-  "verified": 11083,
-  "filled_open_usd": 344.8
+  "armed": 142,
+  "warming": 1424,
+  "verified": 11085,
+  "filled_open_usd": 3.75
  },
  "ladders": [
   {
@@ -2142,9 +2154,9 @@
    "rungs": "25,30",
    "rise_min": 0.0,
    "ts": "2026-10-31T14:40:23.862139+00:00",
-   "status": "FILLED",
+   "status": "SETTLED",
    "busted": 0,
-   "pnl_c": null
+   "pnl_c": 2525.0
   },
   {
    "ticker": "KXLOWTSEA-26OCT31-B33.5",
@@ -2152,9 +2164,9 @@
    "rungs": "25,30,35,40,45",
    "rise_min": 0.21,
    "ts": "2026-10-31T14:40:23.814755+00:00",
-   "status": "FILLED",
-   "busted": 0,
-   "pnl_c": null
+   "status": "SETTLED",
+   "busted": 1,
+   "pnl_c": -25375.0
   },
   {
    "ticker": "KXLOWTSEA-26OCT31-B31.5",
@@ -2162,9 +2174,9 @@
    "rungs": "25,30",
    "rise_min": 0.0,
    "ts": "2026-10-31T14:40:23.664985+00:00",
-   "status": "FILLED",
+   "status": "SETTLED",
    "busted": 0,
-   "pnl_c": null
+   "pnl_c": 1145.0
   },
   {
    "ticker": "KXLOWTDC-26OCT31-B43.5",
@@ -2379,7 +2391,7 @@
  ],
  "kills": {
   "active": null,
-  "regime_alert": null,
+  "regime_alert": "REGIME_60D ALERT: rolling EV -29.6c/event < 0 (n=120) -- bot keeps trading (D251)",
   "rails": [
    "realized capital < $750 (INITIAL_ALLOC + settled P&L)",
    "rolling-60d EV < 0 (arms at 25) -> ALERT only, never halts (D251)",
