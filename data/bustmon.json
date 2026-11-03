@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-03T12:00:01.861655+00:00",
- "asof": "2026-11-02",
+ "generated": "2026-11-03T18:00:01.868156+00:00",
+ "asof": "2026-11-03",
  "window_days": 30,
  "warn": 22.0,
  "kill": 25.0,
@@ -11,84 +11,84 @@
   "45": 38.9
  },
  "overall": {
-  "events": 61,
+  "events": 64,
   "days": 26,
   "busts": 12,
-  "rate": 19.672131147540984,
-  "ct": 8971.0,
-  "pnl_c": -84810.0,
-  "c_per_ct": -9.453795563482332,
+  "rate": 18.75,
+  "ct": 9231.0,
+  "pnl_c": -60405.0,
+  "c_per_ct": -6.543711407214819,
   "status": "KILL",
   "flags": [
    "N=26 independent days (<30) \u2014 estimate is noisy",
-   "PnL backstop: -9.45c/ct < 2.0c floor"
+   "PnL backstop: -6.54c/ct < 2.0c floor"
   ]
  },
  "by_series": {
   "KXHIGH": {
    "events": 27,
    "days": 17,
-   "busts": 6,
-   "rate": 22.22222222222222,
-   "ct": 6250.0,
-   "pnl_c": -32670.0,
-   "c_per_ct": -5.2272,
+   "busts": 5,
+   "rate": 18.51851851851852,
+   "ct": 6030.0,
+   "pnl_c": -7325.0,
+   "c_per_ct": -1.214759535655058,
    "status": "KILL",
    "flags": [
     "N=17 independent days (<30) \u2014 estimate is noisy",
-    "PnL backstop: -5.23c/ct < 2.0c floor"
+    "PnL backstop: -1.21c/ct < 2.0c floor"
    ]
   },
   "KXLOWT": {
-   "events": 34,
-   "days": 19,
-   "busts": 6,
-   "rate": 17.647058823529413,
-   "ct": 2721.0,
-   "pnl_c": -52140.0,
-   "c_per_ct": -19.16207276736494,
+   "events": 37,
+   "days": 20,
+   "busts": 7,
+   "rate": 18.91891891891892,
+   "ct": 3201.0,
+   "pnl_c": -53080.0,
+   "c_per_ct": -16.582318025616996,
    "status": "KILL",
    "flags": [
-    "N=19 independent days (<30) \u2014 estimate is noisy",
-    "PnL backstop: -19.16c/ct < 2.0c floor"
+    "N=20 independent days (<30) \u2014 estimate is noisy",
+    "PnL backstop: -16.58c/ct < 2.0c floor"
    ]
   }
  },
  "by_rung": {
   "30": {
-   "events": 34,
+   "events": 36,
    "days": 22,
    "busts": 11,
-   "rate": 32.35294117647059,
-   "ct": 3815.0,
-   "pnl_c": -29050.0,
-   "c_per_ct": -7.614678899082569,
+   "rate": 30.555555555555557,
+   "ct": 3896.0,
+   "pnl_c": -14720.0,
+   "c_per_ct": -3.7782340862423,
    "adj_breakeven": 27.7,
-   "margin_pp": -4.7,
+   "margin_pp": -2.9,
    "status": "UNDERWATER"
   },
   "35": {
-   "events": 20,
+   "events": 21,
    "days": 18,
    "busts": 9,
-   "rate": 45.0,
-   "ct": 2368.0,
-   "pnl_c": -31320.0,
-   "c_per_ct": -13.22635135135135,
+   "rate": 42.857142857142854,
+   "ct": 2428.0,
+   "pnl_c": -25220.0,
+   "c_per_ct": -10.387149917627678,
    "adj_breakeven": 29.1,
-   "margin_pp": -15.9,
+   "margin_pp": -13.8,
    "status": "UNDERWATER"
   },
   "40": {
-   "events": 10,
-   "days": 10,
+   "events": 11,
+   "days": 11,
    "busts": 5,
-   "rate": 50.0,
-   "ct": 1424.0,
-   "pnl_c": -22540.0,
-   "c_per_ct": -15.82865168539326,
+   "rate": 45.45454545454545,
+   "ct": 1524.0,
+   "pnl_c": -18540.0,
+   "c_per_ct": -12.165354330708661,
    "adj_breakeven": 37.5,
-   "margin_pp": -12.5,
+   "margin_pp": -8.0,
    "status": "UNDERWATER"
   },
   "45": {
@@ -105,11 +105,11 @@
   }
  },
  "alarms": [
-  "KXHIGH KILL at 22.2%",
-  "KXLOWT KILL at 17.6%",
-  "rung 30c UNDERWATER (margin -4.7pp)",
-  "rung 35c UNDERWATER (margin -15.9pp)",
-  "rung 40c UNDERWATER (margin -12.5pp)",
+  "KXHIGH KILL at 18.5%",
+  "KXLOWT KILL at 18.9%",
+  "rung 30c UNDERWATER (margin -2.9pp)",
+  "rung 35c UNDERWATER (margin -13.8pp)",
+  "rung 40c UNDERWATER (margin -8.0pp)",
   "rung 45c UNDERWATER (margin -11.1pp)"
  ]
 }
