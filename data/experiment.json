@@ -1,17 +1,17 @@
 {
- "generated": "2026-11-03 21:33 UTC",
- "generated_mt": "11-03 15:33 MT",
- "generated_epoch": 1793741630.1853838,
+ "generated": "2026-11-03 22:02 UTC",
+ "generated_mt": "11-03 16:02 MT",
+ "generated_epoch": 1793743361.5886273,
  "health": {
-  "heartbeat_age_s": 11,
+  "heartbeat_age_s": 2,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 35.7,
-  "last_trade_age_s": 0,
-  "subscribed": 914,
+  "last_trade_age_s": -9,
+  "subscribed": 960,
   "wethr_calls": null,
-  "bursts": 12359,
+  "bursts": 12363,
   "scheduled_task": true
  },
  "experiments": [
@@ -1526,34 +1526,20 @@
    "metric": "Spikes on ceiling-skipped markets with no ladder resting; NO = missed win, YES = dodged bust.",
    "target": 20,
    "stats": {
-    "n": 400,
-    "decided": 400,
+    "n": 401,
+    "decided": 401,
     "yes": 21,
-    "no": 379,
+    "no": 380,
     "pending": 0,
     "yes_rate": 5.2,
-    "provisional": 14,
-    "dollars": 151.65,
-    "dollar_mkts": 269
+    "provisional": 15,
+    "dollars": 163.9,
+    "dollar_mkts": 275
    },
    "extra": {
-    "ceiling_skips": 3172
+    "ceiling_skips": 3176
    },
    "rows": [
-    {
-     "t": "11-01 15:00",
-     "tk": "KXHIGHTDC-26NOV02-B67.5",
-     "px": 30,
-     "res": "no",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": null,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "11-01 15:15",
      "tk": "KXHIGHTDC-26NOV02-B65.5",
@@ -1667,14 +1653,28 @@
      "resting": 0
     },
     {
+     "t": "11-02 12:08",
+     "tk": "KXLOWTHOU-26NOV03-B68.5",
+     "px": 30,
+     "res": "no~",
+     "now": 4,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
      "t": "11-02 12:59",
      "tk": "KXHIGHDEN-26NOV03-B57.5",
      "px": 32,
      "res": "no~",
-     "now": 4,
-     "legs": 10,
-     "ct": 10,
-     "pnl": 3.5,
+     "now": 3,
+     "legs": 15,
+     "ct": 15,
+     "pnl": 5.25,
      "prov": true,
      "fair": null,
      "onesided": 0,
@@ -1686,10 +1686,10 @@
      "px": 32,
      "res": "no~",
      "now": 0,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1728,10 +1728,10 @@
      "px": 53,
      "res": "no~",
      "now": 0,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1756,10 +1756,10 @@
      "px": 51,
      "res": "no~",
      "now": 0,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1783,7 +1783,7 @@
      "tk": "KXLOWTNYC-26NOV03-B50.5",
      "px": 49,
      "res": "no~",
-     "now": 4,
+     "now": 6,
      "legs": 5,
      "ct": 5,
      "pnl": 1.75,
@@ -1798,10 +1798,10 @@
      "px": 39,
      "res": "no~",
      "now": 2,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1826,10 +1826,10 @@
      "px": 50,
      "res": "no~",
      "now": 0,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1854,10 +1854,10 @@
      "px": 47,
      "res": "no~",
      "now": 3,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
+     "legs": 5,
+     "ct": 5,
+     "pnl": 1.75,
+     "prov": true,
      "fair": null,
      "onesided": 0,
      "resting": 0
@@ -1892,8 +1892,8 @@
     }
    ],
    "headline": {
-    "est": 8113.73,
-    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 116); if every crossed rung had filled in full: +$43,625",
+    "est": 8115.83,
+    "how": "missed markets valued with the calibrated fill model on their real trades, at today's size (lows 100, highs 116); if every crossed rung had filled in full: +$43,655",
     "exp_lo": 30,
     "exp_hi": 490,
     "exp_note": "+$30 to +$490/mo (\u2248 +$16/day)"
@@ -1943,11 +1943,11 @@
      "stats": {
       "n": 73,
       "decided": 73,
-      "yes": 31,
-      "no": 42,
+      "yes": 30,
+      "no": 43,
       "pending": 0,
-      "yes_rate": 42.5,
-      "provisional": 1,
+      "yes_rate": 41.1,
+      "provisional": 0,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -2308,8 +2308,8 @@
      "t": "11-03 14:03",
      "tk": "KXTEMPMIAH-26NOV0316-T81.99",
      "px": 49,
-     "res": "yes~",
-     "now": 50,
+     "res": "no",
+     "now": null,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2320,7 +2320,7 @@
     }
    ],
    "headline": {
-    "est": -12116.83,
+    "est": -12090.83,
     "how": "spikes valued with the calibrated fill model on their real trades, 4 rungs at 50 ct (the tested size)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -2338,13 +2338,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 286,
-    "decided": 286,
+    "n": 287,
+    "decided": 287,
     "yes": 1,
-    "no": 285,
+    "no": 286,
     "pending": 0,
     "yes_rate": 0.3,
-    "provisional": 10,
+    "provisional": 11,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -2816,8 +2816,8 @@
    "E6",
    "E9"
   ],
-  "live_total": -4172.8,
-  "live_per_month": -3553.0,
+  "live_total": -4144.7,
+  "live_per_month": -3529.0,
   "days": 35.7,
   "base_live": -15.7,
   "model_add_lo": 800,
@@ -2876,27 +2876,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 540,
-    "shared_pct": 31.3,
+    "ladders": 545,
+    "shared_pct": 31.4,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 540,
-    "shared_pct": 13.5,
+    "ladders": 545,
+    "shared_pct": 13.6,
     "median_other": 4.0
    },
    {
     "rung": 40,
-    "ladders": 540,
-    "shared_pct": 14.3,
-    "median_other": 6.0
+    "ladders": 545,
+    "shared_pct": 16.3,
+    "median_other": 10.0
    },
    {
     "rung": 45,
-    "ladders": 540,
-    "shared_pct": 12.6,
-    "median_other": 7.229999999999976
+    "ladders": 545,
+    "shared_pct": 11.7,
+    "median_other": 7.0
    }
   ]
  },
@@ -3847,7 +3847,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 35835,
+   "orders_compared": 36053,
    "real_filled": 138,
    "agree_pct": 99.9,
    "contract_ratio": 0.773,
@@ -3860,7 +3860,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -18,
+  "hb_age_s": -14,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3879,7 +3879,7 @@
    [
     "LIVE",
     "CANCELED",
-    8001
+    8017
    ],
    [
     "LIVE",
@@ -3890,14 +3890,9 @@
     "LIVE",
     "FILLED",
     270
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    3,
    30
@@ -4090,12 +4085,12 @@
   "ws": {
    "healthy": true,
    "disconnects": 0,
-   "subscribed": 540,
+   "subscribed": 580,
    "stats": {
     "ws_subscribed": 2,
-    "ws_ok": 18,
-    "ws_trade": 21569,
-    "ws_fill": 11
+    "ws_ok": 21,
+    "ws_trade": 22625,
+    "ws_fill": 13
    }
   },
   "decision_sources": {
@@ -4827,13 +4822,13 @@
     "E2": 0,
     "E3": 0,
     "E4": 0,
-    "E5": 380.25,
+    "E5": 382.35,
     "E6": -323.13,
     "E7": 11.22,
     "E8": -6.75,
     "E9": -0.0
    },
-   "compat": 57.12
+   "compat": 59.22
   },
   {
    "day": "2026-11-03",
@@ -4845,12 +4840,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 108.79,
-    "E6": -868.54,
+    "E6": -1417.54,
     "E7": 63.71,
     "E8": -12.8,
     "E9": -0.0
    },
-   "compat": -759.75
+   "compat": -1308.75
   }
  ]
 }
