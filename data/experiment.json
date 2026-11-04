@@ -1,17 +1,17 @@
 {
- "generated": "2026-11-04 17:54 UTC",
- "generated_mt": "11-04 11:54 MT",
- "generated_epoch": 1793814889.210972,
+ "generated": "2026-11-04 18:24 UTC",
+ "generated_mt": "11-04 12:24 MT",
+ "generated_epoch": 1793816698.3667405,
  "health": {
-  "heartbeat_age_s": 3,
+  "heartbeat_age_s": 12,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 36.5,
   "last_trade_age_s": -8,
-  "subscribed": 773,
+  "subscribed": 825,
   "wethr_calls": null,
-  "bursts": 12697,
+  "bursts": 12717,
   "scheduled_task": true
  },
  "experiments": [
@@ -1537,7 +1537,7 @@
     "dollar_mkts": 279
    },
    "extra": {
-    "ceiling_skips": 3225
+    "ceiling_skips": 3235
    },
    "rows": [
     {
@@ -1839,7 +1839,7 @@
      "tk": "KXLOWTNYC-26NOV04-B55.5",
      "px": 45,
      "res": "no~",
-     "now": 1,
+     "now": 2,
      "legs": 15,
      "ct": 15,
      "pnl": 5.25,
@@ -1941,13 +1941,13 @@
     {
      "label": "KXTEMPMIAH",
      "stats": {
-      "n": 84,
-      "decided": 84,
-      "yes": 37,
+      "n": 85,
+      "decided": 85,
+      "yes": 38,
       "no": 47,
       "pending": 0,
-      "yes_rate": 44.0,
-      "provisional": 1,
+      "yes_rate": 44.7,
+      "provisional": 2,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -1968,20 +1968,6 @@
     }
    ],
    "rows": [
-    {
-     "t": "11-01 19:07",
-     "tk": "KXTEMPMIAH-26NOV0121-T77.99",
-     "px": 54,
-     "res": "yes",
-     "now": null,
-     "legs": 0,
-     "ct": 0,
-     "pnl": null,
-     "prov": false,
-     "fair": null,
-     "onesided": 0,
-     "resting": 0
-    },
     {
      "t": "11-02 06:04",
      "tk": "KXTEMPMIAH-26NOV0208-T81.99",
@@ -2309,7 +2295,21 @@
      "tk": "KXTEMPMIAH-26NOV0413-T78.99",
      "px": 30,
      "res": "yes~",
-     "now": 92,
+     "now": 50,
+     "legs": 0,
+     "ct": 0,
+     "pnl": null,
+     "prov": false,
+     "fair": null,
+     "onesided": 0,
+     "resting": 0
+    },
+    {
+     "t": "11-04 12:03",
+     "tk": "KXTEMPMIAH-26NOV0414-T80.99",
+     "px": 54,
+     "res": "yes~",
+     "now": 96,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2320,7 +2320,7 @@
     }
    ],
    "headline": {
-    "est": -13254.6,
+    "est": -13379.6,
     "how": "spikes valued with the calibrated fill model on their real trades, 4 rungs at 50 ct (the tested size)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -2816,8 +2816,8 @@
    "E6",
    "E9"
   ],
-  "live_total": -5100.5,
-  "live_per_month": -4248.0,
+  "live_total": -5225.5,
+  "live_per_month": -4352.0,
   "days": 36.5,
   "base_live": 60.6,
   "model_add_lo": 800,
@@ -2876,27 +2876,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 384,
-    "shared_pct": 33.3,
-    "median_other": 5.0
+    "ladders": 440,
+    "shared_pct": 40.5,
+    "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 384,
-    "shared_pct": 13.3,
+    "ladders": 440,
+    "shared_pct": 10.2,
     "median_other": 10.0
    },
    {
     "rung": 40,
-    "ladders": 384,
-    "shared_pct": 20.8,
-    "median_other": 5.0
+    "ladders": 440,
+    "shared_pct": 19.1,
+    "median_other": 4.0
    },
    {
     "rung": 45,
-    "ladders": 384,
-    "shared_pct": 13.5,
-    "median_other": 15.0
+    "ladders": 440,
+    "shared_pct": 9.3,
+    "median_other": 10.0
    }
   ]
  },
@@ -3860,7 +3860,7 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -21,
+  "hb_age_s": -14,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -3884,20 +3884,15 @@
    [
     "LIVE",
     "EXPIRED",
-    4269
+    4285
    ],
    [
     "LIVE",
     "FILLED",
     278
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    4,
    40
@@ -4090,11 +4085,11 @@
   "ws": {
    "healthy": true,
    "disconnects": 4,
-   "subscribed": 847,
+   "subscribed": 887,
    "stats": {
     "ws_subscribed": 10,
-    "ws_ok": 80,
-    "ws_trade": 52639,
+    "ws_ok": 81,
+    "ws_trade": 53408,
     "ws_fill": 30
    }
   },
@@ -4862,12 +4857,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 100.0,
-    "E6": -706.71,
+    "E6": -758.93,
     "E7": 1.24,
     "E8": -1.75,
     "E9": -0.0
    },
-   "compat": -606.71
+   "compat": -658.93
   }
  ]
 }
