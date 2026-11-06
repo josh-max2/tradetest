@@ -1,17 +1,17 @@
 {
- "generated": "2026-11-06 16:42 UTC",
- "generated_mt": "11-06 10:42 MT",
- "generated_epoch": 1793983329.8548994,
+ "generated": "2026-11-06 17:19 UTC",
+ "generated_mt": "11-06 11:19 MT",
+ "generated_epoch": 1793985597.2502367,
  "health": {
-  "heartbeat_age_s": 13,
+  "heartbeat_age_s": 0,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 38.5,
-  "last_trade_age_s": -8,
-  "subscribed": 646,
+  "last_trade_age_s": 35,
+  "subscribed": 908,
   "wethr_calls": null,
-  "bursts": 13508,
+  "bursts": 13523,
   "scheduled_task": true
  },
  "experiments": [
@@ -1537,7 +1537,7 @@
     "dollar_mkts": 303
    },
    "extra": {
-    "ceiling_skips": 3384
+    "ceiling_skips": 3393
    },
    "rows": [
     {
@@ -1943,11 +1943,11 @@
      "stats": {
       "n": 106,
       "decided": 106,
-      "yes": 47,
-      "no": 59,
+      "yes": 46,
+      "no": 60,
       "pending": 0,
-      "yes_rate": 44.3,
-      "provisional": 1,
+      "yes_rate": 43.4,
+      "provisional": 0,
       "dollars": 0,
       "dollar_mkts": 0
      }
@@ -2308,8 +2308,8 @@
      "t": "11-06 09:02",
      "tk": "KXTEMPMIAH-26NOV0611-T82.99",
      "px": 58,
-     "res": "yes~",
-     "now": 50,
+     "res": "no",
+     "now": null,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2320,7 +2320,7 @@
     }
    ],
    "headline": {
-    "est": -16382.99,
+    "est": -16182.99,
     "how": "spikes valued with the calibrated fill model on their real trades, 4 rungs at 50 ct (the tested size)",
     "exp_lo": 375,
     "exp_hi": 450,
@@ -2338,13 +2338,13 @@
    "metric": "Near-miss spikes; NO = extra win at 25\u00a2 (+25\u00a2/ct), YES = extra bust (\u221275\u00a2/ct).",
    "target": 20,
    "stats": {
-    "n": 305,
-    "decided": 305,
+    "n": 306,
+    "decided": 306,
     "yes": 0,
-    "no": 305,
+    "no": 306,
     "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 8,
+    "provisional": 9,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -2816,8 +2816,8 @@
    "E6",
    "E9"
   ],
-  "live_total": -7380.92,
-  "live_per_month": -5828.0,
+  "live_total": -7180.92,
+  "live_per_month": -5670.0,
   "days": 38.5,
   "base_live": 176.4,
   "model_add_lo": 800,
@@ -2876,27 +2876,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 454,
-    "shared_pct": 28.0,
+    "ladders": 591,
+    "shared_pct": 24.4,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 454,
-    "shared_pct": 8.8,
-    "median_other": 10.0
+    "ladders": 591,
+    "shared_pct": 6.9,
+    "median_other": 9.0
    },
    {
     "rung": 40,
-    "ladders": 454,
-    "shared_pct": 16.7,
+    "ladders": 591,
+    "shared_pct": 14.2,
     "median_other": 5.0
    },
    {
     "rung": 45,
-    "ladders": 454,
-    "shared_pct": 8.8,
-    "median_other": 13.0
+    "ladders": 591,
+    "shared_pct": 7.8,
+    "median_other": 15.0
    }
   ]
  },
@@ -3847,7 +3847,7 @@
    }
   ],
   "replica": {
-   "orders_compared": 39883,
+   "orders_compared": 39898,
    "real_filled": 151,
    "agree_pct": 99.9,
    "contract_ratio": 0.785,
@@ -3860,14 +3860,14 @@
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -15,
+  "hb_age_s": -9,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
   "pool": 100,
   "daily_stop": 150,
   "decided_today": [
-   443,
+   446,
    44
   ],
   "orders": [
@@ -3879,7 +3879,7 @@
    [
     "LIVE",
     "CANCELED",
-    8545
+    8561
    ],
    [
     "LIVE",
@@ -3890,14 +3890,9 @@
     "LIVE",
     "FILLED",
     282
-   ],
-   [
-    "LIVE",
-    "RESTING",
-    16
    ]
   ],
-  "resting": 16,
+  "resting": 0,
   "filled_today": [
    0,
    0
@@ -4090,17 +4085,17 @@
   "ws": {
    "healthy": true,
    "disconnects": 10,
-   "subscribed": 1928,
+   "subscribed": 1968,
    "stats": {
     "ws_subscribed": 20,
-    "ws_ok": 226,
-    "ws_trade": 119092,
+    "ws_ok": 227,
+    "ws_trade": 121127,
     "ws_fill": 77
    }
   },
   "decision_sources": {
    "rest": 37,
-   "ws": 406
+   "ws": 409
   },
   "fills": [
    {
