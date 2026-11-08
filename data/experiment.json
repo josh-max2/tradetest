@@ -1,17 +1,17 @@
 {
- "generated": "2026-11-08 22:30 UTC",
- "generated_mt": "11-08 16:30 MT",
- "generated_epoch": 1794177019.929957,
+ "generated": "2026-11-08 22:40 UTC",
+ "generated_mt": "11-08 16:40 MT",
+ "generated_epoch": 1794177659.9473197,
  "health": {
-  "heartbeat_age_s": 18,
+  "heartbeat_age_s": -2,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 40.7,
-  "last_trade_age_s": -10,
+  "last_trade_age_s": -12,
   "subscribed": 794,
   "wethr_calls": null,
-  "bursts": 14604,
+  "bursts": 14606,
   "scheduled_task": true
  },
  "experiments": [
@@ -1871,7 +1871,7 @@
      "tk": "KXLOWTNYC-26NOV08-B47.5",
      "px": 30,
      "res": "no~",
-     "now": 6,
+     "now": 3,
      "legs": 10,
      "ct": 10,
      "pnl": 3.5,
@@ -2894,27 +2894,27 @@
   "queue": [
    {
     "rung": 30,
-    "ladders": 423,
-    "shared_pct": 40.9,
+    "ladders": 424,
+    "shared_pct": 41.5,
     "median_other": 15.0
    },
    {
     "rung": 35,
-    "ladders": 423,
-    "shared_pct": 9.5,
+    "ladders": 424,
+    "shared_pct": 9.7,
     "median_other": 5.0
    },
    {
     "rung": 40,
-    "ladders": 423,
-    "shared_pct": 18.4,
-    "median_other": 6.0
+    "ladders": 424,
+    "shared_pct": 19.3,
+    "median_other": 10.0
    },
    {
     "rung": 45,
-    "ladders": 423,
-    "shared_pct": 9.7,
-    "median_other": 13.0
+    "ladders": 424,
+    "shared_pct": 9.9,
+    "median_other": 14.939999999999998
    }
   ]
  },
@@ -3841,44 +3841,17 @@
     "ladders": 2786,
     "settled": -54.25,
     "provisional": 0.0
-   },
-   {
-    "tag": "TAIL6",
-    "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 3767,
-    "settled": 349.05,
-    "provisional": -0.0
-   },
-   {
-    "tag": "PULL_B1",
-    "what": "pull the real ladder 2 s after the signal; $ = real fills avoided (+ = pulling helps)",
-    "ladders": 1,
-    "settled": 0.0,
-    "provisional": 0.0
-   },
-   {
-    "tag": "PULL_WIN",
-    "what": "pull the real ladder 2 s after the signal; $ = real fills avoided (+ = pulling helps)",
-    "ladders": 0,
-    "settled": 0.0,
-    "provisional": 0.0
    }
   ],
-  "replica": {
-   "orders_compared": 42771,
-   "real_filled": 157,
-   "agree_pct": 99.9,
-   "contract_ratio": 0.788,
-   "passed": false,
-   "need": 30
-  },
+  "replica": null,
   "started": "09-30 23:57 MT",
-  "restart_ended_orders": 13770
+  "restart_ended_orders": 13770,
+  "error": "database is locked"
  },
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -16,
+  "hb_age_s": -40,
   "fingerprint": "4b0067ede886",
   "size": 10,
   "series": "all four",
@@ -4112,7 +4085,7 @@
    "stats": {
     "ws_subscribed": 2,
     "ws_ok": 67,
-    "ws_trade": 44550,
+    "ws_trade": 44784,
     "ws_fill": 11
    }
   },
@@ -4949,12 +4922,12 @@
     "E3": 0,
     "E4": 0,
     "E5": 62.01,
-    "E6": -1297.15,
+    "E6": -1256.71,
     "E7": 0.0,
     "E8": 0,
     "E9": -0.0
    },
-   "compat": -1235.14
+   "compat": -1194.7
   }
  ]
 }
