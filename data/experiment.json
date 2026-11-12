@@ -1,17 +1,17 @@
 {
- "generated": "2026-11-12 23:11 UTC",
- "generated_mt": "11-12 17:11 MT",
- "generated_epoch": 1794525081.3629713,
+ "generated": "2026-11-12 23:20 UTC",
+ "generated_mt": "11-12 17:20 MT",
+ "generated_epoch": 1794525617.7046273,
  "health": {
-  "heartbeat_age_s": -5,
+  "heartbeat_age_s": -9,
   "alive": true,
   "since": "2026-09-29 05:50 UTC",
   "since_mt": "09-28 23:50 MT",
   "days": 44.7,
-  "last_trade_age_s": 5,
+  "last_trade_age_s": -17,
   "subscribed": 788,
   "wethr_calls": null,
-  "bursts": 16690,
+  "bursts": 16691,
   "scheduled_task": true
  },
  "experiments": [
@@ -1857,7 +1857,7 @@
      "tk": "KXLOWTATL-26NOV12-T51",
      "px": 39,
      "res": "no~",
-     "now": 4,
+     "now": 2,
      "legs": 10,
      "ct": 10,
      "pnl": 3.5,
@@ -1871,7 +1871,7 @@
      "tk": "KXLOWTNYC-26NOV12-B50.5",
      "px": 49,
      "res": "no~",
-     "now": 4,
+     "now": 5,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2327,7 +2327,7 @@
      "tk": "KXTEMPMIAH-26NOV1219-T74.99",
      "px": 30,
      "res": "yes~",
-     "now": 92,
+     "now": 96,
      "legs": 0,
      "ct": 0,
      "pnl": null,
@@ -2357,12 +2357,12 @@
    "target": 20,
    "stats": {
     "n": 351,
-    "decided": 350,
+    "decided": 351,
     "yes": 0,
-    "no": 350,
-    "pending": 1,
+    "no": 351,
+    "pending": 0,
     "yes_rate": 0.0,
-    "provisional": 4,
+    "provisional": 5,
     "dollars": 0,
     "dollar_mkts": 0
    },
@@ -3795,90 +3795,18 @@
      "B4_halves": false
     },
     "proven": false
-   },
-   {
-    "engine": "pm1",
-    "world": "RUNG25",
-    "since": "09-30 23:57",
-    "orders": 2425,
-    "markets": 1737,
-    "late_line": 457,
-    "filled_ct": 2396.7,
-    "below_pct": 92.8,
-    "filled_markets": 34,
-    "settled_markets": 34,
-    "provisional_markets": 0,
-    "settled": 80.16,
-    "provisional": 0.0,
-    "displaced": 0.0,
-    "diff_vs_replica": null,
-    "crowd_outs": 0,
-    "crowd_real_settled": 0.0,
-    "ci90": [
-     -321.99,
-     425.2
-    ],
-    "p_le0": 0.363,
-    "top2_share": 1.75,
-    "halves": [
-     59.39,
-     20.77
-    ],
-    "bust_pct": 8.8,
-    "bounds": {
-     "B1_sample": false,
-     "B2_sig": false,
-     "B3_conc": false,
-     "B4_halves": true
-    },
-    "proven": false
    }
   ],
-  "tags": [
-   {
-    "tag": "CEIL200",
-    "what": "real ladders placed with 150+ already held \u2014 the live 200 limit's gain",
-    "ladders": 2786,
-    "settled": -54.25,
-    "provisional": 0.0
-   },
-   {
-    "tag": "TAIL6",
-    "what": "real ladders a 6\u00a2 tail rule would have skipped (sign: + = skipping helps)",
-    "ladders": 3767,
-    "settled": 349.05,
-    "provisional": -0.0
-   },
-   {
-    "tag": "PULL_B1",
-    "what": "pull the real ladder 2 s after the signal; $ = real fills avoided (+ = pulling helps)",
-    "ladders": 1,
-    "settled": 0.0,
-    "provisional": 0.0
-   },
-   {
-    "tag": "PULL_WIN",
-    "what": "pull the real ladder 2 s after the signal; $ = real fills avoided (+ = pulling helps)",
-    "ladders": 0,
-    "settled": 0.0,
-    "provisional": 0.0
-   }
-  ],
-  "replica": {
-   "orders_compared": 48645,
-   "real_filled": 182,
-   "agree_pct": 99.9,
-   "contract_ratio": 0.8,
-   "passed": true,
-   "need": 30
-  },
+  "tags": [],
+  "replica": null,
   "started": "09-30 23:57 MT",
-  "restart_ended_orders": 14382
+  "restart_ended_orders": 14382,
+  "error": "database is locked"
  },
  "hourly": {
   "mode": "LIVE",
   "stopped": false,
-  "hb_age_s": -28,
+  "hb_age_s": -41,
   "fingerprint": "8599bc1c1f60",
   "size": 10,
   "series": "all four",
@@ -4106,7 +4034,7 @@
    "subscribed": 1199,
    "stats": {
     "ws_subscribed": 8,
-    "ws_trade": 64974,
+    "ws_trade": 65275,
     "ws_ok": 86,
     "ws_fill": 23
    }
@@ -4993,13 +4921,13 @@
     "E2": 0,
     "E3": 0,
     "E4": 0,
-    "E5": 456.94,
+    "E5": 469.69,
     "E6": -779.71,
     "E7": 38.7,
     "E8": 1.25,
     "E9": -0.0
    },
-   "compat": -322.77
+   "compat": -310.02
   },
   {
    "day": "2026-11-12",
@@ -5010,13 +4938,13 @@
     "E2": 0,
     "E3": 0,
     "E4": 0,
-    "E5": 325.27,
-    "E6": -553.81,
+    "E5": 444.27,
+    "E6": -874.57,
     "E7": 19.37,
     "E8": -12.25,
     "E9": -0.0
    },
-   "compat": -228.54
+   "compat": -430.3
   }
  ]
 }
